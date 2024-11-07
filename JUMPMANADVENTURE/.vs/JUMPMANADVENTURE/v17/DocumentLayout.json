@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\fko2447021\\Desktop\\MyGame\\JUMPMANADVENTURE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79853677-DFA6-490D-9A53-4EF2582D98D2}|JUMPMANADVENTURE\u200B\\JUMPMANADVENTURE\u200B.vcxproj|C:\\Users\\fko2447021\\Desktop\\MyGame\\JUMPMANADVENTURE\\JUMPMANADVENTURE\u200B\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{79853677-DFA6-490D-9A53-4EF2582D98D2}|JUMPMANADVENTURE\u200B\\JUMPMANADVENTURE\u200B.vcxproj|solutionrelative:JUMPMANADVENTURE\u200B\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\fko2447021\\Desktop\\MyGame\\JUMPMANADVENTURE\\JUMPMANADVENTURE\u200B\\main.cpp",
+              "RelativeDocumentMoniker": "JUMPMANADVENTURE\u200B\\main.cpp",
+              "ToolTip": "C:\\Users\\fko2447021\\Desktop\\MyGame\\JUMPMANADVENTURE\\JUMPMANADVENTURE\u200B\\main.cpp",
+              "RelativeToolTip": "JUMPMANADVENTURE\u200B\\main.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-06T09:53:09.113Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
