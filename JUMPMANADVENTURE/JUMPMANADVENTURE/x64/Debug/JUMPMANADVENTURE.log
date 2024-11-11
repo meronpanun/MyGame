@@ -1,7 +1,7 @@
-﻿  main.cpp
-  Map.cpp
-  Pad.cpp
-  Player.cpp
-  Vec2.cpp
-  コードを生成中...
-  JUMPMANADVENTURE.vcxproj -> C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe
+﻿  Player.cpp
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(112,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(112,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(111,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(111,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(240,25): warning C4552: '>=': 式の結果が使用されていません
+  JUMPMANADVENTURE.vcxproj -> C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe

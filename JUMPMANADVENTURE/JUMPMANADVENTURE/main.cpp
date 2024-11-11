@@ -1,6 +1,8 @@
 #include "DxLib.h"
 #include "Game.h"
 #include "Map.h"
+#include "Player.h"
+#include "Pad.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -20,6 +22,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Map* pScene = new Map();
 	pScene->Inti();
 
+	Player* pMove = new Player();
+	pMove->Init();
+
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある
 	{
@@ -31,8 +36,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		// ここにゲームの処理を書く
 		pScene->Update();
+		pMove->Update();
 
 		pScene->Draw();
+		pMove->Draw();
 
 		// 画面の切り替わりを待つ必要がある
 		ScreenFlip();	// 1/60秒経過するまで待つ

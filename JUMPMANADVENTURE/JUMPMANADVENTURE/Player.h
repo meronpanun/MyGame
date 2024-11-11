@@ -18,7 +18,7 @@ public:
 	float GetLeft() const;
 	float GetRight() const;
 	float GetTop() const;
-	float GetBotton() const;
+	float GetBottom() const;
 
 	int GetHp() const { return m_hp; }
 	
