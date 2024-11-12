@@ -13,7 +13,7 @@ namespace
     constexpr int kGraphWidth = 32;
     constexpr int kGraphHeight = 32;
 
-    // 走りアニメーションのコマ数
+    // アニメーションのコマ数
     constexpr int kIdleAnimNum = 1;
     constexpr int kRunAnimNum = 3;
 
@@ -46,7 +46,7 @@ Player::Player() :
     m_handleRun(-1),
     m_animFrame(0),
     m_isRun(false),
-    m_pos(450.0f, kFieldHeight),
+    m_pos(150.0f, kFieldHeight),
     m_isDirLeft(false),
     m_isJump(false),
     m_jumpSpeed(0.0f),
@@ -54,14 +54,18 @@ Player::Player() :
     m_hp(kMaxHp),
     m_deadFrameCount(0)
 {
-    m_handleIdle = LoadGraph("date/image/Mario.png");
+    m_handleIdle = LoadGraph("date/image/Idle.png");
     assert(m_handleIdle != -1);
+
+    m_handleRun = LoadGraph("date/image/Run.png");
+    assert(m_handleRun != -1);
 }
 
 Player::~Player()
 {
     // グラフィックの開放
     DeleteGraph(m_handleIdle);
+    DeleteGraph(m_handleRun);
 }
 
 void Player::Init()
@@ -107,6 +111,7 @@ void Player::Draw()
     DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth / 2), static_cast<int>(m_pos.y - kGraphHeight),
         animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
         useHandle, true, m_isDirLeft, isDead);
+
 #ifdef DISP_COLLISON
     DrawBox(GetLeft(), GetTop(),
         GetRight(), GetBottom(),
@@ -173,11 +178,13 @@ void Player::UpdateNormal()
     // アニメーションの更新
     m_animFrame++;
 
+   // int totalFrame = kRunAnimNum * kSingleAnimFrame;
     int totalFrame = kIdleAnimNum * kSingleAnimFrame;
     if (m_isRun)
     {
-        totalFrame = kIdleAnimNum * kSingleAnimFrame;
+        int totalFrame = kIdleAnimNum * kSingleAnimFrame;
     }
+ 
 
     // アニメーションの合計フレーム数を超えたら最初に戻す
     if (m_animFrame >= totalFrame)
@@ -200,7 +207,7 @@ void Player::UpdateNormal()
     if (Pad::IsPress(PAD_INPUT_RIGHT))
     {
         // 右キーを押しているときの処理
-        m_pos.x -= kSpeed;   // 右方向に位置変更
+        m_pos.x += kSpeed;   // 右方向に位置変更
         m_isDirLeft = false; // キャラクターが左を向いている
         m_isRun = true;
     }

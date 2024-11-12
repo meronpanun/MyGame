@@ -38,8 +38,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		pScene->Update();
 		pMove->Update();
 
+		Pad::Update();
+
 		pScene->Draw();
 		pMove->Draw();
+		
 
 		// ‰æ–Ê‚ÌØ‚è‘Ö‚í‚è‚ð‘Ò‚Â•K—v‚ª‚ ‚é
 		ScreenFlip();	// 1/60•bŒo‰ß‚·‚é‚Ü‚Å‘Ò‚Â

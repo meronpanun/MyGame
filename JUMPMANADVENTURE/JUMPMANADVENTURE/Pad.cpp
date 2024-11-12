@@ -50,10 +50,10 @@ namespace Pad
 
     
 
-    bool IsRelase(int button)
+    /*bool IsRelase(int button)
     {
         return false;
-    }
+    }*/
 }
 
 
