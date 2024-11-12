@@ -10,6 +10,6 @@ namespace Pad
 	// ‰Ÿ‚³‚ê‚½uŠÔ‚ğæ“¾
 	bool IsTrigger(int button);
 	// —£‚µ‚½uŠÔ‚ğæ“¾
-	bool IsRelase(int button);
+//	bool IsRelase(int button);
 
 }

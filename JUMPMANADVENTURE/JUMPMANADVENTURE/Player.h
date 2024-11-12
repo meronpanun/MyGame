@@ -14,31 +14,18 @@ public:
 	void Update();
 	void Draw();
 
+	void SetHandle(int handle) { m_handle = handle; }
+
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;
 	float GetRight() const;
 	float GetTop() const;
 	float GetBottom() const;
 
-	int GetHp() const { return m_hp; }
-	
-	// プレイヤーと敵がぶつかった
-	void OnDamage();
-
-private:
-	// 状態変化する時の処理
-	void InitDead(); // 死亡演出の初期化
-
-	void UpdateNormal();
-	void UpdateDead();
-
 private:
 	// グラフィックハンドル
-	int m_handleIdle;
-	int m_handleRun;
+	int m_handle;
 
-	// フレーム数を数える
-	int m_animFrame;
 	// true : 走っている false : 待機
 	bool m_isRun;
 
@@ -51,13 +38,6 @@ private:
 	bool m_isJump;
 	float m_jumpSpeed;
 
-	// 点滅
-	int m_blinkFrameCount;
-
-	// プレイヤーのHP
-	int m_hp;
-
-	// 死亡演出
-	int m_deadFrameCount;
+	int m_walkFrameCount;
 };
 
