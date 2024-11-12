@@ -10,7 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// フルスクリーンではなく、ウインドウモードで開くようにする
 	ChangeWindowMode(Game::kDefaultWindowMode);
 	// 画面のサイズを変更する
-	SetGraphMode(Game::kScreenWidth, Game::kScreenHeigth, Game:: kColorBitNum);
+	SetGraphMode(Game::kScreenWidth, Game::kScreenHeight, Game:: kColorBitNum);
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 	{

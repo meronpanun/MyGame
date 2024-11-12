@@ -3,6 +3,7 @@
 #include <cassert>
 #include "Pad.h"
 #include <memory>
+#include "Game.h"
 
 #ifdef _DEBUG
 #define DISP_COLLISON
@@ -10,60 +11,45 @@
 
 namespace
 {
-    // プレイヤーグラフィックの幅と高さ
+    // キャラクターグラフィックの幅と高さ
     constexpr int kGraphWidth = 32;
     constexpr int kGraphHeight = 32;
 
-    // キャラクターサイズ
-    constexpr int kWidth = 20;
-    constexpr int kHeight = 20;
-
-    // 半径の当たり判定
-    constexpr int kRadius = 9;
-
-    // プレイヤーの移動速度
+    // アニメーションのコマ数
+    constexpr int kJumpAnimNum = 1;
+    constexpr int kRunAnimNum = 2;
+    
+    // キャラクターの移動速度
     constexpr float kSpeed = 2.0f;
 
-    // プレイヤーの加速度
-    constexpr float kAccel = 2.0f;
-
     // アニメーション1コマのフレーム数
-    constexpr int kWalkAnimFrame = 10;
+    constexpr int kSingleAnimFrame = 10;
 
-    // アニメーションのコマ数
-    constexpr int kWalkAnimNo[] = { 2,3 };
-    constexpr int kWalkAnimNum = _countof(kWalkAnimNo) * kWalkAnimFrame;
+    // 歩きアニメーションで使用する順番
+   // constexpr int kWalkAnimNo[] = { 1,2, };
+   // constexpr int kWalkAnimNum = _countof(kWalkAnimNo);
+   // constexpr int kWalkAnimFrame = 10;
 
-    // プレイヤーのジャンプアニメーション
-    constexpr int kJumpAnim[] = { 0 };
-
-    // ジャンプアニメーションの1コマのフレーム数
-    constexpr int kJumpAnimFrameNum = 12;
-
-    // 地面の高さ
-    constexpr float kFieldHeight = 720.0f - 78.0f;
+	// 地面の高さ
+	constexpr float kFieldHeight = 780.0f - 28.0f;
 
     // ジャンプ処理
-    constexpr float kJumpPower = -8.0f; // ジャンプ力
-    constexpr float kGravity = 0.4f; // 重力
+    constexpr float kJumpPower = -8.0f; // ジャンプの初速
+    constexpr float kGravity = 0.4f;    // 重力
 
 }
 
 Player::Player() :
-    m_isJump(false),
-    m_isRight(false),
-    m_isLeft(false),
-    m_moveX(0.0f),
-    m_moveY(0.0f),
-    m_pos(720.0f, kFieldHeight),
-    /*m_posX(40.0f),
-    m_posY(800.0f),*/
-    m_dir(kNutral),
+    m_runHandle(-1),
+    m_jumpHandle(-1),
     m_animFrame(0),
-    m_animCount(0),
-    m_isAnimJump(false),
-    m_isCommand(false),
-    m_isAnimTrun(false)
+    //m_dir(kDirDown),
+	m_pos(720.0f, kFieldHeight),
+    m_walkFrameCount(0),
+    m_isRun(false),
+    m_isDirLeft(false),
+    m_isJump(false),
+    m_jumpSpeed(0.0f)
 {
     m_runHandle = LoadGraph("date/image/Mario.png");
     assert(m_runHandle != -1);
@@ -81,119 +67,121 @@ Player::~Player()
 
 void Player::Init()
 {
+
 }
 
 void Player::Update()
 {
-    int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-    bool isMove = false;
 
-    Pad::Update();
-
-    m_dir = kNutral;
-
-    m_moveX = 0.0f;
-
-    if (!m_isCommand)
-    {
-        if (pad & PAD_INPUT_LEFT)
-        {
-            m_moveX -= kSpeed;
-            m_isLeft = true;
-            m_isAnimTrun = true;
-            m_dir = kWalk;
-        }
-        else
-        {
-            m_isLeft = false;
-        }
-
-        if (pad & PAD_INPUT_RIGHT)
-        {
-            m_moveX += kSpeed;
-            m_isRight = true;
-            m_isAnimTrun = false;
-            m_dir = kFall;
-        }
-        else
-        {
-            m_isRight = false;
-        }
-
-        // ダッシュ処理
-        if (pad & PAD_INPUT_3 && m_isLeft)
-        {
-            m_moveX -= kAccel;
-            m_dir = kWalk;
-            m_isAnimTrun = true;
-        }
-
-        if (pad & PAD_INPUT_3 && m_isRight)
-        {
-            m_moveX += kAccel;
-            m_dir = kWalk;
-            m_isAnimTrun = false;
-        }
-    }
-
-    // アニメーション処理
-    m_animFrame++;
-    if (m_animFrame >= kWalkAnimNum) m_animFrame = 0;
-
-    // ジャンプ処理
-    //if (m_isJump)
-    //{
-    //    // 毎フレーム下方向にプラス
-    //    m_moveY += kGravity;
-
-    //    m_posX += m_moveX;
-    //}
 }
+
+
+
+
 
 void Player::Draw()
 {
-    //
-    int animIjndex = m_animFrame / kWalkAnimFrame;
+    int animNo = m_animFrame / kSingleAnimFrame;
 
-    //int srcX = kWalkAnimNo[animIjndex] * kGraphWidth;
-    //int srcY = kGraphHeight * m_dir;
+    int useHandle = m_runHandle;
+    if (m_isRun)
+    {
+        useHandle = m_jumpHandle;
+    }
+//	int animIndex = m_walkFrameCount / kWalkAnimFrame;
+//	int animNo = kWalkAnimNo[animIndex];
 
-    int animNo = kWalkAnimNo[animIjndex];
-
-    DrawRectGraph(m_pos.x - kGraphWidth / 2, m_pos.y - kGraphHeight,
-        animNo * kGraphWidth, m_dir * kGraphHeight,
-        kWidth, kHeight, m_runHandle, true);
+; DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth / 2), static_cast<int>(m_pos.y - kGraphHeight),
+    animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
+    useHandle,true, m_isDirLeft);
 
 #ifdef DISP_COLLISON
     DrawBox(GetLeft(), GetTop(),
-        GetRight(), GetBottom(),
+        GetRigth(), GetBottom(),
         GetColor(0, 0, 255), false);
 #endif // DISP_COLLISON
 }
 
-float Player::GetRadius()
+float Player::GetLeft() const
 {
-    return kRadius;
+	return (m_pos.x - kGraphWidth / 2);
 }
 
-float Player::GetLeft()
+float Player::GetTop() const
 {
-    return m_pos.x - kGraphWidth / 2;
+	return (m_pos.y - kGraphHeight);
 }
 
-float Player::GetRight()
+float Player::GetRigth() const
 {
-    return m_pos.x + kGraphWidth / 2;
+	return (m_pos.x + kGraphWidth / 2);
 }
 
-float Player::GetTop()
+float Player::GetBottom() const
 {
-    return m_pos.y - kGraphWidth / 2;
+	return  m_pos.y;
 }
 
-float Player::GetBottom()
+void Player::UpdateNormal()
 {
-    return m_pos.y;
+    // アニメーションの更新
+    m_animFrame++;
+
+    int totalFrame = kJumpAnimNum * kSingleAnimFrame;
+    if (m_isRun)
+    {
+        totalFrame = kJumpAnimNum * kSingleAnimFrame;
+    }
+    // アニメーションの合計フレーム数を超えたら最初に戻す
+    if (m_animFrame >= totalFrame)
+    {
+        m_animFrame = 0;
+    }
+
+    // 左右にキャラクターを動かす
+    m_isRun = false;
+    if (Pad::IsPress(PAD_INPUT_LEFT))
+    {
+        // 左キーを押している時の処理
+        m_pos.x -= kSpeed;   // 左方向に位置を変更
+        m_isDirLeft = true;  // キャラクターが左を向いている
+        m_isRun = true;
+    }
+    if (Pad::IsPress(PAD_INPUT_RIGHT))
+    {
+        // 右キーを押している時の処理
+        m_pos.x += kSpeed;   // 右方向に位置を変更
+        m_isDirLeft = false; // キャラクターが左を向いている
+        m_isRun = true;
+    }
+    if (Pad::IsTrigger(PAD_INPUT_1))
+    {
+        if (!m_isJump)
+        {
+            m_isJump = true;
+            m_jumpSpeed = kJumpPower;
+        }
+    }
+
+    if (m_isJump)
+    {
+        m_pos.y += m_jumpSpeed;
+
+        m_jumpSpeed += kGravity; // 毎フレーム下方向に加速する
+
+        if (m_jumpSpeed > 0.0f)
+        {
+            if (m_pos.y >= kFieldHeight)
+            {
+                // ジャンプ終了する
+                m_isJump = false;
+                m_jumpSpeed = 0.0f;
+
+                // 地面にめり込むことがあるので地面の高さに位置を補正する
+                m_pos.y >= kFieldHeight;
+            }
+        }
+    }
 }
 
 

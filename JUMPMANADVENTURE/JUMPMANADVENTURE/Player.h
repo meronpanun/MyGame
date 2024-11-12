@@ -9,73 +9,56 @@ class Player
 {
 public:
 	Player();
-	virtual ~Player();
+	~Player();
+
+	// 使用するグラフィックを設定する
+//	void SetHandle(int handle) { m_handle = handle; }
 
 	void Init();
 	void Update();
 	void Draw();
 
-	// 円の当たり判定
-	float GetRadius();
 
 	// プレイヤーの上下左右情報取得
-	float GetLeft();
-	float GetRight();
-	float GetTop();
-	float GetBottom();
+	float GetLeft() const;
+	float GetTop() const;
+	float GetRigth() const;
+	float GetBottom() const;
 
+	// プレイヤーの位置情報を取得する
+	Vec2 GetPos() const { return m_pos; }
 
+	void UpdateNormal();  // ゲーム中のUpdate
 
 private:
-	Vec2 m_pos;
+	//enum Dir
+	//{
+	//	kDirDown,	// 下方向
+	//	kDirLeft,	// 左方向
+	//	kDirRight,	// 右方向
+	//	kDirUp,		// 上方向
+	//};
 
-	enum Dir // 向いている方向	
-	{
-		kNutral, // 通常状態
-		kWalk,   // 歩き
-		kNo,
-		kFall,
-		kDash,
-	};
-
+private:
 	// グラフィックハンドル
 	int m_runHandle;
 	int m_jumpHandle;
 
-	int m_jumpCount = 0;
-
-	// true : 空中にいる false : 地面に立っている
-	bool m_isJump;
-
-	// 右に移動しているかどうかのフラグ
-	bool m_isRight;
-
-	// 左に移動しているかどうかのフラグ
-	bool m_isLeft;
-
-	// 操作しているかどうかのフラグ
-	bool m_isCommand;
-
-	// プレイヤーの足元中央を基準とした座標
-	float m_posX;
-	float m_posY;
-
-	// プレイヤーの加速度
-	float m_moveX;
-	float m_moveY;
-
-	// 向いている方向
-	Dir m_dir;
-
-	// プレイヤーがどちらを向いているかのフラグ
-	bool m_isAnimTrun;
-	// プレイヤーがジャンプ描画されてるかどうかのフラグ
-	bool m_isAnimJump;
-
 	// アニメーション関連
-	int m_animFrame; // アニメーションのフレーム数を数える
-	int m_animCount; // アニメーションのカウント
+	int m_animFrame;   // フレーム数を数える
+	// true:走っている　false:待機
+	bool m_isRun;
+	// true:左向き　false:右向き
+	bool m_isDirLeft;
 
-	
+	// プレイヤーの位置
+	Vec2 m_pos;
+	//Dir m_dir;
+
+	// ジャンプ処理
+	bool m_isJump;
+	float m_jumpSpeed;
+
+	int m_walkFrameCount;
 };
 
