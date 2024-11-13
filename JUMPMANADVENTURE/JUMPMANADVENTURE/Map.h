@@ -3,7 +3,7 @@ class Map
 {
 public:
 	Map();
-	~Map();
+	virtual ~Map();
 
 	void Inti();
 	void Update();

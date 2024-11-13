@@ -41,11 +41,12 @@ private:
 
 	// プレイヤーの位置
 	Vec2 m_pos;
+	
 	//Dir m_dir;
 
 	// ジャンプ処理
-	bool m_isJump;
-	bool m_isAnimJump;
+	bool m_isJump;	   // true : ジャンプ中 false : 地面にいる
+	bool m_isAnimJump; // true :  描画する  false : 描画しない
 	float m_jumpSpeed;
 };
 

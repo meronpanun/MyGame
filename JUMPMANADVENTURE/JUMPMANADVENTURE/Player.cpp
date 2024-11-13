@@ -17,8 +17,8 @@ namespace
     constexpr int kJumpAnimFrame = 12;
 
     // アニメーションのコマ数
-    constexpr int kJumpAnimNum[] = {0};
-    constexpr int kRunAnimNum[] = {2,3};
+    constexpr int kJumpAnimNum[] = { 0 };
+    constexpr int kRunAnimNum[] = { 2,3 };
     constexpr int kAnimFrameCycle = _countof(kRunAnimNum) * kSingleAnimFrame;
 
     // キャラクターの移動速度
@@ -103,6 +103,7 @@ void Player::Update()
             m_jumpSpeed = kJumpPower;
         }
     }
+
     if (m_isJump)
     {
         m_pos.y += m_jumpSpeed;
@@ -127,21 +128,23 @@ void Player::Update()
 
 void Player::Draw()
 {
-    int animIndex = m_animFrame / kSingleAnimFrame;
-    int animNo = kRunAnimNum[animIndex];
+    // プレイヤーのアニメーションフレーム
+    int animFrame = m_animFrame / kSingleAnimFrame;
+    // プレイヤーの切り取り画像
+    int animNo = kRunAnimNum[animFrame];
+    // プレイヤージャンプの切り取り座標
+    int animJumpNo = kJumpAnimNum[animFrame];
 
-    int animJump = m_animFrame / kJumpAnimFrame;
-    int animJumpNo = kJumpAnimNum[animJump];
-
+    // ジャンプした場合
     if (m_isAnimJump)
     {
-        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth / 2), static_cast<int>(m_pos.y - kGraphHeight),
+        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
             animJumpNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
             m_jumpHandle, true, m_isDirLeft);
     }
     else
     {
-        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth / 2), static_cast<int>(m_pos.y - kGraphHeight),
+        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
             animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
             m_runHandle, true, m_isDirLeft);
     }
@@ -149,7 +152,7 @@ void Player::Draw()
 
 float Player::GetLeft() const
 {
-	return (m_pos.x - kGraphWidth / 2);
+	return (m_pos.x - kGraphWidth * 0.5f);
 }
 
 float Player::GetTop() const
@@ -159,7 +162,7 @@ float Player::GetTop() const
 
 float Player::GetRigth() const
 {
-	return (m_pos.x + kGraphWidth / 2);
+	return (m_pos.x + kGraphWidth * 0.5f);
 }
 
 float Player::GetBottom() const
