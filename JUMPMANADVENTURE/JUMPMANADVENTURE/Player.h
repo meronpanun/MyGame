@@ -1,6 +1,5 @@
 #pragma once
 #include "Vec2.h"
-#include <memory>
 
 /// <summary>
 /// プレイヤークラス
@@ -9,10 +8,7 @@ class Player
 {
 public:
 	Player();
-	~Player();
-
-	// 使用するグラフィックを設定する
-//	void SetHandle(int handle) { m_handle = handle; }
+	virtual ~Player();
 
 	void Init();
 	void Update();
@@ -30,24 +26,14 @@ public:
 
 
 private:
-
-	void UpdateNormal();  // ゲーム中のUpdate
-
-	//enum Dir
-	//{
-	//	kDirDown,	// 下方向
-	//	kDirLeft,	// 左方向
-	//	kDirRight,	// 右方向
-	//	kDirUp,		// 上方向
-	//};
-
-private:
 	// グラフィックハンドル
 	int m_runHandle;
 	int m_jumpHandle;
 
 	// アニメーション関連
 	int m_animFrame;   // フレーム数を数える
+	int m_walkFrameCount;
+
 	// true:走っている　false:待機
 	bool m_isRun;
 	// true:左向き　false:右向き
@@ -59,8 +45,7 @@ private:
 
 	// ジャンプ処理
 	bool m_isJump;
+	bool m_isAnimJump;
 	float m_jumpSpeed;
-
-	int m_walkFrameCount;
 };
 

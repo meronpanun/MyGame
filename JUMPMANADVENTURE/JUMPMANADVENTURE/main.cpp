@@ -3,6 +3,10 @@
 #include "Map.h"
 #include "Player.h"
 #include "Pad.h"
+#include "_baseSceneh.h"
+#include "SceneTitle.h"
+#include "GameScene.h"
+#include "ResultScene.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -25,6 +29,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Player* pMove = new Player();
 	pMove->Init();
 
+	/*シーン変数*/
+	/*_baseScene::_sceneList[0] = new SceneTitle;
+	_baseScene::_sceneList[1] = new GameScene;
+	_baseScene::_sceneList[2] = new ResultScene;*/
+
+	/*シーン管理用の変数*/
+	//_baseScene::_nowScene = _baseScene::_sceneList[0];
+
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある
 	{
@@ -36,11 +48,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		// ここにゲームの処理を書く
 		pScene->Update();
-		pMove->Update();
+		pScene->Draw();
+
+		/*_baseScene::_nowScene->Update();
+		_baseScene::_nowScene->Draw();*/
 
 		Pad::Update();
 
-		pScene->Draw();
+		pMove->Update();
 		pMove->Draw();
 		
 
