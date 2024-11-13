@@ -31,7 +31,7 @@ namespace
    // constexpr int kWalkAnimFrame = 10;
 
 	// 地面の高さ
-	constexpr float kFieldHeight = 780.0f - 28.0f;
+	constexpr float kFieldHeight = 720.0f - 28.0f;
 
     // ジャンプ処理
     constexpr float kJumpPower = -8.0f; // ジャンプの初速
@@ -154,6 +154,8 @@ void Player::UpdateNormal()
         m_isDirLeft = false; // キャラクターが左を向いている
         m_isRun = true;
     }
+
+    // ジャンプ処理
     if (Pad::IsTrigger(PAD_INPUT_1))
     {
         if (!m_isJump)
@@ -162,7 +164,6 @@ void Player::UpdateNormal()
             m_jumpSpeed = kJumpPower;
         }
     }
-
     if (m_isJump)
     {
         m_pos.y += m_jumpSpeed;

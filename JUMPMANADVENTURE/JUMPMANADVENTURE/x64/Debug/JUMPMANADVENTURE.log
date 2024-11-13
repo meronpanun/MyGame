@@ -1,7 +1,9 @@
 ﻿  Player.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(100,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(100,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(99,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(99,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(181,25): warning C4552: '>=': 式の結果が使用されていません
-  JUMPMANADVENTURE.vcxproj -> C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(100,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(100,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(99,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(99,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(181,25): warning C4552: '>=': 式の結果が使用されていません
+  main.cpp
+  コードを生成中...
+  JUMPMANADVENTURE.vcxproj -> C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe

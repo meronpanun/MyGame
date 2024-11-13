@@ -28,9 +28,11 @@ public:
 	// プレイヤーの位置情報を取得する
 	Vec2 GetPos() const { return m_pos; }
 
-	void UpdateNormal();  // ゲーム中のUpdate
 
 private:
+
+	void UpdateNormal();  // ゲーム中のUpdate
+
 	//enum Dir
 	//{
 	//	kDirDown,	// 下方向
