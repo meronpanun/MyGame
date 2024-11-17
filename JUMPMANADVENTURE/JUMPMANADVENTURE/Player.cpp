@@ -30,6 +30,13 @@ namespace
     // ジャンプ処理
     constexpr float kJumpPower = -8.0f; // ジャンプの初速
     constexpr float kGravity = 0.4f;    // 重力
+    // ジャンプの長押し時間
+    constexpr int kPressShortJumpFrame = 10;	// 10フレーム
+    constexpr int kPressMediumJumpFrame = 30;	// 30フレーム
+    // ジャンプの高さ調整
+    constexpr float kLittleJumpHeight = 0.5f;	// 小ジャンプ
+    constexpr float kInJumpHeight = 0.8f;		// 中ジャンプ
+    constexpr float kBigJumpHeight = 1.0f;		// 大ジャンプ
 
 }
 
