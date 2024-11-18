@@ -120,7 +120,7 @@ void Player::Update()
         if (Pad::IsTrigger(PAD_INPUT_1))
         {
             m_isJump = false;
-            m_pos.y = kJumpPower;
+           // m_pos.y = kJumpPower;
         }
     }
     else
@@ -132,7 +132,10 @@ void Player::Update()
         }
         m_pos.y += kGravity; 
     }
-
+    printfDx("m_pos:(%d,%d)\n",
+    	(int)m_pos.x,
+    	(int)m_pos.y);
+    
     //if (m_isJump)
     //{
     //    m_pos.y += m_jumpSpeed;
