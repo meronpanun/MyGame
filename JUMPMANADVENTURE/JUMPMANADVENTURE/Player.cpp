@@ -5,7 +5,6 @@
 #include <memory>
 #include "Game.h"
 
-
 namespace
 {
     // キャラクターグラフィックの幅と高さ
@@ -44,10 +43,12 @@ Player::Player() :
     m_runHandle(-1),
     m_jumpHandle(-1),
     m_animFrame(0),
+    m_jumpFrame(0),
 	m_pos(120.0f, kFieldHeight),
     m_walkFrameCount(0),
     m_isRun(false),
     m_isDirLeft(false),
+    m_isGround(false),
     m_isJump(false),
     m_isAnimJump(false),
     m_jumpSpeed(0.0f)
@@ -100,8 +101,7 @@ void Player::Update()
         m_isRun = true;      // 走っている
     }
 
-    // ジャンプ処理
-    if (Pad::IsTrigger(PAD_INPUT_1))
+   /* if (Pad::IsTrigger(PAD_INPUT_1))
     {
         if (!m_isJump)
         {
@@ -109,28 +109,50 @@ void Player::Update()
             m_isAnimJump = true;
             m_jumpSpeed = kJumpPower;
         }
-    }
+    }*/
+       
 
-    if (m_isJump)
+    // 地面に接している
+    if (!m_isJump)
     {
-        m_pos.y += m_jumpSpeed;
+        m_jumpFrame = 0;
 
-        m_jumpSpeed += kGravity; // 毎フレーム下方向に加速する
-
-        if (m_jumpSpeed > 0.0f)
+        if (Pad::IsTrigger(PAD_INPUT_1))
         {
-            if (m_pos.y >= kFieldHeight)
-            {
-                // ジャンプ終了する
-                m_isJump = false;
-                m_isAnimJump = false;
-                m_jumpSpeed = 0.0f;
-
-                // 地面にめり込むことがあるので地面の高さに位置を補正する
-                m_pos.y >= kFieldHeight;
-            }
+            m_isJump = false;
+            m_pos.y = kJumpPower;
         }
     }
+    else
+    {
+        m_isAnimJump = true;
+        if (m_isJump)
+        {
+            UpdateJump();
+        }
+        m_pos.y += kGravity; 
+    }
+
+    //if (m_isJump)
+    //{
+    //    m_pos.y += m_jumpSpeed;
+
+    //    m_jumpSpeed += kGravity; // 毎フレーム下方向に加速する
+
+    //    if (m_jumpSpeed > 0.0f)
+    //    {
+    //        if (m_pos.y >= kFieldHeight)
+    //        {
+    //            // ジャンプ終了する
+    //            m_isJump = false;
+    //            m_isAnimJump = false;
+    //            m_jumpSpeed = 0.0f;
+
+    //            // 地面にめり込むことがあるので地面の高さに位置を補正する
+    //            m_pos.y >= kFieldHeight;
+    //        }
+    //    }
+    //}
 }
 
 void Player::Draw()
@@ -148,6 +170,7 @@ void Player::Draw()
         DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
             animJumpNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
             m_jumpHandle, true, m_isDirLeft);
+
     }
     else
     {
@@ -175,6 +198,31 @@ float Player::GetRigth() const
 float Player::GetBottom() const
 {
 	return  m_pos.y;
+}
+
+void Player::UpdateJump()
+{
+    m_jumpFrame++;
+    // ジャンプ処理
+    if (Pad::IsTrigger(PAD_INPUT_1))
+    {
+        //　ジャンプの高さを決める
+        float jumpHeight;
+        
+        if (m_jumpFrame < kPressShortJumpFrame)
+        {
+            jumpHeight = kLittleJumpHeight;
+        }
+        else if (m_jumpFrame < kPressMediumJumpFrame)
+        {
+            jumpHeight = kInJumpHeight;
+        }
+        else
+        {
+            jumpHeight = kLittleJumpHeight;
+        }
+        m_pos.y *= jumpHeight;
+    }
 }
 
 
