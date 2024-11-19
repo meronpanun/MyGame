@@ -40,6 +40,7 @@ namespace
 }
 
 Player::Player() :
+    m_pBg(nullptr),
     m_runHandle(-1),
     m_jumpHandle(-1),
     m_animFrame(0),
@@ -101,7 +102,8 @@ void Player::Update()
         m_isRun = true;      // 走っている
     }
 
-   /* if (Pad::IsTrigger(PAD_INPUT_1))
+    // ジャンプの処理
+    if (Pad::IsTrigger(PAD_INPUT_1))
     {
         if (!m_isJump)
         {
@@ -109,53 +111,30 @@ void Player::Update()
             m_isAnimJump = true;
             m_jumpSpeed = kJumpPower;
         }
-    }*/
-       
-
-    // 地面に接している
-    if (!m_isJump)
-    {
-        m_jumpFrame = 0;
-
-        if (Pad::IsTrigger(PAD_INPUT_1))
-        {
-            m_isJump = false;
-           // m_pos.y = kJumpPower;
-        }
     }
-    else
+    if (m_isJump)
     {
-        m_isAnimJump = true;
-        if (m_isJump)
+        m_pos.y += m_jumpSpeed;
+
+        m_jumpSpeed += kGravity; // 毎フレーム下方向に加速する
+       
+        if (m_jumpSpeed > 0.0f)
         {
-            UpdateJump();
+            if (m_pos.y >= kFieldHeight)
+            {
+                // ジャンプ終了する
+                m_isJump = false;
+                m_isAnimJump = false;
+                m_jumpSpeed = 0.0f;
+                
+                // 地面にめり込むことがあるので地面の高さに位置を補正する
+                m_pos.y >= kFieldHeight;
+            }
         }
-        m_pos.y += kGravity; 
     }
     printfDx("m_pos:(%d,%d)\n",
-    	(int)m_pos.x,
-    	(int)m_pos.y);
-    
-    //if (m_isJump)
-    //{
-    //    m_pos.y += m_jumpSpeed;
-
-    //    m_jumpSpeed += kGravity; // 毎フレーム下方向に加速する
-
-    //    if (m_jumpSpeed > 0.0f)
-    //    {
-    //        if (m_pos.y >= kFieldHeight)
-    //        {
-    //            // ジャンプ終了する
-    //            m_isJump = false;
-    //            m_isAnimJump = false;
-    //            m_jumpSpeed = 0.0f;
-
-    //            // 地面にめり込むことがあるので地面の高さに位置を補正する
-    //            m_pos.y >= kFieldHeight;
-    //        }
-    //    }
-    //}
+        (int)m_pos.x,
+        (int)m_pos.y);
 }
 
 void Player::Draw()
@@ -203,6 +182,36 @@ float Player::GetBottom() const
 	return  m_pos.y;
 }
 
+void Player::CheckHitMap(Rect chipRect)
+{
+}
+
+
+
+
+
+
+/* マップチップとの当たり判定ができてから */
+ // 地面に接している
+//  if (!m_isJump)
+//  {
+//      m_jumpFrame = 0;
+//      m_isAnimJump = false;
+//      if (Pad::IsTrigger(PAD_INPUT_1))
+//      {
+//          m_isJump = false;
+//          m_pos.y += kJumpPower;
+//      }
+//  }
+//  else
+//  {
+//      m_isAnimJump = true;
+//      if (m_isJump)
+//      {
+//          UpdateJump();
+//      }
+//      m_move.y += kGravity;
+//  }
 void Player::UpdateJump()
 {
     m_jumpFrame++;
@@ -224,7 +233,7 @@ void Player::UpdateJump()
         {
             jumpHeight = kLittleJumpHeight;
         }
-        m_pos.y *= jumpHeight;
+        m_move.y *= jumpHeight;
     }
 }
 

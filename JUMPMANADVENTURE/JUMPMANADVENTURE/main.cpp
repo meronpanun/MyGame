@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "Game.h"
-#include "Map.h"
+#include "Bg.h"
 #include "Player.h"
 #include "Pad.h"
 
@@ -19,10 +19,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// •`‰ææ‚ð— ‰æ–Ê‚É‚·‚é
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	Map* pScene = new Map();
+	Bg* pScene = new Bg;
 	pScene->Inti();
 
-	Player* pMove = new Player();
+	Player* pMove = new Player;
 	pMove->Init();
 
 	

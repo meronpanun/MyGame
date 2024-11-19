@@ -1,5 +1,8 @@
 #pragma once
 #include "Vec2.h"
+#include "Rect.h"
+
+class Bg;
 
 /// <summary>
 /// プレイヤークラス
@@ -23,12 +26,17 @@ public:
 
 	// プレイヤーの位置情報を取得する
 	Vec2 GetPos() const { return m_pos; }
+	Rect GetColRect() const { return m_colRect; }
 
+	// マップチップとの当たり判定
+	void CheckHitMap(Rect chipRect);
 
 private:
 	void UpdateJump();
 
 private:
+	Bg* m_pBg;
+
 	// グラフィックハンドル
 	int m_runHandle;
 	int m_jumpHandle;
@@ -48,7 +56,9 @@ private:
 	Vec2 m_pos;
 	// 移動量
 	Vec2 m_move;
-	
+	// 当たり判定用の矩形
+	Rect m_colRect;
+
 	//Dir m_dir;
 
 	// ジャンプ処理

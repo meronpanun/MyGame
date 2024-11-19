@@ -1,8 +1,24 @@
-﻿  main.cpp
-  Map.cpp
+﻿  Bg.cpp
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(29,48): error C2027: 認識できない型 'Player' が使われています。
+  (ソース ファイル 'Bg.cpp' をコンパイルしています)
+  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(6,7):
+  'Player' の宣言を確認してください
+  
+  main.cpp
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(29,48): error C2027: 認識できない型 'Player' が使われています。
+  (ソース ファイル 'main.cpp' をコンパイルしています)
+  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(6,7):
+  'Player' の宣言を確認してください
+  
   Pad.cpp
   Player.cpp
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(131,25): warning C4552: '>=': 式の結果が使用されていません
   Rect.cpp
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(34,16): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(35,15): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(36,17): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(37,18): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(55,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(56,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
   Vec2.cpp
   コードを生成中...
-LINK : fatal error LNK1168: ファイル C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe を開いて書き込むことができません。
