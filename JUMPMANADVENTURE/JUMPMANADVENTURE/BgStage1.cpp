@@ -104,6 +104,7 @@ void BgStage1::Init()
 	int graphHeigh = 0;
 	GetGraphSize(m_bghandle, &graphWidth, &graphHeigh);
 
+	// À•W‚Ì‰Šú‰»
 	m_graphChipNumX = graphWidth / kChipWidth;
 	m_graphChipNumY = graphHeigh / kChipHeigth;
 	m_bgPos = { 0,0 };

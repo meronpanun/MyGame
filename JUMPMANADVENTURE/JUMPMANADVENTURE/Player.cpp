@@ -1,9 +1,10 @@
 #include "Player.h"
 #include "DxLib.h"
-#include <cassert>
 #include "Pad.h"
-#include <memory>
 #include "Game.h"
+#include "BgStage1.h"
+#include "SceneStage1.h"
+#include <cassert>
 
 namespace
 {
@@ -41,6 +42,7 @@ namespace
 
 Player::Player() :
     m_pBg(nullptr),
+    m_pMain(nullptr),
     m_runHandle(-1),
     m_jumpHandle(-1),
     m_animFrame(0),
@@ -68,8 +70,19 @@ Player::~Player()
     DeleteGraph(m_jumpHandle);
 }
 
-void Player::Init()
+void Player::Init(Bg* pBg, SceneMain* pMain, Vec2 initPos)
 {
+    // 背景
+    m_pBg = pBg;
+    m_pMain = pMain;
+    // 現在位置
+    m_pos.x = initPos.x;
+    m_pos.y = initPos.y;
+    // ジャンプフラグ
+    m_isGround = false;
+    m_isJump = false;
+    // 加速度
+    m_move.y = 0.0f;
 }
 
 void Player::Update()

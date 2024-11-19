@@ -1,4 +1,6 @@
 #pragma once
+#include "Rect.h"
+#include "Vec2.h"
 
 class Bg;
 class Player;
@@ -14,7 +16,7 @@ public:
 	virtual void Draw() = 0;
 
 protected:
-	Player* player;
+	Player* m_pPlayer;
 	// プレイヤーの現在位置
 	Vec2 m_playerPos;
 

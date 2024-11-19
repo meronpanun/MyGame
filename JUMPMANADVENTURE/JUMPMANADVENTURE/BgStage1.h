@@ -6,6 +6,7 @@
 /// </summary>
 class BgStage1: public Bg
 {
+public:
 	BgStage1();
 	virtual ~BgStage1();
 

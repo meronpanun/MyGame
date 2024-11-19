@@ -18,13 +18,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	// 描画先を裏画面にする
 	SetDrawScreen(DX_SCREEN_BACK);
-
-	Bg* pScene = new Bg;
-	pScene->Inti();
-
-	Player* pMove = new Player;
-	pMove->Init();
-
 	
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある
@@ -36,14 +29,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		// ここにゲームの処理を書く
-		pScene->Update();
-		pScene->Draw();
-
-		Pad::Update();
-
-		pMove->Update();
-		pMove->Draw();
-		
 
 		// 画面の切り替わりを待つ必要がある
 		ScreenFlip();	// 1/60秒経過するまで待つ

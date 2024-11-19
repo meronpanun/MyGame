@@ -13,7 +13,7 @@ public:
 	Bg();
 	virtual ~Bg();
 
-	virtual void Inti() = 0;
+	virtual void Init() = 0;
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 
@@ -26,7 +26,7 @@ public:
 	virtual bool IsCollision(Rect rect, Rect& chipRect) = 0;
 
 	// プレイヤーのポインタを設定
-	void SetPlayer(Player& pPlayer) { m_pPlayer = pPlayer; }
+	void SetPlayer(Player* pPlayer) { m_pPlayer = pPlayer; }
 
 protected:
 	// プレイヤーポインタ

@@ -2,6 +2,7 @@
 #include "Vec2.h"
 #include "Rect.h"
 
+class SceneMain;
 class Bg;
 
 /// <summary>
@@ -11,9 +12,9 @@ class Player
 {
 public:
 	Player();
-	virtual ~Player();
+	 ~Player();
 
-	void Init();
+	void Init(Bg* bg, SceneMain* pMain, Vec2 initPos);
 	void Update();
 	void Draw();
 
@@ -24,18 +25,20 @@ public:
 	float GetRigth() const;
 	float GetBottom() const;
 
-	// プレイヤーの位置情報を取得する
-	Vec2 GetPos() const { return m_pos; }
-	Rect GetColRect() const { return m_colRect; }
-
 	// マップチップとの当たり判定
 	void CheckHitMap(Rect chipRect);
 
-private:
+public:
 	void UpdateJump();
+	// プレイヤーの位置情報を取得する
+	Vec2 GetPos() const { return m_pos; }
+	// プレイヤーの当たり判定の取得
+	Rect GetColRect() const { return m_colRect; }
 
 private:
+	// 背景
 	Bg* m_pBg;
+	SceneMain* m_pMain;
 
 	// グラフィックハンドル
 	int m_runHandle;

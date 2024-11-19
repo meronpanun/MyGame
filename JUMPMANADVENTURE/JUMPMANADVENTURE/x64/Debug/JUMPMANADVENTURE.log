@@ -1,24 +1,120 @@
 ﻿  Bg.cpp
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(29,48): error C2027: 認識できない型 'Player' が使われています。
-  (ソース ファイル 'Bg.cpp' をコンパイルしています)
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(6,7):
-  'Player' の宣言を確認してください
-  
+  BgStage1.cpp
   main.cpp
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(29,48): error C2027: 認識できない型 'Player' が使われています。
-  (ソース ファイル 'main.cpp' をコンパイルしています)
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(6,7):
-  'Player' の宣言を確認してください
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(165,32): error C2248: 'Player::GetColRect': private メンバー (クラス 'Player' で宣言されている) にアクセスできません。
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(36,7):
+      'Player::GetColRect' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(11,7):
+      'Player' の宣言を確認してください
+  
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(166,33): error C2248: 'Player::GetColRect': private メンバー (クラス 'Player' で宣言されている) にアクセスできません。
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(36,7):
+      'Player::GetColRect' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(11,7):
+      'Player' の宣言を確認してください
+  
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(167,31): error C2248: 'Player::GetColRect': private メンバー (クラス 'Player' で宣言されている) にアクセスできません。
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(36,7):
+      'Player::GetColRect' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(11,7):
+      'Player' の宣言を確認してください
+  
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(168,34): error C2248: 'Player::GetColRect': private メンバー (クラス 'Player' で宣言されている) にアクセスできません。
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(36,7):
+      'Player::GetColRect' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(11,7):
+      'Player' の宣言を確認してください
+  
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19): error C2259: 'Bg': 抽象クラスをインスタンス化できません。
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(10,7):
+      'Bg' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      次のメンバーが原因です:
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      'void Bg::Init(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(16,15):
+      'Bg::Init' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      'void Bg::Update(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(17,15):
+      'Bg::Update' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      'void Bg::Draw(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(18,15):
+      'Bg::Draw' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      'int Bg::GetScrollX(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(21,14):
+      'Bg::GetScrollX' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      'int Bg::GetScrollY(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(22,14):
+      'Bg::GetScrollY' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      'bool Bg::IsColPlayer(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(24,15):
+      'Bg::IsColPlayer' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,19):
+      'bool Bg::IsCollision(Rect,Rect &)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(26,15):
+      'Bg::IsCollision' の宣言を確認してください
+  
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15): error C2259: 'Bg': 抽象クラスをインスタンス化できません。
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(10,7):
+      'Bg' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      次のメンバーが原因です:
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      'void Bg::Init(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(16,15):
+      'Bg::Init' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      'void Bg::Update(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(17,15):
+      'Bg::Update' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      'void Bg::Draw(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(18,15):
+      'Bg::Draw' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      'int Bg::GetScrollX(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(21,14):
+      'Bg::GetScrollX' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      'int Bg::GetScrollY(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(22,14):
+      'Bg::GetScrollY' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      'bool Bg::IsColPlayer(void)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(24,15):
+      'Bg::IsColPlayer' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(22,15):
+      'bool Bg::IsCollision(Rect,Rect &)': は抽象型です
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(26,15):
+      'Bg::IsCollision' の宣言を確認してください
+  
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(23,10): error C2039: 'Inti': 'Bg' のメンバーではありません
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Bg.h(10,7):
+      'Bg' の宣言を確認してください
+  
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(26,9): error C2660: 'Player::Init': 関数に 0 個の引数を指定できません。
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.h(17,7):
+      'Player::Init' の宣言を確認してください
+      C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\main.cpp(26,9):
+      引数リスト '()' を一致させようとしているとき
   
   Pad.cpp
   Player.cpp
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(131,25): warning C4552: '>=': 式の結果が使用されていません
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(143,25): warning C4552: '>=': 式の結果が使用されていません
   Rect.cpp
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(34,16): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(35,15): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(36,17): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(37,18): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(55,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(56,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(34,16): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(35,15): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(36,17): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(37,18): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(55,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(56,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
+  SceneMain.cpp
+  SceneManager.cpp
+  SceneStage1.cpp
   Vec2.cpp
   コードを生成中...
