@@ -1,5 +1,6 @@
 #pragma once
 #include "Bg.h"
+
 /// <summary>
 /// ƒXƒe[ƒW1‚Ì”wŒiƒNƒ‰ƒX
 /// </summary>
@@ -8,9 +9,9 @@ class BgStage1: public Bg
 	BgStage1();
 	virtual ~BgStage1();
 
-	void Init();
-	void Update();
-	void Draw();
+	virtual void Init() override;
+	virtual void Update() override;
+	virtual void Draw() override;
 
 	// ”wŒi•`‰æ
 	void DrawBg();
