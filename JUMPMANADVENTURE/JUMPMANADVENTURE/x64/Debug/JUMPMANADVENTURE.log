@@ -1,19 +1,9 @@
 ﻿  Bg.cpp
   BgStage1.cpp
-  main.cpp
-  Pad.cpp
   Player.cpp
-  Rect.cpp
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(144,25): warning C4552: '>=': 式の結果が使用されていません
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(34,16): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(35,15): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(36,17): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(37,18): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(55,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Rect.cpp(56,13): warning C4244: '初期化中': 'double' から 'float' への変換です。データが失われる可能性があります。
   SceneMain.cpp
-  SceneManager.cpp
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(12,26): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(21,34): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
   SceneStage1.cpp
-  Vec2.cpp
   コードを生成中...
-  JUMPMANADVENTURE.vcxproj -> C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe
+  JUMPMANADVENTURE.vcxproj -> C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe

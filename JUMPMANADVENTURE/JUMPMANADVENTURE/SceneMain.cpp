@@ -1,4 +1,10 @@
 #include "SceneMain.h"
+#include "DxLib.h"
+#include "Pad.h"
+#include "Rect.h"
+#include "Game.h"
+#include "Bg.h"
+#include "Player.h"
 
 SceneMain::SceneMain() :
 	m_pPlayer(nullptr),

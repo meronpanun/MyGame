@@ -30,6 +30,16 @@ void SceneManager::Update()
 {
 	Pad::Update();
 
+	switch (m_runScene)
+	{
+	case kSceneStage1:
+		m_runScene = kSceneStage1;
+		m_pStage1->Init();
+		break;
+	default:
+		break;
+	}
+
 	// 実行するシーンの更新
 	switch (m_runScene)
 	{

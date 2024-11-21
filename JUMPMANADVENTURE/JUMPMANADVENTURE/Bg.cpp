@@ -1,5 +1,6 @@
 #include "Bg.h"
 #include "DxLib.h"
+#include "Player.h"
 #include "Game.h"
 #include <cassert>
 
