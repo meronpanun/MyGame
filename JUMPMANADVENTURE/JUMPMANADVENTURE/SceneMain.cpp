@@ -8,7 +8,7 @@
 
 SceneMain::SceneMain() :
 	m_pPlayer(nullptr),
-	m_gameScreenhandle(-1)
+	m_gameScreenHandle(-1)
 {
 }
 

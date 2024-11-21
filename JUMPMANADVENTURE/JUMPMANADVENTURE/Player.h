@@ -20,10 +20,10 @@ public:
 
 
 	// プレイヤーの上下左右情報取得
-	float GetLeft() const;
-	float GetTop() const;
-	float GetRigth() const;
-	float GetBottom() const;
+	//float GetLeft() const;
+	//float GetTop() const;
+	//float GetRigth() const;
+	//float GetBottom() const;
 
 	// マップチップとの当たり判定
 	void CheckHitMap(Rect chipRect);
@@ -42,7 +42,7 @@ private:
 	void UpdatePlayerAnim();
 
 	// プレイヤーの描画
-	void DrawPlayer(int x, int y);
+	void DrawPlayer();
 
 private:
 	// 背景

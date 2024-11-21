@@ -1,6 +1,11 @@
 #include "DxLib.h"
 #include "Game.h"
 #include "SceneManager.h"
+#include "Player.h"
+#include "Bg.h"
+#include "SceneMain.h"
+#include "Vec2.h"
+#include "SceneStage1.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -17,7 +22,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// 描画先を裏画面にする
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	SceneManager* pScene = new SceneManager;
+	/*SceneManager* pScene = new SceneManager;
+	pScene->Init();*/
+
+	SceneStage1* pScene = new SceneStage1;
 	pScene->Init();
 
 	// ゲームループ

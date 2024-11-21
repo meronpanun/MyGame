@@ -21,6 +21,6 @@ protected:
 	Vec2 m_playerPos;
 
 	// ‰æ‘œ
-	int m_gameScreenhandle; // ƒQ[ƒ€‰æ–Ê
+	int m_gameScreenHandle; // ƒQ[ƒ€‰æ–Ê
 };
 

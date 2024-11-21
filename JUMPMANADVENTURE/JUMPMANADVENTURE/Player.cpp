@@ -65,8 +65,8 @@ Player::Player() :
     m_keyState(0),
     m_pressTime(0),
     m_nowPressTime(0),
-    m_walkHandle(-1),
-    m_jumpHandle(-1),
+    m_walkHandle(0),
+    m_jumpHandle(0),
     m_animFrame(0),
 	//m_pos(120.0f, kFieldHeight),
     m_walkFrameCount(0),
@@ -180,35 +180,35 @@ void Player::Update()
     //        }
     //    }
     //}
-    printfDx("m_pos:(%d,%d)\n",
+    /*printfDx("m_pos:(%d,%d)\n",
         (int)m_pos.x,
-        (int)m_pos.y);
+        (int)m_pos.y);*/
 }
 
 void Player::Draw()
 {
-   
+    DrawPlayer();
 }
 
-float Player::GetLeft() const
-{
-	return (m_pos.x - kGraphWidth * 0.5f);
-}
-
-float Player::GetTop() const
-{
-	return (m_pos.y - kGraphHeight);
-}
-
-float Player::GetRigth() const
-{
-	return (m_pos.x + kGraphWidth * 0.5f);
-}
-
-float Player::GetBottom() const
-{
-	return  m_pos.y;
-}
+//float Player::GetLeft() const
+//{
+//	return (m_pos.x - kGraphWidth * 0.5f);
+//}
+//
+//float Player::GetTop() const
+//{
+//	return (m_pos.y - kGraphHeight);
+//}
+//
+//float Player::GetRigth() const
+//{
+//	return (m_pos.x + kGraphWidth * 0.5f);
+//}
+//
+//float Player::GetBottom() const
+//{
+//	return  m_pos.y;
+//}
 
 void Player::CheckHitMap(Rect chipRect)
 {
@@ -312,7 +312,7 @@ void Player::UpdatePlayerAnim()
     }
 }
 
-void Player::DrawPlayer(int x, int y)
+void Player::DrawPlayer()
 {
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
@@ -322,31 +322,31 @@ void Player::DrawPlayer(int x, int y)
     // プレイヤージャンプの切り取り座標
 //    int animJumpNo = kJumpAnimNum[animFrame];
 
-    if (m_animation == Anim::kWalk)
+  /*  if (m_animation == Anim::kWalk)
     {
-        DrawRectRotaGraph(x, y, walkSrcX, walkScrY, kGraphWidth, kGraphHeight, kScale, 0.0f, m_walkHandle, true);
+        DrawRectRotaGraph(walkSrcX, walkScrY, kGraphWidth, kGraphHeight, kScale, 0.0f, m_walkHandle, true);
     }
     else if (m_animation == Anim::kJump)
     {
-        DrawRectRotaGraph(x, y, 0, 0, kGraphWidth, kGraphHeight, kScale, 0.0f, m_jumpHandle, true);
-    }
+        DrawRectRotaGraph(0, 0, kGraphWidth, kGraphHeight, kScale, 0.0f, m_jumpHandle, true);
+    }*/
 
 
 
     // ジャンプした場合
- /*   if (m_isAnimJump)
+    if (m_isAnimJump)
     {
         DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
-            animJumpNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
+            kGraphWidth, 0, kGraphWidth, kGraphHeight,
             m_jumpHandle, true, m_isDirLeft);
 
     }
     else
     {
         DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
-            animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
+            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight,
             m_walkHandle, true, m_isDirLeft);
-    }*/
+    }
 }
 
 

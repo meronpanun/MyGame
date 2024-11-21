@@ -17,49 +17,52 @@ SceneManager::~SceneManager()
 void SceneManager::Init()
 {
 	// 実行するシーンの初期化
-	switch (m_runScene)
+	/*switch (m_runScene)
 	{
 	case kSceneStage1:
 		m_pStage1->Init();
 	default:
 		break;
-	}
+	}*/
+	m_pStage1->Init();
 }
 
 void SceneManager::Update()
 {
 	Pad::Update();
+	m_pStage1->Update();
 
-	switch (m_runScene)
-	{
-	case kSceneStage1:
-		m_runScene = kSceneStage1;
-		m_pStage1->Init();
-		break;
-	default:
-		break;
-	}
+	//switch (m_runScene)
+	//{
+	//case kSceneStage1:
+	//	m_runScene = kSceneStage1;
+	//	m_pStage1->Init();
+	//	break;
+	//default:
+	//	break;
+	//}
 
 	// 実行するシーンの更新
-	switch (m_runScene)
+	/*switch (m_runScene)
 	{
 	case kSceneStage1:
 		m_pStage1->Update();
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 
 void SceneManager::Draw()
 {
 	// 実行するシーンの描画
-	switch (m_runScene)
-	{
-	case kSceneStage1:
-		m_pStage1->Draw();
-		break;
-	default:
-		break;
-	}
+	//switch (m_runScene)
+	//{
+	//case kSceneStage1:
+	//	m_pStage1->Draw();
+	//	break;
+	//default:
+	//	break;
+	//}
+	m_pStage1->Draw();
 }

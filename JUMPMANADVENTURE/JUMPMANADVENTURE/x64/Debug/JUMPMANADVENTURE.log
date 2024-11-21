@@ -1,9 +1,4 @@
-﻿  Bg.cpp
-  BgStage1.cpp
-  Player.cpp
-  SceneMain.cpp
-C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(12,26): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
-C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(21,34): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+﻿  main.cpp
   SceneStage1.cpp
   コードを生成中...
-  JUMPMANADVENTURE.vcxproj -> C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe
+  JUMPMANADVENTURE.vcxproj -> C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe
