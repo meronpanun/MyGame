@@ -22,11 +22,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// 描画先を裏画面にする
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	/*SceneManager* pScene = new SceneManager;
+	SceneManager* pScene = new SceneManager;
+	pScene->Init();
+
+	/*SceneStage1* pScene = new SceneStage1;
 	pScene->Init();*/
 
-	SceneStage1* pScene = new SceneStage1;
-	pScene->Init();
 
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある

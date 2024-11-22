@@ -14,8 +14,8 @@ namespace
     constexpr int kGraphHeight = 32;
 
     // 当たり判定サイズ
-    constexpr int kColX = static_cast<int>(kGraphWidth * kScale - 40);
-    constexpr int kColY = static_cast<int>(kGraphHeight * kScale);
+    constexpr int kColX = static_cast<int>(kGraphWidth);
+    constexpr int kColY = static_cast<int>(kGraphHeight);
 
     // 当たり判定サイズの調整
     constexpr int kColAdjustment = 0.5f;
@@ -36,7 +36,7 @@ namespace
     constexpr float kSpeed = 2.0f;
 
 	// 地面の高さ
-//	constexpr float kFieldHeight = 720.0f - 80.0f;
+	constexpr float kFieldHeight = 720.0f - 80.0f;
 
     // ジャンプ処理
     constexpr float kJumpPower = -8.0f; // ジャンプの初速
@@ -110,17 +110,17 @@ void Player::Init(Bg* pBg, SceneMain* pMain, Vec2 initPos)
 
 void Player::Update()
 {
-
+    UpdatePlayerAnim();
     // 左右にキャラクターを動かす
-    m_isWalk = false;
-    //if (pad::IsPress(pad_INPUT_LEFT))
+    //m_isWalk = false;
+    //if (Pad::IsPress(PAD_INPUT_LEFT))
     //{
     //    // 左キーを押している時の処理
     //    m_pos.x -= kSpeed;   // 左方向に位置を変更
     //    m_isDirLeft = true;  // キャラクターが左を向いている
     //    m_isWalk = true;      // 走っている
     //}
-    //if (pad::IsPress(pad_INPUT_RIGHT))
+    //if (Pad::IsPress(PAD_INPUT_RIGHT))
     //{
     //    // 右キーを押している時の処理
     //    m_pos.x += kSpeed;   // 右方向に位置を変更
@@ -131,58 +131,91 @@ void Player::Update()
     // パッドを使用する
     int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
+    m_isWalk = false;
     if (pad & (PAD_INPUT_RIGHT))
     {
-        m_move.x += kSpeed;
+        m_pos.x += kSpeed;
         m_isDirLeft = false;
-        m_animation = Anim::kWalk;
+       // m_animation = Anim::kWalk;
         m_isWalk = true;
     }
-    else if (pad & (PAD_INPUT_LEFT))
+    if (pad & (PAD_INPUT_LEFT))
     {
-        m_move.x -= kSpeed;
+        m_pos.x -= kSpeed;
         m_isDirLeft = true;
-        m_animation = Anim::kWalk;
+       // m_animation = Anim::kWalk;
         m_isWalk = true;
     }
-    else
+   /* else
     {
         m_move.x = 0;
-    }
+    }*/
+
+
+ // 地面に接している
+  if (m_isGround)
+  {
+      m_jumpFrame = 0;
+      m_isJump = false;
+      m_isAnimJump = false;
+      if (Pad::IsTrigger(PAD_INPUT_1))
+      {
+          m_isGround = false;
+          m_isJump = true;
+          m_move.y += kJumpPower;
+      }
+      // マップチップとの当たり判定
+      Rect chipRect;
+      CheckHitMap(chipRect);
+  }
+  else
+  {
+     // m_isAnimJump = true;
+      if (m_isJump)
+      {
+          UpdateJump();
+      }
+      m_move.y += kGravity;
+
+      // マップチップとの当たり判定
+      Rect chipRect;
+      CheckHitMap(chipRect);
+  }
 
     // ジャンプの処理
-    if (pad & (PAD_INPUT_1))
-    {
-        if (!m_isJump)
-        {
-            m_isJump = true;
-            m_isAnimJump = true;
-            m_jumpSpeed = kJumpPower;
-        }
-    }
+    //if (pad & (PAD_INPUT_1))
+    //{
+    //    if (!m_isJump)
+    //    {
+    //        m_isJump = true;
+    //        m_isAnimJump = false;
+    //        m_jumpSpeed = kJumpPower;
+    //    }
+    //}
+
     //if (m_isJump)
     //{
     //    m_pos.y += m_jumpSpeed;
 
     //    m_jumpSpeed += kGravity; // 毎フレーム下方向に加速する
-    //   
+
     //    if (m_jumpSpeed > 0.0f)
     //    {
     //        if (m_pos.y >= kFieldHeight)
     //        {
-    //            // ジャンプ終了する
+    //             ジャンプ終了する
     //            m_isJump = false;
     //            m_isAnimJump = false;
     //            m_jumpSpeed = 0.0f;
     //            
-    //            // 地面にめり込むことがあるので地面の高さに位置を補正する
+    //             地面にめり込むことがあるので地面の高さに位置を補正する
     //            m_pos.y >= kFieldHeight;
     //        }
     //    }
     //}
-    /*printfDx("m_pos:(%d,%d)\n",
+    printfDx("m_pos:(%d,%d)\n",
         (int)m_pos.x,
-        (int)m_pos.y);*/
+        (int)m_pos.y);
 }
 
 void Player::Draw()
@@ -219,11 +252,11 @@ void Player::CheckHitMap(Rect chipRect)
     {
         if (m_move.x > 0.0f)
         {
-            m_pos.x = chipRect.GetLeft() - kGraphWidth * kScale * 0.5f + kColChipadjustment;
+            m_pos.x = chipRect.GetLeft() - kGraphWidth * 0.5f + kColChipadjustment;
         }
         else if (m_move.x < 0.0f)
         {
-            m_pos.x = chipRect.GetRight() + kGraphWidth * kScale * 0.5f - kColChipadjustment;
+            m_pos.x = chipRect.GetRight() + kGraphWidth * 0.5f - kColChipadjustment;
         }
     }
 
@@ -234,42 +267,17 @@ void Player::CheckHitMap(Rect chipRect)
     {
         if (m_move.x > 0.0f)
         {
-            m_pos.y = chipRect.GetLeft() - kGraphHeight * kScale * 0.5f;
+            m_pos.y = chipRect.GetTop() - kGraphHeight * 0.5f;
             m_isGround = true;
         }
         else if (m_move.x < 0.0f)
         {
-            m_pos.y = chipRect.GetRight() + kGraphHeight * kScale * 0.5f;
+            m_pos.y = chipRect.GetBottom() + kGraphHeight * 0.5f;
             m_move.y *= -1.0f;
         }
     }
 }
 
-
-
-
-
-/* マップチップとの当たり判定ができてから */
- // 地面に接している
-//  if (!m_isJump)
-//  {
-//      m_jumpFrame = 0;
-//      m_isAnimJump = false;
-//      if (pad::IsTrigger(pad_INPUT_1))
-//      {
-//          m_isJump = false;
-//          m_pos.y += kJumpPower;
-//      }
-//  }
-//  else
-//  {
-//      m_isAnimJump = true;
-//      if (m_isJump)
-//      {
-//          UpdateJump();
-//      }
-//      m_move.y += kGravity;
-//  }
 void Player::UpdateJump()
 {
     m_jumpFrame++;
@@ -300,7 +308,7 @@ void Player::UpdatePlayerAnim()
     // 移動中のみ歩行アニメーションを行う
     if (m_isWalk)
     {
-        if (m_animation == Anim::kWalk)
+       // if (m_animation == Anim::kWalk)
         {
             // アニメーションの更新
             m_animFrame++;
@@ -317,18 +325,19 @@ void Player::DrawPlayer()
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
     // プレイヤーの切り取り画像
-    int walkSrcX = kWalkAnimNum[animFrame] * kGraphWidth;
+    // int walkSrcX = kWalkAnimNum[animFrame] * kGraphWidth;
+    int walkSrcX = kWalkAnimNum[animFrame];
     int walkScrY = kGraphHeight;
     // プレイヤージャンプの切り取り座標
-//    int animJumpNo = kJumpAnimNum[animFrame];
+//   int animJumpNo = kJumpAnimNum[animFrame];
 
   /*  if (m_animation == Anim::kWalk)
     {
-        DrawRectRotaGraph(walkSrcX, walkScrY, kGraphWidth, kGraphHeight, kScale, 0.0f, m_walkHandle, true);
+        DrawRectRotaGraph(x, y, walkSrcX, walkScrY, kGraphWidth, kGraphHeight, kScale, 0.0f, m_walkHandle, true);
     }
     else if (m_animation == Anim::kJump)
     {
-        DrawRectRotaGraph(0, 0, kGraphWidth, kGraphHeight, kScale, 0.0f, m_jumpHandle, true);
+        DrawRectRotaGraph(x, y, 0, 0,kGraphWidth, kGraphHeight, kScale, 0.0f, m_jumpHandle, true);
     }*/
 
 
@@ -346,6 +355,7 @@ void Player::DrawPlayer()
         DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight,
             m_walkHandle, true, m_isDirLeft);
+
     }
 }
 
