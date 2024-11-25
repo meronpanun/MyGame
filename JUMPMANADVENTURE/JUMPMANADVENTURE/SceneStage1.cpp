@@ -11,7 +11,7 @@ namespace
 {
 	// プレイヤーの初期位置
 	constexpr float kPlayerInitPosX = 120.0f;
-	constexpr float kPlayerInitPosY = 640.0f;
+	constexpr float kPlayerInitPosY = 680.0f;
 
 	// プレイヤーの画像サイズ
 	constexpr int kGraphWidth = 32;
