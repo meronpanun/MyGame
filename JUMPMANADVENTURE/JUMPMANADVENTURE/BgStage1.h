@@ -23,8 +23,5 @@ public:
 	virtual bool IsColPlayer() override;
 	// 指定した矩形と当たっているか判定する
 	virtual bool IsCollision(Rect rect, Rect& chipRect) override;
-
-	// 指定した矩形と当たっているか判定する
-	bool IsCol(Rect rect, Rect& chipRect);
 };
 

@@ -161,95 +161,59 @@ int BgStage1::GetScrollY()
 }
 
 // プレイヤーと当たっているか判定
-//bool BgStage1::IsColPlayer()
-//{
-//	float playerLeft = m_pPlayer->GetColRect().GetLeft();
-//	float playerRight = m_pPlayer->GetColRect().GetRight();
-//	float playerTop = m_pPlayer->GetColRect().GetTop();
-//	float playerBottom = m_pPlayer->GetColRect().GetBottom();
-//
-//	for (int y = 0; y < kChipNumY; y++)
-//	{
-//		for (int x = 0; x < kChipNumX; x++)
-//		{
-//			// 地面以外は当たらない
-//			if (kChipSetDate[y][x] == 0) continue;
-//
-//			int chipLeft = static_cast<int>(x * kChipWidth);
-//			int chipRight = static_cast<int>(chipLeft + kChipWidth);
-//			int chipTop = static_cast<int>(y * kChipHeigth);
-//			int chipBottom = static_cast<int>(chipTop + kChipHeigth);
-//
-//			//	絶対に当たらない場合
-//			if (chipLeft > playerRight) continue;
-//			if (chipTop > playerBottom) continue;
-//			if (chipRight < playerRight) continue;
-//			if (chipBottom < playerTop) continue;
-//			
-//			// いずれかのマップチップに当たっていたら終了する
-//			return true;
-//		}
-//
-//	}
-//	// 全てのマップチップをチェックし1つも当たっていなければ当たっていない
-//	return false;
-//}
+bool BgStage1::IsColPlayer()
+{
+	float playerLeft = m_pPlayer->GetColRect().GetLeft();
+	float playerRight = m_pPlayer->GetColRect().GetRight();
+	float playerTop = m_pPlayer->GetColRect().GetTop();
+	float playerBottom = m_pPlayer->GetColRect().GetBottom();
+
+	for (int y = 0; y < kChipNumY; y++)
+	{
+		for (int x = 0; x < kChipNumX; x++)
+		{
+			// 地面以外は当たらない
+			if (kChipSetDate[y][x] == 0) continue;
+
+			int chipLeft = static_cast<int>(x * kChipWidth);
+			int chipRight = static_cast<int>(chipLeft + kChipWidth);
+			int chipTop = static_cast<int>(y * kChipHeigth);
+			int chipBottom = static_cast<int>(chipTop + kChipHeigth);
+
+			//	絶対に当たらない場合
+			if (chipLeft > playerRight) continue;
+			if (chipTop > playerBottom) continue;
+			if (chipRight < playerRight) continue;
+			if (chipBottom < playerTop) continue;
+			
+			// いずれかのマップチップに当たっていたら終了する
+			return true;
+		}
+
+	}
+	// 全てのマップチップをチェックし1つも当たっていなければ当たっていない
+	return false;
+}
 
 // 指定したマップチップとの矩形と当たっているか判定
-//bool BgStage1::IsCollision(Rect rect, Rect& chipRect)
-//{
-//	for (int y = 0; y < kChipNumY; y++)
-//	{
-//		for (int x = 0; x < kChipNumX; x++)
-//		{
-//			// 地面、壁以外は当たらない
-//			if (kChipSetDate[y][x] == 0) continue;
-//
-//			int chipLeft = static_cast<int>(x * kChipWidth);s
-//			int chipRight = static_cast<int>(chipLeft + kChipWidth);
-//			int chipTop = static_cast<int>(y * kChipHeigth);
-//			int chipBottom = static_cast<int>(chipTop + kChipHeigth);
-//
-//			//	絶対に当たらない場合
-//			if (chipLeft > rect.GetRight()) continue;
-//			if (chipTop > rect.GetBottom()) continue;
-//			if (chipRight < rect.GetLeft()) continue;
-//			if (chipBottom < rect.GetTop()) continue;
-//
-//			// ぶつかったマップチップの矩形を設定する
-//			chipRect.m_left = static_cast<float>(chipLeft);
-//			chipRect.m_right = static_cast<float>(chipRight);
-//			chipRect.m_top = static_cast<float>(chipTop);
-//			chipRect.m_bottom = static_cast<float>(chipBottom);
-//
-//			// いずれかのマップチップに当たっていたら終了する
-//			return true;
-//		}
-//
-//	}
-//	// 全てのマップチップをチェックし1つも当たっていなければ当たっていない
-//	return false;
-//}
-
-bool BgStage1::IsCol(Rect rect, Rect& chipRect)
+bool BgStage1::IsCollision(Rect rect, Rect& chipRect)
 {
-	for (int x = 0; x < kChipNumX; x++)
+	for (int y = 0; y < kChipNumY; y++)
 	{
-		for (int y = 0; y < kChipNumY; y++)
+		for (int x = 0; x < kChipNumX; x++)
 		{
 			// 地面、壁以外は当たらない
 			if (kChipSetDate[y][x] == 0) continue;
 
-			int chipLeft = kChipWidth * x;
-			int chipRight = chipLeft + kChipWidth;
-			int chipTop = kChipHeigth * y;
-			int chipBottom = chipTop + kChipHeigth;
+			int chipLeft = static_cast<int>(x * kChipWidth);
+			int chipRight = static_cast<int>(chipLeft + kChipWidth);
+			int chipTop = static_cast<int>(y * kChipHeigth);
+			int chipBottom = static_cast<int>(chipTop + kChipHeigth);
 
 			//	絶対に当たらない場合
 			if (chipLeft > rect.GetRight()) continue;
 			if (chipTop > rect.GetBottom()) continue;
 			if (chipRight < rect.GetLeft()) continue;
-			if (chipBottom < rect.GetTop()) continue;
 			if (chipBottom < rect.GetTop()) continue;
 
 			// ぶつかったマップチップの矩形を設定する
@@ -261,6 +225,8 @@ bool BgStage1::IsCol(Rect rect, Rect& chipRect)
 			// いずれかのマップチップに当たっていたら終了する
 			return true;
 		}
+
 	}
+	// 全てのマップチップをチェックし1つも当たっていなければ当たっていない
 	return false;
 }
