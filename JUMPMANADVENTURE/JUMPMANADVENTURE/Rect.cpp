@@ -1,6 +1,6 @@
 #include "Rect.h"
 #include "DxLib.h"
-#include <assert.h>
+#include <cassert>
 
 Rect::Rect() : 
     m_left(0.0f),
@@ -54,7 +54,7 @@ Vec2 Rect::GetCenter() const
     // 中心座標
     float x = (m_left + m_right) * 0.5;
     float y = (m_top + m_bottom) * 0.5;
-    return Vec2(x,y);
+    return Vec2{ x,y };
 }
 
 bool Rect::IsCollision(const Rect& rect)
@@ -62,8 +62,8 @@ bool Rect::IsCollision(const Rect& rect)
     // 絶対に当たらないパターン
     if (m_left > rect.m_right) return false;
     if (m_top > rect.m_bottom) return false;
-    if (m_right > rect.m_left) return false;
-    if (m_bottom > rect.m_top) return false;
+    if (m_right < rect.m_left) return false;
+    if (m_bottom < rect.m_top) return false;
     
     // 当たらないパターン以外は当たっている
     return true;

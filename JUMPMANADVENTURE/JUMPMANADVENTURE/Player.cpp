@@ -134,22 +134,22 @@ void Player::Update()
     m_isWalk = false;
     if (pad & (PAD_INPUT_RIGHT))
     {
-        m_pos.x += kSpeed;
+        m_move.x = kSpeed;
         m_isDirLeft = false;
        // m_animation = Anim::kWalk;
         m_isWalk = true;
     }
-    if (pad & (PAD_INPUT_LEFT))
+    else if (pad & (PAD_INPUT_LEFT))
     {
-        m_pos.x -= kSpeed;
+        m_move.x = -kSpeed;
         m_isDirLeft = true;
        // m_animation = Anim::kWalk;
         m_isWalk = true;
     }
-   /* else
+    else
     {
         m_move.x = 0;
-    }*/
+    }
 
 
  // 地面に接している
@@ -162,11 +162,17 @@ void Player::Update()
       {
           m_isGround = false;
           m_isJump = true;
-          m_move.y += kJumpPower;
+          m_move.y = kJumpPower;
       }
       // マップチップとの当たり判定
       Rect chipRect;
       CheckHitMap(chipRect);
+
+      // 穴などに落ちているときは落下中にする
+   /*   if (!(m_pBg->IsCollision(m_colRect, chipRect)))
+      {
+          m_isGround = false;
+      }*/
   }
   else
   {
@@ -265,12 +271,12 @@ void Player::CheckHitMap(Rect chipRect)
     m_colRect.SetCenter(m_pos.x, m_pos.y, static_cast<float>(kColX), static_cast<float>(kColY));
     if (m_pBg->IsCollision(m_colRect, chipRect))
     {
-        if (m_move.x > 0.0f)
+        if (m_move.y > 0.0f)
         {
             m_pos.y = chipRect.GetTop() - kGraphHeight * 0.5f;
             m_isGround = true;
         }
-        else if (m_move.x < 0.0f)
+        else if (m_move.y < 0.0f)
         {
             m_pos.y = chipRect.GetBottom() + kGraphHeight * 0.5f;
             m_move.y *= -1.0f;
@@ -345,10 +351,10 @@ void Player::DrawPlayer()
     // ジャンプした場合
     if (m_isAnimJump)
     {
+
         DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
             kGraphWidth, 0, kGraphWidth, kGraphHeight,
             m_jumpHandle, true, m_isDirLeft);
-
     }
     else
     {
