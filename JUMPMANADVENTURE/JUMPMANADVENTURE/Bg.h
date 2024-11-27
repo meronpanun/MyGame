@@ -38,7 +38,7 @@ protected:
 	float m_bgMove;
 
 	// 背景グラフィックのハンドル
-	int m_bghandle;
+	int m_bgHandle;
 	// グラフィックにチップがいくつ含まれているか
 	int m_graphChipNumX;
 	int m_graphChipNumY;

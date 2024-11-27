@@ -126,6 +126,24 @@ void TestPlayer::Update()
     }
 
     // アニメーション処理
+    m_animFrame++;
+    if (m_animFrame >= kAnimFrameCycle)
+    {
+        m_animFrame = 0;
+    }
+
+    if (m_isJump)
+    {
+        m_moveY += kGravity;
+
+        m_posX += m_moveX;
+
+        TestRect chipRect;
+        if (m_pBgStage1->IsCollision(getRect(),chipRect))
+        {
+
+        }
+    }
 }
 
 void TestPlayer::Draw()
@@ -159,5 +177,10 @@ float TestPlayer::GetBottom() const
 
 TestRect TestPlayer::getRect()
 {
-    return TestRect();
+    TestRect rect;
+    rect.top = GetTop();
+    rect.bottom = GetBottom();
+    rect.left = GetLeft();
+    rect.right = GetRigth();
+    return rect;
 }

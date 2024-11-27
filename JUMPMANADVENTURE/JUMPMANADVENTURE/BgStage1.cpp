@@ -18,13 +18,13 @@ namespace
 
 	// マップチップの1つのサイズ
 	constexpr int kChipWidth = 16;
-	constexpr int kChipHeigth = 16;
+	constexpr int kChipHeight = 16;
 	// マップチップの拡大率
 	constexpr float kChipScale = 3.0f;
 
 	// マップに敷き詰めるチップ数
 	constexpr int kChipNumX = Stage1::kMapWidth / kChipWidth;
-	constexpr int kChipNumY = Stage1::kMapHeight / kChipHeigth;
+	constexpr int kChipNumY = Stage1::kMapHeight / kChipHeight;
 	
 //	constexpr int kChipNumX = Game::kScreenWidth / kChipWidth;
 //	constexpr int kChipNumY = Game::kScreenHeight / kChipHeigth;
@@ -125,14 +125,14 @@ namespace
 BgStage1::BgStage1()
 {
 	// グラフィックの読み込み
-	m_bghandle = LoadGraph("date/image/GroundBlock.png");
-	assert(m_bghandle != -1);
+	m_bgHandle = LoadGraph("date/image/GroundBlock.png");
+	assert(m_bgHandle != -1);
 }
 
 BgStage1::~BgStage1()
 {
 	// グラフィックの開放
-	DeleteGraph(m_bghandle);
+	DeleteGraph(m_bgHandle);
 }
 
 void BgStage1::Init()
@@ -140,11 +140,11 @@ void BgStage1::Init()
 	// 画像のマップチップ数を数える
 	int graphWidth = 0;
 	int graphHeigh = 0;
-	GetGraphSize(m_bghandle, &graphWidth, &graphHeigh);
+	GetGraphSize(m_bgHandle, &graphWidth, &graphHeigh);
 
 	// 座標の初期化
 	m_graphChipNumX = graphWidth / kChipWidth;
-	m_graphChipNumY = graphHeigh / kChipHeigth;
+	m_graphChipNumY = graphHeigh / kChipHeight;
 	m_bgPos = { 0,0 };
 	m_bgMove = kBgMove;
 }
@@ -180,11 +180,11 @@ void BgStage1::Draw()
 
 			// チップ番号から切り出し位置を計算
 			int cutX = indexX * kChipWidth;
-			int cutY = indexY * kChipHeigth;
+			int cutY = indexY * kChipHeight;
 
-			DrawRectGraph(x * kChipWidth, y * kChipHeigth + 272,
-				cutX, cutY, kChipWidth, kChipHeigth,
-				m_bghandle, true);
+			DrawRectGraph(x * kChipWidth, y * kChipHeight + 272,
+				cutX, cutY, kChipWidth, kChipHeight,
+				m_bgHandle, true);
 		}
 	}
 }
@@ -220,8 +220,8 @@ bool BgStage1::IsColPlayer()
 
 			int chipLeft = static_cast<int>(x * kChipWidth);
 			int chipRight = static_cast<int>(chipLeft + kChipWidth);
-			int chipTop = static_cast<int>(y * kChipHeigth);
-			int chipBottom = static_cast<int>(chipTop + kChipHeigth);
+			int chipTop = static_cast<int>(y * kChipHeight);
+			int chipBottom = static_cast<int>(chipTop + kChipHeight);
 
 			//	絶対に当たらない場合
 			if (chipLeft > playerRight) continue;
@@ -250,8 +250,8 @@ bool BgStage1::IsCollision(Rect rect, Rect& chipRect)
 
 			int chipLeft = static_cast<int>(x * kChipWidth);
 			int chipRight = static_cast<int>(chipLeft + kChipWidth);
-			int chipTop = static_cast<int>(y * kChipHeigth);
-			int chipBottom = static_cast<int>(chipTop + kChipHeigth);
+			int chipTop = static_cast<int>(y * kChipHeight);
+			int chipBottom = static_cast<int>(chipTop + kChipHeight);
 
 			//	絶対に当たらない場合
 			if (chipLeft > rect.GetRight()) continue;
