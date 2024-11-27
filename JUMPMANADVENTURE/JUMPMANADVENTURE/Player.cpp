@@ -99,7 +99,7 @@ void Player::Init(Bg* pBg, SceneMain* pMain, Vec2 initPos)
     m_pos.x = initPos.x;
     m_pos.y = initPos.y;
     // ジャンプフラグ
-    m_isGround = false;
+    m_isGround = true;
     m_isJump = false;
     // 加速度
     m_move.y = 0.0f;
@@ -165,8 +165,8 @@ void Player::Update()
           m_move.y = kJumpPower;
       }
       // マップチップとの当たり判定
-      Rect chipRect;
-      CheckHitMap(chipRect);
+    //  Rect chipRect;
+    //  CheckHitMap(chipRect);
 
       // 穴などに落ちているときは落下中にする
    /*   if (!(m_pBg->IsCollision(m_colRect, chipRect)))
@@ -184,8 +184,8 @@ void Player::Update()
       m_move.y += kGravity;
 
       // マップチップとの当たり判定
-      Rect chipRect;
-      CheckHitMap(chipRect);
+    //  Rect chipRect;
+    //  CheckHitMap(chipRect);
   }
 
     // ジャンプの処理
