@@ -14,8 +14,8 @@ namespace
     constexpr int kGraphHeight = 32;
 
     // 当たり判定サイズ
-    constexpr int kColX = static_cast<int>(kGraphWidth);
-    constexpr int kColY = static_cast<int>(kGraphHeight);
+  //  constexpr int kColX = static_cast<int>(kGraphWidth);
+  //  constexpr int kColY = static_cast<int>(kGraphHeight);
 
     // 当たり判定サイズの調整
     constexpr int kColAdjustment = 0.5f;
@@ -165,8 +165,8 @@ void Player::Update()
           m_move.y = kJumpPower;
       }
       // マップチップとの当たり判定
-    //  Rect chipRect;
-    //  CheckHitMap(chipRect);
+      Rect chipRect;
+      CheckHitMap(chipRect);
 
       // 穴などに落ちているときは落下中にする
    /*   if (!(m_pBg->IsCollision(m_colRect, chipRect)))
@@ -184,8 +184,8 @@ void Player::Update()
       m_move.y += kGravity;
 
       // マップチップとの当たり判定
-    //  Rect chipRect;
-    //  CheckHitMap(chipRect);
+      Rect chipRect;
+      CheckHitMap(chipRect);
   }
 
     // ジャンプの処理
@@ -253,7 +253,7 @@ void Player::CheckHitMap(Rect chipRect)
 {
     // 横からあたったかチェックする
     m_pos.x += m_move.x;
-    m_colRect.SetCenter(m_pos.x, m_pos.y, static_cast<float>(kColX), static_cast<float>(kColY));
+    m_colRect.SetCenter(m_pos.x, m_pos.y, static_cast<float>(kGraphWidth), static_cast<float>(kGraphHeight));
     if (m_pBg->IsCollision(m_colRect, chipRect))
     {
         if (m_move.x > 0.0f)
@@ -268,7 +268,7 @@ void Player::CheckHitMap(Rect chipRect)
 
     // 縦からあたったかチェックする
     m_pos.y += m_move.y;
-    m_colRect.SetCenter(m_pos.x, m_pos.y, static_cast<float>(kColX), static_cast<float>(kColY));
+    m_colRect.SetCenter(m_pos.x, m_pos.y, static_cast<float>(kGraphWidth), static_cast<float>(kGraphHeight));
     if (m_pBg->IsCollision(m_colRect, chipRect))
     {
         if (m_move.y > 0.0f)

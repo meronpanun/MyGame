@@ -159,8 +159,8 @@ void BgStage1::Draw()
 	// 画面全体を空色で塗り潰す
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
 
-	int scrollX = GetScrollX();
-	int scrollY = GetScrollY();
+	//int scrollX = GetScrollX();
+	//int scrollY = GetScrollY();
 
 	// チップを画面全体に敷き詰める
 	for (int y = 0; y < kChipNumY; y++)
