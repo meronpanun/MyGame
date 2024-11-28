@@ -2,16 +2,16 @@
 #include <memory>
 #include "TestRect.h"
 
-class BgStage1;
+class TestMap;
 class TestPlayer
 {
 public:
 	TestPlayer();
 	virtual ~TestPlayer();
 
-	void SetMap(std::shared_ptr<BgStage1> pBgStage1) { m_pBgStage1 = pBgStage1; }
+	void SetMap(std::shared_ptr<TestMap> pTestMap) { m_pTestMap = pTestMap; }
 
-	void init();
+	void Init();
 	void Update();
 	void Draw();
 
@@ -37,7 +37,9 @@ private:
 		kFall,
 		kDash
 	};
-	std::shared_ptr<BgStage1> m_pBgStage1;
+	std::shared_ptr<TestMap> m_pTestMap;
+
+	Vec2 m_pos;
 
 	int m_playerHandle01;
 	int m_playerHandle02;
