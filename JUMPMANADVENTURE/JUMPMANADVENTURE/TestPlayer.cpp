@@ -1,6 +1,6 @@
 #include "TestPlayer.h"
 #include "DxLib.h"
-#include "BgStage1.h"
+#include "TestMap.h"
 #include "Rect.h"
 #include "Pad.h"
 #include "Game.h"
@@ -27,7 +27,7 @@ namespace
     // 重力
     constexpr float kGravity = 0.5f;
     // ジャンプ力
-    constexpr float kJumpAcc = -10.0f;
+    constexpr float kJumpAcc = 00.0f;
 
     constexpr int kUseFrame[] = { 2,3 };
 
@@ -68,7 +68,7 @@ TestPlayer::~TestPlayer()
     DeleteGraph(m_playerHandle02);
 }
 
-void TestPlayer::init()
+void TestPlayer::Init()
 {
 }
 
@@ -132,47 +132,158 @@ void TestPlayer::Update()
         m_animFrame = 0;
     }
 
-    if (m_isJump)
+    // ジャンプ処理
+    if (m_isJump) // ジャンプ中
     {
         m_moveY += kGravity;
 
         m_posX += m_moveX;
 
         TestRect chipRect;
-        if (m_pBgStage1->IsCollision(getRect(),chipRect))
+        // 横
+        if (m_pTestMap->IsCol(getRect(), chipRect))
         {
+            if (m_moveX > 0.0f)
+            {
+                printfDx("プレイヤーが右側がマップにぶつかった\n");
+                m_posX = chipRect.left - kWidth * 0.5 - 1;
+            }
+            else if (m_moveX < 0.0f)
+            {
+                printfDx("プレイヤーが左側がマップにぶつかった\n");
+                m_posX = chipRect.right + kWidth * 0.5 + 1;
+            }
+        }
 
+        m_posY += m_moveY;
+        // 縦
+        if (m_pTestMap->IsCol(getRect(), chipRect))
+        {
+            if (m_moveY > 0.0f)
+            {
+                m_posY -= m_moveY;
+                m_moveY = 0.0f;
+                m_isJump = false;
+                m_isAnimJump = false;
+            }
+            else if (m_moveY < 0.0f)
+            {
+                m_posY = chipRect.bottom + kHeight + 1;
+                m_moveY *= 0.0f;
+            }
+        }
+    }
+    else // 地面についている場合
+    {
+        if (!m_isCommand)
+        {
+            if (pad & PAD_INPUT_1 && m_isJump == false)
+            {
+                m_isJump = true;
+                m_jumpCount++;
+            }
+            else m_jumpCount = 0;
+
+            if (m_jumpCount == 1 && m_isJump)
+            {
+                m_moveY = kJumpAcc;
+                m_isAnimJump = true;
+            }
+            else m_isJump = false;
+        }
+
+        m_posX += m_moveX;
+        TestRect chipRect;
+        // 横
+        if (m_pTestMap->IsCol(getRect(), chipRect))
+        {
+            if (m_moveX > 0.0f)
+            {
+                printfDx("プレイヤーが右側がマップにぶつかった\n");
+                m_posX = chipRect.left - kWidth * 0.5 - 1;
+            }
+            else if (m_moveX < 0.0f)
+            {
+                printfDx("プレイヤーが左側がマップにぶつかった\n");
+                m_posX = chipRect.right + kWidth * 0.5 + 1;
+            }
+        }
+
+        m_posY += m_moveY;
+        // 縦
+        if (m_pTestMap->IsCol(getRect(), chipRect))
+        {
+            // 上下どちらか当たったかをデバック表示
+            if (m_moveY > 0.0f) // プレイヤーが上下方向に移動している
+            {
+                // 地面に立っている何もしない
+                m_posY = chipRect.top - 1;
+                m_isJump = false;
+                m_isAnimJump = false;
+            }
+            else if (m_moveY < 0.0f)
+            {
+                m_posY = chipRect.bottom + kHeight + 1;
+                m_moveY *= 0.0f;
+            }
+        }
+        else
+        {
+            m_isJump = true;
         }
     }
 }
 
 void TestPlayer::Draw()
 {
+    // プレイヤーのアニメーションフレーム
+    int animFrame = m_animFrame / kSingleAnimFrame;
+    // プレイヤーの切り取り画像
+    // int walkSrcX = kWalkAnimNum[animFrame] * kGraphWidth;
+    int walkSrcX = kUseFrame[animFrame];
+    int walkScrY = kGraphHeight;
+
+
+    // ジャンプした場合
+    if (m_isAnimJump)
+    {
+
+        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
+            kGraphWidth, 0, kGraphWidth, kGraphHeight,
+            m_playerHandle02, true, m_isAnimTurn);
+    }
+    else
+    {
+        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
+            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight,
+            m_playerHandle01, true, m_isAnimTurn);
+
+    }
 }
 
 float TestPlayer::GetRadius()
 {
-    return 0.0f;
+    return kRadius;
 }
 
 float TestPlayer::GetLeft() const
 {
-    return 0.0f;
+    return m_posX - kWidth * 0.5;
 }
 
 float TestPlayer::GetTop() const
 {
-    return 0.0f;
+    return m_posY -kHeight;
 }
 
 float TestPlayer::GetRigth() const
 {
-    return 0.0f;
+    return m_posX + kWidth * 0.5;
 }
 
 float TestPlayer::GetBottom() const
 {
-    return 0.0f;
+    return m_posY;
 }
 
 TestRect TestPlayer::getRect()

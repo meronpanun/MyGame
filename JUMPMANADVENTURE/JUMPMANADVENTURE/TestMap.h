@@ -1,5 +1,5 @@
 #pragma once
-#include <memory>
+ #include <memory>
 #include "TestRect.h"
 
 class TestPlayer;
@@ -11,7 +11,7 @@ public:
 
 	//メンバー変数にアクセスする
 	void SetHandle(int handle) { m_handle001 = handle; }
-	void SetHandle02(int handle) { m_handle002 = handle; }
+//	void SetHandle02(int handle) { m_handle002 = handle; }
 
 	//プレイヤーのポインタを設定する
 	void SetPlayer(std::shared_ptr<TestPlayer>pTestPlayer) { m_pTestPlayer = pTestPlayer;}
@@ -31,12 +31,6 @@ private:
 	// スクロール量を決定するためにプレイヤーの位置情報が必要
 	std::shared_ptr<TestPlayer>m_pTestPlayer;
 	int m_handle001;
-	int m_handle002;
-
-	int m_bgHandle;
-	int m_moveHandle;
-	int m_dashHandle;
-	int m_jumpHandle;
-	int m_getHandle;
+//	int m_handle002;
 };
 
