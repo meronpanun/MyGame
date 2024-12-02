@@ -27,13 +27,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 //	SceneManager* pScene = new SceneManager;
 //	pScene->Init();
 
-	/*SceneStage1* pScene = new SceneStage1;
-	pScene->Init();*/
+	SceneStage1* pScene = new SceneStage1;
+	pScene->Init();
 
-	TestPlayer* pTest = new TestPlayer;
-	pTest->Init();
+	//TestPlayer* pTest = new TestPlayer;
+	//pTest->Init();
 
-	TestMap* pMap = new TestMap;
+	//TestMap* pMap = new TestMap;
 
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある
@@ -45,15 +45,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		// ここにゲームの処理を書く
-	//	pScene->Update();
+		pScene->Update();
 
-	//	pScene->Draw();
+		pScene->Draw();
 
-		pTest->Update();
-		pTest->Draw();
+		//pTest->Update();
+		//pTest->Draw();
 
-		pMap->Update();
-		pMap->Draw();
+		//pMap->Update();
+		//pMap->Draw();
 
 		// 画面の切り替わりを待つ必要がある
 		ScreenFlip();	// 1/60秒経過するまで待つ
