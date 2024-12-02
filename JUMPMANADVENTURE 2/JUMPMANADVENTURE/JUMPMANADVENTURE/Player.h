@@ -18,7 +18,7 @@ public:
 	void Draw();
 
 	// プレイヤーの位置情報を取得
-//	Vec2 GetPos() const { return m_pos; }
+	Vec2 GetPos() const { return m_pos; }
 
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;
@@ -30,7 +30,7 @@ public:
 	void CheckHitMap(Rect chipRect);
 
 	// 現在のプレイヤーの矩形情報を取得
-	Rect getRect();
+	Rect GetRect();
 
 
 private:
@@ -38,8 +38,8 @@ private:
 	void UpdateJump();
 
 private:
-	//  スクロール量を取得するためにMapクラス情報の取得
-	std::shared_ptr<Map> m_pMap;
+	// スクロール量を取得するためにMapクラス情報の取得
+	Map* m_pMap;
 
 	// プレイヤーの位置
 	Vec2 m_pos;

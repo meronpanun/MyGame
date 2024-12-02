@@ -3,40 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Camera.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Pad.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Pad.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Vec2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Vec2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Map.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Map.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Vec2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Vec2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Pad.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Pad.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,111 +55,132 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Camera.h",
+              "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Camera.h",
+              "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Camera.h",
+              "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Camera.h",
+              "RelativeToolTip": "JUMPMANADVENTURE\\Camera.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-12-02T09:55:24.906Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Player.cpp",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.cpp",
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.cpp",
-              "ViewState": "AgIAAAIBAAAAAAAAAAAewA8BAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAAUBAAAAAAAAAAAEwBkBAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-02T04:46:56.169Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\main.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\main.cpp",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\main.cpp",
               "RelativeToolTip": "JUMPMANADVENTURE\\main.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADcAAAABAAAA",
+              "ViewState": "AgIAACMAAAAAAAAAAAAEwDcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T04:46:43.887Z"
+              "WhenOpened": "2024-12-02T04:46:43.887Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
               "Title": "Game.h",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Game.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Game.h",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Game.h",
               "RelativeToolTip": "JUMPMANADVENTURE\\Game.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAABAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:46:07.355Z"
+              "WhenOpened": "2024-12-02T04:46:07.355Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "Pad.h",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Pad.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Pad.h",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Pad.h",
               "RelativeToolTip": "JUMPMANADVENTURE\\Pad.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:45:28.911Z"
+              "WhenOpened": "2024-12-02T04:45:28.911Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Rect.h",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Rect.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Rect.h",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Rect.h",
               "RelativeToolTip": "JUMPMANADVENTURE\\Rect.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACQAAAAAAAAA",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:45:07.734Z"
+              "WhenOpened": "2024-12-02T04:45:07.734Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Vec2.h",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Vec2.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Vec2.h",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Vec2.h",
               "RelativeToolTip": "JUMPMANADVENTURE\\Vec2.h",
-              "ViewState": "AQIAAC4AAAAAAAAAAADwv2AAAAAAAAAA",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:44:56.839Z"
+              "WhenOpened": "2024-12-02T04:44:56.839Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Map.h",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Map.h",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.h",
               "RelativeToolTip": "JUMPMANADVENTURE\\Map.h",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAACAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:44:45.293Z"
+              "WhenOpened": "2024-12-02T04:44:45.293Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Player.h",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.h",
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.h",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAADwAAAARAAAA",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAEwCoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:44:36.363Z"
+              "WhenOpened": "2024-12-02T04:44:36.363Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Map.cpp",
               "DocumentMoniker": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Map.cpp",
               "ToolTip": "C:\\Users\\\u7531\u7559\u90E8\u745B\u4EBA\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Map.cpp",
               "RelativeToolTip": "JUMPMANADVENTURE\\Map.cpp",
-              "ViewState": "AQIAADEAAAAAAAAAAADgv0EAAAAYAAAA",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAEwFwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T04:45:33.134Z"
+              "WhenOpened": "2024-12-02T04:45:33.134Z",
+              "EditorCaption": ""
             }
           ]
         }

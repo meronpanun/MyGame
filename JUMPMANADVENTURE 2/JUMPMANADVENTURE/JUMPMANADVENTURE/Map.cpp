@@ -75,7 +75,7 @@ void Map::Draw()
 	// 画面全体を空色で塗り潰す
 //	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
 
-//	int scrollX = GetScrollX();
+	int scrollX = GetScrollX();
 
 	for (int y = 0; y < kChipNumY; y++)
 	{
@@ -109,20 +109,20 @@ void Map::Draw()
 /// 横スクロール
 /// </summary>
 /// <returns>スクロール量</returns>
-//int Map::GetScrollX()
-//{
-//	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
-//	if (result < 0)
-//	{
-//		result = 0;
-//	}
-//	if (result > Stage1::kMapWidth - Game::kScreenWidth)
-//	{
-//		result = Stage1::kMapWidth - Game::kScreenWidth;
-//	}
-//
-//	return result;
-//}
+int Map::GetScrollX()
+{
+	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
+	if (result < 0)
+	{
+		result = 0;
+	}
+	if (result > Stage1::kMapWidth - Game::kScreenWidth)
+	{
+		result = Stage1::kMapWidth - Game::kScreenWidth;
+	}
+
+	return result;
+}
 
 bool Map::IsCollision(Rect rect, Rect& testChipRect)
 {
@@ -143,10 +143,10 @@ bool Map::IsCollision(Rect rect, Rect& testChipRect)
 			if (chipRight < rect.m_left) continue;
 			if (chipBottom < rect.m_top) continue;
 
-			testChipRect.m_left = chipLeft;
-			testChipRect.m_right = chipRight;
-			testChipRect.m_top = chipTop;
-			testChipRect.m_bottom = chipBottom;
+			testChipRect.m_left = static_cast<int>(chipLeft);
+			testChipRect.m_right = static_cast<int>(chipRight);
+			testChipRect.m_top = static_cast<int>(chipTop);
+			testChipRect.m_bottom = static_cast<int>(chipBottom);
 			return true;
 		}
 	}

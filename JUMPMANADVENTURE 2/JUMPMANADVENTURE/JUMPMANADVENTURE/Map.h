@@ -20,7 +20,7 @@ public:
 	void Draw();
 
 	//プレイヤーの位置からスクロール量を取得する
-//	int GetScrollX();
+	int GetScrollX();
 
 	//指定した矩形と当たっているか判定
 	//参照を使用してぶつかったマップチップの矩形情報を取得する
@@ -28,7 +28,7 @@ public:
 
 private:
 	// スクロール量を決定するためにプレイヤーの位置情報が必要
-	std::shared_ptr<Player>m_pPlayer;
+	Player* m_pPlayer;
 
 
 	int m_handle001;

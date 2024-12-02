@@ -174,21 +174,21 @@ void Player::Update()
         m_pos.x += m_move.x;
         Rect chipRect;
         // 横
-        if (m_pMap->IsCollision(getRect(), chipRect))
+        if (m_pMap->IsCollision(GetRect(), chipRect))
         {
             if (m_move.x > 0.0f)
             {
-                m_pos.x = chipRect.m_left - kWidth * 0.5 - 1;
+                m_pos.x = chipRect.m_left - kWidth * static_cast<float>(0.5f) - 1;
             }
             else if (m_move.x < 0.0f)
             {
-                m_pos.x = chipRect.m_right + kWidth * 0.5 + 1;
+                m_pos.x = chipRect.m_right + kWidth * static_cast<float>(0.5f) + 1;
             }
         }
 
         m_pos.y += m_move.y;
         // 縦
-        if (m_pMap->IsCollision(getRect(), chipRect))
+        if (m_pMap->IsCollision(GetRect(), chipRect))
         {
             // 上下どちらか当たったかをデバック表示
             if (m_move.y > 0.0f) // プレイヤーが上下方向に移動している
@@ -249,7 +249,7 @@ void Player::Draw()
 
 float Player::GetLeft() const
 {
-    return m_pos.x - kWidth * 0.5;
+    return m_pos.x - kWidth * static_cast<float>(0.5f);
 }
 
 float Player::GetTop() const
@@ -259,7 +259,7 @@ float Player::GetTop() const
 
 float Player::GetRigth() const
 {
-    return m_pos.x + kWidth * 0.5;
+    return m_pos.x + kWidth * static_cast<float>(0.5f);
 }
 
 float Player::GetBottom() const
@@ -271,21 +271,21 @@ void Player::CheckHitMap(Rect chipRect)
 {
     // 横の当たり判定
     m_pos.x += m_move.x;
-    if (m_pMap->IsCollision(getRect(), chipRect))
+    if (m_pMap->IsCollision(GetRect(), chipRect))
     {
         if (m_move.x > 0.0f)
         {
-            m_pos.x = chipRect.m_left - kWidth * 0.5 - 1;
+            m_pos.x = chipRect.m_left - kWidth * static_cast<float>(0.5f) - 1;
         }
         else if (m_move.x < 0.0f)
         {
-            m_pos.x = chipRect.m_right + kWidth * 0.5 + 1;
+            m_pos.x = chipRect.m_right + kWidth * static_cast<float>(0.5f) + 1;
         }
     }
 
     // 縦の当たり判定
     m_pos.y += m_move.y;
-    if (m_pMap->IsCollision(getRect(), chipRect))
+    if (m_pMap->IsCollision(GetRect(), chipRect))
     {
         if (m_move.y > 0.0f)
         {
@@ -302,7 +302,7 @@ void Player::CheckHitMap(Rect chipRect)
     }
 }
 
-Rect Player::getRect()
+Rect Player::GetRect()
 {
     // プレイヤーの矩形当たり判定情報
     Rect rect;
