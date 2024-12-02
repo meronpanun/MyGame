@@ -152,7 +152,14 @@ void Player::Update()
     }
 
 
- // 地面に接している
+ // 地面
+ // 
+ // 
+ // 
+ // 
+ // 
+ // 
+ // している
   if (m_isGround)
   {
       m_jumpFrame = 0;
@@ -187,38 +194,6 @@ void Player::Update()
       Rect chipRect;
       CheckHitMap(chipRect);
   }
-
-    // ジャンプの処理
-    //if (pad & (PAD_INPUT_1))
-    //{
-    //    if (!m_isJump)
-    //    {
-    //        m_isJump = true;
-    //        m_isAnimJump = false;
-    //        m_jumpSpeed = kJumpPower;
-    //    }
-    //}
-
-    //if (m_isJump)
-    //{
-    //    m_pos.y += m_jumpSpeed;
-
-    //    m_jumpSpeed += kGravity; // 毎フレーム下方向に加速する
-
-    //    if (m_jumpSpeed > 0.0f)
-    //    {
-    //        if (m_pos.y >= kFieldHeight)
-    //        {
-    //             ジャンプ終了する
-    //            m_isJump = false;
-    //            m_isAnimJump = false;
-    //            m_jumpSpeed = 0.0f;
-    //            
-    //             地面にめり込むことがあるので地面の高さに位置を補正する
-    //            m_pos.y >= kFieldHeight;
-    //        }
-    //    }
-    //}
     printfDx("m_pos:(%d,%d)\n",
         (int)m_pos.x,
         (int)m_pos.y);

@@ -235,7 +235,7 @@
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Player.cpp",
               "ToolTip": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.cpp",
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.cpp",
-              "ViewState": "AQIAACsBAAAAAAAAAAAowDwBAAAUAAAA",
+              "ViewState": "AQIAANUAAAAAAAAAAADgv2cAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-13T07:14:35.113Z",
               "EditorCaption": ""
@@ -260,7 +260,7 @@
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Player.h",
               "ToolTip": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.h",
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.h",
-              "ViewState": "AQIAABkAAAAAAAAAAAAowE8AAAAGAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAADgvyIAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-11-13T07:32:50.954Z",
               "EditorCaption": ""
@@ -273,7 +273,7 @@
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Rect.cpp",
               "ToolTip": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Rect.cpp",
               "RelativeToolTip": "JUMPMANADVENTURE\\Rect.cpp",
-              "ViewState": "AQIAACoAAAAAAAAAAAAAwDQAAAABAAAA",
+              "ViewState": "AQIAAAwAAAAAAAAAAADgvx8AAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-19T05:20:58.418Z",
               "EditorCaption": ""
@@ -360,8 +360,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Bg.h",
               "ViewState": "AQIAAAgAAAAAAAAAAAAUwBwAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-19T02:24:34.978Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-19T02:24:34.978Z"
             },
             {
               "$type": "Document",
