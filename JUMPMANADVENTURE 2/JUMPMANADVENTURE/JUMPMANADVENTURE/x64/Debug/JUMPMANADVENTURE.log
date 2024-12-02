@@ -1,19 +1,22 @@
-﻿  Map.cpp
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(146,26): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(147,27): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(148,25): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(149,28): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  main.cpp
+  Map.cpp
+  Pad.cpp
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(146,26): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(147,27): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(148,25): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Map.cpp(149,28): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   Player.cpp
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(182,58): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(186,59): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(246,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(246,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(245,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(245,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(253,20): warning C4244: 'return': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(263,20): warning C4244: 'return': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(279,54): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(283,55): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-  main.cpp
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(181,58): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(185,59): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(245,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(245,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(244,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(244,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(252,20): warning C4244: 'return': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(262,20): warning C4244: 'return': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(278,54): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(282,55): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+  Rect.cpp
+  Vec2.cpp
   コードを生成中...
-  JUMPMANADVENTURE.vcxproj -> C:\Users\fko2447021\Desktop\Program\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe
+  JUMPMANADVENTURE.vcxproj -> C:\Users\由留部瑛人\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe
