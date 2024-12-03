@@ -4,7 +4,6 @@
 #include "Rect.h"
 #include "DxLib.h"
 #include <cassert>
-//#include <memory>
 
 namespace
 {
@@ -83,8 +82,8 @@ void Map::Draw()
 		for (int x = 0; x < kChipNumX; x++)
 		{
 			//int posX = kChipWidth * x - scrollX;
-			int posX = kChipWidth * x;
-			int posY = kChipHeight * y +s 10;
+			int posX = kChipWidth * x + 8;
+			int posY = kChipHeight * y + 10;
 
 			// ‰æ–ÊŠO‚Í•`‰æ‚µ‚È‚¢
 			if (posX < 0 - kChipWidth) continue;
