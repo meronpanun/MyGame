@@ -2,6 +2,7 @@
 #include <memory>
 #include "Rect.h"
 
+class Camera;
 class Map;
 /// <summary>
 /// プレイヤークラス
@@ -34,11 +35,13 @@ public:
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect();
 
-
+//	VECTOR pos;
 
 private:
 	// ジャンプ処理
 	void UpdateJump();
+
+//	void DrawPlayer(const Player& player, const Camera& camera);
 
 private:
 	// スクロール量を取得するためにMapクラス情報の取得

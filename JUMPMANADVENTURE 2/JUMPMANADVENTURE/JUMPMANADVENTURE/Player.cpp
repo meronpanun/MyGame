@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Pad.h"
 #include "Game.h"
+#include "Camera.h"
 #include <memory>
 #include <cassert>
 
@@ -226,8 +227,8 @@ void Player::Update()
 
 void Player::Draw()
 {
-//   int x = m_pos.x;
-//    x -= m_pMap->GetScrollX();
+  /* int x = m_pos.x;
+    x -= m_pMap->GetScrollX();*/
 
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
@@ -351,3 +352,8 @@ void Player::UpdateJump()
         m_move.y *= jumpHeight;
     }
 }
+
+//void Player::DrawPlayer(const Player& player, const Camera& camera)
+//{
+//    
+//}

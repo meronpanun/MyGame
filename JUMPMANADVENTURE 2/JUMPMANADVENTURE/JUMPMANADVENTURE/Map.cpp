@@ -83,7 +83,7 @@ void Map::Draw()
 		{
 			//int posX = kChipWidth * x - scrollX;
 			int posX = kChipWidth * x + 8;
-			int posY = kChipHeight * y + 10;
+			int posY = kChipHeight * y + 40;
 
 			// ‰æ–ÊŠO‚Í•`‰æ‚µ‚È‚¢
 			if (posX < 0 - kChipWidth) continue;
@@ -133,9 +133,9 @@ bool Map::IsCollision(Rect rect, Rect& ChipRect)
 			// •ÇˆÈŠO‚Æ‚Í“–‚½‚ç‚È‚¢
 			if (kChipSetDate[y][x] == 0) continue;
 
-			int chipLeft = kChipWidth * x * 1.5f;
+			int chipLeft = kChipWidth * x * static_cast <float>(1.5f);
 			int chipRight = chipLeft + kChipWidth;
-			int chipTop = kChipHeight * y * 1.5f;
+			int chipTop = kChipHeight * y * static_cast <float>(1.5f) + 46;
 			int chipBottom = chipTop + kChipHeight;
 
 			if (chipLeft > rect.m_right) continue;
