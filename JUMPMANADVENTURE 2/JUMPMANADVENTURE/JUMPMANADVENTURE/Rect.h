@@ -23,7 +23,7 @@ public:
 	Vec2 GetCenter();
 
 	// 当たり(重なり)判定
-	bool IsCollision(const Rect& Rect);
+	bool IsCollision(const Rect& rect);
 
 	/// <summary>
 	/// 左上座標とサイズからRestデータを設定

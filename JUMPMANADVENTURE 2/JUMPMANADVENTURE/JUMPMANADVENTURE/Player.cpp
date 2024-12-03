@@ -13,15 +13,15 @@
 namespace
 {
     // キャラクターサイズ
-    constexpr int kWidth = 20;
-    constexpr int kHeight = 20;
+    constexpr int kWidth = 30;
+    constexpr int kHeight = 30;
 
     // キャラクターの描画サイズ
     constexpr int kGraphWidth = 32;
     constexpr int kGraphHeight = 32;
 
     // 当たり判定半径
-    constexpr int kRadius = 9;
+  //  constexpr int kRadius = 5;
 
     // 速度
     constexpr float kSpeed = 3.0f;
@@ -59,7 +59,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(0.0f, 0.0f),
-    m_pos(120.0f, 415.0f),
+    m_pos(150.0f, 415.0f),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -146,34 +146,45 @@ void Player::Update()
     }
 
 
-
-    // ジャンプ処理
-    if (m_isJump) // ジャンプ中
+    // ジャンプ中
+    if (m_isJump) 
     {
+        // ジャンプ中処理
+        UpdateJump();
+
+        // 初速度に重力を足す
         m_move.y += kGravity;
 
+        // マップチップとのの当たり判定
         Rect chipRect;
         CheckHitMap(chipRect);
     }
     else // 地面についている場合
     {
+        // ジャンプ処理
         if (pad & PAD_INPUT_1 && m_isJump == false)
         {
             m_isJump = true;
             m_jumpCount++;
         }
-        else m_jumpCount = 0;
+        else
+        {
+            m_jumpCount = 0;
+        }
 
         if (m_jumpCount == 1 && m_isJump)
         {
             m_move.y = kJumpAcc;
             m_isAnimJump = false;
         }
-        else m_isJump = false;
+        else
+        {
+            m_isJump = false;
+        }
 
         m_pos.x += m_move.x;
         Rect chipRect;
-        // 横
+        // 横の当たり判定
         if (m_pMap->IsCollision(GetRect(), chipRect))
         {
             if (m_move.x > 0.0f)
@@ -187,10 +198,9 @@ void Player::Update()
         }
 
         m_pos.y += m_move.y;
-        // 縦
+        // 縦の当たり判定
         if (m_pMap->IsCollision(GetRect(), chipRect))
         {
-            // 上下どちらか当たったかをデバック表示
             if (m_move.y > 0.0f) // プレイヤーが上下方向に移動している
             {
                 // 地面に立っている何もしない
@@ -198,10 +208,10 @@ void Player::Update()
                 m_isJump = false;
                 m_isAnimJump = false;
             }
-            else if (m_move.y < 0.0f)
+            else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
             {
-                m_pos.y = chipRect.m_bottom + kHeight + 1;
-                m_move.y *= -1.0f;
+                m_pos.y = chipRect.m_bottom + kHeight + 1; // めり込まない位置に補正
+                m_move.y *= -1.0f; // 上方向への加速を下方向に変換
             }
         }
         else
@@ -216,6 +226,9 @@ void Player::Update()
 
 void Player::Draw()
 {
+//   int x = m_pos.x;
+//    x -= m_pMap->GetScrollX();
+
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
     // プレイヤーの切り取り画像
@@ -228,14 +241,14 @@ void Player::Draw()
     if (m_isAnimJump)
     {
 
-        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
-            kGraphWidth, 0, kGraphWidth, kGraphHeight,
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.02f), static_cast<int>(m_pos.y - kGraphHeight),
+            kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f,0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
-            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight,
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.02f), static_cast<int>(m_pos.y - kGraphHeight),
+            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight,2.0f,0,
             m_walkHandle, true, m_isAnimTurn);
 
     }
@@ -273,13 +286,13 @@ void Player::CheckHitMap(Rect chipRect)
     m_pos.x += m_move.x;
     if (m_pMap->IsCollision(GetRect(), chipRect))
     {
-        if (m_move.x > 0.0f)
+        if (m_move.x > 0.0f) // プレイヤーが右方向に移動している
         {
-            m_pos.x = chipRect.m_left - kWidth * static_cast<float>(0.5f) - 1;
+            m_pos.x = chipRect.m_left - kWidth * static_cast<float>(0.5f) - 1; // 左側の補正
         }
-        else if (m_move.x < 0.0f)
+        else if (m_move.x < 0.0f) // プレイヤーが左方向に移動している
         {
-            m_pos.x = chipRect.m_right + kWidth * static_cast<float>(0.5f) + 1;
+            m_pos.x = chipRect.m_right + kWidth * static_cast<float>(0.5f) + 1; // 右側の補正
         }
     }
 
@@ -287,17 +300,18 @@ void Player::CheckHitMap(Rect chipRect)
     m_pos.y += m_move.y;
     if (m_pMap->IsCollision(GetRect(), chipRect))
     {
-        if (m_move.y > 0.0f)
+        if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
         {
+            // 着地
             m_pos.y -= m_move.y;
             m_move.y = 0.0f;
             m_isJump = false;
             m_isAnimJump = false;
         }
-        else if (m_move.y < 0.0f)
+        else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
         {
-            m_pos.y = chipRect.m_bottom + kHeight + 1;
-            m_move.y *= 0.0f;
+            m_pos.y = chipRect.m_bottom + kHeight + 1; // めり込まない位置に補正
+            m_move.y *= -1.0f; // 上方向への加速を下方向に変換
         }
     }
 }

@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
 #include "Rect.h"
-#include "Vec2.h"
 
 class Map;
 /// <summary>
@@ -17,6 +16,9 @@ public:
 	void Update();
 	void Draw();
 
+	// マップのポインタ設定
+//	void SetMap(std::shared_ptr<Map> pMap) { m_pMap = pMap; }
+
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
 
@@ -31,6 +33,7 @@ public:
 
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect();
+
 
 
 private:

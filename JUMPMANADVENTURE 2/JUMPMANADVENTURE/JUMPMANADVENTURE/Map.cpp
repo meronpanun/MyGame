@@ -4,7 +4,7 @@
 #include "Rect.h"
 #include "DxLib.h"
 #include <cassert>
-#include <memory>
+//#include <memory>
 
 namespace
 {
@@ -75,7 +75,8 @@ void Map::Draw()
 	// 画面全体を空色で塗り潰す
 //	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
 
-	int scrollX = GetScrollX();
+//	int scrollX = GetScrollX();
+
 
 	for (int y = 0; y < kChipNumY; y++)
 	{
@@ -83,7 +84,7 @@ void Map::Draw()
 		{
 			//int posX = kChipWidth * x - scrollX;
 			int posX = kChipWidth * x;
-			int posY = kChipHeight * y;
+			int posY = kChipHeight * y +s 10;
 
 			// 画面外は描画しない
 			if (posX < 0 - kChipWidth) continue;
@@ -94,7 +95,7 @@ void Map::Draw()
 			// レンガブロック
 			if (kChipSetDate[y][x] == 1)
 			{
-				DrawGraph(posX, posY, m_handle001, false);
+				DrawRotaGraph(posX * 1.5 , posY * 1.5,1.5f,0, m_handle001, false);
 			}
 			/*
 			if (kChipSetDate[y][x] == 2)
@@ -109,22 +110,22 @@ void Map::Draw()
 /// 横スクロール
 /// </summary>
 /// <returns>スクロール量</returns>
-int Map::GetScrollX()
-{
-	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
-	if (result < 0)
-	{
-		result = 0;
-	}
-	if (result > Stage1::kMapWidth - Game::kScreenWidth)
-	{
-		result = Stage1::kMapWidth - Game::kScreenWidth;
-	}
+//int Map::GetScrollX()
+//{
+//	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
+//	if (result < 0)
+//	{
+//		result = 0;
+//	}
+//	if (result > Stage1::kMapWidth - Game::kScreenWidth)
+//	{
+//		result = Stage1::kMapWidth - Game::kScreenWidth;
+//	}
+//
+//	return result;
+//}
 
-	return result;
-}
-
-bool Map::IsCollision(Rect rect, Rect& testChipRect)
+bool Map::IsCollision(Rect rect, Rect& ChipRect)
 {
 	for (int y = 0; y < kChipNumY; y++)
 	{
@@ -133,9 +134,9 @@ bool Map::IsCollision(Rect rect, Rect& testChipRect)
 			// 壁以外とは当たらない
 			if (kChipSetDate[y][x] == 0) continue;
 
-			int chipLeft = kChipWidth * x;
+			int chipLeft = kChipWidth * x * 1.5f;
 			int chipRight = chipLeft + kChipWidth;
-			int chipTop = kChipHeight * y;
+			int chipTop = kChipHeight * y * 1.5f;
 			int chipBottom = chipTop + kChipHeight;
 
 			if (chipLeft > rect.m_right) continue;
@@ -143,10 +144,10 @@ bool Map::IsCollision(Rect rect, Rect& testChipRect)
 			if (chipRight < rect.m_left) continue;
 			if (chipBottom < rect.m_top) continue;
 
-			testChipRect.m_left = static_cast<int>(chipLeft);
-			testChipRect.m_right = static_cast<int>(chipRight);
-			testChipRect.m_top = static_cast<int>(chipTop);
-			testChipRect.m_bottom = static_cast<int>(chipBottom);
+			ChipRect.m_left = static_cast<int>(chipLeft);
+			ChipRect.m_right = static_cast<int>(chipRight);
+			ChipRect.m_top = static_cast<int>(chipTop);
+			ChipRect.m_bottom = static_cast<int>(chipBottom);
 			return true;
 		}
 	}

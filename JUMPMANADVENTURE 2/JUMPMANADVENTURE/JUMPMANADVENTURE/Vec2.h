@@ -77,7 +77,7 @@ public:
 	}
 
 	// ’·‚³‚ÌŽæ“¾
-	float Length()
+	float Length() const
 	{
 		return sqrtf(x * x + y * y);
 	}

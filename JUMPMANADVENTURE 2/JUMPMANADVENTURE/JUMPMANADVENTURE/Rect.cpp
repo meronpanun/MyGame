@@ -17,12 +17,12 @@ Vec2 Rect::GetCenter()
     return Vec2((m_left + m_right) / 2, (m_top + m_bottom) / 2);
 }
 
-bool Rect::IsCollision(const Rect& Rect)
+bool Rect::IsCollision(const Rect& rect)
 {
-    if (m_top > Rect.m_bottom) return false;
-    if (m_bottom > Rect.m_top) return false;
-    if (m_left > Rect.m_right) return false;
-    if (m_right > Rect.m_left) return false;
+    if (m_top > rect.m_bottom) return false;
+    if (m_bottom < rect.m_top) return false;
+    if (m_left > rect.m_right) return false;
+    if (m_right < rect.m_left) return false;
 
     return true;
 }
