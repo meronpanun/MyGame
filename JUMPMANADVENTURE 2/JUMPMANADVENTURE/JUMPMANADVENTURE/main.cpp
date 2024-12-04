@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Map.h"
 #include "Player.h"
+#include "Camera.h"
 
 
 // プログラムは WinMain から始まります
@@ -23,7 +24,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	pPlayer->Init();
 
 	Map* pMap = new Map;
-
+	pMap->Init();
 
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある
@@ -40,6 +41,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		pMap->Update();
 		pMap->Draw();
+
 
 		// 画面の切り替わりを待つ必要がある
 		ScreenFlip();	// 1/60秒経過するまで待つ

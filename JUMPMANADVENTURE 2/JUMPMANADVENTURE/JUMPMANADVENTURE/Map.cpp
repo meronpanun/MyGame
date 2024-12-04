@@ -4,7 +4,7 @@
 #include "Rect.h"
 #include "DxLib.h"
 #include <cassert>
-//#include <memory>
+#include "Camera.h"
 
 namespace
 {
@@ -66,6 +66,10 @@ Map::~Map()
 	DeleteGraph(m_handle001);
 }
 
+void Map::Init()
+{
+}
+
 void Map::Update()
 {
 }
@@ -77,13 +81,12 @@ void Map::Draw()
 
 //	int scrollX = GetScrollX();
 
-
 	for (int y = 0; y < kChipNumY; y++)
 	{
 		for (int x = 0; x < kChipNumX; x++)
 		{
 			//int posX = kChipWidth * x - scrollX;
-			int posX = kChipWidth * x;
+			int posX = kChipWidth * x + 8;
 			int posY = kChipHeight * y + 10;
 
 			// ‰æ–ÊŠO‚Í•`‰æ‚µ‚È‚¢
@@ -95,7 +98,7 @@ void Map::Draw()
 			// ƒŒƒ“ƒKƒuƒƒbƒN
 			if (kChipSetDate[y][x] == 1)
 			{
-				DrawRotaGraph(posX * 1.5 , posY * 1.5,1.5f,0, m_handle001, false);
+				DrawRotaGraph(posX * 1.5 , posY * 1.5, 1.5f, 0, m_handle001, false);
 			}
 			/*
 			if (kChipSetDate[y][x] == 2)

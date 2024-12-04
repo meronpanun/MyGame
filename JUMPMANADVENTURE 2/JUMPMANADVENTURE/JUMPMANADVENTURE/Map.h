@@ -2,6 +2,7 @@
 #include <memory>
 #include "Rect.h"
 
+class Camera;
 class Player;
 class Map
 {
@@ -16,6 +17,7 @@ public:
 	//プレイヤーのポインタを設定する
 //	void SetPlayer(std::shared_ptr<Player> pPlayer) { m_pPlayer = pPlayer; }
 
+	void Init();
 	void Update();
 	void Draw();
 
@@ -30,7 +32,7 @@ private:
 	// スクロール量を決定するためにプレイヤーの位置情報が必要
 	Player* m_pPlayer;
 
-
+	// マップのグラフィックハンドル
 	int m_handle001;
 	//	int m_handle002;
 };

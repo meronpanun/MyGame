@@ -227,8 +227,10 @@ void Player::Update()
 
 void Player::Draw()
 {
-  /* int x = m_pos.x;
-    x -= m_pMap->GetScrollX();*/
+    // スクロール量の反映
+   //int x = m_pos.x;
+   // x -= m_pMap->GetScrollX();
+    
 
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;

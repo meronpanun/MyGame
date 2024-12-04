@@ -21,7 +21,8 @@ public:
 //	void SetMap(std::shared_ptr<Map> pMap) { m_pMap = pMap; }
 
 	// プレイヤーの位置情報を取得
-	Vec2 GetPos() const { return m_pos; }
+//	Vec2 GetPos() const { return m_pos; }
+	float GetX() const { return m_pos.x; }
 
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;
@@ -35,7 +36,6 @@ public:
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect();
 
-//	VECTOR pos;
 
 private:
 	// ジャンプ処理
@@ -52,6 +52,7 @@ private:
 
 	// 移動量
 	Vec2 m_move;
+
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;
