@@ -54,6 +54,7 @@ namespace
 }
 
 Player::Player() :
+    m_pMap(nullptr),
     m_isJump(false),
     m_isRight(false),
     m_isLeft(false),
@@ -225,13 +226,8 @@ void Player::Update()
         (int)m_pos.y);
 }
 
-void Player::Draw()
+void Player::Draw(Player& player, Camera& camera)
 {
-    // スクロール量の反映
-   //int x = m_pos.x;
-   // x -= m_pMap->GetScrollX();
-    
-
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
     // プレイヤーの切り取り画像
@@ -239,22 +235,22 @@ void Player::Draw()
     int walkSrcX = kUseFrame[animFrame];
     int walkSrcY = kGraphHeight;
 
-
     // ジャンプした場合
     if (m_isAnimJump)
     {
 
         DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
-            kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f,0,
+            kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
         DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
-            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight,2.0f,0,
+            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 
     }
+    
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
     DrawBox(GetLeft(), GetTop(),
@@ -354,8 +350,3 @@ void Player::UpdateJump()
         m_move.y *= jumpHeight;
     }
 }
-
-//void Player::DrawPlayer(const Player& player, const Camera& camera)
-//{
-//    
-//}

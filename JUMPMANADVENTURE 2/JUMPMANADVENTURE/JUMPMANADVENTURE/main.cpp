@@ -26,6 +26,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Map* pMap = new Map;
 	pMap->Init();
 
+	Camera* pCamera = new Camera;
+	pCamera->Init();
+
+	Camera camera;
+
+	Player player;
+	
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある
 	{
@@ -37,11 +44,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		// ここにゲームの処理を書く
 		pPlayer->Update();
-		pPlayer->Draw();
+		pPlayer->Draw(player,camera);
 
 		pMap->Update();
-		pMap->Draw();
+		pMap->Draw(camera);
 
+		pCamera->Update(player);
 
 		// 画面の切り替わりを待つ必要がある
 		ScreenFlip();	// 1/60秒経過するまで待つ

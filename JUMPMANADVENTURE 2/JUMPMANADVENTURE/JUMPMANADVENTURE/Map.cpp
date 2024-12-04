@@ -3,8 +3,8 @@
 #include "Player.h"
 #include "Rect.h"
 #include "DxLib.h"
-#include <cassert>
 #include "Camera.h"
+#include <cassert>
 
 namespace
 {
@@ -74,7 +74,7 @@ void Map::Update()
 {
 }
 
-void Map::Draw()
+void Map::Draw(Camera& camera)
 {
 	// 画面全体を空色で塗り潰す
 //	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
@@ -98,7 +98,7 @@ void Map::Draw()
 			// レンガブロック
 			if (kChipSetDate[y][x] == 1)
 			{
-				DrawRotaGraph(posX * 1.5 , posY * 1.5, 1.5f, 0, m_handle001, false);
+				DrawRotaGraph(camera.m_drawOffset.x + posX * 1.5 , posY * 1.5 + 50, 1.5f, 0, m_handle001, false);
 			}
 			/*
 			if (kChipSetDate[y][x] == 2)
@@ -139,20 +139,25 @@ bool Map::IsCollision(Rect rect, Rect& ChipRect)
 
 			int chipLeft = kChipWidth * x * 1.5f;
 			int chipRight = chipLeft + kChipWidth;
-			int chipTop = kChipHeight * y * 1.5f;
+			int chipTop = kChipHeight * y * 1.5f + 50;
 			int chipBottom = chipTop + kChipHeight;
 
+			// 絶対に当たらないパターンをはじく
 			if (chipLeft > rect.m_right) continue;
 			if (chipTop > rect.m_bottom) continue;
 			if (chipRight < rect.m_left) continue;
 			if (chipBottom < rect.m_top) continue;
 
+			// ぶつかったマップチップの矩形を設定する
 			ChipRect.m_left = static_cast<int>(chipLeft);
 			ChipRect.m_right = static_cast<int>(chipRight);
 			ChipRect.m_top = static_cast<int>(chipTop);
 			ChipRect.m_bottom = static_cast<int>(chipBottom);
+
+			// いずれかのマップチップと当たっていいたら終了
 			return true;
 		}
 	}
+	// 全てのマップチップをチェックして1つも当たっていなければ当たっていない
 	return false;
 }

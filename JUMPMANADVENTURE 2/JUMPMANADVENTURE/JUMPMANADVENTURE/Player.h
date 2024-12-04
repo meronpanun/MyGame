@@ -1,6 +1,6 @@
 #pragma once
-#include <memory>
 #include "Rect.h"
+#include <memory>
 
 class Camera;
 class Map;
@@ -15,14 +15,14 @@ public:
 
 	void Init();
 	void Update();
-	void Draw();
+	void Draw(Player& player, Camera& camera);
 
 	// マップのポインタ設定
 //	void SetMap(std::shared_ptr<Map> pMap) { m_pMap = pMap; }
 
 	// プレイヤーの位置情報を取得
-//	Vec2 GetPos() const { return m_pos; }
-	float GetX() const { return m_pos.x; }
+	Vec2 GetPos() const { return m_pos; }
+//	float GetX() const { return m_pos.x; }
 
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;
@@ -35,24 +35,19 @@ public:
 
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect();
-
+	// プレイヤーの位置
+	Vec2 m_pos;
 
 private:
 	// ジャンプ処理
 	void UpdateJump();
 
-//	void DrawPlayer(const Player& player, const Camera& camera);
-
 private:
 	// スクロール量を取得するためにMapクラス情報の取得
 	Map* m_pMap;
 
-	// プレイヤーの位置
-	Vec2 m_pos;
-
 	// 移動量
 	Vec2 m_move;
-
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;

@@ -1,5 +1,5 @@
 #pragma once
-#include <cmath>
+#include "Vec2.h"
 
 class Player;
 class Map;
@@ -10,17 +10,11 @@ public:
 	~Camera();
 
 	void Init();
-	void Update();
+	void Update(Player& player);
 
-
-
-	
-private:
 	// 実際のカメラのポジション
 	Vec2 m_pos;
+	// 全てのdrawObjectに足す値
 	Vec2 m_drawOffset;
-
-	// プレイヤーポインタ
-	Player* m_pPlayer;
 };
 

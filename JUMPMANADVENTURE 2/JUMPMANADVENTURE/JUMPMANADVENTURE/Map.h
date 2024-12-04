@@ -19,7 +19,7 @@ public:
 
 	void Init();
 	void Update();
-	void Draw();
+	void Draw(Camera& camera);
 
 	//プレイヤーの位置からスクロール量を取得する
 //	int GetScrollX();
@@ -30,7 +30,7 @@ public:
 
 private:
 	// スクロール量を決定するためにプレイヤーの位置情報が必要
-	Player* m_pPlayer;
+//	Player* m_pPlayer;
 
 	// マップのグラフィックハンドル
 	int m_handle001;

@@ -22,20 +22,25 @@ void Camera::Init()
 	m_pos = Vec2(0, 0);
 }
 
-void Camera::Update()
+void Camera::Update(Player& player)
 {
+	// プレイヤーの位置がカメラの中央から一定以上離れたら
+	// カメラの「目標」ポジションをその範囲に留める
 	Vec2 aimCameraPos = m_pos;
-	if (m_pPlayer->GetX() > m_pos.x + (CameraScopeRangeW * 0.5f))
+	if (player.m_pos.x > m_pos.x + (CameraScopeRangeW * 0.5f))
 	{
 		aimCameraPos.x = m_pos.x - (CameraScopeRangeW * 0.5f);
 	}
-	else if (m_pPlayer->GetX() > m_pos.x - (CameraScopeRangeW * 0.5f))
+	else if (player.m_pos.x < m_pos.x - (CameraScopeRangeW * 0.5f))
 	{
 		aimCameraPos.x = m_pos.x + (CameraScopeRangeW * 0.5f);
 	}
 
+	// Draw側に足しているcamera.pos.xは反転させる
 	m_drawOffset.x = m_pos.x * -1;
 
+	// その時、画面中央にプレイヤーが来るようにする
+	// (camera.pos画面中央になるようにする)
 	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth * 0.5f);
 }
 
