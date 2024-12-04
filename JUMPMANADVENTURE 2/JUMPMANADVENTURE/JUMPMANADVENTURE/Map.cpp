@@ -84,7 +84,7 @@ void Map::Draw()
 		{
 			//int posX = kChipWidth * x - scrollX;
 			int posX = kChipWidth * x;
-			int posY = kChipHeight * y +s 10;
+			int posY = kChipHeight * y + 10;
 
 			// ‰æ–ÊŠO‚Í•`‰æ‚µ‚È‚¢
 			if (posX < 0 - kChipWidth) continue;
