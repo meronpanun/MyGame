@@ -13,16 +13,15 @@ public:
 	Player();
 	virtual ~Player();
 
-	void Init();
+	void Init(Camera* camera);
 	void Update();
-	void Draw(Player& player, Camera& camera);
+	void Draw();
 
 	// マップのポインタ設定
 //	void SetMap(std::shared_ptr<Map> pMap) { m_pMap = pMap; }
 
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
-//	float GetX() const { return m_pos.x; }
 
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;
@@ -48,6 +47,8 @@ private:
 
 	// 移動量
 	Vec2 m_move;
+
+	Camera* m_camera;
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;

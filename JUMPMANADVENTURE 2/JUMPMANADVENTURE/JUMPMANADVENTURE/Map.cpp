@@ -74,7 +74,7 @@ void Map::Update()
 {
 }
 
-void Map::Draw(Camera& camera)
+void Map::Draw(Camera* camera)
 {
 	// 画面全体を空色で塗り潰す
 //	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
@@ -98,7 +98,8 @@ void Map::Draw(Camera& camera)
 			// レンガブロック
 			if (kChipSetDate[y][x] == 1)
 			{
-				DrawRotaGraph(camera.m_drawOffset.x + posX * 1.5 , posY * 1.5 + 50, 1.5f, 0, m_handle001, false);
+				DrawRotaGraph(posX * 1.5 + camera->m_drawOffset.x, posY * 1.5 + 50, 1.5f, 0, m_handle001, false);
+				
 			}
 			/*
 			if (kChipSetDate[y][x] == 2)

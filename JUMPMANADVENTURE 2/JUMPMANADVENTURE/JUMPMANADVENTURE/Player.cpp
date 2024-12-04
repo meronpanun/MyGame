@@ -80,10 +80,14 @@ Player::~Player()
     DeleteGraph(m_jumpHandle);
 }
 
-void Player::Init()
+void Player::Init(Camera* camera)
 {
     // ジャンプフラグ
     m_isGround = false;
+
+    m_camera = camera;
+    m_camera->m_pos.SetPos(m_pos.x, m_pos.y);
+
 }
 
 void Player::Update()
@@ -226,7 +230,7 @@ void Player::Update()
         (int)m_pos.y);
 }
 
-void Player::Draw(Player& player, Camera& camera)
+void Player::Draw()
 {
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
@@ -235,24 +239,40 @@ void Player::Draw(Player& player, Camera& camera)
     int walkSrcX = kUseFrame[animFrame];
     int walkSrcY = kGraphHeight;
 
+
+
     // ジャンプした場合
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32 + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x  - kGraphWidth + 32 + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 
     }
+   /* if (m_isAnimJump)
+    {
+
+        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
+            kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
+            m_jumpHandle, true, m_isAnimTurn);
+    }
+    else
+    {
+        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
+            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
+            m_walkHandle, true, m_isAnimTurn);
+
+    }*/
     
 #ifdef DISP_COLLISON
-    // 当たり判定のデバッグ表示
+    // 当たり判定のデバッグ表示cc
     DrawBox(GetLeft(), GetTop(),
         GetRigth(), GetBottom(),
         GetColor(0, 0, 255), false);

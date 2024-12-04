@@ -146,6 +146,8 @@
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="SceneManeger.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +157,8 @@
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="SceneManeger.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

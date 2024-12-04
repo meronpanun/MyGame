@@ -19,7 +19,7 @@ public:
 
 	void Init();
 	void Update();
-	void Draw(Camera& camera);
+	void Draw(Camera* camera);
 
 	//プレイヤーの位置からスクロール量を取得する
 //	int GetScrollX();

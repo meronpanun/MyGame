@@ -2,7 +2,6 @@
 #include "Vec2.h"
 
 class Player;
-class Map;
 class Camera
 {
 public:
@@ -10,7 +9,7 @@ public:
 	~Camera();
 
 	void Init();
-	void Update(Player& player);
+	void Update(const Player* player);
 
 	// 実際のカメラのポジション
 	Vec2 m_pos;

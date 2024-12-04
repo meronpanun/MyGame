@@ -22,6 +22,11 @@ public:
 		x = posX;
 		y = posY;
 	}
+	void SetPos(float a, float b)
+	{
+		x = a;
+		y = b;
+	}
 
 	// Vec2 = (Vec2 += Vec2)
 	Vec2 operator+=(const Vec2& vec)
