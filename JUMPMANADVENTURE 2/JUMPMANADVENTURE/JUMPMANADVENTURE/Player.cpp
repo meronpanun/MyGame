@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "Pad.h"
 #include "Game.h"
+#include "Camera.h"
 #include <memory>
 #include <cassert>
 
@@ -59,7 +60,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(0.0f, 0.0f),
-    m_pos(150.0f, 415.0f),
+    m_pos(150.0f, 610.0f),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -226,8 +227,8 @@ void Player::Update()
 
 void Player::Draw()
 {
-//   int x = m_pos.x;
-//    x -= m_pMap->GetScrollX();
+  /* int x = m_pos.x;
+    x -= m_pMap->GetScrollX();*/
 
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
@@ -241,13 +242,13 @@ void Player::Draw()
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.02f), static_cast<int>(m_pos.y - kGraphHeight),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f,0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.02f), static_cast<int>(m_pos.y - kGraphHeight),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight,2.0f,0,
             m_walkHandle, true, m_isAnimTurn);
 
@@ -351,3 +352,8 @@ void Player::UpdateJump()
         m_move.y *= jumpHeight;
     }
 }
+
+//void Player::DrawPlayer(const Player& player, const Camera& camera)
+//{
+//    
+//}
