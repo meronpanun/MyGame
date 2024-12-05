@@ -19,7 +19,7 @@ public:
 
 	// プレイヤーの位置からスクロール量を決定する
 //	virtual int GetScrollX() override;
-	int GetScrollX();
+//	int GetScrollX();
 
 	//指定した矩形と当たっているか判定
 //	virtual bool IsCollision(Rect rect, Rect& ChipRect) override;
@@ -35,9 +35,6 @@ public:
 
 private:
 	Player* m_pPlayer;
-
-	// 操作説明の画像
-
 
 	// マップのグラフィックハンドル
 	  int m_handle001;

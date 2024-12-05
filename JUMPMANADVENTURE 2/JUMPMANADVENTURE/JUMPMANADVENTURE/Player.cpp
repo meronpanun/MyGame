@@ -244,13 +244,13 @@ void Player::Draw()
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pBgStage1->GetScrollX() + m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(m_pBgStage1->GetScrollX() + m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 
@@ -264,22 +264,22 @@ void Player::Draw()
 #endif // DISP_COLLISION
 }
 
-float Player::GetLeft() const
+float Player::GetLeft() 
 {
     return m_pos.x - kWidth * static_cast<float>(0.5f);
 }
 
-float Player::GetTop() const
+float Player::GetTop()
 {
     return m_pos.y - kHeight;
 }
 
-float Player::GetRigth() const
+float Player::GetRigth()
 {
     return m_pos.x + kWidth * static_cast<float>(0.5f);
 }
 
-float Player::GetBottom() const
+float Player::GetBottom() 
 {
     return m_pos.y;
 }

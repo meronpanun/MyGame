@@ -29,10 +29,10 @@ public:
 
 
 	// プレイヤーの上下左右情報取得
-	float GetLeft() const;
-	float GetTop() const;
-	float GetRigth() const;
-	float GetBottom() const;
+	float GetLeft();
+	float GetTop();
+	float GetRigth();
+	float GetBottom();
 
 	// マップチップとの当たり判定
 	void CheckHitBgStage1(Rect chipRect);
