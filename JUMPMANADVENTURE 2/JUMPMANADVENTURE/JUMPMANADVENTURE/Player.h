@@ -1,9 +1,11 @@
 #pragma once
+#include "Vec2.h"
 #include "Rect.h"
-#include <memory>
 
-class Camera;
-class Map;
+
+class BgStage1;
+class SceneMain;
+class Bg;
 /// <summary>
 /// プレイヤークラス
 /// </summary>
@@ -11,17 +13,20 @@ class Player
 {
 public:
 	Player();
-	virtual ~Player();
+	~Player();
 
-	void Init(Camera* camera);
+	void Init();
 	void Update();
 	void Draw();
 
 	// マップのポインタ設定
-//	void SetMap(std::shared_ptr<Map> pMap) { m_pMap = pMap; }
+//	void SetBgStage1(std::shared_ptr<BgStage1> pBgStage1) { m_pBgStage1 = pBgStage1; }
 
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
+	// プレイヤーの当たり判定を取得
+	Rect GetColRect() const { return m_colRect; }
+
 
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;
@@ -30,25 +35,29 @@ public:
 	float GetBottom() const;
 
 	// マップチップとの当たり判定
-	void CheckHitMap(Rect chipRect);
+	void CheckHitBgStage1(Rect chipRect);
 
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect();
-	// プレイヤーの位置
-	Vec2 m_pos;
+
 
 private:
 	// ジャンプ処理
 	void UpdateJump();
 
 private:
-	// スクロール量を取得するためにMapクラス情報の取得
-	Map* m_pMap;
+	// 背景
+//	Bg* m_pBg;
+//	SceneMain* m_pMain;
 
+	// プレイヤーの位置
+	Vec2 m_pos;
 	// 移動量
 	Vec2 m_move;
+	// 当たり判定用の矩形
+	Rect m_colRect;
 
-	Camera* m_camera;
+	BgStage1* m_pBgStage1;
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;

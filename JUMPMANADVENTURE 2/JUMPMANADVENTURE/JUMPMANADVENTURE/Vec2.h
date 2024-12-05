@@ -22,11 +22,6 @@ public:
 		x = posX;
 		y = posY;
 	}
-	void SetPos(float a, float b)
-	{
-		x = a;
-		y = b;
-	}
 
 	// Vec2 = (Vec2 += Vec2)
 	Vec2 operator+=(const Vec2& vec)
@@ -82,7 +77,7 @@ public:
 	}
 
 	// ’·‚³‚ÌŽæ“¾
-	float Length() const
+	float Length()
 	{
 		return sqrtf(x * x + y * y);
 	}

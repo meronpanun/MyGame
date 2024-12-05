@@ -13,6 +13,6 @@ namespace Game
 /*ステージ1のマップの広さ*/
 namespace Stage1
 {
-	constexpr int kMapWidth = 3392;
-	constexpr int kMapHeight = 448;
+	constexpr int kBgStage1Width = 3392;
+	constexpr int kBgStage1Height = 448;
 }

@@ -1,10 +1,9 @@
 #include "Player.h"
 #include "DxLib.h"
-#include "Map.h"
+#include "BgStage1.h"
 #include "Pad.h"
 #include "Game.h"
 #include "Camera.h"
-#include <memory>
 #include <cassert>
 
 #ifdef _DEBUG
@@ -54,7 +53,7 @@ namespace
 }
 
 Player::Player() :
-    m_pMap(nullptr),
+    m_pBgStage1(nullptr),
     m_isJump(false),
     m_isRight(false),
     m_isLeft(false),
@@ -80,13 +79,13 @@ Player::~Player()
     DeleteGraph(m_jumpHandle);
 }
 
-void Player::Init(Camera* camera)
+void Player::Init()
 {
     // ジャンプフラグ
     m_isGround = false;
 
-    m_camera = camera;
-    m_camera->m_pos.SetPos(m_pos.x, m_pos.y);
+    //m_camera = camera;
+    //m_camera->m_pos.SetPos(m_pos.x, m_pos.y);
 
 }
 
@@ -163,7 +162,7 @@ void Player::Update()
 
         // マップチップとのの当たり判定
         Rect chipRect;
-        CheckHitMap(chipRect);
+        CheckHitBgStage1(chipRect);
     }
     else // 地面についている場合
     {
@@ -191,7 +190,7 @@ void Player::Update()
         m_pos.x += m_move.x;
         Rect chipRect;
         // 横の当たり判定
-        if (m_pMap->IsCollision(GetRect(), chipRect))
+        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
         {
             if (m_move.x > 0.0f)
             {
@@ -205,7 +204,7 @@ void Player::Update()
 
         m_pos.y += m_move.y;
         // 縦の当たり判定
-        if (m_pMap->IsCollision(GetRect(), chipRect))
+        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
         {
             if (m_move.y > 0.0f) // プレイヤーが上下方向に移動している
             {
@@ -245,31 +244,17 @@ void Player::Draw()
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32 + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pBgStage1->GetScrollX() + m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(m_pos.x  - kGraphWidth + 32 + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pBgStage1->GetScrollX() + m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 
     }
-   /* if (m_isAnimJump)
-    {
-
-        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
-            kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
-            m_jumpHandle, true, m_isAnimTurn);
-    }
-    else
-    {
-        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_camera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 5),
-            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
-            m_walkHandle, true, m_isAnimTurn);
-
-    }*/
     
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示cc
@@ -299,11 +284,11 @@ float Player::GetBottom() const
     return m_pos.y;
 }
 
-void Player::CheckHitMap(Rect chipRect)
+void Player::CheckHitBgStage1(Rect chipRect)
 {
     // 横の当たり判定
     m_pos.x += m_move.x;
-    if (m_pMap->IsCollision(GetRect(), chipRect))
+    if (m_pBgStage1->IsCollision(GetRect(), chipRect))
     {
         if (m_move.x > 0.0f) // プレイヤーが右方向に移動している
         {
@@ -317,7 +302,7 @@ void Player::CheckHitMap(Rect chipRect)
 
     // 縦の当たり判定
     m_pos.y += m_move.y;
-    if (m_pMap->IsCollision(GetRect(), chipRect))
+    if (m_pBgStage1->IsCollision(GetRect(), chipRect))
     {
         if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
         {
