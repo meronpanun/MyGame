@@ -117,10 +117,6 @@ void BgStage1::Draw(/*Camera* camera*/)
 				DrawRotaGraph(posX * kChipScale, posY * kChipScale, kChipScale, 0, m_handle001, false);
 				
 			}
-			else if (kChipSetDate[y][x] == 1 == m_pPlayer->GetTop())
-			{
-				break;
-			}
 			/*
 			if (kChipSetDate[y][x] == 2)
 				{
