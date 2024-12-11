@@ -19,17 +19,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	// 描画先を裏画面にする
 	SetDrawScreen(DX_SCREEN_BACK);
 
-//	SceneManager* pScene = new SceneManager();
+	SceneManager* pScene = new SceneManager();
+	pScene->Init();
 
-//	pScene->Init();
+	//Player* pPlayer = new Player();
 
-	Player* pPlayer = new Player();
+	//pPlayer->Init();
 
-	pPlayer->Init();
+	//BgStage1* pStage1 = new BgStage1();
 
-	BgStage1* pStage1 = new BgStage1();
-
-	pStage1->Init();
+	//pStage1->Init();
 
 	// ゲームループ
 	while (ProcessMessage() == 0)	// Windowsが行う処理を待つ必要がある
@@ -41,14 +40,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ClearDrawScreen();
 
 		// ここにゲームの処理を書く
-	//	pScene->Update();
-	//	pScene->Draw();
+		pScene->Update();
+		pScene->Draw();
 
-		pPlayer->Update();
-		pPlayer->Draw();
+		//pPlayer->Update();
+		//pPlayer->Draw();
 
-		pStage1->Update();
-		pStage1->Draw();
+		//pStage1->Update();
+		//pStage1->Draw();
 
 		// 画面の切り替わりを待つ必要がある
 		ScreenFlip();	// 1/60秒経過するまで待つ

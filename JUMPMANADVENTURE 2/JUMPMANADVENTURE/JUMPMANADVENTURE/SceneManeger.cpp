@@ -1,60 +1,69 @@
-//#include "SceneManager.h"
-//#include "SceneStage1.h"
-//#include "Pad.h"
-//#include <cassert>
-//
-//SceneManager::SceneManager():
-//	m_runScene(kSceneStage1)
-//{
-//	m_pStage1 = new SceneStage1;
-//}
-//
-//SceneManager::~SceneManager()
-//{
-//	delete m_pStage1;
-//	m_pStage1 = nullptr;
-//}
-//
-//void SceneManager::Init()
-//{
-//	switch (m_kind)
-//	{
-//	case SceneManager::kSceneMain:
-//		m_pSceneMain = new SceneMain();
-//		m_pSceneMain->Init();
-//		break;
-//	default:
-//		assert(false);
-//		break;
-//	}
-//}
-//
-//
-//void SceneManager::Update()
-//{
-//	Pad::Update();
-//	SceneKind nextKind = m_kind;
-//
-//	switch (m_kind)
-//	{
-//	case SceneManager::kSceneMain:
-//		nextKind = m_pSceneMain->Update();
-//		break;
-//	default:
-//		assert(false);
-//		break;
-//	}
-//}
-//
-//void SceneManager::Draw()
-//{
-//	switch (m_kind)
-//	{
-//	case SceneManager::kSceneMain:
-//		m_pSceneMain->Draw();
-//		break;
-//	default:
-//		assert(false);
-//		break;
-//	}
-//}
+#include "SceneManager.h"
+#include "SceneStage1.h"
+#include "SceneTitle.h"
+#include "Pad.h"
+
+SceneManager::SceneManager():
+	m_runScene(kSceneTitle)
+{
+	m_pStage1 = new SceneStage1;
+}
+
+SceneManager::~SceneManager()
+{
+	delete m_pTitle;
+	m_pTitle = nullptr;
+
+	delete m_pStage1;
+	m_pStage1 = nullptr;
+}
+
+void SceneManager::Init()
+{
+	// 実行するシーンの初期化を行う
+	switch (m_runScene)
+	{
+		// タイトルシーン
+	case kSceneTitle:
+		m_pTitle->Init();
+		break;
+		// ステージ1
+	case kSceneStage1:
+		m_pStage1->Init();
+	default:
+		break;
+	}
+}
+
+
+void SceneManager::Update()
+{
+	Pad::Update();
+
+	switch (m_runScene)
+	{
+	case kSceneTitle:
+		m_pTitle->Update();
+		break;
+	case kSceneStage1:
+		m_pStage1->Update();
+		break;
+	default:
+		break;
+	}
+}
+
+void SceneManager::Draw()
+{
+	switch (m_runScene)
+	{
+	case kSceneTitle:
+		m_pTitle->Draw();
+		break;
+	case kSceneStage1:
+		m_pStage1->Draw();
+		break;
+	default:
+		break;
+	}
+}

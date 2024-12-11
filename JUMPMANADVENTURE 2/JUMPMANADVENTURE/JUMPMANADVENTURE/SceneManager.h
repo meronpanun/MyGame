@@ -1,6 +1,8 @@
 #pragma once
 
 class SceneStage1;
+class SceneTitle;
+class SceneMain;
 
 /// <summary>
 /// シーン管理クラス
@@ -23,12 +25,12 @@ private:
 		kSceneStage1,
 	};
 
-private:
 	// 現在実行中のシーン
 	SceneSelect m_runScene;
 
+private:
 	// SceneManagerで管理するシーン
-//	TitleScene* m_pTitleScene;
+	SceneTitle* m_pTitle;
 	SceneStage1* m_pStage1;
 };
 
