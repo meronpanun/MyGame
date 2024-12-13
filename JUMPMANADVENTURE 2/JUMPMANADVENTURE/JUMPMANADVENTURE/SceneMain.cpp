@@ -6,9 +6,7 @@
 #include "Bg.h"
 #include "Player.h"
 
-SceneMain::SceneMain() :
-	m_pPlayer(nullptr),
-	m_gameScreenHandle(-1)
+SceneMain::SceneMain()
 {
 
 }
@@ -19,13 +17,20 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	m_player->Init();
+	m_bgStage1.Init();
 }
 
-
-void SceneMain::Update()
+SceneManager::SceneSelect SceneMain::Update()
 {
+	m_player->Update();
+	Pad::Update();
+
+	return SceneManager::SceneSelect::kSceneStage1;
 }
 
 void SceneMain::Draw()
 {
+	m_bgStage1.Draw();
+	m_player->Draw();
 }

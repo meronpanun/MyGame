@@ -1,21 +1,28 @@
 #include "SceneManager.h"
 #include "SceneStage1.h"
 #include "SceneTitle.h"
+#include "SceneMain.h"
 #include "Pad.h"
 
 SceneManager::SceneManager():
-	m_runScene(kSceneTitle)
+	m_runScene(kSceneTitle),
+	m_pTitle(nullptr),
+	m_pSceneMain(nullptr)
 {
-	m_pStage1 = new SceneStage1;
 }
 
 SceneManager::~SceneManager()
 {
-	delete m_pTitle;
-	m_pTitle = nullptr;
-
-	delete m_pStage1;
-	m_pStage1 = nullptr;
+	if (m_pTitle != nullptr)
+	{
+		delete m_pTitle;
+		m_pTitle = nullptr;
+	}
+	if (m_pSceneMain != nullptr)
+	{
+		delete m_pSceneMain;
+		m_pSceneMain = nullptr;
+	}
 }
 
 void SceneManager::Init()
@@ -25,11 +32,13 @@ void SceneManager::Init()
 	{
 		// タイトルシーン
 	case kSceneTitle:
+		m_pTitle = new SceneTitle();
 		m_pTitle->Init();
 		break;
 		// ステージ1
 	case kSceneStage1:
-		m_pStage1->Init();
+		m_pSceneMain = new SceneMain();
+		m_pSceneMain->Init();
 	default:
 		break;
 	}
@@ -39,17 +48,24 @@ void SceneManager::Init()
 void SceneManager::Update()
 {
 	Pad::Update();
+	SceneSelect nextSelect = m_runScene;
 
 	switch (m_runScene)
 	{
 	case kSceneTitle:
-		m_pTitle->Update();
+		nextSelect = m_pTitle->Update();
 		break;
 	case kSceneStage1:
-		m_pStage1->Update();
+		nextSelect = m_pSceneMain->Update();
 		break;
 	default:
 		break;
+	}
+	if (nextSelect != m_runScene)
+	{
+		m_runScene = nextSelect;
+
+		Init();
 	}
 }
 
@@ -57,11 +73,11 @@ void SceneManager::Draw()
 {
 	switch (m_runScene)
 	{
+	case kSceneStage1:
+		m_pSceneMain->Draw();
+		break;
 	case kSceneTitle:
 		m_pTitle->Draw();
-		break;
-	case kSceneStage1:
-		m_pStage1->Draw();
 		break;
 	default:
 		break;

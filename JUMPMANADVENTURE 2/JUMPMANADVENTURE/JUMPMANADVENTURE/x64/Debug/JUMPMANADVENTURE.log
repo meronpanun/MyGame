@@ -1,34 +1,9 @@
-﻿  main.cpp
+﻿  Player.cpp
+  SceneMain.cpp
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(264,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(264,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(263,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(263,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   SceneManeger.cpp
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneManeger.cpp(9,14): error C2248: 'SceneStage1::SceneStage1': private メンバー (クラス 'SceneStage1' で宣言されている) にアクセスできません。
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(11,2):
-  'SceneStage1::SceneStage1' の宣言を確認してください
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(9,7):
-  'SceneStage1' の宣言を確認してください
-  
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneManeger.cpp(17,2): error C2248: 'SceneStage1::~SceneStage1': private メンバー (クラス 'SceneStage1' で宣言されている) にアクセスできません。
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(21,1):
-  コンパイラが 'SceneStage1::~SceneStage1' をここに生成しました。
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(9,7):
-  'SceneStage1' の宣言を確認してください
-  
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneManeger.cpp(32,14): error C2248: 'SceneStage1::Init': private メンバー (クラス 'SceneStage1' で宣言されている) にアクセスできません。
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(14,15):
-  'SceneStage1::Init' の宣言を確認してください
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(9,7):
-  'SceneStage1' の宣言を確認してください
-  
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneManeger.cpp(49,14): error C2248: 'SceneStage1::Update': private メンバー (クラス 'SceneStage1' で宣言されている) にアクセスできません。
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(15,15):
-  'SceneStage1::Update' の宣言を確認してください
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(9,7):
-  'SceneStage1' の宣言を確認してください
-  
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneManeger.cpp(64,14): error C2248: 'SceneStage1::Draw': private メンバー (クラス 'SceneStage1' で宣言されている) にアクセスできません。
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(16,15):
-  'SceneStage1::Draw' の宣言を確認してください
-  C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneStage1.h(9,7):
-  'SceneStage1' の宣言を確認してください
-  
-  SceneStage1.cpp
   コードを生成中...
+  JUMPMANADVENTURE.vcxproj -> C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe

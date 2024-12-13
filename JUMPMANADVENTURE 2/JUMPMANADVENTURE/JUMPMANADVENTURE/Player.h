@@ -5,7 +5,7 @@
 
 class BgStage1;
 class SceneMain;
-class Bg;
+//class Bg;
 /// <summary>
 /// プレイヤークラス
 /// </summary>

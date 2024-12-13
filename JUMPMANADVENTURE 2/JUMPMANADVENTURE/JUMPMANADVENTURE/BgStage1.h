@@ -3,7 +3,7 @@
 #include "Rect.h"
 
 class Player;
-class BgStage1  : public Bg
+class BgStage1 /* : public Bg*/
 {
 public:
 	BgStage1();

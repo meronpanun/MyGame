@@ -58,8 +58,8 @@ namespace
 BgStage1::BgStage1()
 {
 	// グラフィックの読み込み
-//	m_mapHandle = LoadGraph("date/image/GroundBlock.png");
-	m_handle001 = LoadGraph("date/image/GroundBlock.png");
+//	m_mapHandle = LoadGraph("data/image/GroundBlock.png");
+	m_handle001 = LoadGraph("data/image/GroundBlock.png");
 //	assert(m_mapHandle != -1);
 	assert(m_handle001 != -1);
 }

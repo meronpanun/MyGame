@@ -1,9 +1,8 @@
 #pragma once
-#include "Vec2.h"
-#include "Rect.h"
-
-class Bg;
-class Player;
+#include "SceneStage1.h"
+#include "SceneManager.h"
+#include "Player.h"
+#include "BgStage1.h"
 
 /// <summary>
 /// ゲーム画面クラス
@@ -12,20 +11,14 @@ class SceneMain
 {
 public:
 	SceneMain();
-	virtual ~SceneMain();
+	~SceneMain();
 
-	virtual void Init() = 0;
-	virtual void Update() = 0;
-	virtual void Draw() = 0;
+	void Init();
+	SceneManager::SceneSelect Update();
+	void Draw();
 
 protected:
-	// プレイヤー
-	Player* m_pPlayer;
-
-	// プレイヤーの現在位置
-	Vec2 m_playerPos;
-
-	// 画像
-	int m_gameScreenHandle; // ゲーム画面
+	BgStage1 m_bgStage1;
+	Player* m_player;
 };
 

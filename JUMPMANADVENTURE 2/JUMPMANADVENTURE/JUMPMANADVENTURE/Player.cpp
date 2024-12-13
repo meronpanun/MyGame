@@ -68,9 +68,9 @@ Player::Player() :
     m_isAnimJump(false),
     m_isAnimTurn(false)
 {
-    m_walkHandle = LoadGraph("date/image/Mario.png");
+    m_walkHandle = LoadGraph("data/image/Mario.png");
     assert(m_walkHandle != -1);
-    m_jumpHandle = LoadGraph("date/image/Jump.png");
+    m_jumpHandle = LoadGraph("data/image/Jump.png");
 }
 
 Player::~Player()
@@ -237,8 +237,10 @@ void Player::Draw()
     // int walkSrcX = kWalkAnimNum[animFrame] * kGraphWidth;
     int walkSrcX = kUseFrame[animFrame];
     int walkSrcY = kGraphHeight;
+    
+   /* int x = m_pos.x - kWidth * 0.5;
 
-
+    x -= m_pBgStage1->GetScrollX();*/
 
     // ƒWƒƒƒ“ƒv‚µ‚½ê‡
     if (m_isAnimJump)
