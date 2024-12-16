@@ -69,8 +69,6 @@ private:
 	bool m_isRight; 
 	// 左に移動しているかどうかのフラグ
 	bool m_isLeft;
-	// 地面についているかどうかフラグ
-//	bool m_isGround;
 	// 歩いているかどうかフラグ
 	bool m_isWalk; // true:歩いている false:待機
 	// キャラがどちらを向いているかのフラグ

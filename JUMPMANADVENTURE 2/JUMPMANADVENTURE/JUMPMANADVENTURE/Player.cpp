@@ -19,9 +19,13 @@ namespace
     // キャラクターの描画サイズ
     constexpr int kGraphWidth = 32;
     constexpr int kGraphHeight = 32;
+    
+    // プレイヤーのリスポーン位置
+    constexpr float kRestartPosX = 150.0f;
+    constexpr float kRestartPosY = 610.0f;
 
-    // 当たり判定半径
-  //  constexpr int kRadius = 5;
+    // 底の上限 
+    constexpr int kFallMaX = 920;
 
     // 速度
     constexpr float kSpeed = 3.0f;
@@ -37,9 +41,12 @@ namespace
     // ジャンプ力
     constexpr float kJumpAcc = -10.0f;
 
-    constexpr int kUseJumpFrame[] = { 0 };
-    constexpr int kUseFrame[] = { 2,3 };
-    constexpr int kAnimFrameCycle = _countof(kUseFrame) * kSingleAnimFrame;
+    // キャラクターのジャンプアニメーション
+    constexpr int kJumpFrame[] = { 0 };
+    // キャラクターの歩きアニメーション
+    constexpr int kWalkFrame[] = { 2,3 };
+    // アニメーションの1サイクルのフレーム数
+    constexpr int kAnimFrameCycle = _countof(kWalkFrame) * kSingleAnimFrame;
 
     // ジャンプ処理
     constexpr float kJumpPower = -8.0f; // ジャンプの初速
@@ -58,7 +65,6 @@ Player::Player() :
     m_isRight(false),
     m_isLeft(false),
     m_isWalk(false),
-   // m_isGround(false),
     m_move(0.0f, 0.0f),
     m_pos(150.0f, 610.0f),
     m_animFrame(0),
@@ -71,6 +77,7 @@ Player::Player() :
     m_walkHandle = LoadGraph("data/image/Mario.png");
     assert(m_walkHandle != -1);
     m_jumpHandle = LoadGraph("data/image/Jump.png");
+    assert(m_jumpHandle != -1);
 }
 
 Player::~Player()
@@ -91,18 +98,21 @@ void Player::Init()
 
 void Player::Update()
 {
+    // プレイヤーが穴に落下した場合
+    if ((m_pos.y - kHeight) > kFallMaX)
+    {
+        m_pos.x = kRestartPosX;
+        m_pos.y = kRestartPosY;
+    }
 
     // 移動中のみ歩行アニメーションを行う
     if (m_isWalk)
     {
-        // if (m_animation == Anim::kWalk)
+        // アニメーションの更新
+        m_animFrame++;
+        if (m_animFrame >= kAnimFrameCycle)
         {
-            // アニメーションの更新
-            m_animFrame++;
-            if (m_animFrame >= kAnimFrameCycle)
-            {
-                m_animFrame = 0;
-            }
+            m_animFrame = 0;
         }
     }
     int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -221,12 +231,15 @@ void Player::Update()
         }
         else
         {
+            // 地面にすら当たっていない
             m_isJump = true;
         }
     }
-    printfDx("m_pos:(%d,%d)\n",
-        (int)m_pos.x,
-        (int)m_pos.y);
+#ifdef DISP_COLLISON
+    //printfDx("m_pos:(%d,%d)\n",
+    //(int)m_pos.x,
+    //(int)m_pos.y);
+#endif // DISP_COLLISON
 }
 
 void Player::Draw()
@@ -235,24 +248,24 @@ void Player::Draw()
     int animFrame = m_animFrame / kSingleAnimFrame;
     // プレイヤーの切り取り画像
     // int walkSrcX = kWalkAnimNum[animFrame] * kGraphWidth;
-    int walkSrcX = kUseFrame[animFrame];
+    int walkSrcX = kWalkFrame[animFrame];
     int walkSrcY = kGraphHeight;
     
     // スクロール量を反映する
-    int x = static_cast<int>(m_pos.x);
-    x -= m_pBgStage1->GetScrollX();
+    //int x = static_cast<int>(m_pos.x);
+    //x -= m_pBgStage1->GetScrollX();
 
     // ジャンプした場合
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(x + m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(x + m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 

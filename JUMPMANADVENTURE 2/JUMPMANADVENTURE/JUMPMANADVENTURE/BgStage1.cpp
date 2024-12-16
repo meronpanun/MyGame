@@ -16,7 +16,7 @@ namespace
 	constexpr int kChipNumY = Stage1::kBgStage1Height / kChipHeight;
 
 	// マップチップ拡大率
-	constexpr float kChipScale = 1.5f;
+	constexpr float kChipScale = 1.6f;
 
 	constexpr int kChipSetDate[kChipNumY][kChipNumX] =
 	{
@@ -86,10 +86,10 @@ void BgStage1::Update()
 void BgStage1::Draw(/*Camera* camera*/)
 {
 	// 画面全体を空色で塗り潰す
-//	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
+	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
 
 	// プレイヤーの位置に応じたスクロール量を決定する
-	int scrollX = GetScrollX();
+//	int scrollX = GetScrollX();
 
 	// マップチップの描画
 	// Action
@@ -157,20 +157,20 @@ void BgStage1::Draw(/*Camera* camera*/)
 /// 横スクロール
 /// </summary>
 /// <returns>スクロール量</returns>
-int BgStage1::GetScrollX()
-{
-	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
-	if (result < 0)
-	{
-		result = 0;
-	}
-	if (result > Stage1::kBgStage1Width - Game::kScreenWidth)
-	{
-		result = Stage1::kBgStage1Width - Game::kScreenWidth;
-	}
-
-	return result;
-}
+//int BgStage1::GetScrollX()
+//{
+//	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
+//	if (result < 0)
+//	{
+//		result = 0;
+//	}
+//	if (result > Stage1::kBgStage1Width - Game::kScreenWidth)
+//	{
+//		result = Stage1::kBgStage1Width - Game::kScreenWidth;
+//	}
+//
+//	return result;
+//}
 
 /// <summary>
 /// 指定したマップチップの矩形と当たっているか判定

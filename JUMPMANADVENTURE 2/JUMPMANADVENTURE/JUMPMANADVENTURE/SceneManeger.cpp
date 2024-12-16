@@ -52,9 +52,11 @@ void SceneManager::Update()
 
 	switch (m_runScene)
 	{
+		// タイトルシーン
 	case kSceneTitle:
 		nextSelect = m_pTitle->Update();
 		break;
+		// ステージ1
 	case kSceneStage1:
 		nextSelect = m_pSceneMain->Update();
 		break;

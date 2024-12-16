@@ -14,7 +14,7 @@ public:
 	void Draw();
 
 	// プレイヤーの位置からスクロール量を決定する
-	int GetScrollX();
+//	int GetScrollX();
 
 	//指定した矩形と当たっているか判定
 	bool IsCollision(Rect rect, Rect& ChipRect);
