@@ -17,8 +17,11 @@ public:
 	SceneManager::SceneSelect Update();
 	void Draw();
 
-protected:
+private:
+	// フェード処理
+	int m_fadeFrameCount;
+
 	BgStage1 m_bgStage1;
-	Player* m_player;
+	Player m_player;
 };
 

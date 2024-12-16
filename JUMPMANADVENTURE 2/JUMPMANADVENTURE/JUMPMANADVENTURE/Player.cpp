@@ -58,7 +58,7 @@ Player::Player() :
     m_isRight(false),
     m_isLeft(false),
     m_isWalk(false),
-    m_isGround(false),
+   // m_isGround(false),
     m_move(0.0f, 0.0f),
     m_pos(150.0f, 610.0f),
     m_animFrame(0),
@@ -82,7 +82,7 @@ Player::~Player()
 void Player::Init()
 {
     // ジャンプフラグ
-    m_isGround = false;
+ //   m_isGround = false;
 
     //m_camera = camera;
     //m_camera->m_pos.SetPos(m_pos.x, m_pos.y);
@@ -238,21 +238,21 @@ void Player::Draw()
     int walkSrcX = kUseFrame[animFrame];
     int walkSrcY = kGraphHeight;
     
-   /* int x = m_pos.x - kWidth * 0.5;
-
-    x -= m_pBgStage1->GetScrollX();*/
+    // スクロール量を反映する
+    int x = static_cast<int>(m_pos.x);
+    x -= m_pBgStage1->GetScrollX();
 
     // ジャンプした場合
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(x + m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
+        DrawRectRotaGraph(static_cast<int>(x + m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 5),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 

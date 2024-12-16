@@ -58,16 +58,13 @@ namespace
 BgStage1::BgStage1()
 {
 	// グラフィックの読み込み
-//	m_mapHandle = LoadGraph("data/image/GroundBlock.png");
 	m_handle001 = LoadGraph("data/image/GroundBlock.png");
-//	assert(m_mapHandle != -1);
 	assert(m_handle001 != -1);
 }
 
 BgStage1::~BgStage1()
 {
 	// グラフィックの開放
-//	DeleteGraph(m_mapHandle);
 	DeleteGraph(m_handle001);
 }
 
@@ -92,7 +89,7 @@ void BgStage1::Draw(/*Camera* camera*/)
 //	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
 
 	// プレイヤーの位置に応じたスクロール量を決定する
-//	int scrollX = GetScrollX();
+	int scrollX = GetScrollX();
 
 	// マップチップの描画
 	// Action
@@ -113,9 +110,7 @@ void BgStage1::Draw(/*Camera* camera*/)
 			// レンガブロック
 			if (kChipSetDate[y][x] == 1)
 			{
-			//	DrawRotaGraph(posX * 1.5, posY * 1.5 + 50, 1.5f, 0, m_mapHandle, false);
-				DrawRotaGraph(posX * kChipScale, posY * kChipScale, kChipScale, 0, m_handle001, false);
-				
+				DrawRotaGraph(posX * kChipScale, posY * kChipScale, kChipScale, 0, m_handle001, false);	
 			}
 			/*
 			if (kChipSetDate[y][x] == 2)
@@ -162,20 +157,20 @@ void BgStage1::Draw(/*Camera* camera*/)
 /// 横スクロール
 /// </summary>
 /// <returns>スクロール量</returns>
-//int BgStage1::GetScrollX()
-//{
-//	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
-//	if (result < 0)
-//	{
-//		result = 0;
-//	}
-//	if (result > Stage1::kBgStage1Width - Game::kScreenWidth)
-//	{
-//		result = Stage1::kBgStage1Width - Game::kScreenWidth;
-//	}
-//
-//	return result;
-//}
+int BgStage1::GetScrollX()
+{
+	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
+	if (result < 0)
+	{
+		result = 0;
+	}
+	if (result > Stage1::kBgStage1Width - Game::kScreenWidth)
+	{
+		result = Stage1::kBgStage1Width - Game::kScreenWidth;
+	}
+
+	return result;
+}
 
 /// <summary>
 /// 指定したマップチップの矩形と当たっているか判定

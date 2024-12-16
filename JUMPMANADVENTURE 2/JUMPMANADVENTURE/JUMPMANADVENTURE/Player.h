@@ -2,10 +2,8 @@
 #include "Vec2.h"
 #include "Rect.h"
 
-
 class BgStage1;
 class SceneMain;
-//class Bg;
 /// <summary>
 /// プレイヤークラス
 /// </summary>
@@ -13,14 +11,11 @@ class Player
 {
 public:
 	Player();
-	~Player();
+	 ~Player();
 
 	void Init();
 	void Update();
 	void Draw();
-
-	// マップのポインタ設定
-//	void SetBgStage1(std::shared_ptr<BgStage1> pBgStage1) { m_pBgStage1 = pBgStage1; }
 
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
@@ -46,10 +41,6 @@ private:
 	void UpdateJump();
 
 private:
-	// 背景
-//	Bg* m_pBg;
-//	SceneMain* m_pMain;
-
 	// プレイヤーの位置
 	Vec2 m_pos;
 	// 移動量
@@ -79,7 +70,7 @@ private:
 	// 左に移動しているかどうかのフラグ
 	bool m_isLeft;
 	// 地面についているかどうかフラグ
-	bool m_isGround;
+//	bool m_isGround;
 	// 歩いているかどうかフラグ
 	bool m_isWalk; // true:歩いている false:待機
 	// キャラがどちらを向いているかのフラグ
