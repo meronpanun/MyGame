@@ -3,7 +3,6 @@
 class SceneStage1;
 class SceneTitle;
 class SceneMain;
-class BgStage1;
 
 /// <summary>
 /// シーン管理クラス

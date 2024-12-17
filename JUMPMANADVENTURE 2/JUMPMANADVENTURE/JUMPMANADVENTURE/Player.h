@@ -1,6 +1,7 @@
 #pragma once
 #include "Vec2.h"
 #include "Rect.h"
+#include <memory>
 
 class BgStage1;
 class SceneMain;
@@ -17,17 +18,21 @@ public:
 	void Update();
 	void Draw();
 
+
+
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
 	// プレイヤーの当たり判定を取得
-	Rect GetColRect() const { return m_colRect; }
-
+//	Rect GetColRect() const { return m_colRect; }
+	
+    // 円の当たり判定
+	float GetRadius();
 
 	// プレイヤーの上下左右情報取得
-	float GetLeft();
-	float GetTop();
-	float GetRigth();
-	float GetBottom();
+	float GetLeft() const;
+	float GetTop() const;
+	float GetRigth() const;
+	float GetBottom() const;
 
 	// マップチップとの当たり判定
 	void CheckHitBgStage1(Rect chipRect);
@@ -46,9 +51,10 @@ private:
 	// 移動量
 	Vec2 m_move;
 	// 当たり判定用の矩形
-	Rect m_colRect;
+//	Rect m_colRect;
 
-	BgStage1* m_pBgStage1;
+//	BgStage1* m_pBgStage1;
+	std::shared_ptr<BgStage1> m_pBgStage1;
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;

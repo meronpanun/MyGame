@@ -18,8 +18,8 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
-	m_player.Init();
-	m_bgStage1.Init();
+	m_pPlayer.Init();
+	m_pBgStage1.Init();
 }
 
 SceneManager::SceneSelect SceneMain::Update()
@@ -32,7 +32,7 @@ SceneManager::SceneSelect SceneMain::Update()
 	}
 	
 
-	m_player.Update();
+	m_pPlayer.Update();
 	Pad::Update();
 
 	return SceneManager::SceneSelect::kSceneStage1;
@@ -40,8 +40,8 @@ SceneManager::SceneSelect SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	m_bgStage1.Draw();
-	m_player.Draw();
+	m_pBgStage1.Draw();
+	m_pPlayer.Draw();
 
 	// フェード処理
 	int fadeAlpha = 0;

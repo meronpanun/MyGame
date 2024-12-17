@@ -3,7 +3,6 @@
 #include "BgStage1.h"
 #include "Pad.h"
 #include "Game.h"
-#include "Camera.h"
 #include <cassert>
 
 #ifdef _DEBUG
@@ -23,6 +22,9 @@ namespace
     // プレイヤーのリスポーン位置
     constexpr float kRestartPosX = 150.0f;
     constexpr float kRestartPosY = 610.0f;
+
+    // 当たり判定の半径
+    constexpr int kRadius = 9;
 
     // 底の上限 
     constexpr int kFallMaX = 920;
@@ -60,7 +62,7 @@ namespace
 }
 
 Player::Player() :
-    m_pBgStage1(nullptr),
+ //   m_pBgStage1(nullptr),
     m_isJump(false),
     m_isRight(false),
     m_isLeft(false),
@@ -235,11 +237,6 @@ void Player::Update()
             m_isJump = true;
         }
     }
-#ifdef DISP_COLLISON
-    //printfDx("m_pos:(%d,%d)\n",
-    //(int)m_pos.x,
-    //(int)m_pos.y);
-#endif // DISP_COLLISON
 }
 
 void Player::Draw()
@@ -272,29 +269,34 @@ void Player::Draw()
     }
     
 #ifdef DISP_COLLISON
-    // 当たり判定のデバッグ表示cc
+    // 当たり判定のデバッグ表示
     DrawBox(GetLeft(), GetTop(),
         GetRigth(), GetBottom(),
         GetColor(0, 0, 255), false);
 #endif // DISP_COLLISION
 }
 
-float Player::GetLeft() 
+float Player::GetRadius()
+{
+    return kRadius;
+}
+
+float Player::GetLeft() const
 {
     return m_pos.x - kWidth * static_cast<float>(0.5f);
 }
 
-float Player::GetTop()
+float Player::GetTop() const
 {
     return m_pos.y - kHeight;
 }
 
-float Player::GetRigth()
+float Player::GetRigth() const
 {
     return m_pos.x + kWidth * static_cast<float>(0.5f);
 }
 
-float Player::GetBottom() 
+float Player::GetBottom() const
 {
     return m_pos.y;
 }

@@ -21,7 +21,7 @@ private:
 	// フェード処理
 	int m_fadeFrameCount;
 
-	BgStage1 m_bgStage1;
-	Player m_player;
+	BgStage1 m_pBgStage1;
+	Player m_pPlayer;
 };
 

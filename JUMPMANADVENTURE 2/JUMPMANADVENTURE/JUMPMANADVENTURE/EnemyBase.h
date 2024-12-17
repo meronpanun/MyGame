@@ -33,7 +33,7 @@ public:
 	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
 
 	// 現在の敵機の矩形情報
-	Rect GetRect;
+	Rect GetRect();
 
 	//指定した矩形と当たっているか判定
 	bool IsCollision(Rect rect, Rect& enemyRect);

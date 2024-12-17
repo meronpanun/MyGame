@@ -19,6 +19,6 @@
 //
 //private:
 //	BgStage1 m_bg;
-//	Player m_player;
+//	Player m_pPlayer;
 //};
 //

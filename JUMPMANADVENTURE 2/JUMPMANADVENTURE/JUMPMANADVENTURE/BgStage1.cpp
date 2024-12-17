@@ -83,7 +83,7 @@ void BgStage1::Update()
 {
 }
 
-void BgStage1::Draw(/*Camera* camera*/)
+void BgStage1::Draw()
 {
 	// 画面全体を空色で塗り潰す
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
@@ -97,7 +97,6 @@ void BgStage1::Draw(/*Camera* camera*/)
 	{
 		for (int x = 0; x < kChipNumX; x++)
 		{
-			//int posX = kChipWidth * x - scrollX;
 			int posX = kChipWidth * x + 8;
 			int posY = kChipHeight * y + 10;
 
@@ -159,7 +158,7 @@ void BgStage1::Draw(/*Camera* camera*/)
 /// <returns>スクロール量</returns>
 //int BgStage1::GetScrollX()
 //{
-//	int result = static_cast<int>(m_pPlayer->GetPos().x - Game::kScreenWidth * 0.5);
+//	int result = static_cast<int>(m_pPlayer.GetPos().x - Game::kScreenWidth * 0.5);
 //	if (result < 0)
 //	{
 //		result = 0;

@@ -1,9 +1,10 @@
 #pragma once
 #include "Bg.h"
 #include "Rect.h"
+#include "Player.h"
 
 class Player;
-class BgStage1 /* : public Bg*/
+class BgStage1
 {
 public:
 	BgStage1();
@@ -20,9 +21,9 @@ public:
 	bool IsCollision(Rect rect, Rect& ChipRect);
 
 private:
-	Player* m_pPlayer;
+	Player m_pPlayer;
 
 	// マップのグラフィックハンドル
-	  int m_handle001;
+    int m_handle001;
 };
 

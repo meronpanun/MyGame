@@ -17,7 +17,7 @@
 //void SceneStage1::Init()
 //{
 //	// プレイヤーの初期化
-//	m_player.Init();
+//	m_pPlayer.Init();
 //	// ステージ1の初期化
 //	m_bg.Init();
 //}
@@ -27,7 +27,7 @@
 //	// ステージ1の更新
 //	m_bg.Update();
 //	// プレイヤーの更新
-//	m_player.Update();
+//	m_pPlayer.Update();
 //	Pad::Update();
 //}
 //
@@ -36,5 +36,5 @@
 //	// ステージ1の描画
 //	m_bg.Draw();
 //	// プレイヤーの描画
-//	m_player.Draw();
+//	m_pPlayer.Draw();
 //}
