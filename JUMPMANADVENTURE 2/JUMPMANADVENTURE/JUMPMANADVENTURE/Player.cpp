@@ -89,9 +89,9 @@ Player::~Player()
     DeleteGraph(m_jumpHandle);
 }
 
-void Player::Init()
+void Player::Init(Camera* camera)
 {
-
+    m_pCamera = camera;
 }
 
 void Player::Update()

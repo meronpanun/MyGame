@@ -23,7 +23,7 @@ void SceneMain::Init()
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage1 = std::make_shared<BgStage1>();
 	m_camera = std::make_shared<Camera>();
-	m_pPlayer->Init();
+	m_pPlayer->Init(m_camera.get());
 	m_pBgStage1->Init(m_camera.get());
 	m_camera->Init();
 }

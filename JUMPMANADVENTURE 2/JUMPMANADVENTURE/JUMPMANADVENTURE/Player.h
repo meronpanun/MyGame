@@ -15,7 +15,7 @@ public:
 	Player();
 	 ~Player();
 
-	void Init();
+	void Init(Camera* camera);
 	void Update();
 	void Draw();
 
