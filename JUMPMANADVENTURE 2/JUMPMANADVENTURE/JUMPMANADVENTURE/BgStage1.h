@@ -3,6 +3,7 @@
 #include "Rect.h"
 #include "Player.h"
 
+class Camera;
 class Player;
 class BgStage1
 {
@@ -10,7 +11,7 @@ public:
 	BgStage1();
 	virtual ~BgStage1();
 
-	void Init();
+	void Init(Camera* camera);
 	void Update();
 	void Draw();
 
@@ -21,6 +22,8 @@ public:
 	bool IsCollision(Rect rect, Rect& ChipRect);
 
 private:
+	Camera* m_pCamera;
+
 	Player m_pPlayer;
 
 	// マップのグラフィックハンドル

@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "DxLib.h"
+#include "Camera.h"
 #include <cassert>
 
 
@@ -68,15 +69,9 @@ BgStage1::~BgStage1()
 	DeleteGraph(m_handle001);
 }
 
-void BgStage1::Init()
+void BgStage1::Init(Camera* camera)
 {
-	// 画像のマップチップ数を数える
-	//int graphW = 0;
-	//int graphH = 0;
-	//GetGraphSize(m_mapHandle, &graphW, &graphH);
-
-	//m_graphChipNumX = graphW / kChipWidth;
-	//m_graphChipNumY = graphH / kChipHeight;
+	m_pCamera = camera;
 }
 
 void BgStage1::Update()
@@ -109,7 +104,7 @@ void BgStage1::Draw()
 			// レンガブロック
 			if (kChipSetDate[y][x] == 1)
 			{
-				DrawRotaGraph(posX * kChipScale, posY * kChipScale, kChipScale, 0, m_handle001, false);	
+				DrawRotaGraph(m_pCamera->m_drawOffset.x + posX * kChipScale, posY * kChipScale, kChipScale, 0, m_handle001, false);	
 			}
 			/*
 			if (kChipSetDate[y][x] == 2)

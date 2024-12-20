@@ -23,11 +23,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	pScene->Init();
 
 	//Player* pPlayer = new Player();
-
 	//pPlayer->Init();
 
 	//BgStage1* pStage1 = new BgStage1();
-
 	//pStage1->Init();
 
 	// ƒQ[ƒ€ƒ‹[ƒv

@@ -3,6 +3,7 @@
 #include "BgStage1.h"
 #include "Pad.h"
 #include "Game.h"
+#include "Camera.h"
 #include <cassert>
 
 #ifdef _DEBUG
@@ -90,11 +91,6 @@ Player::~Player()
 
 void Player::Init()
 {
-    // ジャンプフラグ
- //   m_isGround = false;
-
-    //m_camera = camera;
-    //m_camera->m_pos.SetPos(m_pos.x, m_pos.y);
 
 }
 
@@ -252,17 +248,19 @@ void Player::Draw()
     //int x = static_cast<int>(m_pos.x);
     //x -= m_pBgStage1->GetScrollX();
 
+
+
     // ジャンプした場合
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
+        DrawRectRotaGraph(static_cast<int>(m_pCamera->m_drawOffset.x + m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
+        DrawRectRotaGraph(static_cast<int>(m_pCamera->m_drawOffset.x + m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 

@@ -3,6 +3,7 @@
 #include "Rect.h"
 #include <memory>
 
+class Camera;
 class BgStage1;
 class SceneMain;
 /// <summary>
@@ -46,6 +47,8 @@ private:
 	void UpdateJump();
 
 private:
+	Camera* m_pCamera;
+
 	// プレイヤーの位置
 	Vec2 m_pos;
 	// 移動量
