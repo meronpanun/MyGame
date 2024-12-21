@@ -104,7 +104,7 @@ void BgStage1::Draw()
 			// ƒŒƒ“ƒKƒuƒƒbƒN
 			if (kChipSetDate[y][x] == 1)
 			{
-				DrawRotaGraph(m_pCamera->m_drawOffset.x + posX * kChipScale, posY * kChipScale, kChipScale, 0, m_handle001, false);	
+				DrawRotaGraph(posX * kChipScale + m_pCamera->m_drawOffset.x, posY * kChipScale, kChipScale, 0, m_handle001, false);
 			}
 			/*
 			if (kChipSetDate[y][x] == 2)

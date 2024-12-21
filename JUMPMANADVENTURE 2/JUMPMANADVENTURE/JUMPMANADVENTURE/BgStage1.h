@@ -1,7 +1,7 @@
 #pragma once
-#include "Bg.h"
 #include "Rect.h"
-#include "Player.h"
+#include "Vec2.h"
+
 
 class Camera;
 class Player;
@@ -22,9 +22,11 @@ public:
 	bool IsCollision(Rect rect, Rect& ChipRect);
 
 private:
+	Vec2 m_pos;
+
 	Camera* m_pCamera;
 
-	Player m_pPlayer;
+//	Player m_pPlayer;
 
 	// マップのグラフィックハンドル
     int m_handle001;

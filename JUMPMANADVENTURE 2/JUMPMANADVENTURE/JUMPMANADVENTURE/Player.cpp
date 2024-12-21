@@ -92,6 +92,7 @@ Player::~Player()
 void Player::Init(Camera* camera)
 {
     m_pCamera = camera;
+    m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
 }
 
 void Player::Update()
@@ -254,13 +255,13 @@ void Player::Draw()
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pCamera->m_drawOffset.x + m_pos.x - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 3),
             kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>(m_pCamera->m_drawOffset.x + m_pos.x  - kGraphWidth + 32), static_cast<int>(m_pos.y - kGraphHeight + 3),
+        DrawRectRotaGraph(static_cast<int>( m_pos.x  - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 3),
             walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
             m_walkHandle, true, m_isAnimTurn);
 
