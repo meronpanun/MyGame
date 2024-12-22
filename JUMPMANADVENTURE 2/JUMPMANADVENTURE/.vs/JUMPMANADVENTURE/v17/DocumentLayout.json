@@ -11,6 +11,10 @@
       "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\BgStage1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Bg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Bg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\EnemyRock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\EnemyRock.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -91,10 +95,6 @@
       "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\BgStage1.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Bg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\Bg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\EnemyRock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{3CECA14F-DF3A-4606-B5A8-D0435BCA3C88}|JUMPMANADVENTURE\\JUMPMANADVENTURE.vcxproj|solutionrelative:JUMPMANADVENTURE\\EnemyRock.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -132,7 +132,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Vec2.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Vec2.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Vec2.cpp",
@@ -140,12 +140,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Vec2.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAADwvwAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-22T12:56:50.313Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-22T12:56:50.313Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\main.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\main.cpp",
@@ -153,12 +152,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\main.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAADsAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T04:46:43.887Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:46:43.887Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Player.cpp",
@@ -166,12 +164,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.cpp",
               "ViewState": "AQIAAFMBAAAAAAAAAAAgwFsBAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T04:46:56.169Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:46:56.169Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "SceneMain.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneMain.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneMain.cpp",
@@ -179,8 +176,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneMain.cpp",
               "ViewState": "AQIAABwAAAAAAAAAAAAgwB0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-04T08:47:13.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T08:47:13.209Z"
             },
             {
               "$type": "Document",
@@ -197,7 +193,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Rect.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Rect.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Rect.cpp",
@@ -209,7 +205,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "EnemyRock.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\EnemyRock.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\EnemyRock.cpp",
@@ -217,8 +213,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\EnemyRock.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-17T07:32:34.799Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-17T07:32:34.799Z"
             },
             {
               "$type": "Document",
@@ -234,7 +229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "SceneManeger.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneManeger.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneManeger.cpp",
@@ -242,12 +237,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneManeger.cpp",
               "ViewState": "AQIAADUAAAAAAAAAAAAgwD4AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-04T09:07:35.95Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T09:07:35.95Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "SceneManager.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneManager.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneManager.h",
@@ -255,12 +249,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneManager.h",
               "ViewState": "AQIAAAIAAAAAAAAAAAAgwBEAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-04T09:01:25.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T09:01:25.452Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Pad.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Pad.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Pad.cpp",
@@ -268,12 +261,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Pad.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-04T01:51:40.12Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T01:51:40.12Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Camera.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Camera.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Camera.h",
@@ -281,8 +273,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Camera.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T09:55:24.906Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T09:55:24.906Z"
             },
             {
               "$type": "Document",
@@ -292,14 +283,14 @@
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Camera.cpp",
               "ToolTip": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Camera.cpp",
               "RelativeToolTip": "JUMPMANADVENTURE\\Camera.cpp",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAABYAAAATAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-04T01:10:17.585Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "EnemyBase.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\EnemyBase.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\EnemyBase.cpp",
@@ -307,12 +298,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\EnemyBase.cpp",
               "ViewState": "AQIAADMAAAAAAAAAAAAAAA4AAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-17T05:26:42.481Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-17T05:26:42.481Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Player.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Player.h",
@@ -320,8 +310,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.h",
               "ViewState": "AQIAADQAAAAAAAAAAAAgwEcAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:44:36.363Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:44:36.363Z"
             },
             {
               "$type": "Document",
@@ -337,7 +326,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Game.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Game.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Game.h",
@@ -345,8 +334,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Game.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:46:07.355Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:46:07.355Z"
             },
             {
               "$type": "Document",
@@ -362,7 +350,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "SceneMain.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneMain.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneMain.h",
@@ -370,12 +358,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneMain.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABoAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-04T08:44:03.379Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T08:44:03.379Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "BgStage1.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\BgStage1.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\BgStage1.h",
@@ -387,7 +374,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Vec2.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Vec2.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Vec2.h",
@@ -399,7 +386,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 2,
               "Title": "Bg.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Bg.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Bg.cpp",
@@ -407,7 +394,8 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Bg.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-05T00:57:15.575Z"
+              "WhenOpened": "2024-12-05T00:57:15.575Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -423,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "SceneStage1.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneStage1.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneStage1.cpp",
@@ -431,12 +419,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneStage1.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-05T03:07:10.464Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T03:07:10.464Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "SceneTitle.cpp",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneTitle.cpp",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneTitle.cpp",
@@ -444,12 +431,11 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneTitle.cpp",
               "ViewState": "AQIAABsAAAAAAAAAAAAgwCcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-10T14:24:09.485Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-10T14:24:09.485Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "SceneTitle.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneTitle.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneTitle.h",
@@ -457,8 +443,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneTitle.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-10T14:24:09.506Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-10T14:24:09.506Z"
             },
             {
               "$type": "Document",
@@ -486,7 +471,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "SceneStage1.h",
               "DocumentMoniker": "C:\\Users\\sho24\\OneDrive\\\u30C7\u30B9\u30AF\u30C8\u30C3\u30D7\\YuiProgram\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\SceneStage1.h",
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\SceneStage1.h",
@@ -494,8 +479,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneStage1.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-05T03:02:39.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T03:02:39.574Z"
             },
             {
               "$type": "Document",
