@@ -1,6 +1,6 @@
 #include "TestPlayer.h"
 #include "DxLib.h"
-#include"Pad.h"
+#include "Pad.h"
 #include "Game.h"
 #include "Camera.h"
 #include <cassert>

@@ -1,12 +1,4 @@
-﻿  Bg.cpp
-  Camera.cpp
-  EnemyBase.cpp
-  EnemyRock.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\EnemyBase.cpp(113,24): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\EnemyBase.cpp(114,25): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\EnemyBase.cpp(115,23): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\EnemyBase.cpp(116,26): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-  main.cpp
+﻿  main.cpp
   BgStage1.cpp
 C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(107,71): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
 C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(107,37): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
@@ -14,57 +6,6 @@ C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\
 C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(197,40): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
 C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(198,38): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
 C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(199,41): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-  Pad.cpp
-  Player.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(273,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(273,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(272,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(272,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  Rect.cpp
-  SceneMain.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneMain.cpp(57,18): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-  SceneManeger.cpp
-  SceneStage1.cpp
-  SceneTitle.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneTitle.cpp(58,62): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\SceneTitle.cpp(58,35): warning C4244: '引数': 'double' から 'int' への変換です。データが失われる可能性があります。
-  TestMap.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(71,23): warning C4244: '初期化中': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(72,14): error C2039: 'AddMoveY': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(73,14): error C2039: 'OnCollideY': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(74,89): error C2039: 'FallFlag': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(87,20): warning C4244: '初期化中': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(88,14): error C2039: 'Landing': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(90,14): error C2039: 'OnCollideY': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(96,17): error C2039: 'GetRight': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(96,57): error C2039: 'GetRight': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(100,21): warning C4244: '初期化中': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(101,14): error C2039: 'AddMoveLeft': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(101,34): error C2039: 'GetRight': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(102,14): error C2039: 'OnCollideX': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(120,17): error C2039: 'FallFlag': 'Player' のメンバーではありません
-  TestPlayer.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(122,20): warning C4244: '初期化中': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(123,18): error C2039: 'PlayerAirPos': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(125,15): error C2039: 'Landing': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(126,15): error C2039: 'OnCollideY': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(131,17): error C2039: 'GetRight': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(131,57): error C2039: 'GetRight': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(134,21): warning C4244: '初期化中': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(135,14): error C2039: 'AddMoveLeft': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(135,34): error C2039: 'GetRight': 'Player' のメンバーではありません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestMap.cpp(136,14): error C2039: 'OnCollideX': 'Player' のメンバーではありません
-  TestSceneMain.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneManager.h(32,11): error C2143: 構文エラー: ';' が '*' の前にありません。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneManager.h(32,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneManager.h(32,25): error C2238: ';' の前に無効なトークンがあります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneMain.cpp(6,1): error C2248: 'TestPlayer::TestPlayer': private メンバー (クラス 'TestPlayer' で宣言されている) にアクセスできません。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneMain.cpp(10,1): error C2248: 'TestPlayer::~TestPlayer': private メンバー (クラス 'TestPlayer' で宣言されている) にアクセスできません。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneMain.cpp(15,15): error C2248: 'TestPlayer::Init': private メンバー (クラス 'TestPlayer' で宣言されている) にアクセスできません。
-  TestSceneManager.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneManager.h(32,11): error C2143: 構文エラー: ';' が '*' の前にありません。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneManager.h(32,2): error C4430: 型指定子がありません - int と仮定しました。メモ: C++ は int を既定値としてサポートしていません
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\TestSceneManager.h(32,25): error C2238: ';' の前に無効なトークンがあります。
-  TestTitleScene.cpp
   Vec2.cpp
   コードを生成中...
+  JUMPMANADVENTURE.vcxproj -> C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe

@@ -55,7 +55,7 @@ void TestMap::End()
 	DeleteGraph(m_handle);
 }
 
-void TestMap::Update(Player* player)
+void TestMap::Update(TestPlayer* player)
 {
 	for (int h = 0; h < kChipNumY; h++)
 	{
