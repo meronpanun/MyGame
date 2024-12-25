@@ -37,7 +37,7 @@ void Camera::Update(const Player* player)
 	}
 
 	// 目標ポジションに、Lerpを使ってカメラポジションを近づける
-	m_pos = Lerp(m_pos, aimCameraPos, CameraLerpRate);
+//	m_pos = Lerp(m_pos, aimCameraPos, CameraLerpRate);
 
 	// Draw側に足しているcamera.pos.xは反転させる
 	m_drawOffset.x = m_pos.x * -1;
@@ -48,11 +48,11 @@ void Camera::Update(const Player* player)
 
 }
 
-Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
-{
-	Vec2 ret;
-	ret.x = std::lerp(start.x, end.x, t);
-	ret.y = std::lerp(start.y, end.y, t);
-	return ret;
-}
+//Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
+//{
+//	Vec2 ret;
+//	ret.x = std::lerp(start.x, end.x, t);
+//	ret.y = std::lerp(start.y, end.y, t);
+//	return ret;
+//}
 
