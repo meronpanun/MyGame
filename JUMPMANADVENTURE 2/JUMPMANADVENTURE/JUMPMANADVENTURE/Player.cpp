@@ -244,12 +244,6 @@ void Player::Draw()
     // int walkSrcX = kWalkAnimNum[animFrame] * kGraphWidth;
     int walkSrcX = kWalkFrame[animFrame];
     int walkSrcY = kGraphHeight;
-    
-    // スクロール量を反映する
-    //int x = static_cast<int>(m_pos.x);
-    //x -= m_pBgStage1->GetScrollX();
-
-
 
     // ジャンプした場合
     if (m_isAnimJump)

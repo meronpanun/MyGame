@@ -56,7 +56,6 @@ private:
 	// 当たり判定用の矩形
 //	Rect m_colRect;
 
-//	BgStage1* m_pBgStage1;
 	std::shared_ptr<BgStage1> m_pBgStage1;
 
 	// キャラクターのグラフィックハンドル

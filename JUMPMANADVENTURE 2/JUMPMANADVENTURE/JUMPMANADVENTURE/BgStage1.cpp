@@ -83,9 +83,6 @@ void BgStage1::Draw()
 	// 画面全体を空色で塗り潰す
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
 
-	// プレイヤーの位置に応じたスクロール量を決定する
-//	int scrollX = GetScrollX();
-
 	// マップチップの描画
 	// Action
 	for (int y = 0; y < kChipNumY; y++)
@@ -146,25 +143,6 @@ void BgStage1::Draw()
 	//	}
 	//}
 }
-
-/// <summary>
-/// 横スクロール
-/// </summary>
-/// <returns>スクロール量</returns>
-//int BgStage1::GetScrollX()
-//{
-//	int result = static_cast<int>(m_pPlayer.GetPos().x - Game::kScreenWidth * 0.5);
-//	if (result < 0)
-//	{
-//		result = 0;
-//	}
-//	if (result > Stage1::kBgStage1Width - Game::kScreenWidth)
-//	{
-//		result = Stage1::kBgStage1Width - Game::kScreenWidth;
-//	}
-//
-//	return result;
-//}
 
 /// <summary>
 /// 指定したマップチップの矩形と当たっているか判定
