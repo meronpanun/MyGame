@@ -44,7 +44,8 @@ void Camera::Update(const Player* player)
 
 	// その時、画面中央にプレイヤーが来るようにする
 	// (camera.pos画面中央になるようにする)
-	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth * 0.5f);
+//	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth * 0.5f);
+	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth - 1155);
 
 }
 
