@@ -6,6 +6,7 @@
 class Player;
 class BgStage1;
 class Camera;
+class Enemy;
 /// <summary>
 /// ゲーム画面クラス
 /// </summary>
@@ -23,8 +24,9 @@ private:
 	// フェード処理
 	int m_fadeFrameCount;
 
-	std::shared_ptr<Camera> m_camera;
+	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage1> m_pBgStage1;
 	std::shared_ptr<Player> m_pPlayer;
+	std::shared_ptr<Enemy> m_pEnemy;
 };
 

@@ -6,6 +6,7 @@
 #include "BgStage1.h"
 #include "Player.h"
 #include "Camera.h"
+#include "Enemy.h"
 #include <memory>
 
 SceneMain::SceneMain():
@@ -22,10 +23,12 @@ void SceneMain::Init()
 {
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage1 = std::make_shared<BgStage1>();
-	m_camera = std::make_shared<Camera>();
-	m_pPlayer->Init(m_camera.get());
-	m_pBgStage1->Init(m_camera.get());
-	m_camera->Init();
+	m_pCamera = std::make_shared<Camera>();
+	m_pEnemy = std::make_shared<Enemy>();
+	m_pPlayer->Init(m_pCamera.get());
+	m_pBgStage1->Init(m_pCamera.get());
+	m_pCamera->Init();
+	m_pEnemy->Init();
 }
 
 SceneManager::SceneSelect SceneMain::Update()
@@ -38,8 +41,33 @@ SceneManager::SceneSelect SceneMain::Update()
 	}
 	
 	m_pPlayer->Update();
-	m_camera->Update(m_pPlayer.get());
+	m_pCamera->Update(m_pPlayer.get());
+	m_pEnemy->Update();
 	Pad::Update();
+
+	bool isPlayerHit = true;
+
+	if (m_pPlayer->GetLeft() > m_pEnemy->GetRigth())
+	{
+		isPlayerHit = false;
+	}
+	if (m_pPlayer->GetTop() > m_pEnemy->GetBottom())
+	{
+		isPlayerHit = false;
+	}
+	if (m_pPlayer->GetRigth() < m_pEnemy->GetLeft())
+	{
+		isPlayerHit = false;
+	}
+	if (m_pPlayer->GetBottom() < m_pEnemy->GetTop())
+	{
+		isPlayerHit = false;
+	}
+
+	if (isPlayerHit)
+	{
+		m_pPlayer->OnDamage();
+	}
 
 	return SceneManager::SceneSelect::kSceneStage1;
 }
@@ -48,6 +76,7 @@ void SceneMain::Draw()
 {
 	m_pBgStage1->Draw();
 	m_pPlayer->Draw();
+	m_pEnemy->Draw();
 
 	// フェード処理
 	int fadeAlpha = 0;

@@ -11,9 +11,16 @@ public:
 	void Update();
 	void Draw();
 
+	// 敵の上下左右情報取得
+	float GetLeft() const;
+	float GetTop() const;
+	float GetRigth() const;
+	float GetBottom() const;
+
+
 private:
 	Vec2 m_pos;
-	Vec2 veloctiy;
+	Vec2 m_velocity;
 	
 	// 敵のグラフィックハンドル
 	int m_handle;

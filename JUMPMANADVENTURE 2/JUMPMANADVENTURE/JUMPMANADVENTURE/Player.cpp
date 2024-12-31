@@ -60,6 +60,9 @@ namespace
     constexpr float kLittleJumpHeight = 0.5f;	// 小ジャンプ
     constexpr float kInJumpHeight = 0.8f;		// 中ジャンプ
     constexpr float kBigJumpHeight = 1.0f;		// 大ジャンプ
+
+    // 無敵時間
+    constexpr int kInvincible = 30;
 }
 
 Player::Player() :
@@ -267,6 +270,21 @@ void Player::Draw()
         GetRigth(), GetBottom(),
         GetColor(0, 0, 255), false);
 #endif // DISP_COLLISION
+}
+
+void Player::OnDamage()
+{
+    // 既にダメージを受けている(無敵時間)間は
+// 再度ダメージを受けることはない
+    if (m_invincibleCount > 0)
+    {
+        return;
+    }
+    // 無敵時間(点滅する時間)を設定する
+    m_invincibleCount = kInvincible;
+    // ダメージを受ける
+    m_hp--;
+    printfDx("Damage ");
 }
 
 float Player::GetRadius()

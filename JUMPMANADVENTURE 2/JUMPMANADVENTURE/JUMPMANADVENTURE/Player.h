@@ -19,6 +19,8 @@ public:
 	void Update();
 	void Draw();
 
+	void OnDamage();
+
 
 
 	// プレイヤーの位置情報を取得
@@ -81,5 +83,8 @@ private:
 	bool m_isWalk; // true:歩いている false:待機
 	// キャラがどちらを向いているかのフラグ
 	bool m_isAnimTurn;
+
+	int m_invincibleCount;
+	int m_hp;
 };
 
