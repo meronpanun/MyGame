@@ -145,6 +145,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyRock.cpp" />
+    <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BgStage1.cpp" />
     <ClCompile Include="Pad.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="EnemyRock.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="BgStage1.h" />
+    <ClInclude Include="Life.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
