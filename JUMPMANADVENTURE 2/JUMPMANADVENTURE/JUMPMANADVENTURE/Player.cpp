@@ -4,6 +4,7 @@
 #include "Pad.h"
 #include "Game.h"
 #include "Camera.h"
+#include "SceneMain.h"
 #include <cassert>
 
 #ifdef _DEBUG
@@ -63,10 +64,12 @@ namespace
 
     // 無敵時間
     constexpr int kInvincible = 30;
+
+    // 初期の残機数
+    constexpr int kLife = 3;
 }
 
 Player::Player() :
- //   m_pBgStage1(nullptr),
     m_isJump(false),
     m_isRight(false),
     m_isLeft(false),
@@ -92,10 +95,17 @@ Player::~Player()
     DeleteGraph(m_jumpHandle);
 }
 
-void Player::Init(Camera* camera)
+void Player::Init(Camera* pCamera, SceneMain* pMain)
 {
-    m_pCamera = camera;
+    m_pCamera = pCamera;
     m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
+
+    // 再プレイ時
+    if (m_life < 0 || m_pMain->IsSceneGameOver() )
+    {
+        // 残機数
+        m_life = kLife;
+    }
 }
 
 void Player::Update()
@@ -275,7 +285,7 @@ void Player::Draw()
 void Player::OnDamage()
 {
     // 既にダメージを受けている(無敵時間)間は
-// 再度ダメージを受けることはない
+    // 再度ダメージを受けることはない
     if (m_invincibleCount > 0)
     {
         return;
@@ -382,4 +392,13 @@ void Player::UpdateJump()
         }
         m_move.y *= jumpHeight;
     }
+}
+
+/// <summary>
+/// プレイヤーのHPが0以下になった場合
+/// </summary>
+void Player::UpdateDead()
+{
+    m_life--;
+//    m_deadFrame = kDeadFrame;
 }

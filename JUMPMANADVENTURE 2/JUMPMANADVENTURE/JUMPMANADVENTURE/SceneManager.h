@@ -23,6 +23,7 @@ public:
 	{
 		kSceneTitle,
 		kSceneStage1,
+		kSceneGameOver
 	};
 
 private:

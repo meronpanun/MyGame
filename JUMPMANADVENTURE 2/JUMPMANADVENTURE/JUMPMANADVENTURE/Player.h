@@ -15,13 +15,14 @@ public:
 	Player();
 	 ~Player();
 
-	void Init(Camera* camera);
+	void Init(Camera* pCamera, SceneMain* pMain);
 	void Update();
 	void Draw();
 
+	int GetHp() const { return m_hp; }
+
+	// プレイヤーがダメージを受けた時の処理
 	void OnDamage();
-
-
 
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
@@ -47,9 +48,12 @@ public:
 private:
 	// ジャンプ処理
 	void UpdateJump();
+	// プレイヤーのHPが0以下になったときの処理
+	void UpdateDead();
 
 private:
 	Camera* m_pCamera;
+	SceneMain* m_pMain;
 
 	// プレイヤーの位置
 	Vec2 m_pos;
@@ -85,6 +89,13 @@ private:
 	bool m_isAnimTurn;
 
 	int m_invincibleCount;
+	// HP
 	int m_hp;
+	// 残機
+	int m_life;
+	// ダメージを受けてからのフレーム数
+	int m_damageFrame;
+	// 死亡時のフレーム
+	int m_deadFrame;
 };
 
