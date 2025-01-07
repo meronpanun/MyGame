@@ -18,27 +18,27 @@ public:
 	~SceneMain();
 
 	void Init();
-	void End();
 	SceneManager::SceneSelect Update();
 	void Draw();
-
-	bool IsSceneGameOver() const { return m_isSceneGameOver; }	// ゲームオーバー画面
 
 private:
 	// フェード処理
 	int m_fadeFrameCount;
-
 	// グラフィックハンドル
 	int m_lifeHandle;
+	// フォントハンドル
+	int m_fontHandle;
+	// ゲームオーバー演出に使用するフレーム
+	int m_gameoverFrameCount;
+	// ゲームオーバーになった後、1ボタンを押した
+	bool m_isGameEnd;
 
-	// シーン移動するか true:シーン移動する
-	bool m_isSceneGameOver;	// ゲームオーバー画面に移動
 
 	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage1> m_pBgStage1;
 	std::shared_ptr<Player> m_pPlayer;
 	std::shared_ptr<Enemy> m_pEnemy;
-//	std::shared_ptr<Life> m_pLife[3];
+	std::shared_ptr<SceneMain> m_pSceneMain;
 	Life m_life[3];
 };
 

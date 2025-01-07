@@ -67,6 +67,13 @@ namespace
 
     // 初期の残機数
     constexpr int kLife = 3;
+
+    // プレイヤーの初期HP
+    constexpr int kMaxHp = 3;
+
+    // 死亡演出
+    constexpr int kDeadStopFrame = 30;      // 死んだ瞬間止まる時間
+    constexpr float kDeadJumpSpeed = -4.0f; // 死んだあと飛び上がる初速
 }
 
 Player::Player() :
@@ -79,7 +86,11 @@ Player::Player() :
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
+    m_jumpSpeed(0.0f),
     m_animCount(0),
+    m_blinkFrameCount(0),
+    m_hp(kMaxHp),
+    m_deadFrameCount(0),
     m_isAnimJump(false),
     m_isAnimTurn(false)
 {
@@ -95,17 +106,10 @@ Player::~Player()
     DeleteGraph(m_jumpHandle);
 }
 
-void Player::Init(Camera* pCamera, SceneMain* pMain)
+void Player::Init(Camera* pCamera)
 {
     m_pCamera = pCamera;
     m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
-
-    // 再プレイ時
-    if (m_life < 0 || m_pMain->IsSceneGameOver() )
-    {
-        // 残機数
-        m_life = kLife;
-    }
 }
 
 void Player::Update()
@@ -115,138 +119,22 @@ void Player::Update()
     {
         m_pos.x = kRestartPosX;
         m_pos.y = kRestartPosY;
+
+        // hpを0にする
+        m_hp--;
     }
 
-    // 移動中のみ歩行アニメーションを行う
-    if (m_isWalk)
+    // 生きているときと死んでいるときで処理を切り分ける
+    if (m_hp > 0)
     {
-        // アニメーションの更新
-        m_animFrame++;
-        if (m_animFrame >= kAnimFrameCycle)
-        {
-            m_animFrame = 0;
-        }
-    }
-    int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-    bool isMove = false;
-
-    Pad::Update();
-
-    m_move.x = 0.0f;
-
-    // 左右移動
-    m_isWalk = false;
-    if (pad & PAD_INPUT_LEFT)
-    {
-        m_move.x -= kSpeed;
-        m_isLeft = true;
-        m_isAnimTurn = true;
-        m_isWalk = true;
+        UpdateNormal();
     }
     else
     {
-        m_isLeft = false;
+        UpdateDead();
     }
 
-    if (pad & PAD_INPUT_RIGHT)
-    {
-        m_move.x += kSpeed;
-        m_isRight = true;
-        m_isAnimTurn = false;
-        m_isWalk = true;
-    }
-    else
-    {
-        m_isRight = false;
-    }
-
-    // ダッシュ処理
-    if (pad & PAD_INPUT_3 && m_isRight)
-    {
-        m_move.x += kAccel;
-        m_isAnimTurn = false;
-    }
-    if (pad & PAD_INPUT_3 && m_isLeft)
-    {
-        m_move.x -= kAccel;
-        m_isAnimTurn = true;
-    }
-
-
-    // ジャンプ中
-    if (m_isJump) 
-    {
-        // ジャンプ中処理
-        UpdateJump();
-
-        // 初速度に重力を足す
-        m_move.y += kGravity;
-
-        // マップチップとのの当たり判定
-        Rect chipRect;
-        CheckHitBgStage1(chipRect);
-    }
-    else // 地面についている場合
-    {
-        // ジャンプ処理
-        if (pad & PAD_INPUT_1 && m_isJump == false)
-        {
-            m_isJump = true;
-            m_jumpCount++;
-        }
-        else
-        {
-            m_jumpCount = 0;
-        }
-
-        if (m_jumpCount == 1 && m_isJump)
-        {
-            m_move.y = kJumpAcc;
-            m_isAnimJump = false;
-        }
-        else
-        {
-            m_isJump = false;
-        }
-
-        m_pos.x += m_move.x;
-        Rect chipRect;
-        // 横の当たり判定
-        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
-        {
-            if (m_move.x > 0.0f)
-            {
-                m_pos.x = chipRect.m_left - kWidth * static_cast<float>(0.5f) - 1;
-            }
-            else if (m_move.x < 0.0f)
-            {
-                m_pos.x = chipRect.m_right + kWidth * static_cast<float>(0.5f) + 1;
-            }
-        }
-
-        m_pos.y += m_move.y;
-        // 縦の当たり判定
-        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
-        {
-            if (m_move.y > 0.0f) // プレイヤーが上下方向に移動している
-            {
-                // 地面に立っている何もしない
-                m_pos.y = chipRect.m_top - 1;
-                m_isJump = false;
-                m_isAnimJump = false;
-            }
-            else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
-            {
-                m_pos.y = chipRect.m_bottom + kHeight + 1; // めり込まない位置に補正
-                m_move.y *= -1.0f; // 上方向への加速を下方向に変換
-            }
-        }
-        else
-        {
-            // 地面にすら当たっていない
-            m_isJump = true;
-        }
-    }
+   
 }
 
 void Player::Draw()
@@ -286,10 +174,10 @@ void Player::OnDamage()
 {
     // 既にダメージを受けている(無敵時間)間は
     // 再度ダメージを受けることはない
-    if (m_invincibleCount > 0)
-    {
-        return;
-    }
+    //if (m_invincibleCount > 0)
+    //{
+    //    return;
+    //}
     // 無敵時間(点滅する時間)を設定する
     m_invincibleCount = kInvincible;
     // ダメージを受ける
@@ -394,11 +282,160 @@ void Player::UpdateJump()
     }
 }
 
+void Player::UpdateNormal()
+{
+    // 無敵時間の更新
+    m_blinkFrameCount--;
+    if (m_blinkFrameCount < 0)
+    {
+        m_blinkFrameCount = 0;
+    }
+
+    // 移動中のみ歩行アニメーションを行う
+    if (m_isWalk)
+    {
+        // アニメーションの更新
+        m_animFrame++;
+        if (m_animFrame >= kAnimFrameCycle)
+        {
+            m_animFrame = 0;
+        }
+    }
+    int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+    bool isMove = false;
+
+    Pad::Update();
+
+    m_move.x = 0.0f;
+
+    // 左右移動
+    m_isWalk = false;
+    if (pad & PAD_INPUT_LEFT)
+    {
+        m_move.x -= kSpeed;
+        m_isLeft = true;
+        m_isAnimTurn = true;
+        m_isWalk = true;
+    }
+    else
+    {
+        m_isLeft = false;
+    }
+
+    if (pad & PAD_INPUT_RIGHT)
+    {
+        m_move.x += kSpeed;
+        m_isRight = true;
+        m_isAnimTurn = false;
+        m_isWalk = true;
+    }
+    else
+    {
+        m_isRight = false;
+    }
+
+    // ダッシュ処理
+    if (pad & PAD_INPUT_3 && m_isRight)
+    {
+        m_move.x += kAccel;
+        m_isAnimTurn = false;
+    }
+    if (pad & PAD_INPUT_3 && m_isLeft)
+    {
+        m_move.x -= kAccel;
+        m_isAnimTurn = true;
+    }
+
+
+    // ジャンプ中
+    if (m_isJump)
+    {
+        // ジャンプ中処理
+        UpdateJump();
+
+        // 初速度に重力を足す
+        m_move.y += kGravity;
+
+        // マップチップとのの当たり判定
+        Rect chipRect;
+        CheckHitBgStage1(chipRect);
+    }
+    else // 地面についている場合
+    {
+        // ジャンプ処理
+        if (pad & PAD_INPUT_1 && m_isJump == false)
+        {
+            m_isJump = true;
+            m_jumpCount++;
+        }
+        else
+        {
+            m_jumpCount = 0;
+        }
+
+        if (m_jumpCount == 1 && m_isJump)
+        {
+            m_move.y = kJumpAcc;
+            m_isAnimJump = false;
+        }
+        else
+        {
+            m_isJump = false;
+        }
+
+        m_pos.x += m_move.x;
+        Rect chipRect;
+        // 横の当たり判定
+        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
+        {
+            if (m_move.x > 0.0f)
+            {
+                m_pos.x = chipRect.m_left - kWidth * static_cast<float>(0.5f) - 1;
+            }
+            else if (m_move.x < 0.0f)
+            {
+                m_pos.x = chipRect.m_right + kWidth * static_cast<float>(0.5f) + 1;
+            }
+        }
+
+        m_pos.y += m_move.y;
+        // 縦の当たり判定
+        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
+        {
+            if (m_move.y > 0.0f) // プレイヤーが上下方向に移動している
+            {
+                // 地面に立っている何もしない
+                m_pos.y = chipRect.m_top - 1;
+                m_isJump = false;
+                m_isAnimJump = false;
+            }
+            else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
+            {
+                m_pos.y = chipRect.m_bottom + kHeight + 1; // めり込まない位置に補正
+                m_move.y *= -1.0f; // 上方向への加速を下方向に変換
+            }
+        }
+        else
+        {
+            // 地面にすら当たっていない
+            m_isJump = true;
+        }
+    }
+}
+
 /// <summary>
 /// プレイヤーのHPが0以下になった場合
 /// </summary>
 void Player::UpdateDead()
 {
-    m_life--;
-//    m_deadFrame = kDeadFrame;
+    // 死亡後一瞬止まる
+    m_deadFrameCount++;
+    if (m_deadFrameCount < kDeadStopFrame)
+    {
+        return;
+    }
+
+    // 画面外に落ちていく演出
+ /*   m_pos.y += m_jumpSpeed;
+    m_jumpSpeed += kGravity;*/
 }

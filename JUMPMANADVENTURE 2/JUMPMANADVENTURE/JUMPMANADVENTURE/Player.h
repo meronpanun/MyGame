@@ -15,11 +15,14 @@ public:
 	Player();
 	 ~Player();
 
-	void Init(Camera* pCamera, SceneMain* pMain);
+	void Init(Camera* pCamera);
 	void Update();
 	void Draw();
 
+	// 現在のHPを取得
 	int GetHp() const { return m_hp; }
+	// 現在の残機数を取得
+	int GetLife() const { return m_life; }
 
 	// プレイヤーがダメージを受けた時の処理
 	void OnDamage();
@@ -48,8 +51,9 @@ public:
 private:
 	// ジャンプ処理
 	void UpdateJump();
-	// プレイヤーのHPが0以下になったときの処理
-	void UpdateDead();
+	// 各状態毎のUpdate処理
+	void UpdateNormal();  // ゲーム中のUpdate
+	void UpdateDead();    // 死亡後のUpdate
 
 private:
 	Camera* m_pCamera;
@@ -78,6 +82,7 @@ private:
 	int m_jumpFrame;
 	bool m_isJump;     // ジャンプしているかどうかフラグ
 	bool m_isAnimJump; // プレイヤーがジャンプ描画しているかどうかのフラグ
+	float m_jumpSpeed;
 
 	// 右に移動しているかどうかのフラグ
 	bool m_isRight; 
@@ -93,9 +98,10 @@ private:
 	int m_hp;
 	// 残機
 	int m_life;
-	// ダメージを受けてからのフレーム数
-	int m_damageFrame;
-	// 死亡時のフレーム
-	int m_deadFrame;
+
+	// 点滅
+	int m_blinkFrameCount;
+	// 死亡演出
+	int m_deadFrameCount;
 };
 

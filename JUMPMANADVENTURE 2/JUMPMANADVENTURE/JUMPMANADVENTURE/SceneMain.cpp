@@ -11,6 +11,12 @@
 #include <memory>
 #include <cassert>
 
+namespace
+{
+	// ゲームオーバーの文字が表示されるまでのフレーム数
+	constexpr int kGameoverFadeFrame = 60;
+}
+
 SceneMain::SceneMain():
 	m_fadeFrameCount(0),
 	m_lifeHandle(-1)
@@ -24,6 +30,9 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	// フォントの生成
+	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/life.png");
 	assert(m_lifeHandle != -1);
@@ -32,12 +41,11 @@ void SceneMain::Init()
 	m_pBgStage1 = std::make_shared<BgStage1>();
 	m_pCamera = std::make_shared<Camera>();
 	m_pEnemy = std::make_shared<Enemy>();
-//	m_pLife[3] = std::make_shared<Life>();
+
 	m_pPlayer->Init(m_pCamera.get());
 	m_pBgStage1->Init(m_pCamera.get());
 	m_pCamera->Init();
 	m_pEnemy->Init();
-//	m_pLife[3]->Init();
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -47,37 +55,56 @@ void SceneMain::Init()
 	}
 }
 
-void SceneMain::End()
-{
-
-	for (int i = 0; i < 3; i++)
-	{
-		m_life[i].End();
-	}
-
-	// グラフィックの削除
-	DeleteGraph(m_lifeHandle);
-}
-
 SceneManager::SceneSelect SceneMain::Update()
 {
-	// フェードイン処理
-	m_fadeFrameCount++;
-	if (m_fadeFrameCount > 30)
+	if (m_isGameEnd)
 	{
-		m_fadeFrameCount = 30;
+		// ゲームオーバーになった後1ボタンを押したらフェードアウト
+		m_fadeFrameCount--;
+		if (m_fadeFrameCount < 0)
+		{
+			m_fadeFrameCount = 0;
+			return SceneManager::kSceneTitle;
+		}
 	}
-	
+	else
+	{
+		// フェードイン処理
+		m_fadeFrameCount++;
+		if (m_fadeFrameCount > 30)
+		{
+			m_fadeFrameCount = 30;
+		}
+	}
+
 	m_pPlayer->Update();
 	m_pCamera->Update(m_pPlayer.get());
 	m_pEnemy->Update();
-	Pad::Update();
+//	Pad::Update();
 
 	for (int i = 0; i < 3; i++)
 	{
 		m_life[i].Update();
 	}
 
+	// ゲームオーバー演出
+	if (m_pPlayer->GetHp() <= 0)
+	{
+		m_gameoverFrameCount++;
+		if (m_gameoverFrameCount > kGameoverFadeFrame)
+		{
+			m_gameoverFrameCount = kGameoverFadeFrame;
+
+			// ゲームオーバーの文字が表示されきった後、
+			// 1ボタンを押したらタイトルに戻る
+			if (Pad::IsTrigger(PAD_INPUT_1))
+			{
+				m_isGameEnd = true;
+			}
+		}
+	}
+
+	// プレイヤーと敵の当たり判定
 	bool isPlayerHit = true;
 
 	if (m_pPlayer->GetLeft() > m_pEnemy->GetRigth())
@@ -97,11 +124,13 @@ SceneManager::SceneSelect SceneMain::Update()
 		isPlayerHit = false;
 	}
 
+	// isPlayerHit = trueなら当たっている、falseなら当たっていない
 	if (isPlayerHit)
 	{
 		m_pPlayer->OnDamage();
 	}
 
+	// 何もしなければシーン遷移しない(ステージ1画面のまま)
 	return SceneManager::SceneSelect::kSceneStage1;
 }
 
@@ -114,6 +143,30 @@ void SceneMain::Draw()
 	for (int i = 0; i < m_pPlayer->GetHp(); i++)
 	{
 		m_life[i].Draw();
+	}
+
+	// ゲームオーバーの表示
+	if (m_pPlayer->GetHp() <= 0)
+	{
+		// 画面全体を黒色で塗り潰す
+		DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
+
+		// 割合を使用して変換を行う
+		// m_gameoverFrameCount を進行割合に変換する
+		float progressRate = static_cast<float>(m_gameoverFrameCount) / kGameoverFadeFrame;
+
+		// 割合を実際の透明度に変換する
+		int alpha = static_cast<float>(255 * progressRate);
+
+		// ここ以降呼ばれるDraw関数の描画方法を変更する
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+
+		int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_fontHandle);
+		DrawStringToHandle(Game::kScreenWidth / 2 - width / 2, Game::kScreenHeight / 2 - 64 / 2,
+			"GAMEOVER", GetColor(255, 0, 0), m_fontHandle);
+
+		// 以降の表示がおかしくならないように元の設定に戻しておく
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 
 	// フェード処理

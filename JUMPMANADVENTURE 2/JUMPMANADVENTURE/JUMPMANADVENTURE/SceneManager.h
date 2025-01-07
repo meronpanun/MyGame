@@ -3,7 +3,7 @@
 class SceneStage1;
 class SceneTitle;
 class SceneMain;
-
+class SceneGameOver;
 /// <summary>
 /// シーン管理クラス
 /// </summary>
@@ -33,5 +33,6 @@ private:
 	// SceneManagerで管理するシーン
 	SceneTitle* m_pTitle;
 	SceneMain* m_pSceneMain;
+	SceneGameOver* m_pGameOver;
 };
 

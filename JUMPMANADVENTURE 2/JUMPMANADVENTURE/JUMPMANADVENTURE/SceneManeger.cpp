@@ -1,5 +1,4 @@
 #include "SceneManager.h"
-#include "SceneStage1.h"
 #include "SceneTitle.h"
 #include "SceneMain.h"
 #include "Pad.h"
