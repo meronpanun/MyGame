@@ -164,9 +164,9 @@ void Player::Draw()
     
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
-    DrawBox(GetLeft(), GetTop(),
-        GetRigth(), GetBottom(),
-        GetColor(0, 0, 255), false);
+    //DrawBox(GetLeft(), GetTop(),
+    //    GetRigth(), GetBottom(),
+    //    GetColor(0, 0, 255), false);
 #endif // DISP_COLLISION
 }
 

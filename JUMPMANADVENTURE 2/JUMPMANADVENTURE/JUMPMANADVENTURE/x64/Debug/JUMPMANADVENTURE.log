@@ -1,14 +1,12 @@
-﻿  Enemy.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(8,9): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(23,17): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(29,50): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(29,36): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(29,24): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(29,15): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  Player.cpp
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(168,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(168,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(167,30): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\Player.cpp(167,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  コードを生成中...
+﻿  BgStage1.cpp
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(109,71): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(109,37): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(114,71): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(114,37): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(119,71): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(119,37): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(152,39): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(153,40): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(154,38): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(155,41): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
   JUMPMANADVENTURE.vcxproj -> C:\Users\sho24\OneDrive\デスクトップ\YuiProgram\MyGame\JUMPMANADVENTURE 2\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe

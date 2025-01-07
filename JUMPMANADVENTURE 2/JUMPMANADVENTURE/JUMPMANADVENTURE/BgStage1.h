@@ -25,5 +25,7 @@ private:
 
 	// マップのグラフィックハンドル
     int m_handle001;
+    int m_handle002;
+    int m_handle003;
 };
 
