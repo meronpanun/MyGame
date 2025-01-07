@@ -6,7 +6,7 @@ Enemy::Enemy():
 	m_animFrameCount(0),
 	m_handle(-1),
 	m_speed(2.0f),
-	m_pos(200.0f,610.0f)
+	m_pos(800.0f,630.0f)
 {
 }
 
@@ -21,7 +21,7 @@ void Enemy::Init()
 void Enemy::Update()
 {
 	m_velocity.x = m_speed;
-	m_pos += m_velocity;
+	m_pos -= m_velocity;
 }
 
 void Enemy::Draw()

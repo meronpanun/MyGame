@@ -15,13 +15,13 @@ namespace
 	constexpr int kSingleAnimFrame = 4;
 
 	// 表示座標
-	constexpr int kBasePosX = 600;
-	constexpr int kIntervalX = 120;
+	constexpr int kBasePosX = 100;
+	constexpr int kIntervalX = 60;
 
-	constexpr int kPosY = 300;
+	constexpr int kPosY = 50;
 
 	// サイズ(拡大率)
-	constexpr double kScale = 4.0;
+	constexpr double kScale = 2.0;
 }
 
 Life::Life():

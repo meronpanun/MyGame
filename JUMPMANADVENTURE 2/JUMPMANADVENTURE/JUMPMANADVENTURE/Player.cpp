@@ -120,7 +120,7 @@ void Player::Update()
         m_pos.x = kRestartPosX;
         m_pos.y = kRestartPosY;
 
-        // hpを0にする
+        // hpを減らす
         m_hp--;
     }
 
@@ -174,10 +174,10 @@ void Player::OnDamage()
 {
     // 既にダメージを受けている(無敵時間)間は
     // 再度ダメージを受けることはない
-    //if (m_invincibleCount > 0)
-    //{
-    //    return;
-    //}
+    if (m_invincibleCount > 0)
+    {
+        return;
+    }
     // 無敵時間(点滅する時間)を設定する
     m_invincibleCount = kInvincible;
     // ダメージを受ける

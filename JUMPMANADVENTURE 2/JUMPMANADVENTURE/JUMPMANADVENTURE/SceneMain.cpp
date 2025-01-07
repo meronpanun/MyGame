@@ -160,11 +160,9 @@ void SceneMain::Draw()
 
 		// ‚±‚±ˆÈ~ŒÄ‚Î‚ê‚éDrawŠÖ”‚Ì•`‰æ•û–@‚ğ•ÏX‚·‚é
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-
 		int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_fontHandle);
 		DrawStringToHandle(Game::kScreenWidth / 2 - width / 2, Game::kScreenHeight / 2 - 64 / 2,
 			"GAMEOVER", GetColor(255, 0, 0), m_fontHandle);
-
 		// ˆÈ~‚Ì•\¦‚ª‚¨‚©‚µ‚­‚È‚ç‚È‚¢‚æ‚¤‚ÉŒ³‚Ìİ’è‚É–ß‚µ‚Ä‚¨‚­
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
