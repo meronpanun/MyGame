@@ -27,5 +27,8 @@ private:
     int m_handle001;
     int m_handle002;
     int m_handle003;
+    int m_handle004;
+    int m_handle005;
+    int m_handle006;
 };
 
