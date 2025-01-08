@@ -19,7 +19,7 @@ namespace
 	// É}ÉbÉvÉ`ÉbÉvägëÂó¶
 	constexpr float kChipScale = 1.6f;
 
-	constexpr int kChipSetDate[kChipNumY][kChipNumX] =
+	constexpr int kChipSetData[kChipNumY][kChipNumX] =
 	{
 		// 1Å`10			  // 11Å`20			   // 21Å`30            // 31Å`40            // 41Å`50            // 51Å`60            // 61Å`70            // 71Å`80            // 81Å`90            // 91Å`100           // 101Å`110          // 111Å`120          // 121Å`130          // 131Å`140          // 141Å`150          // 151Å`160          // 161Å`170          // 171Å`180          // 181Å`190          // 191Å`200          // 201Å`210                                                                                                                                                                                                                                                                                         
 		{0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0},
@@ -72,6 +72,8 @@ BgStage1::~BgStage1()
 {
 	// ÉOÉâÉtÉBÉbÉNÇÃäJï˙
 	DeleteGraph(m_handle001);
+	DeleteGraph(m_handle002);
+	DeleteGraph(m_handle003);
 }
 
 void BgStage1::Init(Camera* camera)
@@ -79,8 +81,20 @@ void BgStage1::Init(Camera* camera)
 	m_pCamera = camera;
 }
 
-void BgStage1::Update()
+void BgStage1::Update(Player* player)
 {
+	for (int y = 0; y < kChipNumY; y++)
+	{
+		for (int x = 0; x < kChipNumX; x++)
+		{
+		//	int chipNo = kChipSetData[y][x];
+
+			if (y * kChipHeight * kChipScale == player->GetTop())
+			{
+				kChipSetData[y][x] == 0;
+			}
+		}
+	}
 }
 
 void BgStage1::Draw()
@@ -89,7 +103,6 @@ void BgStage1::Draw()
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
 
 	// É}ÉbÉvÉ`ÉbÉvÇÃï`âÊ
-	// Action
 	for (int y = 0; y < kChipNumY; y++)
 	{
 		for (int x = 0; x < kChipNumX; x++)
@@ -104,17 +117,17 @@ void BgStage1::Draw()
 			if (posY > Game::kScreenHeight) continue;
 
 			// ÉåÉìÉKÉuÉçÉbÉN
-			if (kChipSetDate[y][x] == 1)
+			if (kChipSetData[y][x] == 1)
 			{
 				DrawRotaGraph(posX * kChipScale + m_pCamera->m_drawOffset.x, posY * kChipScale, kChipScale, 0, m_handle001, false);
 			}
 			// ÅHÉuÉçÉbÉN
-			if (kChipSetDate[y][x] == 2)
+			if (kChipSetData[y][x] == 2)
 			{
 				DrawRotaGraph(posX * kChipScale + m_pCamera->m_drawOffset.x, posY * kChipScale, kChipScale, 0, m_handle002, false);
 			}
 			// ìyä«ÉuÉçÉbÉN
-			if (kChipSetDate[y][x] == 3)
+			if (kChipSetData[y][x] == 3)
 			{
 				DrawRotaGraph(posX * kChipScale + m_pCamera->m_drawOffset.x, posY * kChipScale, kChipScale, 0, m_handle003, false);
 			}
@@ -135,7 +148,7 @@ bool BgStage1::IsCollision(Rect rect, Rect& ChipRect)
 		for (int x = 0; x < kChipNumX; x++)
 		{
 			// ï«à»äOÇ∆ÇÕìñÇΩÇÁÇ»Ç¢
-			if (kChipSetDate[y][x] == 0) continue;
+			if (kChipSetData[y][x] == 0) continue;
 
 			int chipLeft = static_cast<int>(x * kChipWidth * kChipScale);
 			int chipRight = static_cast<int>(chipLeft + kChipWidth * kChipScale);

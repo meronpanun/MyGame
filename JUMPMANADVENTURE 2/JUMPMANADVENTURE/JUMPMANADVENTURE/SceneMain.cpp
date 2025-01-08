@@ -78,6 +78,7 @@ SceneManager::SceneSelect SceneMain::Update()
 	}
 
 	m_pPlayer->Update();
+	m_pBgStage1->Update(m_pPlayer.get());
 	m_pCamera->Update(m_pPlayer.get());
 	m_pEnemy->Update();
 //	Pad::Update();

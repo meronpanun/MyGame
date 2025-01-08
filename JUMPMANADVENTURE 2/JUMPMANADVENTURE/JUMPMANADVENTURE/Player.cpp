@@ -356,7 +356,7 @@ void Player::UpdateNormal()
         // 初速度に重力を足す
         m_move.y += kGravity;
 
-        // マップチップとのの当たり判定
+        // マップチップとの当たり判定
         Rect chipRect;
         CheckHitBgStage1(chipRect);
     }
