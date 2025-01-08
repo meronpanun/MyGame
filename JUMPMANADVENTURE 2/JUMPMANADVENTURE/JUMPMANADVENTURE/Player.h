@@ -44,6 +44,9 @@ public:
 	// マップチップとの当たり判定
 	void CheckHitBgStage1(Rect chipRect);
 
+	void AddMoveY(float DisY);
+	void OnCollideY();
+
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect();
 

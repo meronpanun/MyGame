@@ -246,6 +246,16 @@ void Player::CheckHitBgStage1(Rect chipRect)
     }
 }
 
+void Player::AddMoveY(float DisY)
+{
+    m_pos.y += DisY;
+}
+
+void Player::OnCollideY()
+{
+    m_move.y = 0;
+}
+
 Rect Player::GetRect()
 {
     // プレイヤーの矩形当たり判定情報

@@ -18,6 +18,8 @@ namespace
 
 	// マップチップ拡大率
 	constexpr float kScale = 1.6f;
+	// マップ全体の左下をウィンドウの左下に合わせるための高さ調整用変数
+	constexpr int m_AllChipHeight = (kChipNumY * kChipHeight) - Game::kScreenHeight;
 
 	constexpr int kChipSetData[kChipNumY][kChipNumX] =
 	{
@@ -95,7 +97,9 @@ void BgStage1::Update(Player* player)
 		for (int x = 0; x < kChipNumX; x++)
 		{
 		//	int chipNo = kChipSetData[y][x];
-
+			float chipBottom = y * kChipHeight + kChipHeight - m_AllChipHeight;
+			player->AddMoveY(chipBottom - player->GetTop()); // マップチップとプレイヤーの重なった分だけ下にずらす
+			player->OnCollideY(); // 移動量を0にする
 			if (y * kChipHeight * kScale == player->GetTop())
 			{
 				kChipSetData[y][x] == 0;
