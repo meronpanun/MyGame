@@ -92,20 +92,27 @@ void BgStage1::Init(Camera* camera)
 
 void BgStage1::Update(Player* player)
 {
-	for (int y = 0; y < kChipNumY; y++)
-	{
-		for (int x = 0; x < kChipNumX; x++)
-		{
-		//	int chipNo = kChipSetData[y][x];
-			float chipBottom = y * kChipHeight + kChipHeight - m_AllChipHeight;
-			player->AddMoveY(chipBottom - player->GetTop()); // マップチップとプレイヤーの重なった分だけ下にずらす
-			player->OnCollideY(); // 移動量を0にする
-			if (y * kChipHeight * kScale == player->GetTop())
-			{
-				kChipSetData[y][x] == 0;
-			}
-		}
-	}
+	//for (int y = 0; y < kChipNumY; y++)
+	//{
+	//	for (int x = 0; x < kChipNumX; x++)
+	//	{
+	//		int chipNo = kChipSetData[y][x];
+	//		if (chipNo == 2 || chipNo == 4)
+	//		{
+	//			if (player->GetLeft() >= x * kChipWidth && player->GetLeft() <= x * kChipWidth + kChipWidth
+	//				&& player->GetTop() >= y * kChipHeight && player->GetTop() <= y * kChipHeight + kChipHeight)
+	//			{
+	//				float chipBottom = y * kChipHeight + kChipHeight;
+	//				player->AddMoveY(chipBottom - player->GetTop()); // マップチップとプレイヤーの重なった分だけ下にずらす
+	//				player->OnCollideY(); // 移動量を0にする
+	//				if (y * kChipHeight + kChipHeight == player->GetTop())
+	//				{
+	//					kChipSetData[y][x] == 0;
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 void BgStage1::Draw()
@@ -122,10 +129,10 @@ void BgStage1::Draw()
 			int posY = kChipHeight * y + 10;
 
 			// 画面外は描画しない
-		/*	if (posX < 0 - kChipWidth) continue;
-			if (posX > Game::kScreenWidth) continue;
+			if (posX < 0 - kChipWidth) continue;
+			if (posX > Stage1::kBgStage1Width) continue;
 			if (posY < 0 - kChipWidth) continue;
-			if (posY > Game::kScreenHeight) continue;*/
+			if (posY > Game::kScreenHeight) continue;
 
 			// 地面ブロック
 			if (kChipSetData[y][x] == 1)

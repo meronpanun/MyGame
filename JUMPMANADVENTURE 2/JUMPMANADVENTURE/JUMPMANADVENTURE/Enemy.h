@@ -20,13 +20,14 @@ public:
 
 private:
 	Vec2 m_pos;
-	Vec2 m_velocity;
-	
+	// 敵の加速度
+	Vec2 m_move;
+
+	// アニメーションのフレーム
+	int m_animFrame;
+	// アニメーションのカウント
+	int m_animCount;
 	// 敵のグラフィックハンドル
 	int m_handle;
-
-	int m_animFrameCount;
-
-	int m_speed;
 };
 

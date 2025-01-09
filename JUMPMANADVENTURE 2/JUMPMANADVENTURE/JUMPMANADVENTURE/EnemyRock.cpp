@@ -19,7 +19,7 @@ namespace
 	constexpr float kGravaity = 0.5f;
 
 	// キャラクターのアニメーション
-	constexpr int kRunFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13 };
+	constexpr int kRunFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14 };
 	// アニメーション1コマのフレーム数
 	constexpr int kAnimFrameNum = 4;
 	// アニメーションの1サイクルのフレーム数
