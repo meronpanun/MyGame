@@ -14,11 +14,11 @@ class EnemyBase
 {
 public:
 	EnemyBase();
-	~EnemyBase();
+	virtual ~EnemyBase();
 
-	void Init();
-	void Update();
-	void Draw();
+ 	virtual void Init();
+	virtual void Update();
+	virtual void Draw();
 
 	// ‰~‚Ì“–‚½‚è”»’è
 	float GetRadius();
