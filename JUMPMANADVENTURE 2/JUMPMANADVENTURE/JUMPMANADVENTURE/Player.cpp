@@ -31,6 +31,10 @@ namespace
     // 底の上限 
     constexpr int kFallMaX = 920;
 
+    // ステージの左右端座標
+    constexpr int kStageLeftEnd = 40;
+    constexpr int kStageRightEnd = 5100;
+
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
@@ -120,6 +124,8 @@ void Player::Update()
         m_pos.x = kRestartPosX;
         m_pos.y = kRestartPosY;
 
+        m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
+
         // hpを減らす
         m_hp--;
     }
@@ -164,9 +170,9 @@ void Player::Draw()
     
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
-    //DrawBox(GetLeft(), GetTop(),
-    //    GetRigth(), GetBottom(),
-    //    GetColor(0, 0, 255), false);
+ /*   DrawBox(GetLeft(), GetTop(),
+        GetRigth(), GetBottom(),
+        GetColor(0, 0, 255), false);*/
 #endif // DISP_COLLISION
 }
 
@@ -311,6 +317,17 @@ void Player::UpdateNormal()
             m_animFrame = 0;
         }
     }
+
+    // プレイヤーが画面端から出ていかない
+    if (m_pos.x < kStageLeftEnd)
+    {
+        m_pos.x = kStageLeftEnd;
+    }
+    if (m_pos.x > kStageRightEnd)
+    {
+        m_pos.x = kStageRightEnd;
+    }
+
     int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
     bool isMove = false;
 

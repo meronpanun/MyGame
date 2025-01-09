@@ -32,7 +32,8 @@ private:
 	int m_gameoverFrameCount;
 	// ゲームオーバーになった後、1ボタンを押した
 	bool m_isGameEnd;
-
+	// 点滅させるためのフレームカウント
+	int m_blinkFrameCount;
 
 	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage1> m_pBgStage1;

@@ -15,6 +15,10 @@ namespace
 {
 	// ゲームオーバーの文字が表示されるまでのフレーム数
 	constexpr int kGameoverFadeFrame = 60;
+
+	// 文字の点滅
+	constexpr int kBlinkCycleFrame = 60;
+	constexpr int kBlinkDispFrame = 40;
 }
 
 SceneMain::SceneMain():
@@ -105,6 +109,13 @@ SceneManager::SceneSelect SceneMain::Update()
 		}
 	}
 
+	// 1秒サイクルで表示、非表示切り替えす
+	m_blinkFrameCount++;
+	if (m_blinkFrameCount >= kBlinkCycleFrame)
+	{
+		m_blinkFrameCount = 0;
+	}
+
 	// プレイヤーと敵の当たり判定
 	bool isPlayerHit = true;
 
@@ -152,6 +163,11 @@ void SceneMain::Draw()
 		// 画面全体を黒色で塗り潰す
 		DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
 
+		if (m_blinkFrameCount < kBlinkDispFrame)
+		{
+			DrawString(580, 600, "Press A Button", 0xffffff);
+		}
+
 		// 割合を使用して変換を行う
 		// m_gameoverFrameCount を進行割合に変換する
 		float progressRate = static_cast<float>(m_gameoverFrameCount) / kGameoverFadeFrame;
@@ -162,8 +178,8 @@ void SceneMain::Draw()
 		// ここ以降呼ばれるDraw関数の描画方法を変更する
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 		int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_fontHandle);
-		DrawStringToHandle(Game::kScreenWidth / 2 - width / 2, Game::kScreenHeight / 2 - 64 / 2,
-			"GAMEOVER", GetColor(255, 0, 0), m_fontHandle);
+		DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, Game::kScreenHeight * 0.5 - 64 * 0.5,
+			"GAMEOVER", 0xff0000, m_fontHandle);
 		// 以降の表示がおかしくならないように元の設定に戻しておく
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}

@@ -5,8 +5,11 @@
 
 namespace
 {
+	// カメラ範囲
 	constexpr float CameraScopeRangeW = 400.0f;
 	constexpr float CameraLerpRate = 0.15f;
+	constexpr float CameraScopeRangeLeft = 300.0f;
+	constexpr float CameraScopeRangeRight = 500.0f;
 }
 
 Camera::Camera()
@@ -26,15 +29,20 @@ void Camera::Update(const Player* player)
 	// プレイヤーの位置がカメラの中央から一定以上離れたら
 	// カメラの「目標」ポジションをその範囲に留める
 	Vec2 aimCameraPos = m_pos;
-	// x座標
-	if (player->GetPos().x > m_pos.x + (CameraScopeRangeW * 0.5f))
+	if (player->GetPos().x > m_pos.x + (CameraScopeRangeW * 0.5f))	// 右スクロール
 	{
 		aimCameraPos.x = player->GetPos().x - (CameraScopeRangeW * 0.5f);
 	}
-	else if (player->GetPos().x < m_pos.x - (CameraScopeRangeW * 0.5f))
+	else if (player->GetPos().x < m_pos.x - (CameraScopeRangeW * 0.5f)) // 左スクロール
 	{
 		aimCameraPos.x = player->GetPos().x + (CameraScopeRangeW * 0.5f);
 	}
+
+	// x軸の一定よりカメラが移動しないように固定
+	//if (player->GetPos().x < CameraScopeRangeW)
+	//{
+	//	aimCameraPos.x = player->GetPos().x + 200;
+	//}
 
 	// 目標ポジションに、Lerpを使ってカメラポジションを近づける
 //	m_pos = Lerp(m_pos, aimCameraPos, CameraLerpRate);
