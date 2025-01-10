@@ -373,7 +373,6 @@ void Player::UpdateNormal()
         m_isAnimTurn = true;
     }
 
-
     // ƒWƒƒƒ“ƒv’†
     if (m_isJump)
     {
