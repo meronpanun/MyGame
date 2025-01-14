@@ -38,7 +38,7 @@ namespace
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-    constexpr float kAccel = 2.0f;
+    constexpr float kAccel = 4.0f;
 
     // アニメーション1コマのフレーム数
     constexpr int kSingleAnimFrame = 10;
@@ -191,7 +191,7 @@ void Player::OnDamage()
     printfDx("Damage ");
 }
 
-float Player::GetRadius()
+float Player::GetRadius() const
 {
     return kRadius;
 }
@@ -262,7 +262,7 @@ void Player::OnCollideY()
     m_move.y = 0;
 }
 
-Rect Player::GetRect()
+Rect Player::GetRect() const
 {
     // プレイヤーの矩形当たり判定情報
     Rect rect;

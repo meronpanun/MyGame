@@ -7,24 +7,38 @@
 namespace
 {
 	// 半径
-	constexpr int kRadius = 32;
+	constexpr int kRadius = 64;
 	
 	// ゴールの描画サイズ
 	constexpr int kGraphWidth = 64;
 	constexpr int kGraphHeight = 64;
 
 	// ゴールのアニメーション
-	constexpr int kUseFrame[] = { 0,1,2,3,4,5,6,7 };
+	constexpr int kUseFrame[] = { 0,1,2,3,4,5,6,7,8,9 };
 	// アニメーション1コマのフレーム数
 	constexpr int kAnimFrameNum = 6;
 	// アニメーションの1サイクルのフレーム数
 	constexpr int kAnimFrameCycle = _countof(kUseFrame) * kAnimFrameNum;
+
+	// アニメーションのコマ数
+	constexpr int kLoopAnimNum = 10;
+
+	// アニメーション1コマのフレーム数
+	constexpr int kSingleAnimFrame = 4;
+
+	// 表示座標
+	constexpr int kPosX = 5050;
+	constexpr int kPosY = 605;
+
+	// 拡大率
+	constexpr double kScale = 2.0f;
 }
 
 Goal::Goal():
-	m_pos(5000.0f,610.0f),
+	m_pos(5050.0f,600.0f),
 	m_animFrame(0),
-	m_handle(0)
+	m_handle(0),
+	m_index(0)
 {
 }
 
@@ -39,8 +53,9 @@ void Goal::Init(Camera* camera)
 
 void Goal::Update()
 {
+	// アニメーションの進行
 	m_animFrame++;
-	if (m_animFrame >= kAnimFrameCycle)
+	if (m_animFrame >= kLoopAnimNum * kSingleAnimFrame)
 	{
 		m_animFrame = 0;
 	}
@@ -48,12 +63,16 @@ void Goal::Update()
 
 void Goal::Draw()
 {
-	int animFrame = m_animFrame / kAnimFrameNum;
+	// グラフィックの切り出し位置(X座標)を計算で求める
+	int animNo = m_animFrame / kSingleAnimFrame;
 
-	int srcX = kUseFrame[animFrame] * kGraphWidth;
-	int srcY = kGraphHeight * 0;
+	// indexから表示位置を決定する
+	int posX = kPosX + m_index;
 
-	DrawRectRotaGraph(32 + m_pCamera->m_drawOffset.x, 32, srcX, srcY, kGraphWidth, kGraphHeight, 1.0, 0.0, m_handle, true, false);
+	DrawRectRotaGraph(kPosX + m_pCamera->m_drawOffset.x, kPosY, 
+		animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight, 
+		kScale, 0.0, 
+		m_handle, true);
 }
 
 float Goal::GetRadius()

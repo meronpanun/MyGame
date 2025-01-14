@@ -70,8 +70,6 @@ BgStage1::BgStage1()
 	assert(m_handle004 != -1);
 	m_handle005 = LoadGraph("data/image/katai.png");
 	assert(m_handle005 != -1);
-	m_handle006 = LoadGraph("data/image/End.png");
-	assert(m_handle006 != -1);
 }
 
 BgStage1::~BgStage1()
@@ -82,7 +80,6 @@ BgStage1::~BgStage1()
 	DeleteGraph(m_handle003);
 	DeleteGraph(m_handle004);
 	DeleteGraph(m_handle005);
-	DeleteGraph(m_handle006);
 }
 
 void BgStage1::Init(Camera* camera)
@@ -159,11 +156,6 @@ void BgStage1::Draw()
 			{
 				DrawRotaGraph(posX * kScale + m_pCamera->m_drawOffset.x, posY * kScale, kScale, 0, m_handle005, false);
 			}
-			// Šø
-		/*	if (kChipSetData[y][x] == 6)
-			{
-				DrawRotaGraph(posX * kScale + m_pCamera->m_drawOffset.x, posY * kScale, kScale, 0, m_handle006, false);
-			}*/
 		}
 	}
 }

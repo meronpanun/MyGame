@@ -45,5 +45,7 @@ private:
 	int m_handle;
 	// アニメーション
 	int m_animFrame;
+
+	int m_index;
 };
 

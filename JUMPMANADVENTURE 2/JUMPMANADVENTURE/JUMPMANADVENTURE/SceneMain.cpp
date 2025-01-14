@@ -23,6 +23,7 @@ namespace
 }
 
 SceneMain::SceneMain():
+	m_isGoalHit(false),
 	m_fadeFrameCount(0),
 	m_lifeHandle(-1)
 {
@@ -30,7 +31,7 @@ SceneMain::SceneMain():
 	m_lifeHandle = LoadGraph("data/image/life.png");
 	assert(m_lifeHandle != -1);
 	// ゴールのグラフィックの読み込み
-	m_goalHandle = LoadGraph("data/image/EndAnim.png");
+	m_goalHandle = LoadGraph("data/image/GoalFlag.png");
 	assert(m_lifeHandle != -1);
 
 	m_pGoal = std::make_shared<Goal>();
@@ -57,6 +58,7 @@ void SceneMain::Init()
 	m_pBgStage1->Init(m_pCamera.get());
 	m_pCamera->Init();
 	m_pEnemy->Init();
+	m_pGoal->Init(m_pCamera.get());
 
 
 	for (int i = 0; i < 3; i++)
@@ -69,6 +71,8 @@ void SceneMain::Init()
 
 SceneManager::SceneSelect SceneMain::Update()
 {
+	m_isGoalHit = m_pGoal->GetHitPlayerFlag(m_pPlayer);
+
 	if (m_isGameEnd)
 	{
 		// ゲームオーバーになった後1ボタンを押したらフェードアウト
@@ -93,6 +97,7 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pBgStage1->Update(m_pPlayer.get());
 	m_pCamera->Update(m_pPlayer.get());
 	m_pEnemy->Update();
+	m_pGoal->Update();
 //	Pad::Update();
 
 	for (int i = 0; i < 3; i++)
@@ -150,6 +155,13 @@ SceneManager::SceneSelect SceneMain::Update()
 		m_pPlayer->OnDamage();
 	}
 
+	// ゴールオブジェクトに当たったら
+	if (m_isGoalHit)
+	{
+		return SceneManager::kSceneGameClear;
+		m_isGoalHit = true;
+	}
+
 	// 何もしなければシーン遷移しない(ステージ1画面のまま)
 	return SceneManager::SceneSelect::kSceneStage1;
 }
@@ -159,6 +171,7 @@ void SceneMain::Draw()
 	m_pBgStage1->Draw();
 	m_pPlayer->Draw();
 	m_pEnemy->Draw();
+	m_pGoal->Draw();
 
 	for (int i = 0; i < m_pPlayer->GetHp(); i++)
 	{
@@ -187,7 +200,7 @@ void SceneMain::Draw()
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 		int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_fontHandle);
 		DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, Game::kScreenHeight * 0.5 - 64 * 0.5,
-			"GAMEOVER", 0xff0000, m_fontHandle);
+			"GAMEOVER", 0xffffff, m_fontHandle);
 		// 以降の表示がおかしくならないように元の設定に戻しておく
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}

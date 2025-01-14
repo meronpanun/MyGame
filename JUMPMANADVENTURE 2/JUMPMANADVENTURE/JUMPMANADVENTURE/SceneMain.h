@@ -35,6 +35,8 @@ private:
 	bool m_isGameEnd;
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;
+	// ゴールに当たったかどうかフラグ
+	bool m_isGoalHit;
 
 	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage1> m_pBgStage1;

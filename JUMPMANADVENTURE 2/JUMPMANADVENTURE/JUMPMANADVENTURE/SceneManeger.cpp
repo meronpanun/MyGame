@@ -1,12 +1,14 @@
 #include "SceneManager.h"
 #include "SceneTitle.h"
 #include "SceneMain.h"
+#include "SceneGameClear.h"
 #include "Pad.h"
 
 SceneManager::SceneManager():
 	m_runScene(kSceneTitle),
 	m_pTitle(nullptr),
-	m_pSceneMain(nullptr)
+	m_pSceneMain(nullptr),
+	m_pGameClear(nullptr)
 {
 }
 
@@ -22,6 +24,11 @@ SceneManager::~SceneManager()
 		delete m_pSceneMain;
 		m_pSceneMain = nullptr;
 	}
+	if (m_pGameClear != nullptr)
+	{
+		delete m_pGameClear;
+		m_pGameClear = nullptr;
+	}
 }
 
 void SceneManager::Init()
@@ -29,15 +36,18 @@ void SceneManager::Init()
 	// 実行するシーンの初期化を行う
 	switch (m_runScene)
 	{
-		// タイトルシーン
-	case kSceneTitle:
+	case kSceneTitle:     // タイトルシーン
 		m_pTitle = new SceneTitle();
 		m_pTitle->Init();
 		break;
-		// ステージ1
-	case kSceneStage1:
+	case kSceneStage1:    // ステージ1
 		m_pSceneMain = new SceneMain();
 		m_pSceneMain->Init();
+		break;
+	case kSceneGameClear: // クリアシーン
+		m_pGameClear = new SceneGameClear();
+		m_pGameClear->Init();
+		break;
 	default:
 		break;
 	}
@@ -51,13 +61,14 @@ void SceneManager::Update()
 
 	switch (m_runScene)
 	{
-		// タイトルシーン
-	case kSceneTitle:
+	case kSceneTitle: 	  // タイトルシーン
 		nextSelect = m_pTitle->Update();
 		break;
-		// ステージ1
-	case kSceneStage1:
+	case kSceneStage1: 	  // ステージ1
 		nextSelect = m_pSceneMain->Update();
+		break;
+	case kSceneGameClear: // クリアシーン
+		nextSelect = m_pGameClear->Update();
 		break;
 	default:
 		break;
@@ -74,11 +85,14 @@ void SceneManager::Draw()
 {
 	switch (m_runScene)
 	{
-	case kSceneStage1:
+	case kSceneTitle:     // タイトルシーン
+		m_pTitle->Draw();
+		break;
+	case kSceneStage1:    // ステージ1
 		m_pSceneMain->Draw();
 		break;
-	case kSceneTitle:
-		m_pTitle->Draw();
+	case kSceneGameClear: // クリアシーン
+		m_pGameClear->Draw();
 		break;
 	default:
 		break;
