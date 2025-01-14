@@ -2,6 +2,7 @@
 #include "Vec2.h"
 #include <memory>
 
+class Camera;
 class Player;
 class BgStage1;
 class Goal
@@ -10,7 +11,7 @@ public:
 	Goal();
 	virtual ~Goal();
 
-	void Init();
+	void Init(Camera* camera);
 	void Update();
 	void Draw();
 
@@ -25,16 +26,24 @@ public:
 	// ゴールの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
 
+	// ゴールの半径を取得
+	float GetRadius();
+
+	// プレイヤーとの当たり判定フラグ
+	bool GetHitPlayerFlag(std::shared_ptr<Player> pPlayer);
+
 private:
 	// ゴールの座標
 	Vec2 m_pos;
+
+	Camera* m_pCamera;
 
 	std::shared_ptr<BgStage1> m_pStage1;
 	std::shared_ptr<Player> m_pPlayer;
 		
 	// グラフィックハンドル
 	int m_handle;
-
+	// アニメーション
 	int m_animFrame;
 };
 

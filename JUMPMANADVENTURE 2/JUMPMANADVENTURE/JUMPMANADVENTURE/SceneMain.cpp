@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Enemy.h"
 #include "Life.h"
+#include "Goal.h"
 #include <memory>
 #include <cassert>
 
@@ -25,21 +26,27 @@ SceneMain::SceneMain():
 	m_fadeFrameCount(0),
 	m_lifeHandle(-1)
 {
+	// グラフィックの読み込み
+	m_lifeHandle = LoadGraph("data/image/life.png");
+	assert(m_lifeHandle != -1);
+	// ゴールのグラフィックの読み込み
+	m_goalHandle = LoadGraph("data/image/EndAnim.png");
+	assert(m_lifeHandle != -1);
 
+	m_pGoal = std::make_shared<Goal>();
+	m_pGoal->SetHandle(m_goalHandle);
 }
 
 SceneMain::~SceneMain()
 {
+	DeleteGraph(m_lifeHandle);
+	DeleteGraph(m_goalHandle);
 }
 
 void SceneMain::Init()
 {
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-
-	// グラフィックの読み込み
-	m_lifeHandle = LoadGraph("data/image/life.png");
-	assert(m_lifeHandle != -1);
 
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage1 = std::make_shared<BgStage1>();
@@ -50,6 +57,7 @@ void SceneMain::Init()
 	m_pBgStage1->Init(m_pCamera.get());
 	m_pCamera->Init();
 	m_pEnemy->Init();
+
 
 	for (int i = 0; i < 3; i++)
 	{

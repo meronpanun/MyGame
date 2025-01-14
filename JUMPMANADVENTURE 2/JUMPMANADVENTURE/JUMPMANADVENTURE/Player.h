@@ -33,7 +33,7 @@ public:
 //	Rect GetColRect() const { return m_colRect; }
 	
     // 円の当たり判定
-	float GetRadius();
+	float GetRadius() const;
 
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;
@@ -48,7 +48,7 @@ public:
 	void OnCollideY();
 
 	// 現在のプレイヤーの矩形情報を取得
-	Rect GetRect();
+	Rect GetRect() const;
 
 
 private:

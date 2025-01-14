@@ -11,8 +11,8 @@ namespace
     constexpr int kHeight = 20;
 
     // “G‚Ì•`‰æƒTƒCƒY
-    constexpr int kDrawWidth = 32;
-    constexpr int kDrawHeight = 32;
+    constexpr int kGraphWidth = 32;
+    constexpr int kGraphHeight = 32;
 
     // ‰~‚Ì“–‚½‚è”»’è‚Ì”¼Œa
     constexpr int kRadius = 10;

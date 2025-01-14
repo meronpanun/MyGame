@@ -10,8 +10,8 @@ namespace
 	constexpr int kHeight = 30;
 
 	// 敵の描画サイズ
-	constexpr int kDrawWidth = 32;
-	constexpr int kDrawHeight = 28;
+	constexpr int kGraphWidth = 32;
+	constexpr int kGraphHeight = 28;
 
 	// 速度
 	constexpr float kSpeed = 2.5f;

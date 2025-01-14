@@ -6,7 +6,7 @@
 class Player;
 class BgStage1;
 class Camera;
-//class Life;
+class Goal;
 class Enemy;
 /// <summary>
 /// ゲーム画面クラス
@@ -26,6 +26,7 @@ private:
 	int m_fadeFrameCount;
 	// グラフィックハンドル
 	int m_lifeHandle;
+	int m_goalHandle;
 	// フォントハンドル
 	int m_fontHandle;
 	// ゲームオーバー演出に使用するフレーム
@@ -40,6 +41,7 @@ private:
 	std::shared_ptr<Player> m_pPlayer;
 	std::shared_ptr<Enemy> m_pEnemy;
 	std::shared_ptr<SceneMain> m_pSceneMain;
+	std::shared_ptr<Goal> m_pGoal;
 	Life m_life[3];
 };
 
