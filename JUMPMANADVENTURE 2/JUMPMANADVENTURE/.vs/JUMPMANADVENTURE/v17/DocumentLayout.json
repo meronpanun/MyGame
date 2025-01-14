@@ -164,8 +164,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneGameClear.cpp",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAAC4AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-14T05:10:01.28Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-14T05:10:01.28Z"
             },
             {
               "$type": "Document",
@@ -177,8 +176,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneGameClear.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-14T05:08:06.651Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-14T05:08:06.651Z"
             },
             {
               "$type": "Document",
@@ -190,8 +188,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Goal.cpp",
               "ViewState": "AQIAACcAAAAAAAAAAAAAAAkAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-14T00:59:05.782Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-14T00:59:05.782Z"
             },
             {
               "$type": "Document",
@@ -203,8 +200,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Life.cpp",
               "ViewState": "AQIAABUAAAAAAAAAAAAAADAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-06T00:55:45.59Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-06T00:55:45.59Z"
             },
             {
               "$type": "Document",
@@ -216,8 +212,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Goal.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-10T00:51:49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-10T00:51:49Z"
             },
             {
               "$type": "Document",
@@ -229,8 +224,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Life.h",
               "ViewState": "AQIAAAMAAAAAAAAAAAAIwBcAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-01-05T15:53:31.451Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-05T15:53:31.451Z"
             },
             {
               "$type": "Document",
@@ -242,8 +236,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Enemy.cpp",
               "ViewState": "AQIAABUAAAAAAAAAAAAAAAsAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-28T09:20:28.401Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-28T09:20:28.401Z"
             },
             {
               "$type": "Document",
@@ -267,8 +260,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Vec2.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAADwvwAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-22T12:56:50.313Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-22T12:56:50.313Z"
             },
             {
               "$type": "Document",
@@ -280,8 +272,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\main.cpp",
               "ViewState": "AQIAACgAAAAAAAAAAAAUwDsAAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T04:46:43.887Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:46:43.887Z"
             },
             {
               "$type": "Document",
@@ -293,8 +284,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.cpp",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAACgAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T04:46:56.169Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:46:56.169Z"
             },
             {
               "$type": "Document",
@@ -306,8 +296,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneMain.cpp",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAACAAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-04T08:47:13.209Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T08:47:13.209Z"
             },
             {
               "$type": "Document",
@@ -319,8 +308,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\BgStage1.cpp",
               "ViewState": "AQIAADEAAAAAAAAAAAAAAFEAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-02T04:45:33.134Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:45:33.134Z"
             },
             {
               "$type": "Document",
@@ -332,8 +320,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Rect.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-03T06:45:58.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-03T06:45:58.227Z"
             },
             {
               "$type": "Document",
@@ -369,8 +356,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneManeger.cpp",
               "ViewState": "AQIAAEsAAAAAAAAAAAAAAF8AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-04T09:07:35.95Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T09:07:35.95Z"
             },
             {
               "$type": "Document",
@@ -382,8 +368,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneManager.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-04T09:01:25.452Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T09:01:25.452Z"
             },
             {
               "$type": "Document",
@@ -407,8 +392,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Camera.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T09:55:24.906Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T09:55:24.906Z"
             },
             {
               "$type": "Document",
@@ -418,7 +402,7 @@
               "RelativeDocumentMoniker": "JUMPMANADVENTURE\\Camera.cpp",
               "ToolTip": "C:\\Users\\fko2447021\\Documents\\GitHub\\MyGame\\JUMPMANADVENTURE 2\\JUMPMANADVENTURE\\JUMPMANADVENTURE\\Camera.cpp",
               "RelativeToolTip": "JUMPMANADVENTURE\\Camera.cpp",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAmwC8AAAACAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC8AAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-12-04T01:10:17.585Z",
               "EditorCaption": ""
@@ -433,8 +417,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\EnemyBase.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-17T05:26:42.481Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-17T05:26:42.481Z"
             },
             {
               "$type": "Document",
@@ -446,8 +429,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Player.h",
               "ViewState": "AQIAADkAAAAAAAAAAAAAABAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:44:36.363Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:44:36.363Z"
             },
             {
               "$type": "Document",
@@ -495,8 +477,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneMain.h",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAABAAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-04T08:44:03.379Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-04T08:44:03.379Z"
             },
             {
               "$type": "Document",
@@ -520,8 +501,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Vec2.h",
               "ViewState": "AQIAAAUAAAAAAAAAAAAawBgAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-02T04:44:56.839Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-02T04:44:56.839Z"
             },
             {
               "$type": "Document",
@@ -533,8 +513,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\Bg.cpp",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-05T00:57:15.575Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-05T00:57:15.575Z"
             },
             {
               "$type": "Document",
@@ -558,8 +537,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneTitle.cpp",
               "ViewState": "AQIAACcAAAAAAAAAAAAAADEAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-12-10T14:24:09.485Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-10T14:24:09.485Z"
             },
             {
               "$type": "Document",
@@ -571,8 +549,7 @@
               "RelativeToolTip": "JUMPMANADVENTURE\\SceneTitle.h",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-12-10T14:24:09.506Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-10T14:24:09.506Z"
             },
             {
               "$type": "Document",
