@@ -82,7 +82,7 @@ private:
 
 	// ジャンプ処理
 	int m_jumpCount; 
-	int m_jumpFrame;
+	int m_jumpFrame;   // ジャンプ中のフレーム数
 	bool m_isJump;     // ジャンプしているかどうかフラグ
 	bool m_isAnimJump; // プレイヤーがジャンプ描画しているかどうかのフラグ
 	float m_jumpSpeed;

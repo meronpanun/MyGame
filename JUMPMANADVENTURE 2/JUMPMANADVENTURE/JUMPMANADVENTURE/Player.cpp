@@ -170,9 +170,9 @@ void Player::Draw()
     
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
- /*   DrawBox(GetLeft(), GetTop(),
-        GetRigth(), GetBottom(),
-        GetColor(0, 0, 255), false);*/
+    //DrawBox(GetLeft(), GetTop(),
+    //    GetRigth(), GetBottom(),
+    //    GetColor(0, 0, 255), false);
 #endif // DISP_COLLISION
 }
 
@@ -335,7 +335,7 @@ void Player::UpdateNormal()
 
     m_move.x = 0.0f;
 
-    // 左右移動
+    // 左移動
     m_isWalk = false;
     if (pad & PAD_INPUT_LEFT)
     {
@@ -348,7 +348,7 @@ void Player::UpdateNormal()
     {
         m_isLeft = false;
     }
-
+    // 右移動
     if (pad & PAD_INPUT_RIGHT)
     {
         m_move.x += kSpeed;
