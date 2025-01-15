@@ -27,7 +27,7 @@ public:
 	Vec2 GetPos() const { return m_pos; }
 
 	// ゴールの半径を取得
-	float GetRadius();
+	float GetRadius() const;
 
 	// プレイヤーとの当たり判定フラグ
 	bool GetHitPlayerFlag(std::shared_ptr<Player> pPlayer);

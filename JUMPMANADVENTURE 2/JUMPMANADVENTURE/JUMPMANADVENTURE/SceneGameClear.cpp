@@ -9,10 +9,16 @@ namespace
 	// 文字の点滅
 	constexpr int kBlinkCycleFrame = 60;
 	constexpr int kBlinkDispFrame = 40;
+
+	// フェード
+	constexpr int kFadeFrame = 8;
+	// 最大フェード量
+	constexpr int kFadeMax = 255;
 }
 
 SceneGameClear::SceneGameClear():
-	m_blinkFrameCount(0)
+	m_blinkFrameCount(0),
+	m_fadeAlpha(kFadeMax)
 {
 }
 

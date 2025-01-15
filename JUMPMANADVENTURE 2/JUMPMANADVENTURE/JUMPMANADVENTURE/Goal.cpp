@@ -27,7 +27,7 @@ namespace
 	constexpr int kSingleAnimFrame = 4;
 
 	// ï\é¶ç¿ïW
-	constexpr int kPosX = 5050;
+	constexpr int kPosX = 250;
 	constexpr int kPosY = 605;
 
 	// ägëÂó¶
@@ -35,7 +35,7 @@ namespace
 }
 
 Goal::Goal():
-	m_pos(5050.0f,600.0f),
+	m_pos(250.0f,600.0f),
 	m_animFrame(0),
 	m_handle(0),
 	m_index(0)
@@ -75,7 +75,7 @@ void Goal::Draw()
 		m_handle, true);
 }
 
-float Goal::GetRadius()
+float Goal::GetRadius() const
 {
 	return kRadius;
 }

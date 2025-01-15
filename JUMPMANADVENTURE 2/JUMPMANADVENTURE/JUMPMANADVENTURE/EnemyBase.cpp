@@ -45,22 +45,22 @@ float EnemyBase::GetRadius()
     return kRadius;
 }
 
-float EnemyBase::GetLeft()
+float EnemyBase::GetLeft() const
 {
     return m_pos.x - kWidth * 0.5f;
 }
 
-float EnemyBase::GetTop()
+float EnemyBase::GetTop() const
 {
     return m_pos.y - kHeight;
 }
 
-float EnemyBase::GetRigth()
+float EnemyBase::GetRigth() const
 {
     return m_pos.x + kWidth * 0.5f;
 }
 
-float EnemyBase::GetBottom()
+float EnemyBase::GetBottom() const
 {
     return m_pos.y;
 }

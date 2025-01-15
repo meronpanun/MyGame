@@ -24,10 +24,10 @@ public:
 	float GetRadius();
 
 	// 敵の上下左右情報取得
-	float GetLeft();
-	float GetTop();
-	float GetRigth();
-	float GetBottom();
+	float GetLeft() const;
+	float GetTop() const;
+	float GetRigth() const;
+	float GetBottom() const;
 
 	// プレイヤーとの当たり判定
 	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);

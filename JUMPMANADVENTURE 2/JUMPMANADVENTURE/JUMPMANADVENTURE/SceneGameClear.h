@@ -21,5 +21,8 @@ private:
 	int m_gameClearHandle;
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;
+
+	// フェードイン、アウト
+	int m_fadeAlpha;
 };
 

@@ -83,6 +83,18 @@ SceneManager::SceneSelect SceneMain::Update()
 			return SceneManager::kSceneTitle;
 		}
 	}
+	// ゴールオブジェクトに当たったら
+	//else if (m_isGoalHit)
+	//{
+	//	//  ゴールオブジェクトに当たった後1ボタンを押したらフェードアウト
+	//	m_fadeFrameCount--;
+	//	if (m_fadeFrameCount < 0)
+	//	{
+	//		m_fadeFrameCount = 0;
+	//		m_isGoalHit = true;
+	//		return SceneManager::kSceneGameClear;
+	//	}
+	//}
 	else
 	{
 		// フェードイン処理
