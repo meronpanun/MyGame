@@ -96,6 +96,8 @@ private:
 	// ƒLƒƒƒ‰‚ª‚Ç‚¿‚ç‚ðŒü‚¢‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒO
 	bool m_isAnimTurn;
 
+	bool m_isGround;
+
 	int m_invincibleCount;
 	// HP
 	int m_hp;

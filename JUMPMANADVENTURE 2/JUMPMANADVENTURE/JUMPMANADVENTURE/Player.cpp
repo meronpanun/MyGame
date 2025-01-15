@@ -85,6 +85,7 @@ Player::Player() :
     m_isRight(false),
     m_isLeft(false),
     m_isWalk(false),
+    m_isGround(false),
     m_move(0.0f, 0.0f),
     m_pos(150.0f, 610.0f),
     m_animFrame(0),
@@ -250,6 +251,23 @@ void Player::CheckHitBgStage1(Rect chipRect)
             m_move.y *= -1.0f; // 上方向への加速を下方向に変換
         }
     }
+    
+    // 縦の当たり判定
+    //m_pos.y += m_move.y;
+    //if (m_pBgStage1->IsCollision(GetRect(), chipRect))
+    //{
+    //    if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
+    //    {
+    //        // 着地
+    //        m_pos.y = chipRect.m_top + kHeight + 1;
+    //        m_isGround = true;
+    //    }
+    //    else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
+    //    {
+    //        m_pos.y = chipRect.m_bottom + kHeight + 1; // めり込まない位置に補正
+    //        m_move.y *= -1.0f; // 上方向への加速を下方向に変換
+    //    }
+    //}
 }
 
 void Player::AddMoveY(float DisY)
@@ -329,36 +347,59 @@ void Player::UpdateNormal()
     }
 
     int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-    bool isMove = false;
 
-    Pad::Update();
+  //  Pad::Update();
 
-    m_move.x = 0.0f;
+ //   m_move.x = 0.0f;
 
     // 左移動
-    m_isWalk = false;
-    if (pad & PAD_INPUT_LEFT)
+    //m_isWalk = false;
+    //if (pad & PAD_INPUT_LEFT)
+    //{
+    //    m_move.x -= kSpeed;
+    //    m_isLeft = true;
+    //    m_isAnimTurn = true;
+    //    m_isWalk = true;
+    //}
+    //else
+    //{
+    //    m_isLeft = false;
+    //}
+    //// 右移動
+    //if (pad & PAD_INPUT_RIGHT)
+    //{
+    //    m_move.x += kSpeed;
+    //    m_isRight = true;
+    //    m_isAnimTurn = false;
+    //    m_isWalk = true;
+    //}
+    //else
+    //{
+    //    m_isRight = false;
+    //}
+
+    // 右移動
+    if (pad & PAD_INPUT_RIGHT)
     {
-        m_move.x -= kSpeed;
+        m_isRight = true;
+        m_move.x = kSpeed;
+        m_isAnimTurn = false;
+        m_isWalk = true;
+    }
+    // 左移動
+    else if (pad & PAD_INPUT_LEFT)
+    {
+        m_isRight = false;
         m_isLeft = true;
+        m_move.x = -kSpeed;
         m_isAnimTurn = true;
         m_isWalk = true;
     }
     else
     {
         m_isLeft = false;
-    }
-    // 右移動
-    if (pad & PAD_INPUT_RIGHT)
-    {
-        m_move.x += kSpeed;
-        m_isRight = true;
-        m_isAnimTurn = false;
-        m_isWalk = true;
-    }
-    else
-    {
-        m_isRight = false;
+        m_move.x = 0;
+        m_isWalk = false;
     }
 
     // ダッシュ処理
@@ -388,8 +429,11 @@ void Player::UpdateNormal()
     }
     else // 地面についている場合
     {
+        m_jumpFrame = 0;
+        m_isJump = false;
         // ジャンプ処理
-        if (pad & PAD_INPUT_1 && m_isJump == false)
+        if (Pad::IsTrigger(PAD_INPUT_1))
+      //  if (pad & PAD_INPUT_1)
         {
             m_isJump = true;
             m_jumpCount++;
@@ -409,9 +453,10 @@ void Player::UpdateNormal()
             m_isJump = false;
         }
 
+
+        // 横の当たり判定
         m_pos.x += m_move.x;
         Rect chipRect;
-        // 横の当たり判定
         if (m_pBgStage1->IsCollision(GetRect(), chipRect))
         {
             if (m_move.x > 0.0f)
@@ -424,11 +469,11 @@ void Player::UpdateNormal()
             }
         }
 
-        m_pos.y += m_move.y;
         // 縦の当たり判定
+        m_pos.y += m_move.y;
         if (m_pBgStage1->IsCollision(GetRect(), chipRect))
         {
-            if (m_move.y > 0.0f) // プレイヤーが上下方向に移動している
+            if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
             {
                 // 地面に立っている何もしない
                 m_pos.y = chipRect.m_top - 1;
@@ -441,12 +486,39 @@ void Player::UpdateNormal()
                 m_move.y *= -1.0f; // 上方向への加速を下方向に変換
             }
         }
-        else
-        {
-            // 地面にすら当たっていない
-            m_isJump = true;
-        }
+        //else
+        //{
+        //    // 地面にすら当たっていない
+        //    m_isJump = true;
+        //}
     }
+
+    //if (m_isGround)
+//{
+//    m_jumpFrame = 0;
+//    m_isJump = false;
+
+//    if (Pad::IsTrigger(PAD_INPUT_1))
+//    {
+//        m_isGround = false;
+//        m_isJump = true;
+//        m_move.y = kJumpAcc;
+//    }
+
+//    Rect chipRect;
+//    CheckHitBgStage1(chipRect);
+//}
+//else
+//{
+//    if (m_isJump)
+//    {
+//        UpdateJump();
+//    }
+//    m_move.y += kGravity;
+
+//    Rect chipRect;
+//    CheckHitBgStage1(chipRect);
+//}
 }
 
 /// <summary>
