@@ -88,14 +88,15 @@ private:
 	float m_jumpSpeed;
 
 	// 右に移動しているかどうかのフラグ
-	bool m_isRight; 
+	bool m_isRightMove; 
 	// 左に移動しているかどうかのフラグ
-	bool m_isLeft;
+	bool m_isLeftMove;
 	// 歩いているかどうかフラグ
 	bool m_isWalk; // true:歩いている false:待機
 	// キャラがどちらを向いているかのフラグ
 	bool m_isAnimTurn;
 
+	// 地面と接しているか　true:接している 
 	bool m_isGround;
 
 	int m_invincibleCount;

@@ -82,8 +82,8 @@ namespace
 
 Player::Player() :
     m_isJump(false),
-    m_isRight(false),
-    m_isLeft(false),
+    m_isRightMove(false),
+    m_isLeftMove(false),
     m_isWalk(false),
     m_isGround(false),
     m_move(0.0f, 0.0f),
@@ -99,6 +99,7 @@ Player::Player() :
     m_isAnimJump(false),
     m_isAnimTurn(false)
 {
+    // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/Mario.png");
     assert(m_walkHandle != -1);
     m_jumpHandle = LoadGraph("data/image/Jump.png");
@@ -107,6 +108,7 @@ Player::Player() :
 
 Player::~Player()
 {
+    // グラフィックの開放
     DeleteGraph(m_walkHandle);
     DeleteGraph(m_jumpHandle);
 }
@@ -244,6 +246,7 @@ void Player::CheckHitBgStage1(Rect chipRect)
             m_move.y = 0.0f;
             m_isJump = false;
             m_isAnimJump = false;
+            m_isGround = true;
         }
         else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
         {
@@ -348,40 +351,11 @@ void Player::UpdateNormal()
 
     int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 
-  //  Pad::Update();
-
- //   m_move.x = 0.0f;
-
-    // 左移動
-    //m_isWalk = false;
-    //if (pad & PAD_INPUT_LEFT)
-    //{
-    //    m_move.x -= kSpeed;
-    //    m_isLeft = true;
-    //    m_isAnimTurn = true;
-    //    m_isWalk = true;
-    //}
-    //else
-    //{
-    //    m_isLeft = false;
-    //}
-    //// 右移動
-    //if (pad & PAD_INPUT_RIGHT)
-    //{
-    //    m_move.x += kSpeed;
-    //    m_isRight = true;
-    //    m_isAnimTurn = false;
-    //    m_isWalk = true;
-    //}
-    //else
-    //{
-    //    m_isRight = false;
-    //}
-
     // 右移動
     if (pad & PAD_INPUT_RIGHT)
     {
-        m_isRight = true;
+        m_isRightMove = true;
+        m_isLeftMove = false;
         m_move.x = kSpeed;
         m_isAnimTurn = false;
         m_isWalk = true;
@@ -389,26 +363,27 @@ void Player::UpdateNormal()
     // 左移動
     else if (pad & PAD_INPUT_LEFT)
     {
-        m_isRight = false;
-        m_isLeft = true;
+        m_isRightMove = false;
+        m_isLeftMove = true;
         m_move.x = -kSpeed;
         m_isAnimTurn = true;
         m_isWalk = true;
     }
     else
     {
-        m_isLeft = false;
+        m_isLeftMove = false;
+        m_isRightMove = false;
         m_move.x = 0;
         m_isWalk = false;
     }
 
     // ダッシュ処理
-    if (pad & PAD_INPUT_3 && m_isRight)
+    if (pad & PAD_INPUT_3 && m_isRightMove)
     {
         m_move.x += kAccel;
         m_isAnimTurn = false;
     }
-    if (pad & PAD_INPUT_3 && m_isLeft)
+    if (pad & PAD_INPUT_3 && m_isLeftMove)
     {
         m_move.x -= kAccel;
         m_isAnimTurn = true;
@@ -429,30 +404,32 @@ void Player::UpdateNormal()
     }
     else // 地面についている場合
     {
-        m_jumpFrame = 0;
-        m_isJump = false;
-        // ジャンプ処理
-        if (Pad::IsTrigger(PAD_INPUT_1))
-      //  if (pad & PAD_INPUT_1)
+        if (m_isGround)
         {
-            m_isJump = true;
-            m_jumpCount++;
-        }
-        else
-        {
-            m_jumpCount = 0;
-        }
-
-        if (m_jumpCount == 1 && m_isJump)
-        {
-            m_move.y = kJumpAcc;
-            m_isAnimJump = false;
-        }
-        else
-        {
+            m_jumpFrame = 0;
             m_isJump = false;
+            // ジャンプ処理
+         //   if (Pad::IsTrigger(PAD_INPUT_1))
+            if (pad & PAD_INPUT_1)
+            {
+                m_isJump = true;
+                m_isGround = false;
+                m_jumpCount++;
+            }
+            else
+            {
+                m_jumpCount = 0;
+            }
+            if (m_jumpCount == 1 && m_isJump)
+            {
+                m_move.y = kJumpAcc;
+                m_isAnimJump = false;
+            }
+            else
+            {
+                m_isJump = false;
+            }
         }
-
 
         // 横の当たり判定
         m_pos.x += m_move.x;
@@ -479,6 +456,7 @@ void Player::UpdateNormal()
                 m_pos.y = chipRect.m_top - 1;
                 m_isJump = false;
                 m_isAnimJump = false;
+                m_isGround = true;;
             }
             else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
             {
@@ -486,11 +464,11 @@ void Player::UpdateNormal()
                 m_move.y *= -1.0f; // 上方向への加速を下方向に変換
             }
         }
-        //else
-        //{
-        //    // 地面にすら当たっていない
-        //    m_isJump = true;
-        //}
+        else
+        {
+            // 地面にすら当たっていない
+            m_isJump = true;
+        }
     }
 
     //if (m_isGround)
