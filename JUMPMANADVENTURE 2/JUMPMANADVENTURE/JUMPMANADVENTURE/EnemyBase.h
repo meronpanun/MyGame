@@ -5,8 +5,7 @@
 #include <memory>
 
 class Player;
-class SceneMain;
-
+class BgStage1;
 /// <summary>
 /// 敵の基底クラス 
 /// </summary>
@@ -19,6 +18,9 @@ public:
  	virtual void Init();
 	virtual void Update();
 	virtual void Draw();
+
+	// 敵の位置情報を取得
+	Vec2 GetPos() const { return m_pos; }
 
 	// 円の当たり判定
 	float GetRadius();
@@ -39,10 +41,12 @@ public:
 	bool IsCollision(Rect rect, Rect& enemyRect);
 
 protected:
-	// グラフィックのハンドル
-	int m_handle;
+//	std::shared_ptr<Player> m_pPlayer;
 
 	// 表示位置
 	Vec2 m_pos;
+
+	// グラフィックのハンドル
+	int m_handle;
 };
 

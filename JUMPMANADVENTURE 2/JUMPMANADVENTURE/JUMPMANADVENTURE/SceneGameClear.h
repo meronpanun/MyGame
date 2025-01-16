@@ -15,7 +15,17 @@ public:
 	// 切り替わらない場合は現在実行中のシーンを返す
 	SceneManager::SceneSelect Update();
 	void Draw();
+
+	bool IsSceneTitle() const { return m_isSceneTitle; }
 	
+private:
+	enum Select
+	{
+		kTitle
+	};
+
+	int m_select;
+
 private:
 	// クリアシーンのグラフィックハンドル
 	int m_gameClearHandle;
@@ -24,5 +34,8 @@ private:
 
 	// フェードイン、アウト
 	int m_fadeAlpha;
+	
+	// シーン選択フラグ true:シーン遷移
+	bool m_isSceneTitle;	   // タイトル
 };
 

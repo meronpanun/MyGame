@@ -13,7 +13,7 @@
 
 namespace
 {
-    // キャラクターサイズ
+    // プレイヤーサイズ
     constexpr int kWidth = 30;
     constexpr int kHeight = 30;
 
@@ -90,7 +90,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(0.0f, 0.0f),
-    m_pos(150.0f, 510.0f),
+    m_pos(150.0f, 800.0f),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -154,22 +154,28 @@ void Player::Draw()
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kSingleAnimFrame;
     // プレイヤーの切り取り画像
-    // int walkSrcX = kWalkAnimNum[animFrame] * kGraphWidth;
-    int walkSrcX = kWalkFrame[animFrame];
+    int walkSrcX = kWalkFrame[animFrame] * kGraphWidth;
     int walkSrcY = kGraphHeight;
+
+    //ジャンプするときのアニメフレーム
+    int jumpAnimFrame = m_animFrame / kJumpAnimFrame;
+
+    //プレイヤージャンプの切り取り座標
+    int JsrcX = kJumpFrame[jumpAnimFrame] * kGraphHeight;
+    int JsrcY = 0;
 
     // ジャンプした場合
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - 160),
-            kGraphWidth, 0, kGraphWidth, kGraphHeight, kScale, 0,
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - 175),
+            JsrcX, JsrcY, kGraphWidth, kGraphHeight, kScale, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - 160),
-            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, kScale, 0,
+        DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - 175),
+            walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
             m_walkHandle, true, m_isAnimTurn);
 
     }

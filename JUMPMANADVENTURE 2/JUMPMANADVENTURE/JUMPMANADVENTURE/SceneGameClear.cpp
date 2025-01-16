@@ -46,6 +46,17 @@ SceneManager::SceneSelect SceneGameClear::Update()
 	}
 	// 何もしなければシーン遷移しない(クリア画面のまま)
 	return SceneManager::SceneSelect::kSceneGameClear;
+
+	//if (m_isSceneTitle)
+	//{
+	//	m_fadeAlpha += kFadeFrame;
+	//	if (m_fadeAlpha > kFadeFrame) m_fadeAlpha = kFadeMax;
+	//}
+	//else
+	//{
+	//	m_fadeAlpha -= kFadeFrame;
+	//	if (m_fadeAlpha < 0) m_fadeAlpha = 0;
+	//}
 }
 
 void SceneGameClear::Draw()
@@ -55,4 +66,9 @@ void SceneGameClear::Draw()
 	{
 		DrawString(580, 600, "Press A Button", 0xffffff);
 	}
+
+	// フェード処理
+	//SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeAlpha);
+	//DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
+	//SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
 }

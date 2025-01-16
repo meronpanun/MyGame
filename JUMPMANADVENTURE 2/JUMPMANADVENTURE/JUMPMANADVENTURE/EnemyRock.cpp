@@ -29,7 +29,11 @@ namespace
 EnemyRock::EnemyRock():
 	m_move(0.0f,0.0f),
 	m_animFrame(0),
-	m_animCount(0)
+	m_animCount(0),
+	m_isturnFlag(false),
+	m_isAnimLeft(false),
+	m_isAnimRight(false),
+	m_dir(kRunRight)
 {
 }
 
@@ -39,6 +43,12 @@ EnemyRock::~EnemyRock()
 
 void EnemyRock::Update()
 {
+	bool isMove = false;
+
+	// –ˆƒtƒŒ[ƒ€‰º•ûŒü‚É‰Á‘¬‚·‚é
+	m_move.y += kGravaity;
+
+
 }
 
 void EnemyRock::Draw()

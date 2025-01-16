@@ -30,6 +30,9 @@ SceneMain::SceneMain():
 	m_fadeFrameCount(0),
 	m_lifeHandle(-1)
 {
+	// フォントの生成
+	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/life.png");
 	assert(m_lifeHandle != -1);
@@ -45,13 +48,11 @@ SceneMain::~SceneMain()
 {
 	DeleteGraph(m_lifeHandle);
 	DeleteGraph(m_goalHandle);
+	DeleteFontToHandle(m_fontHandle);
 }
 
 void SceneMain::Init()
 {
-	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage1 = std::make_shared<BgStage1>();
 	m_pCamera = std::make_shared<Camera>();
@@ -87,17 +88,17 @@ SceneManager::SceneSelect SceneMain::Update()
 		}
 	}
 	// ゴールオブジェクトに当たったら
-	//else if (m_isGoalHit)
-	//{
-	//	//  ゴールオブジェクトに当たった後1ボタンを押したらフェードアウト
-	//	m_fadeFrameCount--;
-	//	if (m_fadeFrameCount < 0)
-	//	{
-	//		m_fadeFrameCount = 0;
-	//		m_isGoalHit = true;
-	//		return SceneManager::kSceneGameClear;
-	//	}
-	//}
+	else if (m_isGoalHit)
+	{
+		//  ゴールオブジェクトに当たった後1ボタンを押したらフェードアウト
+		m_fadeFrameCount--;
+		if (m_fadeFrameCount < 0)
+		{
+			m_fadeFrameCount = 0;
+			m_isGoalHit = true;
+			return SceneManager::kSceneGameClear;
+		}
+	}
 	else
 	{
 		// フェードイン処理
@@ -171,11 +172,11 @@ SceneManager::SceneSelect SceneMain::Update()
 	}
 
 	// ゴールオブジェクトに当たったら
-	if (m_isGoalHit)
-	{
-		return SceneManager::kSceneGameClear;
-		m_isGoalHit = true;
-	}
+	//if (m_isGoalHit)
+	//{
+	//	return SceneManager::kSceneGameClear;
+	//	m_isGoalHit = true;
+	//}
 
 	// 何もしなければシーン遷移しない(ステージ1画面のまま)
 	return SceneManager::SceneSelect::kSceneStage1;

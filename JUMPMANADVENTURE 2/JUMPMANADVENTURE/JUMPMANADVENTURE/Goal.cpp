@@ -28,14 +28,14 @@ namespace
 
 	// 表示座標
 	constexpr int kPosX = 5050;
-	constexpr int kPosY = 605;
+	constexpr int kPosY = 595;
 
 	// 拡大率
 	constexpr double kScale = 2.0f;
 }
 
 Goal::Goal():
-	m_pos(5050.0f,600.0f),
+	m_pos(5050.0f,590.0f),
 	m_animFrame(0),
 	m_handle(0),
 	m_index(0)
@@ -82,9 +82,12 @@ float Goal::GetRadius() const
 
 bool Goal::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 {
-	float Rlength = kRadius + pPlayer->GetRadius(); // プレイヤーとゴールの半径の合計
-	float delX = pPlayer->GetPos().x - m_pos.x; // X成分の距離
-	float delY = pPlayer->GetPos().y - m_pos.y; // Y成分の距離
+	// プレイヤーとゴールの半径の合計
+	float Rlength = kRadius + pPlayer->GetRadius(); 
+	// X成分の距離
+	float delX = pPlayer->GetPos().x - m_pos.x; 
+	// Y成分の距離
+	float delY = pPlayer->GetPos().y - m_pos.y;
 
 	float del = sqrt((delX * delX) + (delY * delY));
 
