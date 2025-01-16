@@ -20,6 +20,9 @@ namespace
 	// •¶Žš‚Ì“_–Å
 	constexpr int kBlinkCycleFrame = 60;
 	constexpr int kBlinkDispFrame = 40;
+
+	// ‘Ì—Í‚ÌÅ‘å’l
+	constexpr int kMaxHp = 3;
 }
 
 SceneMain::SceneMain():
@@ -60,8 +63,8 @@ void SceneMain::Init()
 	m_pEnemy->Init();
 	m_pGoal->Init(m_pCamera.get());
 
-
-	for (int i = 0; i < 3; i++)
+	m_life.resize(kMaxHp);
+	for (int i = 0; i < m_life.size(); i++)
 	{
 		m_life[i].Init();
 		m_life[i].SetHandle(m_lifeHandle);
@@ -112,7 +115,7 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pGoal->Update();
 //	Pad::Update();
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < m_life.size(); i++)
 	{
 		m_life[i].Update();
 	}

@@ -17,7 +17,7 @@ namespace
 	constexpr int kChipNumY = Stage1::kBgStage1Height / kChipHeight;
 
 	// マップチップ拡大率
-	constexpr float kScale = 1.6f;
+	constexpr float kScale = 2.0f;
 	// マップ全体の左下をウィンドウの左下に合わせるための高さ調整用変数
 	constexpr int m_AllChipHeight = (kChipNumY * kChipHeight) - Game::kScreenHeight;
 
@@ -123,7 +123,7 @@ void BgStage1::Draw()
 		for (int x = 0; x < kChipNumX; x++)
 		{
 			int posX = kChipWidth * x + 8;
-			int posY = kChipHeight * y + 10;
+			int posY = kChipHeight * y - 80;
 
 			// 画面外は描画しない
 			if (posX < 0 - kChipWidth) continue;

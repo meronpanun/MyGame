@@ -25,6 +25,9 @@ namespace
     constexpr float kRestartPosX = 150.0f;
     constexpr float kRestartPosY = 610.0f;
 
+    // 拡大率
+    constexpr float kScale = 2.0f;
+
     // 当たり判定の半径
     constexpr int kRadius = 9;
 
@@ -87,7 +90,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(0.0f, 0.0f),
-    m_pos(150.0f, 610.0f),
+    m_pos(150.0f, 510.0f),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -159,14 +162,14 @@ void Player::Draw()
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 3),
-            kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - 160),
+            kGraphWidth, 0, kGraphWidth, kGraphHeight, kScale, 0,
             m_jumpHandle, true, m_isAnimTurn);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>( m_pos.x  - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + 3),
-            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, 2.0f, 0,
+        DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + 32 + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - 160),
+            walkSrcX * kGraphWidth, 0, kGraphWidth, kGraphHeight, kScale, 0,
             m_walkHandle, true, m_isAnimTurn);
 
     }
@@ -254,23 +257,6 @@ void Player::CheckHitBgStage1(Rect chipRect)
             m_move.y *= -1.0f; // 上方向への加速を下方向に変換
         }
     }
-    
-    // 縦の当たり判定
-    //m_pos.y += m_move.y;
-    //if (m_pBgStage1->IsCollision(GetRect(), chipRect))
-    //{
-    //    if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
-    //    {
-    //        // 着地
-    //        m_pos.y = chipRect.m_top + kHeight + 1;
-    //        m_isGround = true;
-    //    }
-    //    else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
-    //    {
-    //        m_pos.y = chipRect.m_bottom + kHeight + 1; // めり込まない位置に補正
-    //        m_move.y *= -1.0f; // 上方向への加速を下方向に変換
-    //    }
-    //}
 }
 
 void Player::AddMoveY(float DisY)
@@ -409,7 +395,6 @@ void Player::UpdateNormal()
             m_jumpFrame = 0;
             m_isJump = false;
             // ジャンプ処理
-         //   if (Pad::IsTrigger(PAD_INPUT_1))
             if (pad & PAD_INPUT_1)
             {
                 m_isJump = true;
@@ -470,33 +455,6 @@ void Player::UpdateNormal()
             m_isJump = true;
         }
     }
-
-    //if (m_isGround)
-//{
-//    m_jumpFrame = 0;
-//    m_isJump = false;
-
-//    if (Pad::IsTrigger(PAD_INPUT_1))
-//    {
-//        m_isGround = false;
-//        m_isJump = true;
-//        m_move.y = kJumpAcc;
-//    }
-
-//    Rect chipRect;
-//    CheckHitBgStage1(chipRect);
-//}
-//else
-//{
-//    if (m_isJump)
-//    {
-//        UpdateJump();
-//    }
-//    m_move.y += kGravity;
-
-//    Rect chipRect;
-//    CheckHitBgStage1(chipRect);
-//}
 }
 
 /// <summary>

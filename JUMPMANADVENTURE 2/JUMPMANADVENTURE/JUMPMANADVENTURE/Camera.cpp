@@ -8,8 +8,6 @@ namespace
 	// カメラ範囲
 	constexpr float CameraScopeRangeW = 400.0f;
 	constexpr float CameraLerpRate = 0.15f;
-	constexpr float CameraScopeRangeLeft = 300.0f;
-	constexpr float CameraScopeRangeRight = 500.0f;
 }
 
 Camera::Camera()
@@ -33,10 +31,10 @@ void Camera::Update(const Player* player)
 	{
 		aimCameraPos.x = player->GetPos().x - (CameraScopeRangeW * 0.5f);
 	}
-	else if (player->GetPos().x < m_pos.x - (CameraScopeRangeW * 0.5f)) // 左スクロール
-	{
-		aimCameraPos.x = player->GetPos().x + (CameraScopeRangeW * 0.5f);
-	}
+	//else if (player->GetPos().x < m_pos.x - (CameraScopeRangeW * 0.5f)) // 左スクロール
+	//{
+	//	aimCameraPos.x = player->GetPos().x + (CameraScopeRangeW * 0.5f);
+	//}
 
 	// x軸の一定よりカメラが移動しないように固定
 	//if (player->GetPos().x < CameraScopeRangeW)

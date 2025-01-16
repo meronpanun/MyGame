@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Life.h"
 #include <memory>
+#include <vector>
 
 class Player;
 class BgStage1;
@@ -44,6 +45,6 @@ private:
 	std::shared_ptr<Enemy> m_pEnemy;
 	std::shared_ptr<SceneMain> m_pSceneMain;
 	std::shared_ptr<Goal> m_pGoal;
-	Life m_life[3];
+	std::vector<Life> m_life;
 };
 
