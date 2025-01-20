@@ -22,7 +22,7 @@ public:
 	// 現在のHPを取得
 	int GetHp() const { return m_hp; }
 	// 現在の残機数を取得
-	int GetLife() const { return m_life; }
+//	int GetLife() const { return m_life; }
 
 	// プレイヤーがダメージを受けた時の処理
 	void OnDamage();

@@ -8,11 +8,12 @@ namespace
 	constexpr int kGraphWidth = 32;
 	constexpr int kGraphHeight = 32;
 
-	// アニメーションのコマ数
-	constexpr int kLoopAnimNum = 17;
-
+	// ゴールのアニメーション
+	constexpr int kUseFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
 	// アニメーション1コマのフレーム数
 	constexpr int kSingleAnimFrame = 4;
+	// アニメーションの1サイクルのフレーム数
+	constexpr int kAnimFrameCycle = _countof(kUseFrame) * kSingleAnimFrame;
 
 	// 表示座標
 	constexpr int kBasePosX = 100;
@@ -47,7 +48,7 @@ void Life::Update()
 {
 	// アニメーションの進行
 	m_animFrameCount++;
-	if (m_animFrameCount >= kLoopAnimNum * kSingleAnimFrame)
+	if (m_animFrameCount >= kAnimFrameCycle)
 	{
 		m_animFrameCount = 0;
 	}

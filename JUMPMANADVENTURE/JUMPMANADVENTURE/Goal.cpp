@@ -20,12 +20,6 @@ namespace
 	// アニメーションの1サイクルのフレーム数
 	constexpr int kAnimFrameCycle = _countof(kUseFrame) * kAnimFrameNum;
 
-	// アニメーションのコマ数
-	constexpr int kLoopAnimNum = 10;
-
-	// アニメーション1コマのフレーム数
-	constexpr int kSingleAnimFrame = 4;
-
 	// 表示座標
 	constexpr int kPosX = 5050;
 	constexpr int kPosY = 595;
@@ -55,7 +49,7 @@ void Goal::Update()
 {
 	// アニメーションの進行
 	m_animFrame++;
-	if (m_animFrame >= kLoopAnimNum * kSingleAnimFrame)
+	if (m_animFrame >= kAnimFrameCycle)
 	{
 		m_animFrame = 0;
 	}
@@ -64,7 +58,7 @@ void Goal::Update()
 void Goal::Draw()
 {
 	// グラフィックの切り出し位置(X座標)を計算で求める
-	int animNo = m_animFrame / kSingleAnimFrame;
+	int animNo = m_animFrame / kAnimFrameNum;
 
 	// indexから表示位置を決定する
 	int posX = kPosX + m_index;

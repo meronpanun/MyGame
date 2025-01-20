@@ -19,7 +19,11 @@ namespace
 	// マップチップ拡大率
 	constexpr float kScale = 2.0f;
 	// マップ全体の左下をウィンドウの左下に合わせるための高さ調整用変数
-	constexpr int m_AllChipHeight = (kChipNumY * kChipHeight) - Game::kScreenHeight;
+//	constexpr int m_AllChipHeight = (kChipNumY * kChipHeight) - Game::kScreenHeight;
+
+	// 当たり判定の調整
+	constexpr int kColChipAdjustmentX = 8;
+	constexpr int kColChipAdjustmentY = 80;
 
 	constexpr int kChipSetData[kChipNumY][kChipNumX] =
 	{
@@ -122,8 +126,11 @@ void BgStage1::Draw()
 	{
 		for (int x = 0; x < kChipNumX; x++)
 		{
-			int posX = kChipWidth * x + 8;
-			int posY = kChipHeight * y - 80;
+		//	int posX = kChipWidth * x + kColChipAdjustmentX;
+		//	int posY = kChipHeight * y - kColChipAdjustmentY;
+			
+			int posX = kChipWidth * x;
+			int posY = kChipHeight * y;
 
 			// 画面外は描画しない
 			if (posX < 0 - kChipWidth) continue;
@@ -134,12 +141,14 @@ void BgStage1::Draw()
 			// 地面ブロック
 			if (kChipSetData[y][x] == 1)
 			{
-				DrawRotaGraph(posX * kScale + m_pCamera->m_drawOffset.x, posY * kScale, kScale, 0, m_handle001, false);
+			//	DrawRotaGraph(posX * kScale + m_pCamera->m_drawOffset.x, posY * kScale, kScale, 0, m_handle001, false);
+				DrawGraph(posX + m_pCamera->m_drawOffset.x, posY, m_handle001, false);
 			}
 			// ？ブロック
 			if (kChipSetData[y][x] == 2)
 			{
-				DrawRotaGraph(posX * kScale + m_pCamera->m_drawOffset.x, posY * kScale, kScale, 0, m_handle002, false);
+			//	DrawRotaGraph(posX * kScale + m_pCamera->m_drawOffset.x, posY * kScale, kScale, 0, m_handle002, false);
+				DrawGraph(posX + m_pCamera->m_drawOffset.x, posY, m_handle002, false);
 			}
 			// 土管ブロック
 			if (kChipSetData[y][x] == 3)
@@ -175,10 +184,15 @@ bool BgStage1::IsCollision(Rect rect, Rect& ChipRect)
 			// 壁以外とは当たらない
 			if (kChipSetData[y][x] == 0) continue;
 
-			int chipLeft = static_cast<int>(x * kChipWidth * kScale);
+		/*	int chipLeft = static_cast<int>(x * kChipWidth * kScale);
 			int chipRight = static_cast<int>(chipLeft + kChipWidth * kScale);
 			int chipTop = static_cast<int>(y * kChipHeight * kScale);
-			int chipBottom = static_cast<int>(chipTop + kChipHeight * kScale);
+			int chipBottom = static_cast<int>(chipTop + kChipHeight * kScale);*/
+
+			int chipLeft = static_cast<int>(x * kChipWidth);
+			int chipRight = static_cast<int>(chipLeft + kChipWidth);
+			int chipTop = static_cast<int>(y * kChipHeight);
+			int chipBottom = static_cast<int>(chipTop + kChipHeight);
 
 			// 絶対に当たらないパターンをはじく
 			if (chipLeft > rect.m_right) continue;

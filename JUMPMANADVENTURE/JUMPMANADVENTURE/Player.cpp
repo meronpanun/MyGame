@@ -62,7 +62,7 @@ namespace
     constexpr int kAnimFrameCycle = _countof(kWalkFrame) * kRunAnimFrame;
 
     // ジャンプ力
-    constexpr float kJumpAcc = -10.0f;
+    constexpr float kJumpAcc = -12.5f;
     // ジャンプの初速
     constexpr float kJumpPower = -8.0f; 
     // ジャンプの長押し時間
@@ -71,7 +71,6 @@ namespace
     // ジャンプの高さ調整
     constexpr float kLittleJumpHeight = 0.5f;	// 小ジャンプ
     constexpr float kInJumpHeight = 0.8f;		// 中ジャンプ
-    constexpr float kBigJumpHeight = 1.0f;		// 大ジャンプ
 
     // 無敵時間
     constexpr int kInvincible = 30;
@@ -94,7 +93,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(0.0f, 0.0f),
-    m_pos(150.0f, 800.0f),
+    m_pos(150.0f, 500.0f),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -169,21 +168,26 @@ void Player::Draw()
     int JsrcY = 0;
 
     // ジャンプした場合
-    if (m_isAnimJump)
-    {
+    //if (m_isAnimJump)
+    //{
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - kColChipAdjustmentY),
-            JsrcX, JsrcY, kGraphWidth, kGraphHeight, kScale, 0,
-            m_jumpHandle, true, m_isAnimTurn);
-    }
-    else
-    {
-        DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - kColChipAdjustmentY),
-            walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
-            m_walkHandle, true, m_isAnimTurn);
+    //    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - kColChipAdjustmentY),
+    //        JsrcX, JsrcY, kGraphWidth, kGraphHeight, kScale, 0,
+    //        m_jumpHandle, true, m_isAnimTurn);
+    //}
+    //else
+    //{
+    //    DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - kColChipAdjustmentY),
+    //        walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+    //        m_walkHandle, true, m_isAnimTurn);
 
-    }
+    //}
     
+    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
+        walkSrcX, 0, kGraphWidth, kGraphHeight, kScale ,0, 
+        m_walkHandle, true, m_isAnimTurn);
+
+
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
     DrawBox(GetLeft(), GetTop(),
@@ -240,11 +244,11 @@ void Player::CheckHitBgStage1(Rect chipRect)
     {
         if (m_move.x > 0.0f) // プレイヤーが右方向に移動している
         {
-            m_pos.x = chipRect.m_left - kGraphWidth *  static_cast<float>(0.5f) - 1; // 左側の補正
+            m_pos.x = chipRect.m_left - kGraphWidth * kScale * static_cast<float>(0.5f) - 1; // 左側の補正
         }
         else if (m_move.x < 0.0f) // プレイヤーが左方向に移動している
         {
-            m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1; // 右側の補正
+            m_pos.x = chipRect.m_right + kGraphWidth * kScale * static_cast<float>(0.5f) + 1; // 右側の補正
         }
     }
 
@@ -255,7 +259,7 @@ void Player::CheckHitBgStage1(Rect chipRect)
         if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
         {
             // 着地
-            m_pos.y -= m_move.y;
+            m_pos.y -= m_move.y * kScale;
             m_move.y = 0.0f;
             m_isJump = false;
             m_isAnimJump = false;
@@ -263,7 +267,7 @@ void Player::CheckHitBgStage1(Rect chipRect)
         }
         else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
         {
-            m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
+            m_pos.y = chipRect.m_bottom + kGraphHeight * kScale + 1; // めり込まない位置に補正
             m_move.y *= -1.0f; // 上方向への加速を下方向に変換
         }
     }
@@ -433,11 +437,11 @@ void Player::UpdateNormal()
         {
             if (m_move.x > 0.0f)
             {
-                m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
+                m_pos.x = chipRect.m_left - kGraphWidth * kScale * static_cast<float>(0.5f) - 1;
             }
             else if (m_move.x < 0.0f)
             {
-                m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
+                m_pos.x = chipRect.m_right + kGraphWidth * kScale * static_cast<float>(0.5f) + 1;
             }
         }
 
@@ -448,14 +452,14 @@ void Player::UpdateNormal()
             if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
             {
                 // 地面に立っている何もしない
-                m_pos.y = chipRect.m_top - 1;
+                m_pos.y = chipRect.m_top * kScale - 1;
                 m_isJump = false;
                 m_isAnimJump = false;
                 m_isGround = true;;
             }
             else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
             {
-                m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
+                m_pos.y = chipRect.m_bottom + kGraphHeight * kScale  + 1; // めり込まない位置に補正
                 m_move.y *= -1.0f; // 上方向への加速を下方向に変換
             }
         }

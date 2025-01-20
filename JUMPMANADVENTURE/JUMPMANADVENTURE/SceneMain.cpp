@@ -112,8 +112,8 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pPlayer->Update();
 	m_pBgStage1->Update(m_pPlayer.get());
 	m_pCamera->Update(m_pPlayer.get());
-	m_pEnemy->Update();
 	m_pGoal->Update();
+	m_pEnemy->Update();
 //	Pad::Update();
 
 	for (int i = 0; i < m_life.size(); i++)

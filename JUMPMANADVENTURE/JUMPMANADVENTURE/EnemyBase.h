@@ -34,14 +34,15 @@ public:
 	// プレイヤーとの当たり判定
 	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
 
-	// 現在の敵機の矩形情報
+	// 現在の敵の矩形情報
 	Rect GetRect();
 
 	//指定した矩形と当たっているか判定
 	bool IsCollision(Rect rect, Rect& enemyRect);
 
 protected:
-//	std::shared_ptr<Player> m_pPlayer;
+	std::shared_ptr<BgStage1> m_pBgStage1;
+	std::shared_ptr<Player> m_pPlayer;
 
 	// 表示位置
 	Vec2 m_pos;

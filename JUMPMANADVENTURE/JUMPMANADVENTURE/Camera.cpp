@@ -45,7 +45,6 @@ void Camera::Update(const Player* player)
 	// その時、画面左側にプレイヤーが来るようにする
 	// (camera.pos画面中央になるようにする)
 	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth - 1155);
-
 }
 
 //Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)

@@ -2,7 +2,6 @@
 #include "BgStage1.h"
 #include "Player.h"
 #include "DxLib.h"
-#include <cmath>
 
 namespace
 {
