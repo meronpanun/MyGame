@@ -24,6 +24,9 @@ public:
 	// 現在の敵の矩形情報
 	Rect GetRect();
 
+	// プレイヤーとの当たり判定
+	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
+
 	enum Dir
 	{
 		kRunRight,

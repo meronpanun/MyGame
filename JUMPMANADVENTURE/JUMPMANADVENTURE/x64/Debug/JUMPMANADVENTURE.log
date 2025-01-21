@@ -1,15 +1,8 @@
-﻿  BgStage1.cpp
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(145,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(150,67): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(150,33): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(155,67): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(155,33): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(160,67): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(160,33): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(165,67): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(165,33): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(203,39): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(204,40): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(205,38): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\BgStage1.cpp(206,41): warning C4244: '=': 'int' から 'float' への変換です。データが失われる可能性があります。
+﻿  Enemy.cpp
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(137,34): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(137,25): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(144,24): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(144,11): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(143,27): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\JUMPMANADVENTURE\Enemy.cpp(143,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   JUMPMANADVENTURE.vcxproj -> C:\Users\fko2447021\Documents\GitHub\MyGame\JUMPMANADVENTURE\x64\Debug\JUMPMANADVENTURE.exe

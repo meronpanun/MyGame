@@ -165,6 +165,7 @@ SceneManager::SceneSelect SceneMain::Update()
 		isPlayerHit = false;
 	}
 
+
 	// isPlayerHit = true‚È‚ç“–‚½‚Á‚Ä‚¢‚éAfalse‚È‚ç“–‚½‚Á‚Ä‚¢‚È‚¢
 	if (isPlayerHit)
 	{

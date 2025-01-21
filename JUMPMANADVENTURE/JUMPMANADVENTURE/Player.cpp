@@ -39,7 +39,7 @@ namespace
     constexpr int kFallMaX = 920;
 
     // ステージの左右端座標
-    constexpr int kStageLeftEnd = 40;
+    constexpr int kStageLeftEnd = 70;
     constexpr int kStageRightEnd = 5100;
 
     // 速度
@@ -93,7 +93,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(0.0f, 0.0f),
-    m_pos(150.0f, 500.0f),
+    m_pos(150.0f, 610.0f),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -183,8 +183,8 @@ void Player::Draw()
 
     //}
     
-    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth * 0.5f), static_cast<int>(m_pos.y - kGraphHeight),
-        walkSrcX, 0, kGraphWidth, kGraphHeight, kScale ,0, 
+    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 30), static_cast<int>(m_pos.y - kGraphHeight + 15),
+        walkSrcX, 0, kGraphWidth, kGraphHeight, 1.0f ,0, 
         m_walkHandle, true, m_isAnimTurn);
 
 
@@ -244,11 +244,11 @@ void Player::CheckHitBgStage1(Rect chipRect)
     {
         if (m_move.x > 0.0f) // プレイヤーが右方向に移動している
         {
-            m_pos.x = chipRect.m_left - kGraphWidth * kScale * static_cast<float>(0.5f) - 1; // 左側の補正
+            m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1; // 左側の補正
         }
         else if (m_move.x < 0.0f) // プレイヤーが左方向に移動している
         {
-            m_pos.x = chipRect.m_right + kGraphWidth * kScale * static_cast<float>(0.5f) + 1; // 右側の補正
+            m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1; // 右側の補正
         }
     }
 
@@ -259,7 +259,7 @@ void Player::CheckHitBgStage1(Rect chipRect)
         if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
         {
             // 着地
-            m_pos.y -= m_move.y * kScale;
+            m_pos.y -= m_move.y;
             m_move.y = 0.0f;
             m_isJump = false;
             m_isAnimJump = false;
@@ -267,7 +267,7 @@ void Player::CheckHitBgStage1(Rect chipRect)
         }
         else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
         {
-            m_pos.y = chipRect.m_bottom + kGraphHeight * kScale + 1; // めり込まない位置に補正
+            m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
             m_move.y *= -1.0f; // 上方向への加速を下方向に変換
         }
     }
@@ -437,11 +437,11 @@ void Player::UpdateNormal()
         {
             if (m_move.x > 0.0f)
             {
-                m_pos.x = chipRect.m_left - kGraphWidth * kScale * static_cast<float>(0.5f) - 1;
+                m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
             }
             else if (m_move.x < 0.0f)
             {
-                m_pos.x = chipRect.m_right + kGraphWidth * kScale * static_cast<float>(0.5f) + 1;
+                m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
             }
         }
 
@@ -452,14 +452,14 @@ void Player::UpdateNormal()
             if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
             {
                 // 地面に立っている何もしない
-                m_pos.y = chipRect.m_top * kScale - 1;
+                m_pos.y = chipRect.m_top - 1;
                 m_isJump = false;
                 m_isAnimJump = false;
                 m_isGround = true;;
             }
             else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
             {
-                m_pos.y = chipRect.m_bottom + kGraphHeight * kScale  + 1; // めり込まない位置に補正
+                m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
                 m_move.y *= -1.0f; // 上方向への加速を下方向に変換
             }
         }
