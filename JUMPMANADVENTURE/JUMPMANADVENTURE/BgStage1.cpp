@@ -23,7 +23,7 @@ namespace
 	constexpr int kAllChipHeight = 160;
 
 	// “–‚½‚è”»’è‚Ì’²®
-	constexpr int kColChipAdjustmentX = 18;
+	constexpr int kColChipAdjustmentX = 5;
 	constexpr int kColChipAdjustmentY = 174;
 
 	constexpr int kChipSetData[kChipNumY][kChipNumX] =
@@ -130,7 +130,7 @@ void BgStage1::Draw()
 		//	int posX = kChipWidth * x + kColChipAdjustmentX;
 		//	int posY = kChipHeight * y - kColChipAdjustmentY;
 			
-			int posX = kChipWidth * x  * kScale + kColChipAdjustmentX + m_pCamera->m_drawOffset.x;
+			int posX = kChipWidth * x * kScale + kColChipAdjustmentX + m_pCamera->m_drawOffset.x;
 			int posY = kChipHeight * y * kScale - kAllChipHeight;
 
 			// ‰æ–ÊŠO‚Í•`‰æ‚µ‚È‚¢

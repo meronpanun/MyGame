@@ -45,7 +45,7 @@ namespace
     // ë¨ìx
     constexpr float kSpeed = 3.0f;
     // â¡ë¨
-    constexpr float kAccel = 4.0f;
+    constexpr float kAccel = 2.0f;
 
     // èdóÕ
     constexpr float kGravity = 0.5f;
@@ -183,7 +183,7 @@ void Player::Draw()
 
     //}
     
-    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + 30), static_cast<int>(m_pos.y - kGraphHeight + 15),
+    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + m_pCamera->m_drawOffset.x + 30), static_cast<int>(m_pos.y - kGraphHeight + 15),
         walkSrcX, 0, kGraphWidth, kGraphHeight, 1.0f ,0, 
         m_walkHandle, true, m_isAnimTurn);
 
@@ -218,7 +218,7 @@ float Player::GetRadius() const
 
 float Player::GetLeft() const
 {
-    return m_pos.x - kGraphWidth * static_cast<float>(0.5f);
+    return m_pos.x - kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
 }
 
 float Player::GetTop() const
@@ -228,7 +228,7 @@ float Player::GetTop() const
 
 float Player::GetRigth() const
 {
-    return m_pos.x + kGraphWidth * static_cast<float>(0.5f);
+    return m_pos.x + kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
 }
 
 float Player::GetBottom() const

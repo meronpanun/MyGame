@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "BgStage1.h"
 #include "Player.h"
+#include "Camera.h"
 #include <assert.h>
 
 namespace
