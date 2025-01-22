@@ -23,7 +23,7 @@ namespace
 	constexpr int kAllChipHeight = 160;
 
 	// ìñÇΩÇËîªíËÇÃí≤êÆ
-	constexpr int kColChipAdjustmentX = 5;
+	constexpr int kColChipAdjustmentX = 8;
 	constexpr int kColChipAdjustmentY = 174;
 
 	constexpr int kChipSetData[kChipNumY][kChipNumX] =
@@ -184,7 +184,7 @@ bool BgStage1::IsCollision(Rect rect, Rect& ChipRect)
 			if (kChipSetData[y][x] == 0) continue;
 
 			int chipLeft = static_cast<int>(x * kChipWidth * kScale - kColChipAdjustmentX);
-			int chipRight = static_cast<int>(chipLeft + kChipWidth * kScale - 5);
+			int chipRight = static_cast<int>(chipLeft + kChipWidth * kScale);
 			int chipTop = static_cast<int>(y * kChipHeight * kScale - kColChipAdjustmentY);
 			int chipBottom = static_cast<int>(chipTop + kChipHeight * kScale);
 

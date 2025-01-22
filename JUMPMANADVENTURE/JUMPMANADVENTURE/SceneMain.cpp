@@ -211,7 +211,7 @@ void SceneMain::Draw()
 		float progressRate = static_cast<float>(m_gameoverFrameCount) / kGameoverFadeFrame;
 
 		// Š„‡‚ğÀÛ‚Ì“§–¾“x‚É•ÏŠ·‚·‚é
-		int alpha = static_cast<float>(255 * progressRate);
+		int alpha = static_cast<int>(255 * progressRate);
 
 		// ‚±‚±ˆÈ~ŒÄ‚Î‚ê‚éDrawŠÖ”‚Ì•`‰æ•û–@‚ğ•ÏX‚·‚é
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);

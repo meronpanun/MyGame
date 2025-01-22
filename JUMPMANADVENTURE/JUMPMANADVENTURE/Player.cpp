@@ -148,8 +148,6 @@ void Player::Update()
     {
         UpdateDead();
     }
-
-   
 }
 
 void Player::Draw()
@@ -187,6 +185,7 @@ void Player::Draw()
         walkSrcX, 0, kGraphWidth, kGraphHeight, 1.0f ,0, 
         m_walkHandle, true, m_isAnimTurn);
 
+   
 
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
@@ -218,7 +217,8 @@ float Player::GetRadius() const
 
 float Player::GetLeft() const
 {
-    return m_pos.x - kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
+  //  return m_pos.x - kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
+    return m_pos.x - kGraphWidth * static_cast<float>(0.5f);
 }
 
 float Player::GetTop() const
@@ -228,7 +228,8 @@ float Player::GetTop() const
 
 float Player::GetRigth() const
 {
-    return m_pos.x + kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
+ //   return m_pos.x + kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
+    return m_pos.x + kGraphWidth * static_cast<float>(0.5f);
 }
 
 float Player::GetBottom() const
