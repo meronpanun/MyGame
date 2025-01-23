@@ -36,7 +36,6 @@ SceneMain::SceneMain():
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/life.png");
 	assert(m_lifeHandle != -1);
-	// ゴールのグラフィックの読み込み
 	m_goalHandle = LoadGraph("data/image/GoalFlag.png");
 	assert(m_lifeHandle != -1);
 
@@ -46,6 +45,7 @@ SceneMain::SceneMain():
 
 SceneMain::~SceneMain()
 {
+	// グラフィックの開放
 	DeleteGraph(m_lifeHandle);
 	DeleteGraph(m_goalHandle);
 	DeleteFontToHandle(m_fontHandle);
@@ -54,16 +54,17 @@ SceneMain::~SceneMain()
 void SceneMain::Init()
 {
 	m_pPlayer = std::make_shared<Player>();
-	m_pBgStage1 = std::make_shared<BgStage1>();
-	m_pCamera = std::make_shared<Camera>();
-	m_pEnemy = std::make_shared<Enemy>();
+	m_pBgStage1 = std::make_shared<BgStage1>(); 
+	m_pCamera = std::make_shared<Camera>(); 
+	m_pEnemy = std::make_shared<Enemy>(); 
 
-	m_pPlayer->Init(m_pCamera.get());
+	m_pPlayer->Init(m_pCamera.get()); 
 	m_pBgStage1->Init(m_pCamera.get());
 	m_pCamera->Init();
-	m_pEnemy->Init();
+	m_pEnemy->Init(m_pCamera.get());
 	m_pGoal->Init(m_pCamera.get());
 
+	// 体力の初期化
 	m_life.resize(kMaxHp);
 	for (int i = 0; i < m_life.size(); i++)
 	{
@@ -87,18 +88,6 @@ SceneManager::SceneSelect SceneMain::Update()
 			return SceneManager::kSceneTitle;
 		}
 	}
-	// ゴールオブジェクトに当たったら
-	else if (m_isGoalHit)
-	{
-		//  ゴールオブジェクトに当たった後1ボタンを押したらフェードアウト
-		m_fadeFrameCount--;
-		if (m_fadeFrameCount < 0)
-		{
-			m_fadeFrameCount = 0;
-			m_isGoalHit = true;
-			return SceneManager::kSceneGameClear;
-		}
-	}
 	else
 	{
 		// フェードイン処理
@@ -114,8 +103,8 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pCamera->Update(m_pPlayer.get());
 	m_pGoal->Update();
 	m_pEnemy->Update();
-//	Pad::Update();
 
+	// 体力の更新
 	for (int i = 0; i < m_life.size(); i++)
 	{
 		m_life[i].Update();
@@ -146,38 +135,50 @@ SceneManager::SceneSelect SceneMain::Update()
 	}
 
 	// プレイヤーと敵の当たり判定
-	bool isPlayerHit = true;
+	if (m_pEnemy->IsAlive())
+	{
+		bool isPlayerHit = true;
 
-	if (m_pPlayer->GetLeft() > m_pEnemy->GetRigth())
-	{
-		isPlayerHit = false;
-	}
-	if (m_pPlayer->GetTop() > m_pEnemy->GetBottom())
-	{
-		isPlayerHit = false;
-	}
-	if (m_pPlayer->GetRigth() < m_pEnemy->GetLeft())
-	{
-		isPlayerHit = false;
-	}
-	if (m_pPlayer->GetBottom() < m_pEnemy->GetTop())
-	{
-		isPlayerHit = false;
-	}
+		// 絶対に当たらないパターン
+		if (m_pPlayer->GetLeft() > m_pEnemy->GetRigth())
+		{
+			isPlayerHit = false; 
+		}
+		if (m_pPlayer->GetTop() > m_pEnemy->GetBottom()) 
+		{
+			isPlayerHit = false;
+		}
+		if (m_pPlayer->GetRigth() < m_pEnemy->GetLeft())
+		{
+			isPlayerHit = false;
+		}
+		if (m_pPlayer->GetBottom() < m_pEnemy->GetTop())
+		{
+			isPlayerHit = false;
+		}
 
+		// isPlayerHit = trueなら当たっている、falseなら当たっていない
+		if (isPlayerHit)
+		{
+			if (m_pPlayer->GetBottom() < m_pEnemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
+			{
+				m_pEnemy->SetAlive(false); // 敵を消す
+				m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
+			}
+			else
+			{
+				m_pPlayer->OnDamage(); // プレイヤーがダメージを受ける
+			}
+		}
 
-	// isPlayerHit = trueなら当たっている、falseなら当たっていない
-	if (isPlayerHit)
-	{
-		m_pPlayer->OnDamage();
 	}
-
+	
 	// ゴールオブジェクトに当たったら
-	//if (m_isGoalHit)
-	//{
-	//	return SceneManager::kSceneGameClear;
-	//	m_isGoalHit = true;
-	//}
+	if (m_isGoalHit)
+	{
+		return SceneManager::kSceneGameClear; 
+		m_isGoalHit = true; 
+	}
 
 	// 何もしなければシーン遷移しない(ステージ1画面のまま)
 	return SceneManager::SceneSelect::kSceneStage1;
@@ -185,11 +186,12 @@ SceneManager::SceneSelect SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	m_pBgStage1->Draw();
+	m_pBgStage1->Draw(); 
 	m_pPlayer->Draw();
 	m_pEnemy->Draw();
 	m_pGoal->Draw();
-
+	 
+	// 体力の描画
 	for (int i = 0; i < m_pPlayer->GetHp(); i++)
 	{
 		m_life[i].Draw();

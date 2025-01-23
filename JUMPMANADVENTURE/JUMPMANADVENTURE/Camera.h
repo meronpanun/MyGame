@@ -13,7 +13,7 @@ public:
 	void Update(const Player* player);
 
 	// üŒ`•âŠÔ
-//	static Vec2 Lerp(Vec2 start, Vec2 end, float t);
+	static Vec2 Lerp(Vec2 start, Vec2 end, float t);
 
 	// ƒJƒƒ‰‚ÌˆÊ’u
 	Vec2 m_pos;

@@ -27,6 +27,8 @@ public:
 	// プレイヤーがダメージを受けた時の処理
 	void OnDamage();
 
+	void JumpOnEnemy();
+
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
 	// プレイヤーの当たり判定を取得
@@ -34,6 +36,8 @@ public:
 	
     // 円の当たり判定
 	float GetRadius() const;
+
+	float GetMoveY() const;
 
 	// プレイヤーの上下左右情報取得
 	float GetLeft() const;

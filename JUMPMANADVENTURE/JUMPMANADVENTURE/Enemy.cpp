@@ -30,18 +30,23 @@ namespace
 	constexpr int kAnimFrameCycle = _countof(kRunFrame) * kAnimFrameNum;
 
 
+	// マップチップとの当たり判定の調整
+	constexpr int kColChipAdjustmentX = 30;
+	constexpr int kColChipAdjustmentY = 13;
+
 	// 円の当たり判定の半径
 	constexpr int kRadius = 10;
 }
 
 Enemy::Enemy():
-	m_pos(550.0f,640.0f),
+	m_pos(1050.0f,650.0f),
 	m_move(0.0f, 0.0f),
 	m_animFrame(0),
 	m_animCount(0),
 	m_isturnFlag(false),
 	m_isAnimLeft(false),
 	m_isAnimRight(false),
+	m_isAlive(true),
 	m_dir(kRunRight)
 {
 	m_handle = LoadGraph("data/image/RockRun.png");
@@ -53,27 +58,30 @@ Enemy::~Enemy()
 	DeleteGraph(m_handle);
 }
 
-void Enemy::Init()
+void Enemy::Init(Camera* camera)
 {
+	m_pCamera = camera;
 }
 
 void Enemy::Update()
 {
+	if (!m_isAlive) return; // 敵が消えている場合は処理を行わない
+		
 	bool isMove = false;
 
 	// 毎フレーム下方向に加速する
 	m_move.y += kGravaity;
 
-	if (m_isturnFlag = false)
+	if (!m_isturnFlag)
 	{
 		m_move.x = kSpeed;
 		m_isAnimRight = true;
 		isMove = true;
 		m_dir = kRunRight;
 	}
-	if (m_isturnFlag = true)
+	else
 	{
-		m_move.y = -kSpeed;
+		m_move.x = -kSpeed;
 		m_isAnimLeft = true;
 		isMove = true;
 		m_dir = kRunLeft;
@@ -97,37 +105,37 @@ void Enemy::Update()
 		if (m_move.x > 0.0f)
 		{
 			m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
+			m_isturnFlag = true; // 壁に当たったら方向転換
 		}
 		else if (m_move.x < 0.0f)
 		{
 			m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
+			m_isturnFlag = false; // 壁に当たったら方向転換
 		}
 	}
 
 	// 縦の当たり判定
-//	m_pos.y += m_move.y;
+	m_pos.y += m_move.y;
 	if (m_pBgStage1->IsCollision(GetRect(), chipRect))
 	{
-		if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
+		if (m_move.y > 0.0f) // エネミーが下方向に移動している
 		{
-			// 地面に立っている何もしない
 			m_pos.y = chipRect.m_top - 1;
+			m_move.y = 0.0f; // 地面に立っているのでy方向の速度をリセット
 		}
-		else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
+		else if (m_move.y < 0.0f) // エネミーが上方向に移動している
 		{
 			m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
-			m_move.y *= -1.0f; // 上方向への加速を下方向に変換
+			m_move.y = 0.0f; // 上方向への加速をリセット
 		}
 	}
 }
 
 void Enemy::Draw()
 {
+	if (!m_isAlive) return; // 敵が消えている場合は処理を行わない
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animFrame = m_animFrame / kAnimFrameNum;
-
-	//int srcX = kRunFrame[animFrame] * kGraphWidth;
-	//int srcY = kGraphHeight * m_dir;
 
 	//bool isFlip = false;
 	//if (kSpeed > 0.0f)
@@ -135,19 +143,19 @@ void Enemy::Draw()
 	//	isFlip = true;
 	//}
 
-	DrawRectRotaGraph(m_pos.x, m_pos.y,
+	DrawRectRotaGraph(m_pos.x + m_pCamera->m_drawOffset.x, m_pos.y - kColChipAdjustmentY,
 		animFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
 		1.0, 0.0, m_handle, true);
 
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
-	DrawBox(GetLeft(), GetTop(),
-		GetRigth(), GetBottom(),
-		0xff0000, false);
+	//DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
+	//	GetTop(),
+	//	GetRigth() + m_pCamera->m_drawOffset.x,
+	//	GetBottom(),
+	//	0xff0000, false);
 #endif // _DEBUG
 }
-
-
 
 
 float Enemy::GetLeft() 
@@ -181,21 +189,31 @@ Rect Enemy::GetRect()
 	return rect;
 }
 
-bool Enemy::IsGetHitPlayer(std::shared_ptr<Player> pPlayer)
+void Enemy::SetAlive(bool isAlive)
 {
-	// プレイヤーと敵の半径の合計
-	float Rlength = kRadius + pPlayer->GetRadius();
-	// X成分の距離
-	float delX = pPlayer->GetPos().x - m_pos.x;
-	// Y成分の距離
-	float delY = pPlayer->GetPos().y - m_pos.y;
-
-	float del = sqrt((delX * delX) + (delY * delY));
-
-	if (del <= Rlength)
-	{
-		return true;
-	}
-
-	return false;
+	m_isAlive = isAlive;
 }
+
+bool Enemy::IsAlive() const
+{
+	return m_isAlive;
+}
+
+//bool Enemy::IsGetHitPlayer(std::shared_ptr<Player> pPlayer)
+//{
+//	// プレイヤーと敵の半径の合計
+//	float Rlength = kRadius + pPlayer->GetRadius();
+//	// X成分の距離
+//	float delX = pPlayer->GetPos().x - m_pos.x;
+//	// Y成分の距離
+//	float delY = pPlayer->GetPos().y - m_pos.y;
+//
+//	float del = sqrt((delX * delX) + (delY * delY));
+//
+//	if (del <= Rlength)
+//	{
+//		return true;
+//	}
+//
+//	return false;
+//}

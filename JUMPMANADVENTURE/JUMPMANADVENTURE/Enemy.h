@@ -3,6 +3,7 @@
 #include "Rect.h"
 #include <memory>
 
+class Camera;
 class Player;
 class BgStage1;
 class Enemy
@@ -11,7 +12,7 @@ public:
 	Enemy();
 	virtual ~Enemy();
 
-	void Init();
+	void Init(Camera* camera);
 	void Update();
 	void Draw();
 
@@ -25,7 +26,11 @@ public:
 	Rect GetRect();
 
 	// プレイヤーとの当たり判定
-	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
+//	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
+
+	void SetAlive(bool isAlive);
+
+	bool IsAlive() const;
 
 	enum Dir
 	{
@@ -34,6 +39,8 @@ public:
 	};
 
 private:
+	Camera* m_pCamera;
+
 	std::shared_ptr<BgStage1> m_pBgStage1;
 	std::shared_ptr<Player> m_pPlayer;
 
@@ -42,6 +49,9 @@ private:
 	Vec2 m_move;
 
 	bool m_isturnFlag;
+
+	// エネミーが生きているかどうかのフラグ
+	bool m_isAlive;
 
 	// 向いている方向
 	Dir m_dir;

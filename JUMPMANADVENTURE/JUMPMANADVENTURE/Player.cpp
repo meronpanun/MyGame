@@ -13,10 +13,6 @@
 
 namespace
 {
-    // プレイヤーサイズ
-    //constexpr int kWidth = 20;
-    //constexpr int kHeight = 20;
-
     // プレイヤーの描画サイズ
     constexpr int kGraphWidth = 32;
     constexpr int kGraphHeight = 32;
@@ -33,19 +29,19 @@ namespace
 
     // マップチップとの当たり判定の調整
     constexpr int kColChipAdjustmentX = 30;
-    constexpr int kColChipAdjustmentY = 170;
+    constexpr int kColChipAdjustmentY = 15;
 
     // 底の上限 
     constexpr int kFallMaX = 920;
 
     // ステージの左右端座標
     constexpr int kStageLeftEnd = 70;
-    constexpr int kStageRightEnd = 5100;
+    constexpr int kStageRightEnd = 6500;
 
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-    constexpr float kAccel = 2.0f;
+    constexpr float kAccel = 6.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -181,7 +177,7 @@ void Player::Draw()
 
     //}
     
-    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + m_pCamera->m_drawOffset.x + 30), static_cast<int>(m_pos.y - kGraphHeight + 15),
+    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
         walkSrcX, 0, kGraphWidth, kGraphHeight, 1.0f ,0, 
         m_walkHandle, true, m_isAnimTurn);
 
@@ -189,9 +185,11 @@ void Player::Draw()
 
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
-    DrawBox(GetLeft(), GetTop(),
-        GetRigth(), GetBottom(),
-        GetColor(0, 0, 255), false);
+    //DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
+    //    GetTop(),
+    //    GetRigth() + m_pCamera->m_drawOffset.x, 
+    //    GetBottom(),
+    //    GetColor(0, 0, 255), false);
 #endif // DISP_COLLISION
 }
 
@@ -210,6 +208,13 @@ void Player::OnDamage()
     printfDx("Damage ");
 }
 
+void Player::JumpOnEnemy()
+{
+    m_move.y = kJumpAcc * 0.5f; // 少しY軸方向にジャンプ
+    m_isJump = true;
+    m_isGround = false;
+}
+
 float Player::GetRadius() const
 {
     return kRadius;
@@ -217,7 +222,6 @@ float Player::GetRadius() const
 
 float Player::GetLeft() const
 {
-  //  return m_pos.x - kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
     return m_pos.x - kGraphWidth * static_cast<float>(0.5f);
 }
 
@@ -228,7 +232,6 @@ float Player::GetTop() const
 
 float Player::GetRigth() const
 {
- //   return m_pos.x + kGraphWidth * static_cast<float>(0.5f) + m_pCamera->m_drawOffset.x;
     return m_pos.x + kGraphWidth * static_cast<float>(0.5f);
 }
 
@@ -293,6 +296,11 @@ Rect Player::GetRect() const
     rect.m_left = GetLeft();
     rect.m_right = GetRigth();
     return rect;
+}
+
+float Player::GetMoveY() const
+{
+    return m_move.y;
 }
 
 void Player::UpdateJump()

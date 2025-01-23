@@ -14,7 +14,7 @@ SceneManager::SceneManager():
 
 SceneManager::~SceneManager()
 {
-	if (m_pTitle != nullptr)
+	if (m_pTitle != nullptr) 
 	{
 		delete m_pTitle;
 		m_pTitle = nullptr;
@@ -57,8 +57,11 @@ void SceneManager::Init()
 void SceneManager::Update()
 {
 	Pad::Update();
-	SceneSelect nextSelect = m_runScene;
 
+	// 次のシーン遷移先
+	SceneSelect nextSelect = m_runScene; 
+
+	// 実行するシーンの更新を行う
 	switch (m_runScene)
 	{
 	case kSceneTitle: 	  // タイトルシーン
@@ -73,6 +76,8 @@ void SceneManager::Update()
 	default:
 		break;
 	}
+
+	// シーンが変わった場合、初期化処理を行う
 	if (nextSelect != m_runScene)
 	{
 		m_runScene = nextSelect;
@@ -83,6 +88,7 @@ void SceneManager::Update()
 
 void SceneManager::Draw()
 {
+	// 実行するシーンの描画を行う
 	switch (m_runScene)
 	{
 	case kSceneTitle:     // タイトルシーン

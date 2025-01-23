@@ -7,7 +7,7 @@
 namespace
 {
 	// îºåa
-	constexpr int kRadius = 64;
+	constexpr int kRadius = 124;
 	
 	// ÉSÅ[ÉãÇÃï`âÊÉTÉCÉY
 	constexpr int kGraphWidth = 64;
@@ -21,15 +21,15 @@ namespace
 	constexpr int kAnimFrameCycle = _countof(kUseFrame) * kAnimFrameNum;
 
 	// ï\é¶ç¿ïW
-	constexpr int kPosX = 5050;
-	constexpr int kPosY = 595;
+	constexpr int kPosX = 6300;
+	constexpr int kPosY = 558;
 
 	// ägëÂó¶
-	constexpr double kScale = 2.0f;
+	constexpr double kScale = 3.0f;
 }
 
 Goal::Goal():
-	m_pos(5050.0f,590.0f),
+	m_pos(6300.0f,558.0f),
 	m_animFrame(0),
 	m_handle(0),
 	m_index(0)

@@ -7,7 +7,8 @@ namespace
 {
 	// カメラ範囲
 	constexpr float kCameraScopeRangeW = 400.0f;
-	constexpr float kCameraLerpRate = 0.15f;
+	// カメラのLerp率
+	constexpr float kCameraLerpRate = 0.15f;  
 }
 
 Camera::Camera()
@@ -37,7 +38,7 @@ void Camera::Update(const Player* player)
 	}
 
 	// 目標ポジションに、Lerpを使ってカメラポジションを近づける
-//	m_pos = Lerp(m_pos, aimCameraPos, kCameraLerpRate);
+	m_pos = Lerp(m_pos, aimCameraPos, kCameraLerpRate);
 
 	// Draw側に足しているcamera.pos.xは反転させる
 	m_drawOffset.x = m_pos.x * -1;
@@ -47,11 +48,11 @@ void Camera::Update(const Player* player)
 	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth - 1155);
 }
 
-//Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
-//{
-//	Vec2 ret;
-//	ret.x = std::lerp(start.x, end.x, t);
-//	ret.y = std::lerp(start.y, end.y, t);
-//	return ret;
-//}
+Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t) 
+{
+	Vec2 ret;
+	ret.x = std::lerp(start.x, end.x, t);
+	ret.y = std::lerp(start.y, end.y, t); 
+	return ret;
+}
 

@@ -14,12 +14,14 @@ namespace
 SceneTitle::SceneTitle():
 	m_blinkFrameCount(0)
 {
+	// グラフィックの読み込み
 	m_titleHandle = LoadGraph("data/image/Title.png");
 	assert(m_titleHandle != -1);
 }
 
 SceneTitle::~SceneTitle()
 {
+	// グラフィックの開放
 	DeleteGraph(m_titleHandle);
 }
 

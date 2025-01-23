@@ -17,14 +17,15 @@ namespace
 	constexpr int kChipNumY = Stage1::kBgStage1Height / kChipHeight;
 
 	// マップチップ拡大率
-	constexpr float kScale = 2.0f;
+	constexpr float kScale = 2.0f; 
 
 	// マップ全体の左下をウィンドウの左下に合わせるための高さ調整用変数
-	constexpr int kAllChipHeight = 160;
+	constexpr int kAllChipHeight = 160; 
 
 	// 当たり判定の調整
-	constexpr int kColChipAdjustmentX = 8;
-	constexpr int kColChipAdjustmentY = 174;
+	constexpr int kColChipAdjustmentX = 8; 
+	constexpr int kColChipAdjustmentY = 174; 
+	constexpr int kColChipAdjustmentLeft = 5; 
 
 	constexpr int kChipSetData[kChipNumY][kChipNumX] =
 	{
@@ -115,6 +116,7 @@ void BgStage1::Update(Player* player)
 	//		}
 	//	}
 	//}
+
 }
 
 void BgStage1::Draw()
@@ -126,10 +128,7 @@ void BgStage1::Draw()
 	for (int y = 0; y < kChipNumY; y++)
 	{
 		for (int x = 0; x < kChipNumX; x++)
-		{
-		//	int posX = kChipWidth * x + kColChipAdjustmentX;
-		//	int posY = kChipHeight * y - kColChipAdjustmentY;
-			
+		{			
 			int posX = kChipWidth * x * kScale + kColChipAdjustmentX + m_pCamera->m_drawOffset.x;
 			int posY = kChipHeight * y * kScale - kAllChipHeight;
 
@@ -183,8 +182,8 @@ bool BgStage1::IsCollision(Rect rect, Rect& ChipRect)
 			// 壁以外とは当たらない
 			if (kChipSetData[y][x] == 0) continue;
 
-			int chipLeft = static_cast<int>(x * kChipWidth * kScale - kColChipAdjustmentX);
-			int chipRight = static_cast<int>(chipLeft + kChipWidth * kScale);
+			int chipLeft = static_cast<int>(x * kChipWidth * kScale - kColChipAdjustmentLeft);
+			int chipRight = static_cast<int>(chipLeft + kChipWidth + kColChipAdjustmentX);
 			int chipTop = static_cast<int>(y * kChipHeight * kScale - kColChipAdjustmentY);
 			int chipBottom = static_cast<int>(chipTop + kChipHeight * kScale);
 
