@@ -2030,8 +2030,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		　『乗算済みα』についてはこちらの解説をご参照ください。<br>
 		　<a href="../lecture/PremulAlpha/PremulAlpha.html">『乗算済みアルファのすすめ』</a><br><br><br><br>
 
-                    　それぞれエフェクト等を行う用途によって変更してください。<br>
-                    　また、SetDrawBlendMode とは別に、Direct3D のブレンド設定のような感覚で設定を行える関数 <b><a href="dxfunc_other.html#R15N39">SetDrawCustomBlendMode</a></b> もあります。<br><br>
+                    　それぞれエフェクト等を行う用途によって変更してください。<br><br>
                 </td>
             </tr>
         </table></td></tr>
@@ -3344,14 +3343,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
             　　　　　　　　DX_RGBA_SELECT_BLEND_G : BlendGrHandle 画像の緑値<br>
             　　　　　　　　DX_RGBA_SELECT_BLEND_B : BlendGrHandle 画像の青値<br>
             　　　　　　　　DX_RGBA_SELECT_BLEND_A : BlendGrHandle 画像のアルファ値<br>
-            　　　　　　　　DX_RGBA_SELECT_SRC_INV_R 　: GrHandle 画像の赤を反転した値<br>
-            　　　　　　　　DX_RGBA_SELECT_SRC_INV_G 　: GrHandle 画像の緑を反転した値<br>
-            　　　　　　　　DX_RGBA_SELECT_SRC_INV_B 　: GrHandle 画像の青を反転した値<br>
-            　　　　　　　　DX_RGBA_SELECT_SRC_INV_A 　: GrHandle 画像のアルファを反転した値<br>
-            　　　　　　　　DX_RGBA_SELECT_BLEND_INV_R : BlendGrHandle 画像の赤を反転した値<br>
-            　　　　　　　　DX_RGBA_SELECT_BLEND_INV_G : BlendGrHandle 画像の緑を反転した値<br>
-            　　　　　　　　DX_RGBA_SELECT_BLEND_INV_B : BlendGrHandle 画像の青を反転した値<br>
-            　　　　　　　　DX_RGBA_SELECT_BLEND_INV_A : BlendGrHandle 画像のアルファを反転した値<br>
             　　　int SelectG : 出力の緑値となる要素( 渡せる値の種類は SelectR と同じです )<br>
             　　　int SelectB : 出力の青値となる要素( 渡せる値の種類は SelectR と同じです )<br>
             　　　int SelectA : 出力のアルファ値となる要素( 渡せる値の種類は SelectR と同じです )<br><br>

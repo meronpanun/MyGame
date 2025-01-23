@@ -31,9 +31,9 @@ typedef struct tagFILE_DATE
 typedef struct tagFILE_INFO
 {
 	TCHAR *FileName ;			// ファイル名
-	u32 FileNameHash ;			// ファイル名の CRC32 のハッシュ値
-	TCHAR *RelDirectoryPath ;	// 列挙処理時のカレントディレクトリからの相対ディレクトリパス( 末尾に '\' が着いている )
-	TCHAR *AbsDirectoryPath ;	// 絶対ディレクトリパス( 末尾に '\' が着いている )
+	u32 FileNameHash;			// ファイル名の CRC32 のハッシュ値
+	TCHAR *RelDirectoryPath ;	// 列挙処理時のカレントディレクトリからの相対ディレクトリパス( 語尾に '\' が着いている )
+	TCHAR *AbsDirectoryPath ;	// 絶対ディレクトリパス( 語尾に '\' が着いている )
 	u64 Size ;					// ファイルのサイズ(ディレクトリの場合は何も入っていない)
 	u32 IsDirectory ;			// ディレクトリか否か
 	FILE_DATE Date ;			// 日付データ

@@ -1557,10 +1557,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		　タッチパネルのタッチされている箇所の数を取得するための関数です。<br>
 		　例えば人差し指でタッチパネルに１箇所だけ触れている場合は戻り値が１になり、中指も使って２箇所触れている場合は戻り値が２になります。<br>
 		　タッチパネルに触れていない場合は戻り値が０になります。<br><br>
-
-          <font color="#660000"><b>
-		注意！…この関数は定期的に関数 <a href="../dxfunc.html#R1N3">ProcessMessage</a> を呼ばないと機能しません。<br><br>
-          </b></font>
                 </td>
             </tr>
         </table></td></tr>
@@ -1651,10 +1647,6 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		ID等が振られていないと前回の GetTouchInput で取得したタッチ箇所が移動したのか、
 		それとも別のタッチ箇所なのかを判別することができないからです )。<br>
 		　いらない情報については NULL を指定することができるので、IDやデバイス番号が不要な場合は NULL を引数として渡します。<br><br>
-          <font color="#660000"><b>
-		注意！…この関数は定期的に関数 <a href="../dxfunc.html#R1N3">ProcessMessage</a> を呼ばないと機能しません。<br><br>
-          </b></font>
-
                 </td>
             </tr>
         </table></td></tr>
