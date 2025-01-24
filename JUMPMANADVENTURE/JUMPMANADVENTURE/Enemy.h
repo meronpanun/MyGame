@@ -28,10 +28,13 @@ public:
 	// プレイヤーとの当たり判定
 //	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
 
+	// 敵の生死フラグ
 	void SetAlive(bool isAlive);
 
+	// 敵の位置を設定
 	void SetPos(float x, float y);
 
+	// 敵が生きているかどうかのフラグ
 	bool IsAlive() const;
 
 	enum Dir

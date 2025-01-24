@@ -22,6 +22,7 @@ public:
 	SceneManager::SceneSelect Update();
 	void Draw();
 
+	// “G‚Ì¶¬
 	void CreateEnemy(float x, float y);
 
 private:

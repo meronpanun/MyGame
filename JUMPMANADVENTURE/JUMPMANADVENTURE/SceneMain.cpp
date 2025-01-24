@@ -45,9 +45,13 @@ SceneMain::SceneMain():
 	// 敵の生成数
 	m_pEnemy.resize(12);
 
-	// 敵の初期位置
-	CreateEnemy(1050, 650);
-	CreateEnemy(450, 650);
+	// 各敵の初期位置
+	CreateEnemy(750, 650);
+	CreateEnemy(1450, 650);
+	CreateEnemy(1650, 650);
+	CreateEnemy(1680, 650);
+	CreateEnemy(2880, 350);
+	CreateEnemy(2890, 350);
 }
 
 SceneMain::~SceneMain()
@@ -70,11 +74,7 @@ void SceneMain::Init()
 	m_pCamera->Init();
 	m_pGoal->Init(m_pCamera.get());
 
-	//for (auto& enemy : m_pEnemy)
-	//{
-	//	enemy->Init(m_pCamera.get());
-	//}
-
+	// 敵の初期化
 	for (auto& enemy : m_pEnemy)
 	{
 		if (enemy)
@@ -122,11 +122,7 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pCamera->Update(m_pPlayer.get());
 	m_pGoal->Update();
 
-	//for (auto& enemy : m_pEnemy)
-	//{
-	//	enemy->Update();
-	//}
-
+	// 敵の更新
 	for (auto& enemy : m_pEnemy)
 	{
 		if (enemy)
@@ -205,44 +201,6 @@ SceneManager::SceneSelect SceneMain::Update()
 			}
 		}
 	}
-
-	// プレイヤーと敵の当たり判定
-	//if (m_pEnemy->IsAlive())
-	//	bool isPlayerHit = true;
-
-	//	// 絶対に当たらないパターン
-	//	if (m_pPlayer->GetLeft() > m_pEnemy->GetRigth())
-	//	{
-	//		isPlayerHit = false; 
-	//	}
-	//	if (m_pPlayer->GetTop() > m_pEnemy->GetBottom()) 
-	//	{
-	//		isPlayerHit = false;
-	//	}
-	//	if (m_pPlayer->GetRigth() < m_pEnemy->GetLeft())
-	//	{
-	//		isPlayerHit = false;
-	//	}
-	//	if (m_pPlayer->GetBottom() < m_pEnemy->GetTop())
-	//	{
-	//		isPlayerHit = false;
-	//	}
-
-	//	// isPlayerHit = trueなら当たっている、falseなら当たっていない
-	//	if (isPlayerHit)
-	//	{
-	//		if (m_pPlayer->GetBottom() < m_pEnemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
-	//		{
-	//			m_pEnemy->SetAlive(false); // 敵を消す
-	//			m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
-	//		}
-	//		else
-	//		{
-	//			m_pPlayer->OnDamage(); // プレイヤーがダメージを受ける
-	//		}
-	//	}
-
-	//}
 	
 	// ゴールオブジェクトに当たったら
 	if (m_isGoalHit)
@@ -260,11 +218,6 @@ void SceneMain::Draw()
 	m_pBgStage1->Draw(); 
 	m_pPlayer->Draw();
 	m_pGoal->Draw();
-
-	//for (auto& enemy : m_pEnemy)
-	//{
-	//	enemy->Draw();
-	//}
 
 	for (auto& enemy : m_pEnemy)
 	{
@@ -325,7 +278,7 @@ void SceneMain::CreateEnemy(float x, float y)
 	{
 		if (!m_pEnemy[i])
 		{
-			m_pEnemy[i] = std::make_shared<Enemy>();
+			m_pEnemy[i] = std::make_shared<Enemy>(); 
 			m_pEnemy[i]->SetPos(x, y);
 			break;
 		}
