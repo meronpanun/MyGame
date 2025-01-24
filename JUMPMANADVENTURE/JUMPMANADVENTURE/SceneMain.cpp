@@ -41,6 +41,13 @@ SceneMain::SceneMain():
 
 	m_pGoal = std::make_shared<Goal>();
 	m_pGoal->SetHandle(m_goalHandle);
+
+	// 敵の生成数
+	m_pEnemy.resize(12);
+
+	// 敵の初期位置
+	CreateEnemy(1050, 650);
+	CreateEnemy(450, 650);
 }
 
 SceneMain::~SceneMain()
@@ -48,6 +55,7 @@ SceneMain::~SceneMain()
 	// グラフィックの開放
 	DeleteGraph(m_lifeHandle);
 	DeleteGraph(m_goalHandle);
+	// フォントの開放
 	DeleteFontToHandle(m_fontHandle);
 }
 
@@ -56,13 +64,24 @@ void SceneMain::Init()
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage1 = std::make_shared<BgStage1>(); 
 	m_pCamera = std::make_shared<Camera>(); 
-	m_pEnemy = std::make_shared<Enemy>(); 
 
 	m_pPlayer->Init(m_pCamera.get()); 
 	m_pBgStage1->Init(m_pCamera.get());
 	m_pCamera->Init();
-	m_pEnemy->Init(m_pCamera.get());
 	m_pGoal->Init(m_pCamera.get());
+
+	//for (auto& enemy : m_pEnemy)
+	//{
+	//	enemy->Init(m_pCamera.get());
+	//}
+
+	for (auto& enemy : m_pEnemy)
+	{
+		if (enemy)
+		{
+			enemy->Init(m_pCamera.get());
+		}
+	}
 
 	// 体力の初期化
 	m_life.resize(kMaxHp);
@@ -102,7 +121,19 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pBgStage1->Update(m_pPlayer.get());
 	m_pCamera->Update(m_pPlayer.get());
 	m_pGoal->Update();
-	m_pEnemy->Update();
+
+	//for (auto& enemy : m_pEnemy)
+	//{
+	//	enemy->Update();
+	//}
+
+	for (auto& enemy : m_pEnemy)
+	{
+		if (enemy)
+		{
+			enemy->Update();
+		}
+	}
 
 	// 体力の更新
 	for (int i = 0; i < m_life.size(); i++)
@@ -134,44 +165,84 @@ SceneManager::SceneSelect SceneMain::Update()
 		m_blinkFrameCount = 0;
 	}
 
+
 	// プレイヤーと敵の当たり判定
-	if (m_pEnemy->IsAlive())
+	for (auto& enemy : m_pEnemy)
 	{
-		bool isPlayerHit = true;
-
-		// 絶対に当たらないパターン
-		if (m_pPlayer->GetLeft() > m_pEnemy->GetRigth())
+		if (enemy && enemy->IsAlive())
 		{
-			isPlayerHit = false; 
-		}
-		if (m_pPlayer->GetTop() > m_pEnemy->GetBottom()) 
-		{
-			isPlayerHit = false;
-		}
-		if (m_pPlayer->GetRigth() < m_pEnemy->GetLeft())
-		{
-			isPlayerHit = false;
-		}
-		if (m_pPlayer->GetBottom() < m_pEnemy->GetTop())
-		{
-			isPlayerHit = false;
-		}
-
-		// isPlayerHit = trueなら当たっている、falseなら当たっていない
-		if (isPlayerHit)
-		{
-			if (m_pPlayer->GetBottom() < m_pEnemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
+			bool isPlayerHit = true;
+			// 絶対に当たらないパターン
+			if (m_pPlayer->GetLeft() > enemy->GetRigth())
 			{
-				m_pEnemy->SetAlive(false); // 敵を消す
-				m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
+				isPlayerHit = false;
 			}
-			else
+			if (m_pPlayer->GetTop() > enemy->GetBottom())
 			{
-				m_pPlayer->OnDamage(); // プレイヤーがダメージを受ける
+				isPlayerHit = false;
+			}
+			if (m_pPlayer->GetRigth() < enemy->GetLeft())
+			{
+				isPlayerHit = false;
+			}
+			if (m_pPlayer->GetBottom() < enemy->GetTop())
+			{
+				isPlayerHit = false;
+			}
+
+			// isPlayerHit = trueなら当たっている、falseなら当たっていない
+			if (isPlayerHit)
+			{
+				if (m_pPlayer->GetBottom() < enemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
+				{
+					enemy->SetAlive(false); // 敵を消す
+					m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
+				}
+				else
+				{
+					m_pPlayer->OnDamage(); // プレイヤーがダメージを受ける
+				}
 			}
 		}
-
 	}
+
+	// プレイヤーと敵の当たり判定
+	//if (m_pEnemy->IsAlive())
+	//	bool isPlayerHit = true;
+
+	//	// 絶対に当たらないパターン
+	//	if (m_pPlayer->GetLeft() > m_pEnemy->GetRigth())
+	//	{
+	//		isPlayerHit = false; 
+	//	}
+	//	if (m_pPlayer->GetTop() > m_pEnemy->GetBottom()) 
+	//	{
+	//		isPlayerHit = false;
+	//	}
+	//	if (m_pPlayer->GetRigth() < m_pEnemy->GetLeft())
+	//	{
+	//		isPlayerHit = false;
+	//	}
+	//	if (m_pPlayer->GetBottom() < m_pEnemy->GetTop())
+	//	{
+	//		isPlayerHit = false;
+	//	}
+
+	//	// isPlayerHit = trueなら当たっている、falseなら当たっていない
+	//	if (isPlayerHit)
+	//	{
+	//		if (m_pPlayer->GetBottom() < m_pEnemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
+	//		{
+	//			m_pEnemy->SetAlive(false); // 敵を消す
+	//			m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
+	//		}
+	//		else
+	//		{
+	//			m_pPlayer->OnDamage(); // プレイヤーがダメージを受ける
+	//		}
+	//	}
+
+	//}
 	
 	// ゴールオブジェクトに当たったら
 	if (m_isGoalHit)
@@ -188,8 +259,20 @@ void SceneMain::Draw()
 {
 	m_pBgStage1->Draw(); 
 	m_pPlayer->Draw();
-	m_pEnemy->Draw();
 	m_pGoal->Draw();
+
+	//for (auto& enemy : m_pEnemy)
+	//{
+	//	enemy->Draw();
+	//}
+
+	for (auto& enemy : m_pEnemy)
+	{
+		if (enemy)
+		{
+			enemy->Draw();
+		}
+	}
 	 
 	// 体力の描画
 	for (int i = 0; i < m_pPlayer->GetHp(); i++)
@@ -234,4 +317,17 @@ void SceneMain::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
+}
+
+void SceneMain::CreateEnemy(float x, float y)
+{
+	for (int i = 0; i < m_pEnemy.size(); i++)
+	{
+		if (!m_pEnemy[i])
+		{
+			m_pEnemy[i] = std::make_shared<Enemy>();
+			m_pEnemy[i]->SetPos(x, y);
+			break;
+		}
+	}
 }

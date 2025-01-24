@@ -74,17 +74,17 @@ void Enemy::Update()
 
 	if (!m_isturnFlag)
 	{
-		m_move.x = kSpeed;
-		m_isAnimRight = true;
-		isMove = true;
-		m_dir = kRunRight;
-	}
-	else
-	{
 		m_move.x = -kSpeed;
 		m_isAnimLeft = true;
 		isMove = true;
 		m_dir = kRunLeft;
+	}
+	else
+	{
+		m_move.x = kSpeed;
+		m_isAnimRight = true;
+		isMove = true;
+		m_dir = kRunRight;
 	}
 
 	if (isMove)
@@ -105,12 +105,12 @@ void Enemy::Update()
 		if (m_move.x > 0.0f)
 		{
 			m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
-			m_isturnFlag = true; // •Ç‚É“–‚½‚Á‚½‚ç•ûŒü“]Š·
+			m_isturnFlag = false; // •Ç‚É“–‚½‚Á‚½‚ç•ûŒü“]Š·
 		}
 		else if (m_move.x < 0.0f)
 		{
 			m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
-			m_isturnFlag = false; // •Ç‚É“–‚½‚Á‚½‚ç•ûŒü“]Š·
+			m_isturnFlag = true; // •Ç‚É“–‚½‚Á‚½‚ç•ûŒü“]Š·
 		}
 	}
 
@@ -192,6 +192,12 @@ Rect Enemy::GetRect()
 void Enemy::SetAlive(bool isAlive)
 {
 	m_isAlive = isAlive;
+}
+
+void Enemy::SetPos(float x, float y)
+{
+	m_pos.x = x;
+	m_pos.y = y;
 }
 
 bool Enemy::IsAlive() const

@@ -22,6 +22,8 @@ public:
 	SceneManager::SceneSelect Update();
 	void Draw();
 
+	void CreateEnemy(float x, float y);
+
 private:
 	// フェード処理
 	int m_fadeFrameCount;
@@ -42,9 +44,9 @@ private:
 	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage1> m_pBgStage1;
 	std::shared_ptr<Player> m_pPlayer;
-	std::shared_ptr<Enemy> m_pEnemy;
 	std::shared_ptr<SceneMain> m_pSceneMain;
 	std::shared_ptr<Goal> m_pGoal;
+	std::vector<std::shared_ptr<Enemy>> m_pEnemy;
 	std::vector<Life> m_life;
 };
 

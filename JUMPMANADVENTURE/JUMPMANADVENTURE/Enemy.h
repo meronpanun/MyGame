@@ -10,7 +10,7 @@ class Enemy
 {
 public:
 	Enemy();
-	virtual ~Enemy();
+	 ~Enemy();
 
 	void Init(Camera* camera);
 	void Update();
@@ -29,6 +29,8 @@ public:
 //	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
 
 	void SetAlive(bool isAlive);
+
+	void SetPos(float x, float y);
 
 	bool IsAlive() const;
 
@@ -65,4 +67,31 @@ private:
 	// 敵のグラフィックハンドル
 	int m_handle;
 };
+
+
+//class Enemy
+//{
+//public:
+//	Enemy();
+//	~Enemy();
+//
+//	void Init(Camera* camera);
+//	void Update();
+//	void Draw();
+//	void SetAlive(bool alive);
+//	bool IsAlive() const;
+//
+//	// 新しいメソッドを追加
+//	void SetPos(float x, float y);
+//
+//	float GetLeft() const;
+//	float GetRight() const;
+//	float GetTop() const;
+//	float GetBottom() const;
+//
+//private:
+//	Vec2 m_pos;
+//	bool m_isAlive;
+//	Camera* m_pCamera;
+//};
 
