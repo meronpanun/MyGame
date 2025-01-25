@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "DxLib.h"
 #include "Camera.h"
+#include "SceneMain.h"
 #include <cassert>
 
 
@@ -116,7 +117,6 @@ void BgStage1::Update(Player* player)
 	//		}
 	//	}
 	//}
-
 }
 
 void BgStage1::Draw()

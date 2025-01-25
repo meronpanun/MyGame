@@ -274,6 +274,8 @@ void SceneMain::Draw()
 
 void SceneMain::CreateEnemy(float x, float y)
 {
+	constexpr float enemySpawnRange = 10.0f; // —á‚Æ‚µ‚Ä200ƒsƒNƒZƒ‹‚Ì”ÍˆÍ
+
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
 		if (!m_pEnemy[i])
@@ -282,5 +284,19 @@ void SceneMain::CreateEnemy(float x, float y)
 			m_pEnemy[i]->SetPos(x, y);
 			break;
 		}
+
+		if (IsPlayerInRange(x, y, enemySpawnRange))
+		{
+			m_pEnemy[i] = std::make_shared<Enemy>();
+			m_pEnemy[i]->SetPos(x, y);
+			break;
+		}
 	}
+}
+
+bool SceneMain::IsPlayerInRange(float x, float y, float range)
+{
+	Vec2 playerPos = m_pPlayer->GetPos();
+	Vec2 enemyPos(x, y);
+	return (playerPos - enemyPos).Length() <= range;
 }
