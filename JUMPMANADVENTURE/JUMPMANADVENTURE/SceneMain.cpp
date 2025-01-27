@@ -21,6 +21,12 @@ namespace
 	constexpr int kBlinkCycleFrame = 60;
 	constexpr int kBlinkDispFrame = 40;
 
+	// タイマーの初期値
+	constexpr int kInitialTimer = 400;
+
+	// タイマーのカウントダウン間隔（0.4秒）
+	constexpr int kTimerCountdownInterval = 24; // 60FPSの場合、0.4秒は24フレーム
+
 	// 体力の最大値
 	constexpr int kMaxHp = 3;
 }
@@ -29,7 +35,11 @@ SceneMain::SceneMain():
 	m_isGameEnd(false),
 	m_isGoalHit(false),
 	m_fadeFrameCount(0),
-	m_lifeHandle(-1)
+	m_lifeHandle(-1),
+	m_score(0), 
+	m_timer(kInitialTimer),
+	m_scoreFontSize(24), 
+	m_timerFontSize(24)  
 {
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
@@ -92,10 +102,15 @@ void SceneMain::Init()
 		m_life[i].SetHandle(m_lifeHandle);
 		m_life[i].SetIndex(i);
 	}
+
+	// スコアとタイマーの初期化
+	m_score = 0;
+	m_timer = kInitialTimer;
 }
 
 SceneManager::SceneSelect SceneMain::Update()
 {
+
 	// ゴールに当たったかどうか
 	m_isGoalHit = m_pGoal->GetHitPlayerFlag(m_pPlayer);
 
@@ -139,30 +154,12 @@ SceneManager::SceneSelect SceneMain::Update()
 		m_life[i].Update();
 	}
 
-	// ゲームオーバー演出
-	if (m_pPlayer->GetHp() <= 0)
-	{
-		m_gameoverFrameCount++;
-		if (m_gameoverFrameCount > kGameoverFadeFrame)
-		{
-			m_gameoverFrameCount = kGameoverFadeFrame;
-
-			// ゲームオーバーの文字が表示されきった後、
-			// 1ボタンを押したらタイトルに戻る
-			if (Pad::IsTrigger(PAD_INPUT_1))
-			{
-				m_isGameEnd = true;
-			}
-		}
-	}
-
 	// 1秒サイクルで表示、非表示切り替えす
 	m_blinkFrameCount++;
 	if (m_blinkFrameCount >= kBlinkCycleFrame)
 	{
 		m_blinkFrameCount = 0;
 	}
-
 
 	// プレイヤーと敵の当たり判定
 	for (auto& enemy : m_pEnemy)
@@ -195,12 +192,42 @@ SceneManager::SceneSelect SceneMain::Update()
 				{
 					enemy->SetAlive(false);    // 敵を消す
 					m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
+					m_score += 100;            // 敵を倒すとスコアを100ポイント増加
 				}
 				else
 				{
 					m_pPlayer->OnDamage(); // プレイヤーがダメージを受ける
 				}
 			}
+		}
+	}
+
+	// ゲームオーバー演出
+	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)
+	{
+		m_gameoverFrameCount++;
+		if (m_gameoverFrameCount > kGameoverFadeFrame)
+		{
+			m_gameoverFrameCount = kGameoverFadeFrame;
+
+			// ゲームオーバーの文字が表示されきった後、
+			// 1ボタンを押したらタイトルに戻る
+			if (Pad::IsTrigger(PAD_INPUT_1))
+			{
+				m_isGameEnd = true;
+			}
+		}
+	}
+
+	// タイマーのカウントダウン
+	static int timerFrameCount = 0;
+	timerFrameCount++;
+	if (timerFrameCount >= kTimerCountdownInterval)
+	{
+		timerFrameCount = 0;
+		if (m_timer > 0)
+		{
+			m_timer--;
 		}
 	}
 	
@@ -236,8 +263,18 @@ void SceneMain::Draw()
 		m_life[i].Draw();
 	}
 
+	// スコアの表示
+	int scoreFontHandle = CreateFontToHandle("Bodoni MT Black", m_scoreFontSize, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	DrawFormatStringToHandle(500, 10, 0xffffff, scoreFontHandle, "Score: %d", m_score);
+	DeleteFontToHandle(scoreFontHandle);
+
+	// タイマーの表示
+	int timerFontHandle = CreateFontToHandle("Bodoni MT Black", m_timerFontSize, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	DrawFormatStringToHandle(700, 10, 0xffffff, timerFontHandle, "Time: %d", m_timer);
+	DeleteFontToHandle(timerFontHandle);
+
 	// ゲームオーバーの表示
-	if (m_pPlayer->GetHp() <= 0)
+	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)
 	{
 		// 画面全体を黒色で塗り潰す
 		DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
@@ -284,13 +321,19 @@ void SceneMain::CreateEnemy(float x, float y)
 	{
 		if (!m_pEnemy[i])
 		{
-		//	if (m_pPlayer->IsPlayerInRange(x, y, enemySpawnRange))
-			{
-				m_pEnemy[i] = std::make_shared<Enemy>();
-				m_pEnemy[i]->SetPos(x, y);
-
-				break;
-			}
+			m_pEnemy[i] = std::make_shared<Enemy>();
+			m_pEnemy[i]->SetPos(x, y);
+			break;
 		}
 	}
+}
+
+void SceneMain::SetScoreFontSize(int size)
+{
+	m_scoreFontSize = size;
+}
+
+void SceneMain::SetTimerFontSize(int size)
+{
+	m_timerFontSize = size;
 }

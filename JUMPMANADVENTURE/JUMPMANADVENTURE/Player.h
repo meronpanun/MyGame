@@ -56,9 +56,6 @@ public:
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect() const;
 
-	// プレイヤーが範囲内にいるかチェックする
-	bool IsPlayerInRange(float x, float y, float range);
-
 private:
 	// ジャンプ処理
 	void UpdateJump();

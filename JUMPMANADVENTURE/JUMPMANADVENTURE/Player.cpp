@@ -69,7 +69,7 @@ namespace
     constexpr float kInJumpHeight = 0.8f;		// 中ジャンプ
 
     // 無敵時間
-    constexpr int kInvincible = 30;
+    constexpr int kInvincible = 50;
 
     // 初期の残機数
     constexpr int kLife = 3;
@@ -305,13 +305,6 @@ Rect Player::GetRect() const
     rect.m_left = GetLeft();
     rect.m_right = GetRigth();
     return rect;
-}
-
-bool Player::IsPlayerInRange(float x, float y, float range)
-{
-	Vec2 playerPos = GetPos();
-	Vec2 enemyPos(x, y);
-    return (playerPos - enemyPos).Length() <= range;
 }
 
 float Player::GetMoveY() const
