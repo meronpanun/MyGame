@@ -32,8 +32,14 @@ private:
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;
 
-	// フェードイン、アウト
-	int m_fadeAlpha;
+	// ゲームオーバー演出に使用するフレーム
+	int m_gameClearFrameCount;
+
+	// フォントハンドル
+	int m_fontHandle;
+
+	// フェード処理
+	int m_fadeFrameCount;
 	
 	// シーン選択フラグ true:シーン遷移
 	bool m_isSceneTitle;	   // タイトル

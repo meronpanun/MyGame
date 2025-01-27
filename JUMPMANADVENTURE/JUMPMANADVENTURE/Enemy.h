@@ -49,6 +49,7 @@ private:
 	std::shared_ptr<BgStage1> m_pBgStage1;
 	std::shared_ptr<Player> m_pPlayer;
 
+	// “G‚ÌˆÊ’u
 	Vec2 m_pos;
 	// “G‚Ì‰Á‘¬“x
 	Vec2 m_move;

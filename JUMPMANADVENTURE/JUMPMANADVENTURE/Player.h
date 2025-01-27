@@ -9,7 +9,7 @@ class SceneMain;
 /// <summary>
 /// プレイヤークラス
 /// </summary>
-class Player
+class Player	
 {
 public:
 	Player();
@@ -21,12 +21,11 @@ public:
 
 	// 現在のHPを取得
 	int GetHp() const { return m_hp; }
-	// 現在の残機数を取得
-//	int GetLife() const { return m_life; }
 
 	// プレイヤーがダメージを受けた時の処理
 	void OnDamage();
-
+ 
+	// プレイヤーが敵を倒した後少しジャンプ
 	void JumpOnEnemy();
 
 	// プレイヤーの位置情報を取得
@@ -36,7 +35,7 @@ public:
 	
     // 円の当たり判定
 	float GetRadius() const;
-
+	// プレイヤーの移動量を取得
 	float GetMoveY() const;
 
 	// プレイヤーの上下左右情報取得
@@ -48,12 +47,17 @@ public:
 	// マップチップとの当たり判定
 	void CheckHitBgStage1(Rect chipRect);
 
+	// Y軸方向の移動量を追加
 	void AddMoveY(float DisY);
+
+	// Y軸方向の移動量をリセット
 	void OnCollideY();
 
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect() const;
 
+	// プレイヤーが範囲内にいるかチェックする
+	bool IsPlayerInRange(float x, float y, float range);
 
 private:
 	// ジャンプ処理
@@ -61,6 +65,9 @@ private:
 	// 各状態毎のUpdate処理
 	void UpdateNormal();  // ゲーム中のUpdate
 	void UpdateDead();    // 死亡後のUpdate
+
+	// 死亡時の初期化処理
+	void InitDead();     
 
 private:
 	Camera* m_pCamera;
@@ -103,7 +110,6 @@ private:
 	// 地面と接しているか　true:接している 
 	bool m_isGround;
 
-	int m_invincibleCount;
 	// HP
 	int m_hp;
 	// 残機

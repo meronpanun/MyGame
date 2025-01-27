@@ -22,7 +22,7 @@ namespace
     constexpr float kRestartPosY = 610.0f;
 
     // 拡大率
-    constexpr float kScale = 2.0f;
+    constexpr float kScale = 1.0f;
 
     // 当たり判定の半径
     constexpr int kRadius = 9;
@@ -41,7 +41,7 @@ namespace
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-    constexpr float kAccel = 6.0f;
+    constexpr float kAccel = 3.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -148,6 +148,12 @@ void Player::Update()
 
 void Player::Draw()
 {
+	// プレイヤーが無敵時間中は点滅させる
+	if ((m_blinkFrameCount / 2) % 2)
+	{
+		return;
+	}
+
     // プレイヤーのアニメーションフレーム
     int animFrame = m_animFrame / kRunAnimFrame;
     // プレイヤーの切り取り画像
@@ -159,29 +165,28 @@ void Player::Draw()
 
     //プレイヤージャンプの切り取り座標
     int JsrcX = kJumpFrame[jumpAnimFrame] * kGraphHeight;
-    int JsrcY = 0;
+    
+    bool isDead = false;
+    if (m_hp <= 0)
+    {
+        isDead = true;
+    }
 
     // ジャンプした場合
-    //if (m_isAnimJump)
-    //{
+    if (m_isAnimJump)
+    {
 
-    //    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - kColChipAdjustmentY),
-    //        JsrcX, JsrcY, kGraphWidth, kGraphHeight, kScale, 0,
-    //        m_jumpHandle, true, m_isAnimTurn);
-    //}
-    //else
-    //{
-    //    DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight - kColChipAdjustmentY),
-    //        walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
-    //        m_walkHandle, true, m_isAnimTurn);
+        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
+            JsrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+            m_jumpHandle, true, m_isAnimTurn, isDead);
+    }
+    else
+    {
+        DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
+            walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+            m_walkHandle, true, m_isAnimTurn, isDead);
 
-    //}
-    
-    DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
-        walkSrcX, 0, kGraphWidth, kGraphHeight, 1.0f ,0, 
-        m_walkHandle, true, m_isAnimTurn);
-
-   
+    }
 
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
@@ -197,15 +202,19 @@ void Player::OnDamage()
 {
     // 既にダメージを受けている(無敵時間)間は
     // 再度ダメージを受けることはない
-    if (m_invincibleCount > 0)
+    if (m_blinkFrameCount > 0)
     {
         return;
     }
     // 無敵時間(点滅する時間)を設定する
-    m_invincibleCount = kInvincible;
+    m_blinkFrameCount = kInvincible;
     // ダメージを受ける
     m_hp--;
-    printfDx("Damage ");
+	// HPが0以下になったら死亡演出を行う
+	if (m_hp <= 0)
+	{
+        InitDead();
+	}
 }
 
 void Player::JumpOnEnemy()
@@ -296,6 +305,13 @@ Rect Player::GetRect() const
     rect.m_left = GetLeft();
     rect.m_right = GetRigth();
     return rect;
+}
+
+bool Player::IsPlayerInRange(float x, float y, float range)
+{
+	Vec2 playerPos = GetPos();
+	Vec2 enemyPos(x, y);
+    return (playerPos - enemyPos).Length() <= range;
 }
 
 float Player::GetMoveY() const
@@ -431,6 +447,7 @@ void Player::UpdateNormal()
             if (m_jumpCount == 1 && m_isJump)
             {
                 m_move.y = kJumpAcc;
+              //  m_isAnimJump = true;
                 m_isAnimJump = false;
             }
             else
@@ -493,6 +510,13 @@ void Player::UpdateDead()
     }
 
     // 画面外に落ちていく演出
- /*   m_pos.y += m_jumpSpeed;
-    m_jumpSpeed += kGravity;*/
+    m_pos.y += m_jumpSpeed;
+    m_jumpSpeed += kGravity;
+}
+
+void Player::InitDead()
+{
+	m_jumpSpeed = kDeadJumpSpeed;
+	m_deadFrameCount = 0;
+	m_blinkFrameCount = 0;
 }

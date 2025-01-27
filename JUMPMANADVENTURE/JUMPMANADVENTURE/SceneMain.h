@@ -25,8 +25,6 @@ public:
 	// 敵の生成
 	void CreateEnemy(float x, float y);
 
-	bool IsPlayerInRange(float x, float y, float range); // プレイヤーが範囲内にいるかチェックする
-
 private:
 	// フェード処理
 	int m_fadeFrameCount;

@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Game.h"
-
+#include <cmath> 
 
 namespace
 {
@@ -48,11 +48,11 @@ void Camera::Update(const Player* player)
 	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth - 1155);
 }
 
-Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t) 
+Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
 {
 	Vec2 ret;
-	ret.x = std::lerp(start.x, end.x, t);
-	ret.y = std::lerp(start.y, end.y, t); 
+	ret.x = start.x + t * (end.x - start.x); 
+	ret.y = start.y + t * (end.y - start.y);
 	return ret;
 }
 

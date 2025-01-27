@@ -66,7 +66,7 @@ void Enemy::Init(Camera* camera)
 void Enemy::Update()
 {
 	if (!m_isAlive) return; // 敵が消えている場合は処理を行わない
-		
+	
 	bool isMove = false;
 
 	// 毎フレーム下方向に加速する
@@ -134,6 +134,7 @@ void Enemy::Update()
 void Enemy::Draw()
 {
 	if (!m_isAlive) return; // 敵が消えている場合は処理を行わない
+
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animFrame = m_animFrame / kAnimFrameNum;
 

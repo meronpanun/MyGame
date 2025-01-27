@@ -7,7 +7,7 @@
 namespace
 {
 	// ”¼Œa
-	constexpr int kRadius = 124;
+	constexpr int kRadius = 64;
 	
 	// ƒS[ƒ‹‚Ì•`‰æƒTƒCƒY
 	constexpr int kGraphWidth = 64;

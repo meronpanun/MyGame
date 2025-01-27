@@ -26,6 +26,7 @@ namespace
 }
 
 SceneMain::SceneMain():
+	m_isGameEnd(false),
 	m_isGoalHit(false),
 	m_fadeFrameCount(0),
 	m_lifeHandle(-1)
@@ -49,9 +50,9 @@ SceneMain::SceneMain():
 	CreateEnemy(750, 650);
 	CreateEnemy(1450, 650);
 	CreateEnemy(1650, 650);
-	CreateEnemy(1680, 650);
-	CreateEnemy(2880, 350);
-	CreateEnemy(2890, 350);
+	CreateEnemy(1720, 650);
+	CreateEnemy(4880, 350);
+	CreateEnemy(4890, 350);
 }
 
 SceneMain::~SceneMain()
@@ -95,6 +96,7 @@ void SceneMain::Init()
 
 SceneManager::SceneSelect SceneMain::Update()
 {
+	// ゴールに当たったかどうか
 	m_isGoalHit = m_pGoal->GetHitPlayerFlag(m_pPlayer);
 
 	if (m_isGameEnd)
@@ -191,7 +193,7 @@ SceneManager::SceneSelect SceneMain::Update()
 			{
 				if (m_pPlayer->GetBottom() < enemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
 				{
-					enemy->SetAlive(false); // 敵を消す
+					enemy->SetAlive(false);    // 敵を消す
 					m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
 				}
 				else
@@ -219,6 +221,7 @@ void SceneMain::Draw()
 	m_pPlayer->Draw();
 	m_pGoal->Draw();
 
+	// 敵の描画
 	for (auto& enemy : m_pEnemy)
 	{
 		if (enemy)
@@ -274,29 +277,20 @@ void SceneMain::Draw()
 
 void SceneMain::CreateEnemy(float x, float y)
 {
-	constexpr float enemySpawnRange = 10.0f; // 例として200ピクセルの範囲
+	// 敵の生成範囲
+	constexpr float enemySpawnRange = 10.0f; 
 
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
 		if (!m_pEnemy[i])
 		{
-			m_pEnemy[i] = std::make_shared<Enemy>(); 
-			m_pEnemy[i]->SetPos(x, y);
-			break;
-		}
+		//	if (m_pPlayer->IsPlayerInRange(x, y, enemySpawnRange))
+			{
+				m_pEnemy[i] = std::make_shared<Enemy>();
+				m_pEnemy[i]->SetPos(x, y);
 
-		if (IsPlayerInRange(x, y, enemySpawnRange))
-		{
-			m_pEnemy[i] = std::make_shared<Enemy>();
-			m_pEnemy[i]->SetPos(x, y);
-			break;
+				break;
+			}
 		}
 	}
-}
-
-bool SceneMain::IsPlayerInRange(float x, float y, float range)
-{
-	Vec2 playerPos = m_pPlayer->GetPos();
-	Vec2 enemyPos(x, y);
-	return (playerPos - enemyPos).Length() <= range;
 }
