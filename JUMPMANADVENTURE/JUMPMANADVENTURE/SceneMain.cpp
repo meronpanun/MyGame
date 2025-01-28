@@ -64,7 +64,7 @@ SceneMain::SceneMain():
 	m_pEnemy.resize(12);
 
 	// 各敵の初期位置
-	CreateEnemy(750, 625);
+	CreateEnemy(850, 625);
 	CreateEnemy(1450, 625);
 	CreateEnemy(1650, 625);
 	CreateEnemy(1720, 625);
@@ -149,7 +149,7 @@ SceneManager::SceneSelect SceneMain::Update()
 
 	// 敵の更新
 	Vec2 playerPos = m_pPlayer->GetPos();
-	constexpr float enemyActivationRange = 500.0f; // 500ピクセルの範囲
+	constexpr float enemyActivationRange = 1000.0f; // 1000ピクセルの範囲
 
 	for (auto& enemy : m_pEnemy) 
 	{

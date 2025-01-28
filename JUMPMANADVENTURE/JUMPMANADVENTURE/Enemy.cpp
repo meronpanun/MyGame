@@ -108,12 +108,12 @@ void Enemy::Update()
 	{
 		if (m_move.x > 0.0f)
 		{
-			m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
+			m_pos.x = chipRect.m_left - kGraphWidth * kScale * 0.5f - 1;
 			m_isTurnFlag = false; // 壁に当たったら方向転換
 		}
 		else if (m_move.x < 0.0f)
 		{
-			m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
+			m_pos.x = chipRect.m_right + kGraphWidth * kScale * 0.5f + 1;
 			m_isTurnFlag = true; // 壁に当たったら方向転換
 		}
 	}
@@ -129,7 +129,7 @@ void Enemy::Update()
 		}
 		else if (m_move.y < 0.0f) // エネミーが上方向に移動している
 		{
-			m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
+			m_pos.y = chipRect.m_bottom + kGraphHeight * kScale + 1; // めり込まない位置に補正
 			m_move.y = 0.0f; // 上方向への加速をリセット
 		}
 	}
@@ -144,34 +144,34 @@ void Enemy::Draw()
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animFrame = m_animFrame / kAnimFrameNum;
 
-	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x),static_cast<int>(m_pos.y - kColChipAdjustmentY),
+	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x),static_cast<int>(m_pos.y - kColChipAdjustmentY - 14),
 		animFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
-		1.0, 0.0, m_handle, true, m_isFacingRight);
+		kScale, 0.0, m_handle, true, m_isFacingRight);
 
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
-	//DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
-	//	GetTop(),
-	//	GetRigth() + m_pCamera->m_drawOffset.x,
-	//	GetBottom(),
-	//	0xff0000, false);
+	DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
+		GetTop(),
+		GetRigth() + m_pCamera->m_drawOffset.x,
+		GetBottom(),
+		0xff0000, false);
 #endif // _DEBUG
 }
 
 
 float Enemy::GetLeft() 
 {
-	return m_pos.x - kGraphWidth * static_cast<float>(0.5f);
+	return m_pos.x - kGraphWidth * kScale * 0.5f;
 }
 
 float Enemy::GetTop() 
 {
-	return m_pos.y - kGraphHeight;
+	return m_pos.y - kGraphHeight * kScale;
 }
 
 float Enemy::GetRigth() 
 {
-	return m_pos.x + kGraphWidth * static_cast<float>(0.5f);
+	return m_pos.x + kGraphWidth * kScale * 0.5f;
 }
 
 float Enemy::GetBottom() 
