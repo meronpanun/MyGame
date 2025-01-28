@@ -9,6 +9,9 @@ namespace
 	constexpr float kCameraScopeRangeW = 400.0f;
 	// カメラのLerp率
 	constexpr float kCameraLerpRate = 0.15f;  
+
+	// カメラの左端位置情報修正の調整
+	constexpr int kAdjustmentX = 100;
 }
 
 Camera::Camera()
@@ -32,10 +35,6 @@ void Camera::Update(const Player* player)
 	{
 		aimCameraPos.x = player->GetPos().x - (kCameraScopeRangeW * 0.5f);
 	}
-	if (player->GetPos().x < m_pos.x)
-	{
-		m_pos.x = player->GetPos().x;
-	}
 
 	// 目標ポジションに、Lerpを使ってカメラポジションを近づける
 	m_pos = Lerp(m_pos, aimCameraPos, kCameraLerpRate);
@@ -46,6 +45,11 @@ void Camera::Update(const Player* player)
 	// その時、画面左側にプレイヤーが来るようにする
 	// (camera.pos画面中央になるようにする)
 	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth - 1155);
+}
+
+float Camera::GetLeft() const
+{
+	return m_pos.x - 100;
 }
 
 Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)

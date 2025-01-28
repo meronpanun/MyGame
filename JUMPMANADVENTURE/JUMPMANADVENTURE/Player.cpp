@@ -30,12 +30,12 @@ namespace
     // マップチップとの当たり判定の調整
     constexpr int kColChipAdjustmentX = 30;
     constexpr int kColChipAdjustmentY = 15;
+    
 
     // 底の上限 
     constexpr int kFallMaX = 920;
 
     // ステージの左右端座標
-    constexpr int kStageLeftEnd = 70;
     constexpr int kStageRightEnd = 6500;
 
     // 速度
@@ -71,9 +71,6 @@ namespace
     // 無敵時間
     constexpr int kInvincible = 50;
 
-    // 初期の残機数
-    constexpr int kLife = 3;
-
     // プレイヤーの初期HP
     constexpr int kMaxHp = 3;
 
@@ -88,7 +85,7 @@ Player::Player() :
     m_isLeftMove(false),
     m_isWalk(false),
     m_isGround(false),
-    m_move(0.0f, 0.0f),
+    m_move(kSpeed, 0.0f),
     m_pos(150.0f, 610.0f),
     m_animFrame(0),
     m_jumpFrame(0),
@@ -161,7 +158,7 @@ void Player::Draw()
     int walkSrcY = kGraphHeight;
 
     //ジャンプするときのアニメフレーム
-    int jumpAnimFrame = m_animFrame / kJumpAnimFrame;
+    int jumpAnimFrame = m_jumpFrame / kJumpAnimFrame;
 
     //プレイヤージャンプの切り取り座標
     int JsrcX = kJumpFrame[jumpAnimFrame] * kGraphHeight;
@@ -306,6 +303,13 @@ Rect Player::GetRect() const
     rect.m_right = GetRigth();
     return rect;
 }
+//
+//bool Player::IsPlayerInRange(float x, float y, float range)
+//{
+//    float dx = m_pos.x - x;
+//    float dy = m_pos.y - y;
+//    return (dx * dx + dy * dy) <= (range * range);
+//}
 
 float Player::GetMoveY() const
 {
@@ -358,13 +362,14 @@ void Player::UpdateNormal()
     }
 
     // プレイヤーが画面端から出ていかない
-    if (m_pos.x < kStageLeftEnd)
-    {
-        m_pos.x = kStageLeftEnd;
-    }
     if (m_pos.x > kStageRightEnd)
     {
         m_pos.x = kStageRightEnd;
+    }
+    // プレイヤーの位置がカメラの左端を超えないように制限
+    if (m_pos.x < m_pCamera->GetLeft())
+    {
+        m_pos.x = m_pCamera->GetLeft();
     }
 
     int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -419,6 +424,13 @@ void Player::UpdateNormal()
         // マップチップとの当たり判定
         Rect chipRect;
         CheckHitBgStage1(chipRect);
+
+        // ジャンプアニメーションの更新
+        m_jumpFrame++;
+        if (m_jumpFrame >= _countof(kJumpFrame) * kJumpAnimFrame)
+        {
+            m_jumpFrame = 0;
+        }
     }
     else // 地面についている場合
     {
@@ -440,8 +452,8 @@ void Player::UpdateNormal()
             if (m_jumpCount == 1 && m_isJump)
             {
                 m_move.y = kJumpAcc;
-              //  m_isAnimJump = true;
-                m_isAnimJump = false;
+                m_isAnimJump = true;
+              //  m_isAnimJump = false;
             }
             else
             {

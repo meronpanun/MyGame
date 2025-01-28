@@ -40,14 +40,14 @@ namespace
 
 Enemy::Enemy():
 	m_pos(1050.0f,650.0f),
-	m_move(0.0f, 0.0f),
+	m_move(kSpeed, 0.0f),
 	m_animFrame(0),
 	m_animCount(0),
-	m_isturnFlag(false),
+	m_isTurnFlag(false),
 	m_isAnimLeft(false),
 	m_isAnimRight(false),
 	m_isAlive(true),
-	m_dir(kRunRight)
+	m_isFacingRight(true)
 {
 	m_handle = LoadGraph("data/image/RockRun.png");
 	assert(m_handle != -1);
@@ -72,19 +72,19 @@ void Enemy::Update()
 	// 毎フレーム下方向に加速する
 	m_move.y += kGravaity;
 
-	if (!m_isturnFlag)
+	if (!m_isTurnFlag)
 	{
 		m_move.x = -kSpeed;
 		m_isAnimLeft = true;
 		isMove = true;
-		m_dir = kRunLeft;
+		m_isFacingRight = false;
 	}
 	else
 	{
 		m_move.x = kSpeed;
 		m_isAnimRight = true;
 		isMove = true;
-		m_dir = kRunRight;
+		m_isFacingRight = true;
 	}
 
 	if (isMove)
@@ -105,12 +105,12 @@ void Enemy::Update()
 		if (m_move.x > 0.0f)
 		{
 			m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
-			m_isturnFlag = false; // 壁に当たったら方向転換
+			m_isTurnFlag = false; // 壁に当たったら方向転換
 		}
 		else if (m_move.x < 0.0f)
 		{
 			m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
-			m_isturnFlag = true; // 壁に当たったら方向転換
+			m_isTurnFlag = true; // 壁に当たったら方向転換
 		}
 	}
 
@@ -129,6 +129,8 @@ void Enemy::Update()
 			m_move.y = 0.0f; // 上方向への加速をリセット
 		}
 	}
+
+
 }
 
 void Enemy::Draw()
@@ -138,15 +140,9 @@ void Enemy::Draw()
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animFrame = m_animFrame / kAnimFrameNum;
 
-	//bool isFlip = false;
-	//if (kSpeed > 0.0f)
-	//{
-	//	isFlip = true;
-	//}
-
-	DrawRectRotaGraph(m_pos.x + m_pCamera->m_drawOffset.x, m_pos.y - kColChipAdjustmentY,
+	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x),static_cast<int>(m_pos.y - kColChipAdjustmentY),
 		animFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
-		1.0, 0.0, m_handle, true);
+		1.0, 0.0, m_handle, true, m_isFacingRight);
 
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
@@ -179,7 +175,7 @@ float Enemy::GetBottom()
 	return m_pos.y;
 }
 
-Rect Enemy::GetRect()
+Rect Enemy::GetRect() 
 {
 	// 敵の矩形当たり判定情報
 	Rect rect;
@@ -201,26 +197,15 @@ void Enemy::SetPos(float x, float y)
 	m_pos.y = y;
 }
 
+void Enemy::ReverseDirection()
+{
+	// 移動方向を反転
+	m_move.x = -m_move.x;
+	// グラフィックの向きを反転
+	m_isFacingRight = !m_isFacingRight;
+}
+
 bool Enemy::IsAlive() const
 {
 	return m_isAlive;
 }
-
-//bool Enemy::IsGetHitPlayer(std::shared_ptr<Player> pPlayer)
-//{
-//	// プレイヤーと敵の半径の合計
-//	float Rlength = kRadius + pPlayer->GetRadius();
-//	// X成分の距離
-//	float delX = pPlayer->GetPos().x - m_pos.x;
-//	// Y成分の距離
-//	float delY = pPlayer->GetPos().y - m_pos.y;
-//
-//	float del = sqrt((delX * delX) + (delY * delY));
-//
-//	if (del <= Rlength)
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}

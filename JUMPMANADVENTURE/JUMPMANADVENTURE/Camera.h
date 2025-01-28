@@ -12,6 +12,9 @@ public:
 	void Init();
 	void Update(const Player* player);
 
+	// カメラの左端位置を取得
+	float GetLeft() const;
+
 	// 線形補間
 	static Vec2 Lerp(Vec2 start, Vec2 end, float t);
 

@@ -8,8 +8,12 @@ namespace
 	constexpr int kGraphWidth = 32;
 	constexpr int kGraphHeight = 32;
 
-	// ゴールのアニメーション
+	//constexpr int kGraphWidth = 16;
+	//constexpr int kGraphHeight = 16;
+
+	// HPのアニメーション
 	constexpr int kUseFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
+//	constexpr int kUseFrame[] = { 0,1,2 };
 	// アニメーション1コマのフレーム数
 	constexpr int kSingleAnimFrame = 4;
 	// アニメーションの1サイクルのフレーム数
@@ -17,12 +21,12 @@ namespace
 
 	// 表示座標
 	constexpr int kBasePosX = 100;
-	constexpr int kIntervalX = 60;
+	constexpr int kIntervalX = 80;
 
 	constexpr int kPosY = 50;
 
 	// サイズ(拡大率)
-	constexpr double kScale = 2.0;
+	constexpr double kScale = 3.0;
 }
 
 Life::Life():

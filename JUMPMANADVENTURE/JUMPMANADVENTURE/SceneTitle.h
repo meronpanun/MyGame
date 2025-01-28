@@ -19,7 +19,16 @@ public:
 private:
 	// タイトルのグラフィックハンドル
 	int m_titleHandle;
+	int m_uiHandle;
+	// フォントハンドル
+	int m_fontHandle;
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;
+
+	// タイトル演出に使用するフレーム
+	int m_gameTitleFrameCount;
+
+	// フェード処理
+	int m_fadeFrameCount;
 };
 

@@ -21,10 +21,12 @@ namespace
 
 SceneGameClear::SceneGameClear():
 	m_blinkFrameCount(0),
-	m_fadeFrameCount(0)
+	m_fadeFrameCount(0),
+	m_gameClearFrameCount(0)
 {
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Bodoni MT BlaSck", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	m_pressAButtonHandle = CreateFontToHandle("Bodoni MT BlaSck", 24, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 }
 
 SceneGameClear::~SceneGameClear()
@@ -46,6 +48,7 @@ SceneManager::SceneSelect SceneGameClear::Update()
 		m_fadeFrameCount = 30;
 	}
 
+	// ゲームクリア演出
 	m_gameClearFrameCount++;
 	if (m_gameClearFrameCount > kGameClearFadeFrame)
 	{
@@ -71,14 +74,13 @@ SceneManager::SceneSelect SceneGameClear::Update()
 void SceneGameClear::Draw()
 {
 	DrawString(10, 10, "GameClearScene", 0xffffff);
-	if (m_blinkFrameCount < kBlinkDispFrame)
-	{
-		DrawString(580, 600, "Press A Button", 0xffffff);
-	}
+	//if (m_blinkFrameCount < kBlinkDispFrame)
+	//{
+	//	DrawString(580, 600, "Press A Button", 0xffffff);
+	//}
 
 	// 割合を使用して変換を行う
-		// m_gameoverFrameCount を進行割合に変換する
-	float progressRate = static_cast<float>(m_gameClearFrameCount) / kGameClearFadeFrame;
+   	float progressRate = static_cast<float>(m_gameClearFrameCount) / kGameClearFadeFrame;
 
 	// 割合を実際の透明度に変換する
 	int alpha = static_cast<int>(255 * progressRate);
@@ -88,6 +90,11 @@ void SceneGameClear::Draw()
 	int width = GetDrawStringWidthToHandle("GAMECLEAR", strlen("GAMECLEAR"), m_fontHandle);
 	DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, Game::kScreenHeight * 0.5 - 64 * 0.5,
 		"GAMECLEAR", 0xffffff, m_fontHandle);
+	if (m_blinkFrameCount < kBlinkDispFrame)
+	{
+		DrawStringToHandle(520, 600,
+			"Press A Button", 0xffffff, m_pressAButtonHandle);
+	}
 	// 以降の表示がおかしくならないように元の設定に戻しておく
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 

@@ -25,8 +25,8 @@ public:
 	// 現在の敵の矩形情報
 	Rect GetRect();
 
-	// プレイヤーとの当たり判定
-//	bool IsGetHitPlayer(std::shared_ptr<Player> pPlayer);
+	// 敵の移動方向を反転
+	void ReverseDirection();
 
 	// 敵の生死フラグ
 	void SetAlive(bool isAlive);
@@ -36,12 +36,6 @@ public:
 
 	// 敵が生きているかどうかのフラグ
 	bool IsAlive() const;
-
-	enum Dir
-	{
-		kRunRight,
-		kRunLeft
-	};
 
 private:
 	Camera* m_pCamera;
@@ -54,15 +48,15 @@ private:
 	// 敵の加速度
 	Vec2 m_move;
 
-	bool m_isturnFlag;
+	bool m_isTurnFlag;
 
 	// エネミーが生きているかどうかのフラグ
 	bool m_isAlive;
 
 	// 向いている方向
-	Dir m_dir;
 	bool m_isAnimRight;
 	bool m_isAnimLeft;
+	bool m_isFacingRight; // 敵が右を向いているかどうか
 
 	// アニメーションのフレーム
 	int m_animFrame;
@@ -71,31 +65,3 @@ private:
 	// 敵のグラフィックハンドル
 	int m_handle;
 };
-
-
-//class Enemy
-//{
-//public:
-//	Enemy();
-//	~Enemy();
-//
-//	void Init(Camera* camera);
-//	void Update();
-//	void Draw();
-//	void SetAlive(bool alive);
-//	bool IsAlive() const;
-//
-//	// 新しいメソッドを追加
-//	void SetPos(float x, float y);
-//
-//	float GetLeft() const;
-//	float GetRight() const;
-//	float GetTop() const;
-//	float GetBottom() const;
-//
-//private:
-//	Vec2 m_pos;
-//	bool m_isAlive;
-//	Camera* m_pCamera;
-//};
-

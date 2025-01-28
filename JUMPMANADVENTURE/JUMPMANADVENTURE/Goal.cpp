@@ -22,14 +22,14 @@ namespace
 
 	// 表示座標
 	constexpr int kPosX = 6300;
-	constexpr int kPosY = 558;
+	constexpr int kPosY = 528;
 
 	// 拡大率
-	constexpr double kScale = 3.0f;
+	constexpr double kScale = 4.0f;
 }
 
 Goal::Goal():
-	m_pos(6300.0f,558.0f),
+	m_pos(6300.0f, 528.0f),
 	m_animFrame(0),
 	m_handle(0),
 	m_index(0)
@@ -61,7 +61,7 @@ void Goal::Draw()
 	int animNo = m_animFrame / kAnimFrameNum;
 
 	// indexから表示位置を決定する
-	int posX = kPosX + m_index;
+//	int posX = kPosX + m_index;
 
 	DrawRectRotaGraph(kPosX + m_pCamera->m_drawOffset.x, kPosY, 
 		animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight, 

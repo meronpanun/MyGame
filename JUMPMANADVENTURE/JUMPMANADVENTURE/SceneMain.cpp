@@ -23,12 +23,18 @@ namespace
 
 	// タイマーの初期値
 	constexpr int kInitialTimer = 400;
-
 	// タイマーのカウントダウン間隔（0.4秒）
 	constexpr int kTimerCountdownInterval = 24; // 60FPSの場合、0.4秒は24フレーム
+	// タイマーとスコアの表示位置
+	constexpr int kTimerPosX = 750;
+	constexpr int kScorePosX = 450;
+	constexpr int kScoreAndTimerPosY = 35;
 
 	// 体力の最大値
 	constexpr int kMaxHp = 3;
+
+	// エネミーの生成範囲
+	constexpr float kEnemySpawnRange = 500.0f;
 }
 
 SceneMain::SceneMain():
@@ -38,14 +44,16 @@ SceneMain::SceneMain():
 	m_lifeHandle(-1),
 	m_score(0), 
 	m_timer(kInitialTimer),
-	m_scoreFontSize(24), 
-	m_timerFontSize(24)  
+	m_scoreAndTimerFontSize(32),
+	m_enemySpawnRange(kEnemySpawnRange)
 {
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	m_scoreAndTimerFontHandle = CreateFontToHandle("Bodoni MT Black", m_scoreAndTimerFontSize, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/life.png");
+//	m_lifeHandle = LoadGraph("data/image/heart.png");
 	assert(m_lifeHandle != -1);
 	m_goalHandle = LoadGraph("data/image/GoalFlag.png");
 	assert(m_lifeHandle != -1);
@@ -61,8 +69,8 @@ SceneMain::SceneMain():
 	CreateEnemy(1450, 650);
 	CreateEnemy(1650, 650);
 	CreateEnemy(1720, 650);
-	CreateEnemy(4880, 350);
-	CreateEnemy(4890, 350);
+	CreateEnemy(2580, 150);
+	CreateEnemy(2590, 150);
 }
 
 SceneMain::~SceneMain()
@@ -72,6 +80,7 @@ SceneMain::~SceneMain()
 	DeleteGraph(m_goalHandle);
 	// フォントの開放
 	DeleteFontToHandle(m_fontHandle);
+	DeleteFontToHandle(m_scoreAndTimerFontSize);
 }
 
 void SceneMain::Init()
@@ -196,11 +205,21 @@ SceneManager::SceneSelect SceneMain::Update()
 				}
 				else
 				{
-					m_pPlayer->OnDamage(); // プレイヤーがダメージを受ける
+					m_pPlayer->OnDamage();	   // プレイヤーがダメージを受ける
 				}
 			}
 		}
 	}
+
+	// プレイヤーが一定の範囲内に来たらエネミーを生成
+	//for (int i = 0; i < 10; ++i)
+	//{
+	//	float enemyPosX = 500.0f * i;
+	//	if (abs(m_pPlayer->GetPos().x - enemyPosX) < m_enemySpawnRange)
+	//	{
+	//		CreateEnemy(enemyPosX, 650.0f);
+	//	}
+	//}
 
 	// ゲームオーバー演出
 	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)
@@ -264,14 +283,10 @@ void SceneMain::Draw()
 	}
 
 	// スコアの表示
-	int scoreFontHandle = CreateFontToHandle("Bodoni MT Black", m_scoreFontSize, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	DrawFormatStringToHandle(500, 10, 0xffffff, scoreFontHandle, "Score: %d", m_score);
-	DeleteFontToHandle(scoreFontHandle);
+	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Score: %d", m_score);
 
 	// タイマーの表示
-	int timerFontHandle = CreateFontToHandle("Bodoni MT Black", m_timerFontSize, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	DrawFormatStringToHandle(700, 10, 0xffffff, timerFontHandle, "Time: %d", m_timer);
-	DeleteFontToHandle(timerFontHandle);
+	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Time: %d", m_timer);
 
 	// ゲームオーバーの表示
 	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)
@@ -314,26 +329,19 @@ void SceneMain::Draw()
 
 void SceneMain::CreateEnemy(float x, float y)
 {
-	// 敵の生成範囲
-	constexpr float enemySpawnRange = 10.0f; 
-
 	for (int i = 0; i < m_pEnemy.size(); i++)
 	{
 		if (!m_pEnemy[i])
 		{
 			m_pEnemy[i] = std::make_shared<Enemy>();
 			m_pEnemy[i]->SetPos(x, y);
+		//	m_pEnemy[i]->Init(m_pCamera.get());
 			break;
 		}
 	}
 }
 
-void SceneMain::SetScoreFontSize(int size)
+void SceneMain::SetScoreAndTimerFontSize(int size)
 {
-	m_scoreFontSize = size;
-}
-
-void SceneMain::SetTimerFontSize(int size)
-{
-	m_timerFontSize = size;
+	m_scoreAndTimerFontSize = size;
 }

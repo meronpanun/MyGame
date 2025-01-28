@@ -23,7 +23,7 @@ private:
 	{
 		kTitle
 	};
-
+	
 	int m_select;
 
 private:
@@ -32,11 +32,12 @@ private:
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;
 
-	// ゲームオーバー演出に使用するフレーム
+	// ゲームクリア演出に使用するフレーム
 	int m_gameClearFrameCount;
 
 	// フォントハンドル
 	int m_fontHandle;
+	int m_pressAButtonHandle;
 
 	// フェード処理
 	int m_fadeFrameCount;
