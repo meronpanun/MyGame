@@ -16,6 +16,9 @@ namespace
 	constexpr int kGraphWidth = 32;
 	constexpr int kGraphHeight = 28;
 
+	// Šg‘å—¦
+	constexpr float kScale = 2.0f;
+
 	// ‘¬“x
 	constexpr float kSpeed = 2.5f;
 
@@ -39,7 +42,7 @@ namespace
 }
 
 Enemy::Enemy():
-	m_pos(1050.0f,650.0f),
+	m_pos(0.0f,0.0f),
 	m_move(kSpeed, 0.0f),
 	m_animFrame(0),
 	m_animCount(0),
@@ -47,7 +50,8 @@ Enemy::Enemy():
 	m_isAnimLeft(false),
 	m_isAnimRight(false),
 	m_isAlive(true),
-	m_isFacingRight(true)
+	m_isFacingRight(true),
+	m_isActive(false)
 {
 	m_handle = LoadGraph("data/image/RockRun.png");
 	assert(m_handle != -1);
@@ -208,4 +212,20 @@ void Enemy::ReverseDirection()
 bool Enemy::IsAlive() const
 {
 	return m_isAlive;
+}
+
+bool Enemy::IsPlayerInRange(const Vec2& playerPos, float range)
+{
+	Vec2 enemyPos = m_pos;
+	return (playerPos - enemyPos).Length() <= range;
+}
+
+void Enemy::Activate()
+{
+	m_isActive = true;
+}
+
+bool Enemy::IsActive() const
+{
+	return m_isActive;
 }

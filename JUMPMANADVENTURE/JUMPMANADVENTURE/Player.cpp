@@ -22,7 +22,7 @@ namespace
     constexpr float kRestartPosY = 610.0f;
 
     // 拡大率
-    constexpr float kScale = 1.0f;
+    constexpr float kScale = 2.0f;
 
     // 当たり判定の半径
     constexpr int kRadius = 9;
@@ -58,7 +58,7 @@ namespace
     constexpr int kAnimFrameCycle = _countof(kWalkFrame) * kRunAnimFrame;
 
     // ジャンプ力
-    constexpr float kJumpAcc = -12.5f;
+    constexpr float kJumpAcc = -15.5f;
     // ジャンプの初速
     constexpr float kJumpPower = -8.0f; 
     // ジャンプの長押し時間
@@ -173,13 +173,19 @@ void Player::Draw()
     if (m_isAnimJump)
     {
 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
+ /*       DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
+            JsrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+            m_jumpHandle, true, m_isAnimTurn, isDead);*/ 
+        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - 15 * kScale),
             JsrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
             m_jumpHandle, true, m_isAnimTurn, isDead);
     }
     else
     {
-        DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
+        //DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
+        //    walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+        //    m_walkHandle, true, m_isAnimTurn, isDead); 
+        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - 15 * kScale),
             walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
             m_walkHandle, true, m_isAnimTurn, isDead);
 
@@ -187,11 +193,11 @@ void Player::Draw()
 
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
-    //DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
-    //    GetTop(),
-    //    GetRigth() + m_pCamera->m_drawOffset.x, 
-    //    GetBottom(),
-    //    GetColor(0, 0, 255), false);
+    DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
+        GetTop(),
+        GetRigth() + m_pCamera->m_drawOffset.x, 
+        GetBottom(),
+        GetColor(0, 0, 255), false);
 #endif // DISP_COLLISION
 }
 
@@ -228,17 +234,20 @@ float Player::GetRadius() const
 
 float Player::GetLeft() const
 {
-    return m_pos.x - kGraphWidth * static_cast<float>(0.5f);
+   // return m_pos.x - kGraphWidth * 0.5f;
+    return m_pos.x - (kGraphWidth * kScale * 0.5f);
 }
 
 float Player::GetTop() const
 {
-    return m_pos.y - kGraphHeight;
+   // return m_pos.y - kGraphHeight;
+    return m_pos.y - kGraphHeight * kScale;
 }
 
 float Player::GetRigth() const
 {
-    return m_pos.x + kGraphWidth * static_cast<float>(0.5f);
+   // return m_pos.x + kGraphWidth * 0.5f;
+    return m_pos.x + (kGraphWidth * kScale * 0.5f);
 }
 
 float Player::GetBottom() const
@@ -254,11 +263,13 @@ void Player::CheckHitBgStage1(Rect chipRect)
     {
         if (m_move.x > 0.0f) // プレイヤーが右方向に移動している
         {
-            m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1; // 左側の補正
+            //m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1; // 左側の補正
+            m_pos.x = chipRect.m_left - kGraphWidth * kScale * 0.5f - 1; // 左側の補正
         }
         else if (m_move.x < 0.0f) // プレイヤーが左方向に移動している
         {
-            m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1; // 右側の補正
+        //    m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1; // 右側の補正
+            m_pos.x = chipRect.m_right + kGraphWidth * kScale * 0.5f + 1; // 右側の補正
         }
     }
 
@@ -269,7 +280,12 @@ void Player::CheckHitBgStage1(Rect chipRect)
         if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
         {
             // 着地
-            m_pos.y -= m_move.y;
+         m_pos.y -= m_move.y;
+            //m_move.y = 0.0f;
+            //m_isJump = false;
+            //m_isAnimJump = false;
+            //m_isGround = true;
+     //       m_pos.y = chipRect.m_top - 1;
             m_move.y = 0.0f;
             m_isJump = false;
             m_isAnimJump = false;
@@ -277,7 +293,8 @@ void Player::CheckHitBgStage1(Rect chipRect)
         }
         else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
         {
-            m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
+          //  m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
+            m_pos.y = chipRect.m_bottom + kGraphHeight * kScale + 1; // めり込まない位置に補正
             m_move.y *= -1.0f; // 上方向への加速を下方向に変換
         }
     }
@@ -468,11 +485,13 @@ void Player::UpdateNormal()
         {
             if (m_move.x > 0.0f)
             {
-                m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
+              //  m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
+                m_pos.x = chipRect.m_left - kGraphWidth * kScale * 0.5f - 1;
             }
             else if (m_move.x < 0.0f)
             {
-                m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
+               // m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
+                m_pos.x = chipRect.m_right + kGraphWidth * kScale * 0.5f + 1;
             }
         }
 
@@ -490,7 +509,8 @@ void Player::UpdateNormal()
             }
             else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
             {
-                m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
+             //   m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
+                m_pos.y = chipRect.m_bottom + kGraphHeight * kScale + 1; // めり込まない位置に補正
                 m_move.y *= -1.0f; // 上方向への加速を下方向に変換
             }
         }

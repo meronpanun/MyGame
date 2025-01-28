@@ -28,6 +28,9 @@ public:
 	// スコアとタイマーのフォントサイズの設定
 	void SetScoreAndTimerFontSize(int size); 
 
+	// カメラの描画範囲を設定
+	void SetCameraDrawRange(float width, float height); 
+
 private:
 	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage1> m_pBgStage1;

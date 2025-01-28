@@ -53,7 +53,6 @@ SceneMain::SceneMain():
 
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/life.png");
-//	m_lifeHandle = LoadGraph("data/image/heart.png");
 	assert(m_lifeHandle != -1);
 	m_goalHandle = LoadGraph("data/image/GoalFlag.png");
 	assert(m_lifeHandle != -1);
@@ -65,10 +64,10 @@ SceneMain::SceneMain():
 	m_pEnemy.resize(12);
 
 	// 各敵の初期位置
-	CreateEnemy(750, 650);
-	CreateEnemy(1450, 650);
-	CreateEnemy(1650, 650);
-	CreateEnemy(1720, 650);
+	CreateEnemy(750, 625);
+	CreateEnemy(1450, 625);
+	CreateEnemy(1650, 625);
+	CreateEnemy(1720, 625);
 	CreateEnemy(2580, 150);
 	CreateEnemy(2590, 150);
 }
@@ -149,11 +148,21 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pGoal->Update();
 
 	// 敵の更新
-	for (auto& enemy : m_pEnemy)
+	Vec2 playerPos = m_pPlayer->GetPos();
+	constexpr float enemyActivationRange = 500.0f; // 500ピクセルの範囲
+
+	for (auto& enemy : m_pEnemy) 
 	{
-		if (enemy)
+		if (enemy && enemy->IsAlive()) 
 		{
-			enemy->Update();
+			if (enemy->IsPlayerInRange(playerPos, enemyActivationRange)) 
+			{
+				enemy->Activate(); // 敵をアクティブにする
+			}
+			if (enemy->IsActive()) 
+			{
+				enemy->Update();   // アクティブな敵を更新
+			}
 		}
 	}
 
@@ -210,16 +219,6 @@ SceneManager::SceneSelect SceneMain::Update()
 			}
 		}
 	}
-
-	// プレイヤーが一定の範囲内に来たらエネミーを生成
-	//for (int i = 0; i < 10; ++i)
-	//{
-	//	float enemyPosX = 500.0f * i;
-	//	if (abs(m_pPlayer->GetPos().x - enemyPosX) < m_enemySpawnRange)
-	//	{
-	//		CreateEnemy(enemyPosX, 650.0f);
-	//	}
-	//}
 
 	// ゲームオーバー演出
 	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)

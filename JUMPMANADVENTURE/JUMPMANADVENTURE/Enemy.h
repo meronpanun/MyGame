@@ -37,6 +37,12 @@ public:
 	// 敵が生きているかどうかのフラグ
 	bool IsAlive() const;
 
+	// プレイヤーが範囲内にいるかチェックするメソッドを追加
+	bool IsPlayerInRange(const Vec2& playerPos, float range); 
+
+	void Activate(); // 敵をアクティブにする
+	bool IsActive() const; // 敵がアクティブかどうかをチェックする
+
 private:
 	Camera* m_pCamera;
 
@@ -57,6 +63,9 @@ private:
 	bool m_isAnimRight;
 	bool m_isAnimLeft;
 	bool m_isFacingRight; // 敵が右を向いているかどうか
+
+	// 敵がアクティブかどうかを管理するフラグ
+	bool m_isActive; 
 
 	// アニメーションのフレーム
 	int m_animFrame;

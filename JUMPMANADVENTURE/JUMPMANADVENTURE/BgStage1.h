@@ -32,6 +32,5 @@ private:
     int m_handle006;
     int m_handle007;
     int m_handle008;
-    int m_handle009;
 };
 
