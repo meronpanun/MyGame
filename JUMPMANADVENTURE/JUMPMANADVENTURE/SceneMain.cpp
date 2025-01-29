@@ -22,7 +22,7 @@ namespace
 	constexpr int kBlinkDispFrame = 40;
 
 	// タイマーの初期値
-	constexpr int kInitialTimer = 10;
+	constexpr int kInitialTimer = 400;
 	// タイマーのカウントダウン間隔（0.4秒）
 	constexpr int kTimerCountdownInterval = 24; // 60FPSの場合、0.4秒は24フレーム
 	// タイマーとスコアの表示位置
@@ -241,7 +241,7 @@ SceneManager::SceneSelect SceneMain::Update()
 	}
 	
 	// ゲームオーバー演出
-	if (m_pPlayer->GetHp() <= 0) // プレイヤーのHPが0になった場合
+	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)  // プレイヤーのHPが0または制限時間が0になった場合
 	{
 		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
 		if (m_pPlayer->IsGameOver() || m_timer <= 0)
@@ -302,7 +302,7 @@ void SceneMain::Draw()
 	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Time: %d" , m_timer);
 
 	// ゲームオーバーの演出の表示
-	if (m_pPlayer->GetHp() <= 0) // プレイヤーのHPが0になった場合
+	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0) // プレイヤーのHPが0または制限時間が0になった場合
 	{
 		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
 		if (m_pPlayer->IsGameOver() || m_timer <= 0)
