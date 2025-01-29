@@ -11,6 +11,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	ChangeWindowMode(Game::kDefaultWindowMode);
 	// 画面のサイズを変更する
 	SetGraphMode(Game::kScreenWidth, Game::kScreenHeight, Game::kColorBitNum);
+	SetWindowTextA("JumpmanAdventure");
 
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 	{

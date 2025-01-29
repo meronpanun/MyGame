@@ -30,11 +30,10 @@ public:
 
 	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
-	// プレイヤーの当たり判定を取得
-//	Rect GetColRect() const { return m_colRect; }
 	
     // 円の当たり判定
 	float GetRadius() const;
+
 	// プレイヤーの移動量を取得
 	float GetMoveY() const;
 
@@ -56,17 +55,19 @@ public:
 	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect() const;
 
-//	bool IsPlayerInRange(float x, float y, float range);
+	// ゲームオーバー演出を開始するフラグ
+	bool IsGameOver() const;
 
 private:
 	// ジャンプ処理
 	void UpdateJump();
+
 	// 各状態毎のUpdate処理
 	void UpdateNormal();  // ゲーム中のUpdate
 	void UpdateDead();    // 死亡後のUpdate
 
 	// 死亡時の初期化処理
-	void InitDead();     
+	void InitDead();
 
 private:
 	Camera* m_pCamera;
@@ -105,6 +106,9 @@ private:
 	bool m_isWalk; // true:歩いている false:待機
 	// キャラがどちらを向いているかのフラグ
 	bool m_isAnimTurn;
+
+	// ゲームオーバー演出を開始するフラグ
+	bool m_isGameOver;
 
 	// 地面と接しているか　true:接している 
 	bool m_isGround;

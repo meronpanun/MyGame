@@ -20,22 +20,24 @@ namespace
 	constexpr float kScale = 2.0f;
 
 	// 速度
-	constexpr float kSpeed = 2.5f;
+	constexpr float kSpeed = 1.5f;
+//	constexpr float kSpeed = 0.0f;
 
 	// 重力
 	constexpr float kGravaity = 0.5f;
 
 	// キャラクターのアニメーション
 	constexpr int kRunFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13 };
+	constexpr int kDeadFrame[] = { 0,1,2,3,4 };
 	// アニメーション1コマのフレーム数
 	constexpr int kAnimFrameNum = 4;
+	constexpr int kDeadAnimFrameNum = 10;
 	// アニメーションの1サイクルのフレーム数
 	constexpr int kAnimFrameCycle = _countof(kRunFrame) * kAnimFrameNum;
-
+	constexpr int kDeadAnimFrameCycle = _countof(kDeadFrame) * kDeadAnimFrameNum;
 
 	// マップチップとの当たり判定の調整
-	constexpr int kColChipAdjustmentX = 30;
-	constexpr int kColChipAdjustmentY = 13;
+	constexpr int kColChipAdjustmentY = 28;
 
 	// 円の当たり判定の半径
 	constexpr int kRadius = 10;
@@ -43,23 +45,30 @@ namespace
 
 Enemy::Enemy():
 	m_pos(0.0f,0.0f),
-	m_move(kSpeed, 0.0f),
+	m_move(-kSpeed, 0.0f),
 	m_animFrame(0),
 	m_animCount(0),
 	m_isTurnFlag(false),
-	m_isAnimLeft(false),
+	m_isAnimLeft(true),
 	m_isAnimRight(false),
 	m_isAlive(true),
-	m_isFacingRight(true),
-	m_isActive(false)
+	m_isFacingRight(false),
+	m_isActive(false),
+	m_isDead(false),
+	m_deadAnimFrame(0)
 {
+	// グラフィックの読み込み
 	m_handle = LoadGraph("data/image/RockRun.png");
 	assert(m_handle != -1);
+	m_deadHandle = LoadGraph("data/image/RockDead.png");
+	assert(m_deadHandle != -1);
 }
 
 Enemy::~Enemy()
 {
+	// グラフィックの開放
 	DeleteGraph(m_handle);
+	DeleteGraph(m_deadHandle);
 }
 
 void Enemy::Init(Camera* camera)
@@ -69,27 +78,40 @@ void Enemy::Init(Camera* camera)
 
 void Enemy::Update()
 {
-	if (!m_isAlive) return; // 敵が消えている場合は処理を行わない
+	// 敵が消えている場合は処理を行わない
+	if (!m_isAlive && !m_isDead) return;
 	
+	// 死亡アニメーション中の場合
+	if (m_isDead)
+	{
+		// 死亡アニメーションの更新
+		m_deadAnimFrame++;
+		if (m_deadAnimFrame >= kDeadAnimFrameCycle)
+		{
+			m_isDead = false; // 死亡アニメーションが終了したらフラグをリセット
+		}
+		return;
+	}
+
 	bool isMove = false;
 
 	// 毎フレーム下方向に加速する
 	m_move.y += kGravaity;
 
-	if (!m_isTurnFlag)
+	if (m_move.x < 0.0f)
 	{
-		m_move.x = -kSpeed;
 		m_isAnimLeft = true;
-		isMove = true;
+		m_isAnimRight = false;
 		m_isFacingRight = false;
 	}
 	else
 	{
-		m_move.x = kSpeed;
+		m_isAnimLeft = false;
 		m_isAnimRight = true;
-		isMove = true;
 		m_isFacingRight = true;
 	}
+
+	isMove = true;
 
 	if (isMove)
 	{
@@ -109,12 +131,12 @@ void Enemy::Update()
 		if (m_move.x > 0.0f)
 		{
 			m_pos.x = chipRect.m_left - kGraphWidth * kScale * 0.5f - 1;
-			m_isTurnFlag = false; // 壁に当たったら方向転換
+			ReverseDirection(); // 壁に当たったら方向転換
 		}
 		else if (m_move.x < 0.0f)
 		{
 			m_pos.x = chipRect.m_right + kGraphWidth * kScale * 0.5f + 1;
-			m_isTurnFlag = true; // 壁に当たったら方向転換
+			ReverseDirection(); // 壁に当たったら方向転換
 		}
 	}
 
@@ -139,22 +161,34 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	if (!m_isAlive) return; // 敵が消えている場合は処理を行わない
+	// 敵が消えている場合は処理を行わない
+	if (!m_isAlive && !m_isDead) return;
+
+	// 死亡アニメーション中の場合
+	if (m_isDead)
+	{
+		// 死亡アニメーションのフレームを計算
+		int deadAnimFrame = m_deadAnimFrame / kDeadAnimFrameNum;
+		DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kColChipAdjustmentY),
+			deadAnimFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
+			kScale, 0.0, m_deadHandle, true, m_isFacingRight);
+		return;
+	}
 
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animFrame = m_animFrame / kAnimFrameNum;
 
-	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x),static_cast<int>(m_pos.y - kColChipAdjustmentY - 14),
+	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x),static_cast<int>(m_pos.y - kColChipAdjustmentY),
 		animFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
 		kScale, 0.0, m_handle, true, m_isFacingRight);
 
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
-	DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
-		GetTop(),
-		GetRigth() + m_pCamera->m_drawOffset.x,
-		GetBottom(),
-		0xff0000, false);
+	//DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
+	//	GetTop(),
+	//	GetRigth() + m_pCamera->m_drawOffset.x,
+	//	GetBottom(),
+	//	0xff0000, false);
 #endif // _DEBUG
 }
 
@@ -193,6 +227,11 @@ Rect Enemy::GetRect()
 void Enemy::SetAlive(bool isAlive)
 {
 	m_isAlive = isAlive;
+	if (!isAlive)
+	{
+		m_isDead = true;     // 死亡アニメーションを開始
+		m_deadAnimFrame = 0; // 死亡アニメーションのフレームをリセット
+	}
 }
 
 void Enemy::SetPos(float x, float y)

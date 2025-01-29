@@ -35,13 +35,14 @@ namespace
     // 底の上限 
     constexpr int kFallMaX = 920;
 
-    // ステージの左右端座標
-    constexpr int kStageRightEnd = 6500;
+    // ステージの右端座標
+    constexpr int kStageRightEnd = 10200;
 
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-    constexpr float kAccel = 3.0f;
+   // constexpr float kAccel = 3.0f;
+    constexpr float kAccel = 10.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -50,15 +51,16 @@ namespace
     constexpr int kRunAnimFrame = 4;
     constexpr int kJumpAnimFrame = 12;
 
-    // キャラクターのジャンプアニメーション
+    // プレイヤーのジャンプアニメーション
     constexpr int kJumpFrame[] = { 0 };
-    // キャラクターの歩きアニメーション
+    // プレイヤーの歩きアニメーション
     constexpr int kWalkFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11 };
+
     // アニメーションの1サイクルのフレーム
     constexpr int kAnimFrameCycle = _countof(kWalkFrame) * kRunAnimFrame;
 
     // ジャンプ力
-    constexpr float kJumpAcc = -15.5f;
+    constexpr float kJumpAcc = -14.0f;
     // ジャンプの初速
     constexpr float kJumpPower = -8.0f; 
     // ジャンプの長押し時間
@@ -69,7 +71,7 @@ namespace
     constexpr float kInJumpHeight = 0.8f;		// 中ジャンプ
 
     // 無敵時間
-    constexpr int kInvincible = 50;
+    constexpr int kInvincible = 60;
 
     // プレイヤーの初期HP
     constexpr int kMaxHp = 3;
@@ -77,6 +79,7 @@ namespace
     // 死亡演出
     constexpr int kDeadStopFrame = 30;      // 死んだ瞬間止まる時間
     constexpr float kDeadJumpSpeed = -4.0f; // 死んだあと飛び上がる初速
+    constexpr float kDeadPosY = -15.0f;
 }
 
 Player::Player() :
@@ -96,13 +99,14 @@ Player::Player() :
     m_hp(kMaxHp),
     m_deadFrameCount(0),
     m_isAnimJump(false),
-    m_isAnimTurn(false)
+    m_isAnimTurn(false),
+    m_isGameOver(false)
 {
     // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/Run.png");
     assert(m_walkHandle != -1);
     m_jumpHandle = LoadGraph("data/image/Jump.png");
-    assert(m_jumpHandle != -1);
+    assert(m_jumpHandle != -1); 
 }
 
 Player::~Player()
@@ -120,18 +124,6 @@ void Player::Init(Camera* pCamera)
 
 void Player::Update()
 {
-    // プレイヤーが穴に落下した場合
-    if ((m_pos.y - kGraphHeight) > kFallMaX)
-    {
-        m_pos.x = kRestartPosX;
-        m_pos.y = kRestartPosY;
-
-        m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
-
-        // hpを減らす
-        m_hp--;
-    }
-
     // 生きているときと死んでいるときで処理を切り分ける
     if (m_hp > 0)
     {
@@ -141,83 +133,6 @@ void Player::Update()
     {
         UpdateDead();
     }
-}
-
-void Player::Draw()
-{
-	// プレイヤーが無敵時間中は点滅させる
-	if ((m_blinkFrameCount / 2) % 2)
-	{
-		return;
-	}
-
-    // プレイヤーのアニメーションフレーム
-    int animFrame = m_animFrame / kRunAnimFrame;
-    // プレイヤーの切り取り画像
-    int walkSrcX = kWalkFrame[animFrame] * kGraphWidth;
-    int walkSrcY = kGraphHeight;
-
-    //ジャンプするときのアニメフレーム
-    int jumpAnimFrame = m_jumpFrame / kJumpAnimFrame;
-
-    //プレイヤージャンプの切り取り座標
-    int JsrcX = kJumpFrame[jumpAnimFrame] * kGraphHeight;
-    
-    bool isDead = false;
-    if (m_hp <= 0)
-    {
-        isDead = true;
-    }
-
-    // ジャンプした場合
-    if (m_isAnimJump)
-    {
-
- /*       DrawRectRotaGraph(static_cast<int>(m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
-            JsrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
-            m_jumpHandle, true, m_isAnimTurn, isDead);*/ 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - 15 * kScale),
-            JsrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
-            m_jumpHandle, true, m_isAnimTurn, isDead);
-    }
-    else
-    {
-        //DrawRectRotaGraph(static_cast<int>( m_pos.x - kGraphWidth + kColChipAdjustmentX + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kGraphHeight + kColChipAdjustmentY),
-        //    walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
-        //    m_walkHandle, true, m_isAnimTurn, isDead); 
-        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - 15 * kScale),
-            walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
-            m_walkHandle, true, m_isAnimTurn, isDead);
-
-    }
-
-#ifdef DISP_COLLISON
-    // 当たり判定のデバッグ表示
-    DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
-        GetTop(),
-        GetRigth() + m_pCamera->m_drawOffset.x, 
-        GetBottom(),
-        GetColor(0, 0, 255), false);
-#endif // DISP_COLLISION
-}
-
-void Player::OnDamage()
-{
-    // 既にダメージを受けている(無敵時間)間は
-    // 再度ダメージを受けることはない
-    if (m_blinkFrameCount > 0)
-    {
-        return;
-    }
-    // 無敵時間(点滅する時間)を設定する
-    m_blinkFrameCount = kInvincible;
-    // ダメージを受ける
-    m_hp--;
-	// HPが0以下になったら死亡演出を行う
-	if (m_hp <= 0)
-	{
-        InitDead();
-	}
 }
 
 void Player::JumpOnEnemy()
@@ -234,19 +149,16 @@ float Player::GetRadius() const
 
 float Player::GetLeft() const
 {
-   // return m_pos.x - kGraphWidth * 0.5f;
     return m_pos.x - (kGraphWidth * kScale * 0.5f);
 }
 
 float Player::GetTop() const
 {
-   // return m_pos.y - kGraphHeight;
     return m_pos.y - kGraphHeight * kScale;
 }
 
 float Player::GetRigth() const
 {
-   // return m_pos.x + kGraphWidth * 0.5f;
     return m_pos.x + (kGraphWidth * kScale * 0.5f);
 }
 
@@ -263,12 +175,10 @@ void Player::CheckHitBgStage1(Rect chipRect)
     {
         if (m_move.x > 0.0f) // プレイヤーが右方向に移動している
         {
-            //m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1; // 左側の補正
             m_pos.x = chipRect.m_left - kGraphWidth * kScale * 0.5f - 1; // 左側の補正
         }
         else if (m_move.x < 0.0f) // プレイヤーが左方向に移動している
         {
-        //    m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1; // 右側の補正
             m_pos.x = chipRect.m_right + kGraphWidth * kScale * 0.5f + 1; // 右側の補正
         }
     }
@@ -280,12 +190,7 @@ void Player::CheckHitBgStage1(Rect chipRect)
         if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
         {
             // 着地
-         m_pos.y -= m_move.y;
-            //m_move.y = 0.0f;
-            //m_isJump = false;
-            //m_isAnimJump = false;
-            //m_isGround = true;
-     //       m_pos.y = chipRect.m_top - 1;
+            m_pos.y = chipRect.m_top - 1;
             m_move.y = 0.0f;
             m_isJump = false;
             m_isAnimJump = false;
@@ -293,10 +198,14 @@ void Player::CheckHitBgStage1(Rect chipRect)
         }
         else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
         {
-          //  m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
             m_pos.y = chipRect.m_bottom + kGraphHeight * kScale + 1; // めり込まない位置に補正
             m_move.y *= -1.0f; // 上方向への加速を下方向に変換
         }
+    }
+    else
+    {
+        // 地面にすら当たっていない
+        m_isJump = true;
     }
 }
 
@@ -320,13 +229,6 @@ Rect Player::GetRect() const
     rect.m_right = GetRigth();
     return rect;
 }
-//
-//bool Player::IsPlayerInRange(float x, float y, float range)
-//{
-//    float dx = m_pos.x - x;
-//    float dy = m_pos.y - y;
-//    return (dx * dx + dy * dy) <= (range * range);
-//}
 
 float Player::GetMoveY() const
 {
@@ -358,8 +260,86 @@ void Player::UpdateJump()
     }
 }
 
+void Player::Draw()
+{
+	// プレイヤーが無敵時間中は点滅させる
+	if ((m_blinkFrameCount / 2) % 2)
+	{
+		return;
+	}
+
+    // プレイヤーのアニメーションフレーム
+    int animFrame = m_animFrame / kRunAnimFrame;
+    // プレイヤーの切り取り画像
+    int walkSrcX = kWalkFrame[animFrame] * kGraphWidth;
+    int walkSrcY = kGraphHeight;
+
+    //ジャンプするときのアニメーションフレーム
+    int jumpAnimFrame = m_jumpFrame / kJumpAnimFrame;
+    //プレイヤージャンプの切り取り座標
+    int jumpSrcX = kJumpFrame[jumpAnimFrame] * kGraphHeight;
+
+    // ジャンプした場合
+    if (m_isAnimJump)
+    {
+        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kColChipAdjustmentY * kScale),
+            jumpSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+            m_jumpHandle, true, m_isAnimTurn);
+    }
+    else
+    {
+        DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kColChipAdjustmentY * kScale),
+            walkSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+            m_walkHandle, true, m_isAnimTurn);
+
+    }
+ 
+
+#ifdef DISP_COLLISON
+    // 当たり判定のデバッグ表示
+    //DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
+    //    GetTop(),
+    //    GetRigth() + m_pCamera->m_drawOffset.x, 
+    //    GetBottom(),
+    //    GetColor(0, 0, 255), false);
+#endif // DISP_COLLISION
+}
+
+void Player::OnDamage()
+{
+    // 既にダメージを受けている(無敵時間)間は
+    // 再度ダメージを受けることはない
+    if (m_blinkFrameCount > 0)
+    {
+        return;
+    }
+    // 無敵時間(点滅する時間)を設定する
+    m_blinkFrameCount = kInvincible;
+    // ダメージを受ける
+    m_hp--;
+	// HPが0以下になったら死亡演出を行う
+	if (m_hp <= 0)
+	{
+        InitDead();
+	}
+}
+
 void Player::UpdateNormal()
 {
+    // プレイヤーが穴に落下した場合
+    if ((m_pos.y - kGraphHeight) > kFallMaX)
+    {
+        // プレイヤーの位置をリセット
+        m_pos.x = kRestartPosX;
+        m_pos.y = kRestartPosY;
+
+        // カメラもプレイヤー同様リセット
+        m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
+
+        // hpを減らす
+        m_hp--;
+    }
+
     // 無敵時間の更新
     m_blinkFrameCount--;
     if (m_blinkFrameCount < 0)
@@ -409,20 +389,22 @@ void Player::UpdateNormal()
         m_isAnimTurn = true;
         m_isWalk = true;
     }
-    else
+    else // 左右移動をしていない場合
     {
-        m_isLeftMove = false;
         m_isRightMove = false;
+        m_isLeftMove = false;
         m_move.x = 0;
         m_isWalk = false;
     }
 
-    // ダッシュ処理
+    // プレイヤーの加速処理
+    // 右ダッシュ
     if (pad & PAD_INPUT_3 && m_isRightMove)
     {
         m_move.x += kAccel;
         m_isAnimTurn = false;
     }
+    // 左ダッシュ
     if (pad & PAD_INPUT_3 && m_isLeftMove)
     {
         m_move.x -= kAccel;
@@ -470,55 +452,15 @@ void Player::UpdateNormal()
             {
                 m_move.y = kJumpAcc;
                 m_isAnimJump = true;
-              //  m_isAnimJump = false;
             }
             else
             {
                 m_isJump = false;
             }
         }
-
-        // 横の当たり判定
-        m_pos.x += m_move.x;
+        // マップチップとの当たり判定
         Rect chipRect;
-        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
-        {
-            if (m_move.x > 0.0f)
-            {
-              //  m_pos.x = chipRect.m_left - kGraphWidth * static_cast<float>(0.5f) - 1;
-                m_pos.x = chipRect.m_left - kGraphWidth * kScale * 0.5f - 1;
-            }
-            else if (m_move.x < 0.0f)
-            {
-               // m_pos.x = chipRect.m_right + kGraphWidth * static_cast<float>(0.5f) + 1;
-                m_pos.x = chipRect.m_right + kGraphWidth * kScale * 0.5f + 1;
-            }
-        }
-
-        // 縦の当たり判定
-        m_pos.y += m_move.y;
-        if (m_pBgStage1->IsCollision(GetRect(), chipRect))
-        {
-            if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
-            {
-                // 地面に立っている何もしない
-                m_pos.y = chipRect.m_top - 1;
-                m_isJump = false;
-                m_isAnimJump = false;
-                m_isGround = true;;
-            }
-            else if (m_move.y < 0.0f) // プレイヤーが上方向に移動している
-            {
-             //   m_pos.y = chipRect.m_bottom + kGraphHeight + 1; // めり込まない位置に補正
-                m_pos.y = chipRect.m_bottom + kGraphHeight * kScale + 1; // めり込まない位置に補正
-                m_move.y *= -1.0f; // 上方向への加速を下方向に変換
-            }
-        }
-        else
-        {
-            // 地面にすら当たっていない
-            m_isJump = true;
-        }
+        CheckHitBgStage1(chipRect);
     }
 }
 
@@ -537,11 +479,24 @@ void Player::UpdateDead()
     // 画面外に落ちていく演出
     m_pos.y += m_jumpSpeed;
     m_jumpSpeed += kGravity;
+
+    // プレイヤーが画面外に完全に落ちたかどうかを判定
+    if (m_pos.y > Game::kScreenHeight + kGraphHeight * kScale)
+    {
+        m_isGameOver = true; // ゲームオーバー演出を開始するフラグを設定
+    }
+}
+
+bool Player::IsGameOver() const
+{
+    return m_isGameOver;
 }
 
 void Player::InitDead()
 {
-	m_jumpSpeed = kDeadJumpSpeed;
+	m_jumpSpeed = kDeadPosY;
 	m_deadFrameCount = 0;
 	m_blinkFrameCount = 0;
 }
+
+

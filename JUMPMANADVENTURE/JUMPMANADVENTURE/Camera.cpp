@@ -9,9 +9,6 @@ namespace
 	constexpr float kCameraScopeRangeW = 400.0f;
 	// カメラのLerp率
 	constexpr float kCameraLerpRate = 0.15f;  
-
-	// カメラの左端位置情報修正の調整
-	constexpr int kAdjustmentX = 100;
 }
 
 Camera::Camera()

@@ -22,7 +22,7 @@ namespace
 	constexpr int kBlinkDispFrame = 40;
 
 	// タイマーの初期値
-	constexpr int kInitialTimer = 400;
+	constexpr int kInitialTimer = 10;
 	// タイマーのカウントダウン間隔（0.4秒）
 	constexpr int kTimerCountdownInterval = 24; // 60FPSの場合、0.4秒は24フレーム
 	// タイマーとスコアの表示位置
@@ -30,11 +30,11 @@ namespace
 	constexpr int kScorePosX = 450;
 	constexpr int kScoreAndTimerPosY = 35;
 
+	// 1000ピクセルの範囲
+	constexpr float kEnemyActivationRange = 1000.0f; 
+
 	// 体力の最大値
 	constexpr int kMaxHp = 3;
-
-	// エネミーの生成範囲
-	constexpr float kEnemySpawnRange = 500.0f;
 }
 
 SceneMain::SceneMain():
@@ -44,8 +44,7 @@ SceneMain::SceneMain():
 	m_lifeHandle(-1),
 	m_score(0), 
 	m_timer(kInitialTimer),
-	m_scoreAndTimerFontSize(32),
-	m_enemySpawnRange(kEnemySpawnRange)
+	m_scoreAndTimerFontSize(32)
 {
 	// フォントの生成
 	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
@@ -61,15 +60,22 @@ SceneMain::SceneMain():
 	m_pGoal->SetHandle(m_goalHandle);
 
 	// 敵の生成数
-	m_pEnemy.resize(12);
+	m_pEnemy.resize(20);
 
 	// 各敵の初期位置
-	CreateEnemy(850, 625);
-	CreateEnemy(1450, 625);
-	CreateEnemy(1650, 625);
-	CreateEnemy(1720, 625);
-	CreateEnemy(2580, 150);
-	CreateEnemy(2590, 150);
+	CreateEnemy(1600, 625);
+	CreateEnemy(2650, 625);
+	CreateEnemy(3100, 625);
+	CreateEnemy(3180, 625);
+	CreateEnemy(4450, 200);
+	CreateEnemy(4550, 200);
+	CreateEnemy(5250, 625);
+	CreateEnemy(5350, 625);
+	CreateEnemy(5600, 625);
+	CreateEnemy(5900, 625);
+	CreateEnemy(6000, 625);
+	CreateEnemy(6450, 625);
+	CreateEnemy(6550, 625);
 }
 
 SceneMain::~SceneMain()
@@ -147,29 +153,84 @@ SceneManager::SceneSelect SceneMain::Update()
 	m_pCamera->Update(m_pPlayer.get());
 	m_pGoal->Update();
 
-	// 敵の更新
-	Vec2 playerPos = m_pPlayer->GetPos();
-	constexpr float enemyActivationRange = 1000.0f; // 1000ピクセルの範囲
-
-	for (auto& enemy : m_pEnemy) 
+	// プレイヤーが死亡状態でない場合のみ敵の更新とタイマーの更新を行う
+	if (m_pPlayer->GetHp() > 0)
 	{
-		if (enemy && enemy->IsAlive()) 
+		// 敵の更新
+		Vec2 playerPos = m_pPlayer->GetPos();
+		for (auto& enemy : m_pEnemy)
 		{
-			if (enemy->IsPlayerInRange(playerPos, enemyActivationRange)) 
+			if (enemy && enemy->IsAlive())
 			{
-				enemy->Activate(); // 敵をアクティブにする
-			}
-			if (enemy->IsActive()) 
-			{
-				enemy->Update();   // アクティブな敵を更新
+				if (enemy->IsPlayerInRange(playerPos, kEnemyActivationRange))
+				{
+					enemy->Activate(); // 敵をアクティブにする
+				}
+				if (enemy->IsActive())
+				{
+					enemy->Update();   // アクティブな敵を更新
+				}
 			}
 		}
-	}
 
-	// 体力の更新
-	for (int i = 0; i < m_life.size(); i++)
-	{
-		m_life[i].Update();
+		// タイマーのカウントダウン
+		static int timerFrameCount = 0;
+		timerFrameCount++;
+		if (timerFrameCount >= kTimerCountdownInterval)
+		{
+			timerFrameCount = 0;
+			if (m_timer > 0)
+			{
+				m_timer--;
+			}
+		}
+
+		// 体力の更新
+		for (int i = 0; i < m_life.size(); i++)
+		{
+			m_life[i].Update();
+		}
+
+		// プレイヤーと敵の当たり判定
+		for (auto& enemy : m_pEnemy)
+		{
+			if (enemy && enemy->IsAlive())
+			{
+				bool isPlayerHit = true;
+				// 絶対に当たらないパターン
+				if (m_pPlayer->GetLeft() > enemy->GetRigth())
+				{
+					isPlayerHit = false;
+				}
+				if (m_pPlayer->GetTop() > enemy->GetBottom())
+				{
+					isPlayerHit = false;
+				}
+				if (m_pPlayer->GetRigth() < enemy->GetLeft())
+				{
+					isPlayerHit = false;
+				}
+				if (m_pPlayer->GetBottom() < enemy->GetTop())
+				{
+					isPlayerHit = false;
+				}
+
+				// isPlayerHit = trueなら当たっている、falseなら当たっていない
+				if (isPlayerHit)
+				{
+					if (m_pPlayer->GetBottom() < enemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
+					{
+						enemy->SetAlive(false);    // 敵を消す
+						m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
+						m_score += 100;            // 敵を倒すとスコアを100ポイント増加
+					}
+					else
+					{
+						m_pPlayer->OnDamage();	   // プレイヤーがダメージを受ける
+					}
+				}
+			}
+		}
 	}
 
 	// 1秒サイクルで表示、非表示切り替えす
@@ -178,76 +239,29 @@ SceneManager::SceneSelect SceneMain::Update()
 	{
 		m_blinkFrameCount = 0;
 	}
-
-	// プレイヤーと敵の当たり判定
-	for (auto& enemy : m_pEnemy)
-	{
-		if (enemy && enemy->IsAlive())
-		{
-			bool isPlayerHit = true;
-			// 絶対に当たらないパターン
-			if (m_pPlayer->GetLeft() > enemy->GetRigth())
-			{
-				isPlayerHit = false;
-			}
-			if (m_pPlayer->GetTop() > enemy->GetBottom())
-			{
-				isPlayerHit = false;
-			}
-			if (m_pPlayer->GetRigth() < enemy->GetLeft())
-			{
-				isPlayerHit = false;
-			}
-			if (m_pPlayer->GetBottom() < enemy->GetTop())
-			{
-				isPlayerHit = false;
-			}
-
-			// isPlayerHit = trueなら当たっている、falseなら当たっていない
-			if (isPlayerHit)
-			{
-				if (m_pPlayer->GetBottom() < enemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // プレイヤーが敵の上に当たった場合
-				{
-					enemy->SetAlive(false);    // 敵を消す
-					m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
-					m_score += 100;            // 敵を倒すとスコアを100ポイント増加
-				}
-				else
-				{
-					m_pPlayer->OnDamage();	   // プレイヤーがダメージを受ける
-				}
-			}
-		}
-	}
-
+	
 	// ゲームオーバー演出
-	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)
+	if (m_pPlayer->GetHp() <= 0) // プレイヤーのHPが0になった場合
 	{
-		m_gameoverFrameCount++;
-		if (m_gameoverFrameCount > kGameoverFadeFrame)
+		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
+		if (m_pPlayer->IsGameOver() || m_timer <= 0)
 		{
-			m_gameoverFrameCount = kGameoverFadeFrame;
-
-			// ゲームオーバーの文字が表示されきった後、
-			// 1ボタンを押したらタイトルに戻る
-			if (Pad::IsTrigger(PAD_INPUT_1))
+			m_gameoverFrameCount++;
+			if (m_gameoverFrameCount > kGameoverFadeFrame)
 			{
-				m_isGameEnd = true;
+				m_gameoverFrameCount = kGameoverFadeFrame;
+
+				// ゲームオーバーの文字が表示されきった後、
+				// 1ボタンを押したらタイトルに戻る
+				if (Pad::IsTrigger(PAD_INPUT_1))
+				{
+					m_isGameEnd = true;
+				}
 			}
 		}
 	}
 
-	// タイマーのカウントダウン
-	static int timerFrameCount = 0;
-	timerFrameCount++;
-	if (timerFrameCount >= kTimerCountdownInterval)
-	{
-		timerFrameCount = 0;
-		if (m_timer > 0)
-		{
-			m_timer--;
-		}
-	}
+
 	
 	// ゴールオブジェクトに当たったら
 	if (m_isGoalHit)
@@ -285,33 +299,38 @@ void SceneMain::Draw()
 	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Score: %d", m_score);
 
 	// タイマーの表示
-	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Time: %d", m_timer);
+	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Time: %d" , m_timer);
 
-	// ゲームオーバーの表示
-	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)
+	// ゲームオーバーの演出の表示
+	if (m_pPlayer->GetHp() <= 0) // プレイヤーのHPが0になった場合
 	{
-		// 画面全体を黒色で塗り潰す
-		DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
-
-		if (m_blinkFrameCount < kBlinkDispFrame)
+		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
+		if (m_pPlayer->IsGameOver() || m_timer <= 0)
 		{
-			DrawString(580, 600, "Press A Button", 0xffffff);
+			// 画面全体を黒色で塗り潰す
+			DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
+
+			if (m_blinkFrameCount < kBlinkDispFrame)
+			{
+				DrawString(580, 600, "Press A Button", 0xffffff);
+			}
+
+			// 割合を使用して変換を行う
+			// m_gameoverFrameCount を進行割合に変換する
+			float progressRate = static_cast<float>(m_gameoverFrameCount) / kGameoverFadeFrame;
+
+			// 割合を実際の透明度に変換する
+			int alpha = static_cast<int>(255 * progressRate);
+
+			// ここ以降呼ばれるDraw関数の描画方法を変更する
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
+			int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_fontHandle);
+			DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, Game::kScreenHeight * 0.5 - 64 * 0.5,
+				"GAMEOVER", 0xffffff, m_fontHandle);
+			// 以降の表示がおかしくならないように元の設定に戻しておく
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
-
-		// 割合を使用して変換を行う
-		// m_gameoverFrameCount を進行割合に変換する
-		float progressRate = static_cast<float>(m_gameoverFrameCount) / kGameoverFadeFrame;
-
-		// 割合を実際の透明度に変換する
-		int alpha = static_cast<int>(255 * progressRate);
-
-		// ここ以降呼ばれるDraw関数の描画方法を変更する
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-		int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_fontHandle);
-		DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, Game::kScreenHeight * 0.5 - 64 * 0.5,
-			"GAMEOVER", 0xffffff, m_fontHandle);
-		// 以降の表示がおかしくならないように元の設定に戻しておく
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	
 	}
 
 	// フェード処理
@@ -334,7 +353,6 @@ void SceneMain::CreateEnemy(float x, float y)
 		{
 			m_pEnemy[i] = std::make_shared<Enemy>();
 			m_pEnemy[i]->SetPos(x, y);
-		//	m_pEnemy[i]->Init(m_pCamera.get());
 			break;
 		}
 	}

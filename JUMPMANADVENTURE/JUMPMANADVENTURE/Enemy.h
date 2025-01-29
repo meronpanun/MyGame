@@ -59,6 +59,10 @@ private:
 	// エネミーが生きているかどうかのフラグ
 	bool m_isAlive;
 
+	// 死亡アニメーションのフラグとカウント
+	bool m_isDead;
+	int m_deadAnimFrame;
+
 	// 向いている方向
 	bool m_isAnimRight;
 	bool m_isAnimLeft;
@@ -73,4 +77,5 @@ private:
 	int m_animCount;
 	// 敵のグラフィックハンドル
 	int m_handle;
+	int m_deadHandle;
 };
