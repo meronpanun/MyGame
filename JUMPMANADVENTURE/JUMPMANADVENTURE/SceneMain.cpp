@@ -1,4 +1,5 @@
 #include "SceneMain.h"
+#include "SceneManager.h"
 #include "DxLib.h"
 #include "Pad.h"
 #include "Rect.h"
@@ -94,7 +95,7 @@ void SceneMain::Init()
 	m_pBgStage1 = std::make_shared<BgStage1>(); 
 	m_pCamera = std::make_shared<Camera>(); 
 
-	m_pPlayer->Init(m_pCamera.get()); 
+	m_pPlayer->Init(m_pCamera.get());
 	m_pBgStage1->Init(m_pCamera.get());
 	m_pCamera->Init();
 	m_pGoal->Init(m_pCamera.get());
@@ -124,7 +125,6 @@ void SceneMain::Init()
 
 SceneManager::SceneSelect SceneMain::Update()
 {
-
 	// ゴールに当たったかどうか
 	m_isGoalHit = m_pGoal->GetHitPlayerFlag(m_pPlayer);
 
@@ -135,7 +135,7 @@ SceneManager::SceneSelect SceneMain::Update()
 		if (m_fadeFrameCount < 0)
 		{
 			m_fadeFrameCount = 0;
-			return SceneManager::kSceneTitle;
+			return SceneManager::SceneSelect::kSceneTitle;
 		}
 	}
 	else
@@ -239,7 +239,7 @@ SceneManager::SceneSelect SceneMain::Update()
 	{
 		m_blinkFrameCount = 0;
 	}
-	
+
 	// ゲームオーバー演出
 	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0)  // プレイヤーのHPが0または制限時間が0になった場合
 	{
@@ -261,18 +261,17 @@ SceneManager::SceneSelect SceneMain::Update()
 		}
 	}
 
-
-	
 	// ゴールオブジェクトに当たったら
 	if (m_isGoalHit)
 	{
-		return SceneManager::kSceneGameClear; 
-		m_isGoalHit = true; 
+		return SceneManager::SceneSelect::kSceneGameClear;
+		m_isGoalHit = true;
 	}
 
 	// 何もしなければシーン遷移しない(ステージ1画面のまま)
 	return SceneManager::SceneSelect::kSceneStage1;
 }
+	
 
 void SceneMain::Draw()
 {

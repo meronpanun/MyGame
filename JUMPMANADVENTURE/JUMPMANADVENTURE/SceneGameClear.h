@@ -43,6 +43,6 @@ private:
 	int m_fadeFrameCount;
 	
 	// シーン選択フラグ true:シーン遷移
-	bool m_isSceneTitle;	   // タイトル
+	bool m_isSceneTitle;// タイトル
 };
 

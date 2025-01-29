@@ -42,6 +42,16 @@ void Camera::Update(const Player* player)
 	// その時、画面左側にプレイヤーが来るようにする
 	// (camera.pos画面中央になるようにする)
 	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth - 1155);
+
+	// 画面揺れの処理
+	if (m_shakeDuration > 0) 
+	{
+		m_shakeDuration--;
+		float shakeOffsetX = (rand() % 100 - 50) / 50.0f * m_shakeIntensity;
+		float shakeOffsetY = (rand() % 100 - 50) / 50.0f * m_shakeIntensity;
+		m_drawOffset.x += shakeOffsetX;
+		m_drawOffset.y += shakeOffsetY;
+	}
 }
 
 float Camera::GetLeft() const
@@ -55,5 +65,11 @@ Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
 	ret.x = start.x + t * (end.x - start.x); 
 	ret.y = start.y + t * (end.y - start.y);
 	return ret;
+}
+
+void Camera::Shake(float intensity, int duration)
+{
+	m_shakeIntensity = intensity;
+	m_shakeDuration = duration;
 }
 

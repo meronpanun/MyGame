@@ -5,11 +5,13 @@
 #include "Game.h"
 #include "Camera.h"
 #include "SceneMain.h"
+#include "Enemy.h"
 #include <cassert>
 
 #ifdef _DEBUG
 #define DISP_COLLISON
 #endif // _DEBUG
+#include <stdexcept>
 
 namespace
 {
@@ -41,8 +43,8 @@ namespace
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-   // constexpr float kAccel = 3.0f;
-    constexpr float kAccel = 10.0f;
+    constexpr float kAccel = 3.0f;
+   // constexpr float kAccel = 10.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -121,11 +123,11 @@ void Player::Init(Camera* pCamera)
     m_pCamera = pCamera;
     m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
 }
-
 void Player::Update()
 {
     // 生きているときと死んでいるときで処理を切り分ける
     if (m_hp > 0)
+   
     {
         UpdateNormal();
     }
@@ -317,6 +319,14 @@ void Player::OnDamage()
     m_blinkFrameCount = kInvincible;
     // ダメージを受ける
     m_hp--;
+
+    // 画面揺れ
+    if (m_pCamera)
+    {
+        // 強度10.0、30フレームの揺れ
+        m_pCamera->Shake(10.0f, 30); 
+    }
+
 	// HPが0以下になったら死亡演出を行う
 	if (m_hp <= 0)
 	{

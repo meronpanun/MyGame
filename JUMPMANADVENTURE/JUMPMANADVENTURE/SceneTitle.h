@@ -30,5 +30,14 @@ private:
 
 	// フェード処理
 	int m_fadeFrameCount;
+
+	// 動画ハンドル
+	int m_videoHandle;
+	// 動画の再生状態
+	bool m_isVideoPlaying;
+	// フェードアウトフレームカウント
+	int m_videoFadeFrameCount;
+	// フェードインフレームカウント
+	int m_videoFadeInFrameCount;
 };
 

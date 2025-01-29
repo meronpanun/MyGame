@@ -74,10 +74,6 @@ SceneManager::SceneSelect SceneGameClear::Update()
 void SceneGameClear::Draw()
 {
 	DrawString(10, 10, "GameClearScene", 0xffffff);
-	//if (m_blinkFrameCount < kBlinkDispFrame)
-	//{
-	//	DrawString(580, 600, "Press A Button", 0xffffff);
-	//}
 
 	// 割合を使用して変換を行う
    	float progressRate = static_cast<float>(m_gameClearFrameCount) / kGameClearFadeFrame;
@@ -95,6 +91,7 @@ void SceneGameClear::Draw()
 		DrawStringToHandle(520, 600,
 			"Press A Button", 0xffffff, m_pressAButtonHandle);
 	}
+
 	// 以降の表示がおかしくならないように元の設定に戻しておく
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 

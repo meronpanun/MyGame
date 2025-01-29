@@ -15,10 +15,6 @@ namespace
 	// 敵の描画サイズ
 	constexpr int kGraphWidth = 32;
 	constexpr int kGraphHeight = 28;
-
-	// 死亡時の描画サイズ
-	constexpr int kDeadGraphWidth = 22;
-	constexpr int kDeadGraphHeight = 18;
 	
 	// 拡大率
 	constexpr float kScale = 2.0f;
@@ -32,14 +28,10 @@ namespace
 
 	// キャラクターのアニメーション
 	constexpr int kRunFrame[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13 };
-//	constexpr int kDeadFrame[] = { 0,1,2,3,4 };
-	constexpr int kDeadFrame[] = { 2,3,4 };
 	// アニメーション1コマのフレーム数
 	constexpr int kAnimFrameNum = 4;
-	constexpr int kDeadAnimFrameNum = 10;
 	// アニメーションの1サイクルのフレーム数
 	constexpr int kAnimFrameCycle = _countof(kRunFrame) * kAnimFrameNum;
-	constexpr int kDeadAnimFrameCycle = _countof(kDeadFrame) * kDeadAnimFrameNum;
 
 	// マップチップとの当たり判定の調整
 	constexpr int kColChipAdjustmentY = 28;
@@ -58,22 +50,17 @@ Enemy::Enemy():
 	m_isAnimRight(false),
 	m_isAlive(true),
 	m_isFacingRight(false),
-	m_isActive(false),
-	m_isDead(false),
-	m_deadAnimFrame(0)
+	m_isActive(false)
 {
 	// グラフィックの読み込み
 	m_handle = LoadGraph("data/image/RockRun.png");
 	assert(m_handle != -1);
-	m_deadHandle = LoadGraph("data/image/RockDead.png");
-	assert(m_deadHandle != -1);
 }
 
 Enemy::~Enemy()
 {
 	// グラフィックの開放
 	DeleteGraph(m_handle);
-	DeleteGraph(m_deadHandle);
 }
 
 void Enemy::Init(Camera* camera)
@@ -84,19 +71,7 @@ void Enemy::Init(Camera* camera)
 void Enemy::Update()
 {
 	// 敵が消えている場合は処理を行わない
-	if (!m_isAlive && !m_isDead) return;
-	
-	// 死亡アニメーション中の場合
-	if (m_isDead)
-	{
-		// 死亡アニメーションの更新
-		m_deadAnimFrame++;
-		if (m_deadAnimFrame >= kDeadAnimFrameCycle)
-		{
-			m_isDead = false; // 死亡アニメーションが終了したらフラグをリセット
-		}
-		return;
-	}
+	if (!m_isAlive) return;
 
 	bool isMove = false;
 
@@ -160,29 +135,12 @@ void Enemy::Update()
 			m_move.y = 0.0f; // 上方向への加速をリセット
 		}
 	}
-
-
 }
 
 void Enemy::Draw()
 {
 	// 敵が消えている場合は処理を行わない
-	if (!m_isAlive && !m_isDead) return;
-
-	// 死亡アニメーション中の場合
-	if (m_isDead)
-	{
-		// 死亡アニメーションのフレームを計算
-		int deadAnimFrame = m_deadAnimFrame / kDeadAnimFrameNum;
-		if (deadAnimFrame >= _countof(kDeadFrame)) 
-		{
-			deadAnimFrame = _countof(kDeadFrame) - 1;
-		}
-		DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y - kColChipAdjustmentY),
-			deadAnimFrame * kDeadGraphWidth, 0, kDeadGraphWidth, kDeadGraphHeight, 
-			kScale, 0.0, m_deadHandle, true, m_isFacingRight);
-		return;
-	}
+	if (!m_isAlive) return;
 
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animFrame = m_animFrame / kAnimFrameNum;
@@ -191,13 +149,14 @@ void Enemy::Draw()
 		animFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
 		kScale, 0.0, m_handle, true, m_isFacingRight);
 
+
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
-	DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
-		GetTop(),
-		GetRigth() + m_pCamera->m_drawOffset.x,
-		GetBottom(),
-		0xff0000, false);
+	//DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
+	//	GetTop(),
+	//	GetRigth() + m_pCamera->m_drawOffset.x,
+	//	GetBottom(),
+	//	0xff0000, false);
 #endif // _DEBUG
 }
 
@@ -236,11 +195,6 @@ Rect Enemy::GetRect()
 void Enemy::SetAlive(bool isAlive)
 {
 	m_isAlive = isAlive;
-	if (!isAlive)
-	{
-		m_isDead = true;     // 死亡アニメーションを開始
-		m_deadAnimFrame = 0; // 死亡アニメーションのフレームをリセット
-	}
 }
 
 void Enemy::SetPos(float x, float y)

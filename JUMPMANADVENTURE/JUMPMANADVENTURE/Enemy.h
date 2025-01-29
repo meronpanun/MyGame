@@ -2,6 +2,7 @@
 #include "Vec2.h"
 #include "Rect.h"
 #include <memory>
+#include <vector>
 
 class Camera;
 class Player;
@@ -37,14 +38,16 @@ public:
 	// 敵が生きているかどうかのフラグ
 	bool IsAlive() const;
 
-	// プレイヤーが範囲内にいるかチェックするメソッドを追加
+	// プレイヤーが範囲内にいるかチェックする
 	bool IsPlayerInRange(const Vec2& playerPos, float range); 
 
-	void Activate(); // 敵をアクティブにする
-	bool IsActive() const; // 敵がアクティブかどうかをチェックする
+	// 敵をアクティブにする
+	void Activate(); 
+	// 敵がアクティブかどうかをチェックする
+	bool IsActive() const;
 
 private:
-	Camera* m_pCamera;
+  	Camera* m_pCamera;
 
 	std::shared_ptr<BgStage1> m_pBgStage1;
 	std::shared_ptr<Player> m_pPlayer;
@@ -52,16 +55,12 @@ private:
 	// 敵の位置
 	Vec2 m_pos;
 	// 敵の加速度
-	Vec2 m_move;
+	Vec2 m_move; 
 
 	bool m_isTurnFlag;
 
 	// エネミーが生きているかどうかのフラグ
 	bool m_isAlive;
-
-	// 死亡アニメーションのフラグとカウント
-	bool m_isDead;
-	int m_deadAnimFrame;
 
 	// 向いている方向
 	bool m_isAnimRight;
@@ -77,5 +76,13 @@ private:
 	int m_animCount;
 	// 敵のグラフィックハンドル
 	int m_handle;
-	int m_deadHandle;
+
+	// 動画ハンドル
+	int m_videoHandle;
+	// 動画の再生状態
+	bool m_isVideoPlaying;
+	// フェードアウトフレームカウント
+	int m_videoFadeFrameCount;
+	// フェードインフレームカウント
+	int m_videoFadeInFrameCount;
 };
