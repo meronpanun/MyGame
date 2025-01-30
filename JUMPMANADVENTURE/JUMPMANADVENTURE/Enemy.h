@@ -28,6 +28,9 @@ public:
 	// Œ»İ‚Ì“G‚Ì‹éŒ`î•ñ
 	Rect GetRect();
 
+	// “G‚ÌˆÊ’uî•ñ‚ğæ“¾
+	Vec2 GetPos() const { return m_pos; }
+
 	// “G‚ÌˆÚ“®•ûŒü‚ğ”½“]
 	void ReverseDirection();
 

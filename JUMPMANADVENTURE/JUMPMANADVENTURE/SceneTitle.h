@@ -22,8 +22,11 @@ private:
 	// フォント管理
 	std::shared_ptr<FontManager> m_pFont;
 	// タイトルのグラフィックハンドル
-	int m_titleHandle;
-	int m_uiHandle;
+	int m_titleHandle; 
+	// タイトル用BGMハンドル
+	int m_bgmHandle;
+	// タイトルよSEハンドル
+	int m_seHandle;
 
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;

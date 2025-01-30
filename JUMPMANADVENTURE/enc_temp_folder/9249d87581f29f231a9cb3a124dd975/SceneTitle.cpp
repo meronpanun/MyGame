@@ -46,7 +46,7 @@ SceneTitle::SceneTitle() :
 	assert(m_bgmHandle != -1);
 
 	// SE‚Ì“Ç‚İ‚İ
-	m_seHandle = LoadSoundMem("data/se/Œˆ’èƒ{ƒ^ƒ“‚ğ‰Ÿ‚·49.mp3");
+	m_seHandle = LoadSoundMem("data/se/decision.mp3");
 	assert(m_seHandle != -1);
 }
 

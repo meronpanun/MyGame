@@ -84,7 +84,7 @@ namespace
     constexpr float kDeadPosY = -15.0f;
 
     // リスポーン遅延時間（フレーム数）
-    constexpr int kRespawnDelay = 60; // 1秒（60FPSの場合）
+    constexpr int kRespawnDelay = 120; // 2秒（60FPSの場合）
 }
 
 Player::Player() :
@@ -370,6 +370,12 @@ void Player::UpdateNormal()
     // プレイヤーが穴に落下した場合
     if ((m_pos.y - kGraphHeight) > kFallMaX)
     {
+        // 画面揺れ
+        if (m_pCamera)
+        {
+            // 強度10.0、30フレームの揺れ
+            m_pCamera->Shake(10.0f, 30);
+        }
         StartRespawn();
     }
 
