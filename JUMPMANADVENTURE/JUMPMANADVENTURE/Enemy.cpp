@@ -21,7 +21,6 @@ namespace
 
 	// ë¨ìx
 	constexpr float kSpeed = 1.5f;
-//	constexpr float kSpeed = 0.0f;
 
 	// èdóÕ
 	constexpr float kGravaity = 0.5f;
@@ -45,7 +44,6 @@ Enemy::Enemy():
 	m_move(-kSpeed, 0.0f),
 	m_animFrame(0),
 	m_animCount(0),
-	m_isTurnFlag(false),
 	m_isAnimLeft(true),
 	m_isAnimRight(false),
 	m_isAlive(true),

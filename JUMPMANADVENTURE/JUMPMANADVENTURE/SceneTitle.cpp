@@ -130,8 +130,13 @@ void SceneTitle::Draw()
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	}
 
+	// 半透明な板の描画
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);         // 半透明の設定
+	DrawBox(0, 0, 1280, 720, 0x000000, TRUE); // 半透明な黒い板を描画
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);         // ブレンドモードを元に戻す
+
 	// タイトルロゴの描画
-	DrawRotaGraph(Game::kScreenWidth * 0.5, 290,
+	DrawRotaGraph(Game::kScreenWidth * 0.5, 200,
 		1.0f, 0.0f,
 		m_titleHandle, true);
 

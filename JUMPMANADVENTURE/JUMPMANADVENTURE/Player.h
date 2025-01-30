@@ -64,9 +64,6 @@ public:
 	void StartRespawn();
 	void Respawn();
 
-	// 加速ボタンの状態を設定
-	void SetAccelerationButtonState(bool isPressed);
-
 private:
 	// ジャンプ処理
 	void UpdateJump();
@@ -83,6 +80,7 @@ private:
 	SceneMain* m_pMain;
 	std::shared_ptr<BgStage1> m_pBgStage1;
 	std::vector<Life> m_Life;
+
 	// プレイヤーの位置
 	Vec2 m_pos;
 	// 移動量
@@ -130,8 +128,5 @@ private:
 
 	// リスポーン遅延
 	int m_respawnTimer;
-
-	// 加速ボタンが押されているかどうかのフラグ
-	bool m_isAccelerationButtonPressed;
 };
 

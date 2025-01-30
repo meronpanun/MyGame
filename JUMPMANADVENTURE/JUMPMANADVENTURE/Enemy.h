@@ -3,7 +3,9 @@
 #include "Rect.h"
 #include <memory>
 #include <vector>
+#include <string> 
 
+class FontManager;
 class Camera;
 class Player;
 class BgStage1;
@@ -85,4 +87,5 @@ private:
 	int m_videoFadeFrameCount;
 	// フェードインフレームカウント
 	int m_videoFadeInFrameCount;
+
 };

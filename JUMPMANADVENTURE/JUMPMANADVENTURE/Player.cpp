@@ -106,8 +106,7 @@ Player::Player() :
     m_isAnimJump(false),
     m_isAnimTurn(false),
     m_isGameOver(false),
-    m_respawnTimer(0),
-    m_isAccelerationButtonPressed(false)
+    m_respawnTimer(0)
 {
     // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/Run.png");
@@ -276,10 +275,26 @@ void Player::UpdateJump()
         }
         m_move.y *= jumpHeight;
     }
+
+    // ジャンプ中は加速ボタンの入力を無視する
+    // ただし、ジャンプ前の加速度は保持する
+    if (m_isRightMove)
+    {
+        m_move.x = kSpeed + (Pad::IsPress(PAD_INPUT_3) ? kAccel : 0);
+    }
+    else if (m_isLeftMove)
+    {
+        m_move.x = -kSpeed - (Pad::IsPress(PAD_INPUT_3) ? kAccel : 0);
+    }
 }
 
 void Player::Draw()
 {
+    // 半透明な板の描画
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128); // 半透明の設定
+    DrawBox(0, 0, 1280, 100, 0x000000, TRUE);  // 半透明な黒い板を描画
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+
 	// プレイヤーが無敵時間中は点滅させる
 	if ((m_blinkFrameCount / 2) % 2)
 	{
@@ -438,22 +453,6 @@ void Player::UpdateNormal()
         // ジャンプ中処理
         UpdateJump();
 
-        m_jumpFrame++;
-        m_pos.y -= m_jumpSpeed;
-
-        // 加速ボタンが押されている場合、加速度を保持
-        if (m_isAccelerationButtonPressed)
-        {
-            m_pos.x += m_move.x;
-        }
-
-        // ジャンプが終了したかどうかの判定
-        if (m_jumpFrame >= m_jumpCount)
-        {
-            m_isJump = false;
-            m_jumpFrame = 0;
-        }
-
         // 初速度に重力を足す
         m_move.y += kGravity;
 
@@ -470,9 +469,8 @@ void Player::UpdateNormal()
     }
     else // 地面についている場合
     {
-        if (m_isGround && m_isAccelerationButtonPressed)
+        if (m_isGround)
         {
-            m_pos.x += m_move.x;
             m_jumpFrame = 0;
             m_isJump = false;
             // ジャンプ処理
@@ -501,6 +499,7 @@ void Player::UpdateNormal()
         CheckHitBgStage1(chipRect);
     }
 }
+
 
 /// <summary>
 /// プレイヤーのHPが0以下になった場合
@@ -553,11 +552,6 @@ void Player::Respawn()
         m_isGameOver = true; // ゲームオーバー演出を開始するフラグを設定
         return;
     }
-}
-
-void Player::SetAccelerationButtonState(bool isPressed)
-{
-    m_isAccelerationButtonPressed = isPressed;
 }
 
 void Player::InitDead()
