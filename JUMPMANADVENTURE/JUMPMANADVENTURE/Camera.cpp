@@ -62,10 +62,11 @@ float Camera::GetLeft() const
 Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
 {
 	Vec2 ret;
-	ret.x = start.x + t * (end.x - start.x); 
-	ret.y = start.y + t * (end.y - start.y);
+	ret.x = std::lerp(start.x, end.x, t);
+	ret.y = std::lerp(start.y, end.y, t);
 	return ret;
 }
+
 
 void Camera::Shake(float intensity, int duration)
 {

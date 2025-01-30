@@ -44,7 +44,7 @@ namespace
     constexpr float kSpeed = 3.0f;
     // 加速
     constexpr float kAccel = 3.0f;
-   // constexpr float kAccel = 10.0f;
+  //  constexpr float kAccel = 10.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -82,6 +82,9 @@ namespace
     constexpr int kDeadStopFrame = 30;      // 死んだ瞬間止まる時間
     constexpr float kDeadJumpSpeed = -4.0f; // 死んだあと飛び上がる初速
     constexpr float kDeadPosY = -15.0f;
+
+    // リスポーン遅延時間（フレーム数）
+    constexpr int kRespawnDelay = 60; // 1秒（60FPSの場合）
 }
 
 Player::Player() :
@@ -102,7 +105,9 @@ Player::Player() :
     m_deadFrameCount(0),
     m_isAnimJump(false),
     m_isAnimTurn(false),
-    m_isGameOver(false)
+    m_isGameOver(false),
+    m_respawnTimer(0),
+    m_isAccelerationButtonPressed(false)
 {
     // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/Run.png");
@@ -127,9 +132,20 @@ void Player::Update()
 {
     // 生きているときと死んでいるときで処理を切り分ける
     if (m_hp > 0)
-   
     {
-        UpdateNormal();
+        // リスポーンに遅延をつける
+        if (m_respawnTimer > 0)
+        {
+            --m_respawnTimer;
+            if (m_respawnTimer == 0)
+            {
+                Respawn();
+            }
+        }
+        else
+        {
+            UpdateNormal();
+        }
     }
     else
     {
@@ -339,15 +355,7 @@ void Player::UpdateNormal()
     // プレイヤーが穴に落下した場合
     if ((m_pos.y - kGraphHeight) > kFallMaX)
     {
-        // プレイヤーの位置をリセット
-        m_pos.x = kRestartPosX;
-        m_pos.y = kRestartPosY;
-
-        // カメラもプレイヤー同様リセット
-        m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
-
-        // hpを減らす
-        m_hp--;
+        StartRespawn();
     }
 
     // 無敵時間の更新
@@ -407,18 +415,21 @@ void Player::UpdateNormal()
         m_isWalk = false;
     }
 
-    // プレイヤーの加速処理
-    // 右ダッシュ
-    if (pad & PAD_INPUT_3 && m_isRightMove)
+    // 地面についている場合のみ加速処理を行う
+    if (m_isGround)
     {
-        m_move.x += kAccel;
-        m_isAnimTurn = false;
-    }
-    // 左ダッシュ
-    if (pad & PAD_INPUT_3 && m_isLeftMove)
-    {
-        m_move.x -= kAccel;
-        m_isAnimTurn = true;
+        // 右ダッシュ
+        if (pad & PAD_INPUT_3 && m_isRightMove)
+        {
+            m_move.x += kAccel;
+            m_isAnimTurn = false;
+        }
+        // 左ダッシュ
+        if (pad & PAD_INPUT_3 && m_isLeftMove)
+        {
+            m_move.x -= kAccel;
+            m_isAnimTurn = true;
+        }
     }
 
     // ジャンプ中
@@ -426,6 +437,22 @@ void Player::UpdateNormal()
     {
         // ジャンプ中処理
         UpdateJump();
+
+        m_jumpFrame++;
+        m_pos.y -= m_jumpSpeed;
+
+        // 加速ボタンが押されている場合、加速度を保持
+        if (m_isAccelerationButtonPressed)
+        {
+            m_pos.x += m_move.x;
+        }
+
+        // ジャンプが終了したかどうかの判定
+        if (m_jumpFrame >= m_jumpCount)
+        {
+            m_isJump = false;
+            m_jumpFrame = 0;
+        }
 
         // 初速度に重力を足す
         m_move.y += kGravity;
@@ -443,8 +470,9 @@ void Player::UpdateNormal()
     }
     else // 地面についている場合
     {
-        if (m_isGround)
+        if (m_isGround && m_isAccelerationButtonPressed)
         {
+            m_pos.x += m_move.x;
             m_jumpFrame = 0;
             m_isJump = false;
             // ジャンプ処理
@@ -500,6 +528,36 @@ void Player::UpdateDead()
 bool Player::IsGameOver() const
 {
     return m_isGameOver;
+}
+
+void Player::StartRespawn()
+{
+    m_respawnTimer = kRespawnDelay;
+}
+
+void Player::Respawn()
+{
+    // プレイヤーの位置をリセット
+    m_pos.x = kRestartPosX;
+    m_pos.y = kRestartPosY;
+
+    // カメラもプレイヤー同様リセット
+    m_pCamera->m_pos.SetPos(m_pos.x, m_pos.y);
+
+    // hpを減らす
+    m_hp--;
+
+    // HPが0以下になったら死亡演出を行う
+    if (m_hp <= 0)
+    {
+        m_isGameOver = true; // ゲームオーバー演出を開始するフラグを設定
+        return;
+    }
+}
+
+void Player::SetAccelerationButtonState(bool isPressed)
+{
+    m_isAccelerationButtonPressed = isPressed;
 }
 
 void Player::InitDead()

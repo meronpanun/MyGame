@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Life.h"
 #include "Goal.h"
+#include "FontManager.h"
 #include <memory>
 #include <cassert>
 
@@ -27,15 +28,22 @@ namespace
 	// タイマーのカウントダウン間隔（0.4秒）
 	constexpr int kTimerCountdownInterval = 24; // 60FPSの場合、0.4秒は24フレーム
 	// タイマーとスコアの表示位置
-	constexpr int kTimerPosX = 750;
-	constexpr int kScorePosX = 450;
-	constexpr int kScoreAndTimerPosY = 35;
+	constexpr int kTimerPosX = 760;
+	constexpr int kTimerPosX2 = 720;
+	constexpr int kScorePosX = 480;
+	constexpr int kScorePosX2 = 420;
+	constexpr int kScoreAndTimerPosY = 55;
+	constexpr int kScoreAndTimerPosY2 = 20;
 
 	// 1000ピクセルの範囲
 	constexpr float kEnemyActivationRange = 1000.0f; 
 
 	// 体力の最大値
 	constexpr int kMaxHp = 3;
+
+	// 背景の1つのサイズ
+	constexpr int kChipWidth = 64;
+	constexpr int kChipHeight = 64;
 }
 
 SceneMain::SceneMain():
@@ -45,17 +53,15 @@ SceneMain::SceneMain():
 	m_lifeHandle(-1),
 	m_score(0), 
 	m_timer(kInitialTimer),
-	m_scoreAndTimerFontSize(32)
+	m_bgScrollY(0)
 {
-	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Bodoni MT Black", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	m_scoreAndTimerFontHandle = CreateFontToHandle("Bodoni MT Black", m_scoreAndTimerFontSize, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-
 	// グラフィックの読み込み
-	m_lifeHandle = LoadGraph("data/image/life.png");
+	m_lifeHandle = LoadGraph("data/image/heart.png");
 	assert(m_lifeHandle != -1);
 	m_goalHandle = LoadGraph("data/image/GoalFlag.png");
 	assert(m_lifeHandle != -1);
+	m_bgHandle = LoadGraph("data/image/Purple.png");
+	assert(m_bgHandle != -1);
 
 	m_pGoal = std::make_shared<Goal>();
 	m_pGoal->SetHandle(m_goalHandle);
@@ -84,9 +90,7 @@ SceneMain::~SceneMain()
 	// グラフィックの開放
 	DeleteGraph(m_lifeHandle);
 	DeleteGraph(m_goalHandle);
-	// フォントの開放
-	DeleteFontToHandle(m_fontHandle);
-	DeleteFontToHandle(m_scoreAndTimerFontSize);
+	DeleteGraph(m_bgHandle);
 }
 
 void SceneMain::Init()
@@ -94,6 +98,7 @@ void SceneMain::Init()
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage1 = std::make_shared<BgStage1>(); 
 	m_pCamera = std::make_shared<Camera>(); 
+	m_pFont = std::make_shared<FontManager>();
 
 	m_pPlayer->Init(m_pCamera.get());
 	m_pBgStage1->Init(m_pCamera.get());
@@ -258,6 +263,12 @@ SceneManager::SceneSelect SceneMain::Update()
 					m_isGameEnd = true;
 				}
 			}
+			// 背景のスクロール位置を更新
+			m_bgScrollY += 1; // スクロール速度を調整
+			if (m_bgScrollY > Game::kScreenHeight)
+			{
+				m_bgScrollY = 0;
+			}
 		}
 	}
 
@@ -295,10 +306,12 @@ void SceneMain::Draw()
 	}
 
 	// スコアの表示
-	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Score: %d", m_score);
+	DrawFormatStringToHandle(kScorePosX2, kScoreAndTimerPosY2, 0xffffff, m_pFont->GetFont(), "Score");
+	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d", m_score);
 
 	// タイマーの表示
-	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_scoreAndTimerFontHandle, "Time: %d" , m_timer);
+	DrawFormatStringToHandle(kTimerPosX2, kScoreAndTimerPosY2, 0xffffff, m_pFont->GetFont(), "Time");
+	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d" , m_timer);
 
 	// ゲームオーバーの演出の表示
 	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0) // プレイヤーのHPが0または制限時間が0になった場合
@@ -306,12 +319,18 @@ void SceneMain::Draw()
 		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
 		if (m_pPlayer->IsGameOver() || m_timer <= 0)
 		{
-			// 画面全体を黒色で塗り潰す
-			DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
+			// 背景をスクロールして描画
+			for (int y = m_bgScrollY - Game::kScreenHeight; y < Game::kScreenHeight; y += kChipHeight)
+			{
+				for (int x = 0; x < Game::kScreenWidth; x += kChipWidth)
+				{
+					DrawGraph(x, y, m_bgHandle, true);
+				}
+			}
 
 			if (m_blinkFrameCount < kBlinkDispFrame)
 			{
-				DrawString(580, 600, "Press A Button", 0xffffff);
+				DrawFormatStringToHandle(500, 600, 0xffffff, m_pFont->GetFont2(),"Press A Button");
 			}
 
 			// 割合を使用して変換を行う
@@ -323,9 +342,9 @@ void SceneMain::Draw()
 
 			// ここ以降呼ばれるDraw関数の描画方法を変更する
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-			int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_fontHandle);
+			int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_pFont->GetFont1());
 			DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, Game::kScreenHeight * 0.5 - 64 * 0.5,
-				"GAMEOVER", 0xffffff, m_fontHandle);
+				"GAMEOVER", 0xffffff, m_pFont->GetFont1());
 			// 以降の表示がおかしくならないように元の設定に戻しておく
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}

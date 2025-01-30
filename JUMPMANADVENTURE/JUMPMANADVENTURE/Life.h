@@ -14,6 +14,8 @@ public:
 	void SetHandle(int handle) { m_handle = handle; }
 	void SetIndex(int index) { m_index = index; }
 
+	int GetHandle() const { return m_handle; } 
+
 private:
 	// グラフィックのハンドル
 	int m_handle;

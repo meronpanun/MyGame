@@ -2,6 +2,7 @@
 #include "Pad.h"
 #include "DxLib.h"
 #include "Game.h"
+#include "FontManager.h"
 #include <cassert>
 
 namespace
@@ -17,26 +18,30 @@ namespace
 
 	// ゲームクリアの文字が表示されるまでのフレーム数
 	constexpr int kGameClearFadeFrame = 60;
+
+	// 背景の1つのサイズ
+	constexpr int kChipWidth = 64;
+	constexpr int kChipHeight = 64;
 }
 
 SceneGameClear::SceneGameClear():
 	m_blinkFrameCount(0),
 	m_fadeFrameCount(0),
-	m_gameClearFrameCount(0)
+	m_gameClearFrameCount(0),
+	m_bgScrollY(0)
 {
-	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Bodoni MT BlaSck", 64, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-	m_pressAButtonHandle = CreateFontToHandle("Bodoni MT BlaSck", 24, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	m_gameClearHandle = LoadGraph("data/image/Yellow.png");
+	assert(m_gameClearHandle != -1);
 }
 
 SceneGameClear::~SceneGameClear()
 {
-	// フォントの開放
-	DeleteFontToHandle(m_fontHandle);
+	DeleteGraph(m_gameClearHandle);
 }
 
 void SceneGameClear::Init()
 {
+	m_pFont = std::make_shared<FontManager>();
 }
 
 SceneManager::SceneSelect SceneGameClear::Update()
@@ -62,6 +67,13 @@ SceneManager::SceneSelect SceneGameClear::Update()
 		m_blinkFrameCount = 0;
 	}
 
+	// 背景のスクロール位置を更新
+	m_bgScrollY -= 1; // スクロール速度を調整
+	if (m_bgScrollY > Game::kScreenHeight)
+	{
+		m_bgScrollY = 0;
+	}
+
 	// ZorAキーを押したらタイトル画面に移行
 	if (Pad::IsTrigger(PAD_INPUT_1))
 	{
@@ -73,7 +85,14 @@ SceneManager::SceneSelect SceneGameClear::Update()
 
 void SceneGameClear::Draw()
 {
-	DrawString(10, 10, "GameClearScene", 0xffffff);
+	// 背景をスクロールして描画
+	for (int y = m_bgScrollY - Game::kScreenHeight; y < Game::kScreenHeight; y += kChipHeight)
+	{
+		for (int x = 0; x < Game::kScreenWidth; x += kChipWidth)
+		{
+			DrawGraph(x, y, m_gameClearHandle, true);
+		}
+	}
 
 	// 割合を使用して変換を行う
    	float progressRate = static_cast<float>(m_gameClearFrameCount) / kGameClearFadeFrame;
@@ -83,13 +102,12 @@ void SceneGameClear::Draw()
 
 	// ここ以降呼ばれるDraw関数の描画方法を変更する
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-	int width = GetDrawStringWidthToHandle("GAMECLEAR", strlen("GAMECLEAR"), m_fontHandle);
+	int width = GetDrawStringWidthToHandle("GAMECLEAR", strlen("GAMECLEAR"), m_pFont->GetFont1());
 	DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, Game::kScreenHeight * 0.5 - 64 * 0.5,
-		"GAMECLEAR", 0xffffff, m_fontHandle);
+		"GAMECLEAR", 0xffffff, m_pFont->GetFont1());
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawStringToHandle(520, 600,
-			"Press A Button", 0xffffff, m_pressAButtonHandle);
+		DrawFormatStringToHandle(500, 600, 0xffffff, m_pFont->GetFont2(), "Press A Button");
 	}
 
 	// 以降の表示がおかしくならないように元の設定に戻しておく

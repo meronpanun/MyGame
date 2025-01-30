@@ -130,7 +130,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../../DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +145,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyRock.cpp" />
+    <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
@@ -156,7 +157,6 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneManeger.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +164,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyRock.h" />
+    <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="BgStage1.h" />
     <ClInclude Include="Goal.h" />

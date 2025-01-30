@@ -2,6 +2,7 @@
 #include "Pad.h"
 #include "DxLib.h"
 #include "Game.h"
+#include "FontManager.h"
 #include <cassert>
 
 namespace
@@ -34,9 +35,6 @@ SceneTitle::SceneTitle() :
 	m_uiHandle = LoadGraph("data/image/ui.png");
 	assert(m_titleHandle != -1);
 
-	// フォントの生成
-	m_fontHandle = CreateFontToHandle("Bodoni MT BlaSck", 24, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
-
 	// 動画の読み込み
 	m_videoHandle = LoadGraph("data/TitleBackground.mp4");
 	assert(m_videoHandle != -1);
@@ -47,8 +45,6 @@ SceneTitle::~SceneTitle()
 	// グラフィックの開放
 	DeleteGraph(m_titleHandle);
 	DeleteGraph(m_uiHandle);
-	// フォントの開放
-	DeleteFontToHandle(m_fontHandle);
 	// 動画の開放
 	DeleteGraph(m_videoHandle);
 }
@@ -60,6 +56,7 @@ void SceneTitle::Init()
 	m_isVideoPlaying = true;
 	m_videoFadeFrameCount = 0;
 	m_videoFadeInFrameCount = 0;
+	m_pFont = std::make_shared<FontManager>();
 }
 
 SceneManager::SceneSelect SceneTitle::Update()
@@ -121,8 +118,6 @@ SceneManager::SceneSelect SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
-	DrawString(10, 10, "TitleScene", 0xffffff);
-
 	// 動画の描画
 	DrawGraph(0, 0, m_videoHandle, true);
 
@@ -154,8 +149,7 @@ void SceneTitle::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawStringToHandle(520, 600,
-			"Press A Button", 0xffffff, m_fontHandle);
+		DrawFormatStringToHandle(480, 550, 0xffffff, m_pFont->GetFont2(),"Press A Button");
 	}
 	// 以降の表示がおかしくならないように元の設定に戻しておく
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

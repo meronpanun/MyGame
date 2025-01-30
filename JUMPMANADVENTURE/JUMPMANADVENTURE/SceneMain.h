@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 
+class FontManager;
 class Player;
 class BgStage1;
 class Camera;
@@ -36,6 +37,8 @@ private:
 	std::shared_ptr<Goal> m_pGoal;
 	std::vector<std::shared_ptr<Enemy>> m_pEnemy;
 	std::vector<Life> m_life;
+	// フォント管理
+	std::shared_ptr<FontManager> m_pFont;
 
 	// フェード処理
 	int m_fadeFrameCount;
@@ -43,10 +46,7 @@ private:
 	// グラフィックハンドル
 	int m_lifeHandle;
 	int m_goalHandle;
-
-	// フォントハンドル
-	int m_fontHandle;
-	int m_scoreAndTimerFontHandle;
+	int m_bgHandle;
 
 	// ゲームオーバー演出に使用するフレーム
 	int m_gameoverFrameCount;
@@ -64,5 +64,8 @@ private:
 	bool m_isGameEnd;
 	// ゴールに当たったかどうかフラグ
 	bool m_isGoalHit;
+
+	// 背景のスクロール位置
+	int m_bgScrollY;
 };
 

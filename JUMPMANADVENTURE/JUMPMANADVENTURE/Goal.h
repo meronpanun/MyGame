@@ -15,11 +15,6 @@ public:
 	void Update();
 	void Draw();
 
-	// マップのポインタを設定する
-//	void SetMap(std::shared_ptr<BgStage1> pStage1) { m_pStage1 = pStage1; }
-
-//	void SetPlayer(std::shared_ptr<Player> pPlayer) { m_pPlayer = pPlayer; }
-
 	// メンバー変数にアクセスする
 	void SetHandle(int handle) { m_handle = handle; }
 

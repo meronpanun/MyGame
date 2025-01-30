@@ -1,6 +1,8 @@
 #pragma once
 #include "SceneManager.h"
+#include <memory>
 
+class FontManager;
 /// <summary>
 /// タイルシーンクラス
 /// </summary>
@@ -17,11 +19,12 @@ public:
 	void Draw();
 
 private:
+	// フォント管理
+	std::shared_ptr<FontManager> m_pFont;
 	// タイトルのグラフィックハンドル
 	int m_titleHandle;
 	int m_uiHandle;
-	// フォントハンドル
-	int m_fontHandle;
+
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;
 

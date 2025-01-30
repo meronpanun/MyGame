@@ -2,7 +2,9 @@
 #include "Vec2.h"
 #include "Rect.h"
 #include <memory>
+#include <vector>
 
+class Life;
 class Camera;
 class BgStage1;
 class SceneMain;
@@ -58,6 +60,13 @@ public:
 	// ゲームオーバー演出を開始するフラグ
 	bool IsGameOver() const;
 
+	// 初期リスポーン
+	void StartRespawn();
+	void Respawn();
+
+	// 加速ボタンの状態を設定
+	void SetAccelerationButtonState(bool isPressed);
+
 private:
 	// ジャンプ処理
 	void UpdateJump();
@@ -72,15 +81,12 @@ private:
 private:
 	Camera* m_pCamera;
 	SceneMain* m_pMain;
-
+	std::shared_ptr<BgStage1> m_pBgStage1;
+	std::vector<Life> m_Life;
 	// プレイヤーの位置
 	Vec2 m_pos;
 	// 移動量
 	Vec2 m_move;
-	// 当たり判定用の矩形
-//	Rect m_colRect;
-
-	std::shared_ptr<BgStage1> m_pBgStage1;
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;
@@ -113,14 +119,19 @@ private:
 	// 地面と接しているか　true:接している 
 	bool m_isGround;
 
-	// HP
+	// プレイヤーの体力
 	int m_hp;
-	// 残機
 	int m_life;
 
 	// 点滅
 	int m_blinkFrameCount;
 	// 死亡演出
 	int m_deadFrameCount;
+
+	// リスポーン遅延
+	int m_respawnTimer;
+
+	// 加速ボタンが押されているかどうかのフラグ
+	bool m_isAccelerationButtonPressed;
 };
 
