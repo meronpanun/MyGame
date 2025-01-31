@@ -1,22 +1,20 @@
 #pragma once
-#include "SceneManager.h"
+#include "SceneBase.h"
 #include <memory>
 
 class FontManager;
 /// <summary>
 /// タイルシーンクラス
 /// </summary>
-class SceneTitle
+class SceneTitle : public SceneBase
 {
 public:
 	SceneTitle();
 	~SceneTitle();
 
-	void Init();
-	// シーンの切り替わり先を戻り値として返す
-	// 切り替わらない場合は現在実行中のシーンを返す
-	SceneManager::SceneSelect Update();
-	void Draw();
+	void Init() override;
+	SceneBase* Update() override;
+	void Draw() override;
 
 private:
 	// フォント管理

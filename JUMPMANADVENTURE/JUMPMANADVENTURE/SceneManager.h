@@ -1,4 +1,5 @@
 #pragma once
+#include "SceneBase.h"
 
 class SceneStage1;
 class SceneTitle;
@@ -17,22 +18,19 @@ public:
 	void Update();
 	void Draw();
 
-public:
-	// シーン定数の定義
-	enum SceneSelect
-	{
-		kSceneTitle,
-		kSceneStage1,
-		kSceneGameClear
-	};
+	// ゲームクリア画面への遷移を開始
+	void StartGameClear();
 
 private:
-	// 現在実行中のシーン
-	SceneSelect m_runScene;
+	SceneBase* m_pCurrentScene;
+	SceneBase* m_pNextScene;
 
 	// SceneManagerで管理するシーン
 	SceneTitle* m_pTitle;
 	SceneMain* m_pSceneMain;
 	SceneGameClear* m_pGameClear;
+	
+	// ゲームクリアしたかどうか
+	bool m_isGameClear;
 };
 

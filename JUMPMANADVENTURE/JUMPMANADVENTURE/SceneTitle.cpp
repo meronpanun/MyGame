@@ -3,6 +3,7 @@
 #include "DxLib.h"
 #include "Game.h"
 #include "FontManager.h"
+#include "SceneMain.h"
 #include <cassert>
 
 namespace
@@ -75,7 +76,7 @@ void SceneTitle::Init()
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 }
 
-SceneManager::SceneSelect SceneTitle::Update()
+SceneBase* SceneTitle::Update()
 {
 	//サウンドの大きさ設定
 	ChangeVolumeSoundMem(kVolumeBGM, m_bgmHandle);
@@ -134,10 +135,10 @@ SceneManager::SceneSelect SceneTitle::Update()
 		PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
 		// BGMを停止
 		StopSoundMem(m_bgmHandle);
-		return SceneManager::SceneSelect::kSceneStage1;
+		return new SceneMain();
 	}
 	// 何もしなければシーン遷移しない(タイトル画面のまま)
-	return SceneManager::SceneSelect::kSceneTitle;
+	return this;
 }
 
 void SceneTitle::Draw()

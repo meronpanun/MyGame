@@ -44,7 +44,9 @@ void SceneGameClear::Init()
 	m_pFont = std::make_shared<FontManager>();
 }
 
-SceneManager::SceneSelect SceneGameClear::Update()
+#include "SceneTitle.h" // Add this include for SceneTitle
+
+SceneBase* SceneGameClear::Update()
 {
 	// フェードイン処理
 	m_fadeFrameCount++;
@@ -77,10 +79,10 @@ SceneManager::SceneSelect SceneGameClear::Update()
 	// ZorAキーを押したらタイトル画面に移行
 	if (Pad::IsTrigger(PAD_INPUT_1))
 	{
-		return SceneManager::SceneSelect::kSceneTitle;
+		return new SceneTitle();
 	}
 	// 何もしなければシーン遷移しない(クリア画面のまま)
-	return SceneManager::SceneSelect::kSceneGameClear;
+	return this;
 }
 
 void SceneGameClear::Draw()

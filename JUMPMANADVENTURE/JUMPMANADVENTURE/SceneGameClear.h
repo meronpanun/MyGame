@@ -1,32 +1,22 @@
 #pragma once
-#include "SceneManager.h"
+#include "SceneBase.h"
 #include <memory>
 
 class FontManager;
 /// <summary>
 ///　ゲームクリアシーンクラス
 /// </summary>
-class SceneGameClear
+class SceneGameClear : public SceneBase
 {
 public:
 	SceneGameClear();
 	~SceneGameClear();
 
-	void Init();
-	// シーンの切り替わり先を戻り値として返す
-	// 切り替わらない場合は現在実行中のシーンを返す
-	SceneManager::SceneSelect Update();
-	void Draw();
+	void Init() override;
+	SceneBase* Update() override;
+	void Draw() override;
 
 	bool IsSceneTitle() const { return m_isSceneTitle; }
-	
-private:
-	enum Select
-	{
-		kTitle
-	};
-	
-	int m_select;
 
 private:
 	// フォント管理

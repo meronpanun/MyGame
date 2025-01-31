@@ -7,11 +7,11 @@
 #include "SceneMain.h"
 #include "Enemy.h"
 #include <cassert>
+#include <stdexcept>
 
 #ifdef _DEBUG
 #define DISP_COLLISON
 #endif // _DEBUG
-#include <stdexcept>
 
 namespace
 {
@@ -330,11 +330,11 @@ void Player::Draw()
 
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
-    //DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
-    //    GetTop(),
-    //    GetRigth() + m_pCamera->m_drawOffset.x, 
-    //    GetBottom(),
-    //    GetColor(0, 0, 255), false);
+    DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
+        GetTop(),
+        GetRigth() + m_pCamera->m_drawOffset.x, 
+        GetBottom(),
+        0xff0000, false);
 #endif // DISP_COLLISION
 }
 

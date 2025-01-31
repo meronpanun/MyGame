@@ -58,7 +58,7 @@ void Life::Draw()
 
 	DrawRectRotaGraph(posX, kPosY, // 中心座標を指定する
 		0, 0, kGraphWidth, kGraphHeight,  // グラフィックの切り出し位置 
-		scaleAnim, 0.0,     // 拡大率、回転
+		scaleAnim, 0.0f,     // 拡大率、回転
 		m_handle, true);
 }
 

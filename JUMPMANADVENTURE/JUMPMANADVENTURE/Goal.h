@@ -22,15 +22,25 @@ public:
 	// ゴールの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
 
-	// ゴールの半径を取得
-	float GetRadius() const;
-
 	// プレイヤーとの当たり判定フラグ
 	bool GetHitPlayerFlag(std::shared_ptr<Player> pPlayer);
+
+	// ポールの当たり判定のオフセットとサイズを設定
+	void SetPoleCollisionOffset(float offsetX, float offsetY);
+	void SetPoleCollisionSize(float width, float height);
+
+	// 旗の落下処理を開始
+	void StartFlagFall();
+	// 旗が落ちきったかどうかを取得
+	bool IsFlagFallen() const;
 
 private:
 	// ゴールの座標
 	Vec2 m_pos;
+
+	// ポールの当たり判定のオフセットとサイズ
+	Vec2 m_poleCollisionOffset;
+	Vec2 m_poleCollisionSize;
 
 	Camera* m_pCamera;
 
@@ -43,7 +53,12 @@ private:
 
 	// アニメーション
 	int m_animFrame;
-
 	int m_index;
+
+	// 旗の落下処理
+	bool m_isFlagFalling;
+	bool m_isFlagFallen;
+	float m_flagPosY;
+	float m_flagFallSpeed;
 };
 

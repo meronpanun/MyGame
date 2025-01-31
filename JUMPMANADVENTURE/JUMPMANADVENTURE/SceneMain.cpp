@@ -1,5 +1,7 @@
 #include "SceneMain.h"
 #include "SceneManager.h"
+#include "SceneTitle.h"
+#include "SceneGameClear.h"
 #include "DxLib.h"
 #include "Pad.h"
 #include "Rect.h"
@@ -29,10 +31,10 @@ namespace
 	constexpr int kTimerCountdownInterval = 24; // 60FPSの場合、0.4秒は24フレーム
 	// タイマーとスコアの表示位置
 	constexpr int kTimerPosX = 760;
-	constexpr int kTimerPosX2 = 720;
 	constexpr int kScorePosX = 480;
-	constexpr int kScorePosX2 = 420;
 	constexpr int kScoreAndTimerPosY = 55;
+	constexpr int kTimerPosX2 = 720;
+	constexpr int kScorePosX2 = 420;
 	constexpr int kScoreAndTimerPosY2 = 20;
 
 	// 1000ピクセルの範囲
@@ -48,6 +50,21 @@ namespace
 	// 音量
 	constexpr int kVolumeBGM = 128;
 	constexpr int kVolumeSE = 128;
+
+	// 拡大率
+	constexpr float kScale = 2.0f;
+
+	// ゲームオーバー用敵の描画サイズ
+	constexpr int kGraphWidth = 32;
+	constexpr int kGraphHeight = 32;
+
+	// ゲームオーバー用敵の初期位置と落下速度
+	constexpr float kGameOverEnemyStartPosY = -kGraphHeight * kScale;
+	constexpr float kGameOverEnemyFallSpeedMin = 1.0f;
+	constexpr float kGameOverEnemyFallSpeedMax = 3.0f;
+	constexpr float kGameOverEnemyRotationSpeedMin = 0.02f;
+	constexpr float kGameOverEnemyRotationSpeedMax = 0.1f;
+	constexpr int kNumGameOverEnemies = 5;
 }
 
 SceneMain::SceneMain():
@@ -57,7 +74,9 @@ SceneMain::SceneMain():
 	m_lifeHandle(-1),
 	m_score(0), 
 	m_timer(kInitialTimer),
-	m_bgScrollY(0)
+	m_bgScrollY(0),
+	m_gameOverEnemyPosY(kGameOverEnemyStartPosY),
+	m_gameOverEnemyAngle(0.0f)
 {
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/heart.png");
@@ -68,6 +87,8 @@ SceneMain::SceneMain():
 	assert(m_poleHandle != -1);
 	m_bgHandle = LoadGraph("data/image/Purple.png");
 	assert(m_bgHandle != -1);
+	m_playerDaedHandle = LoadGraph("data/image/PlayerDead.png");
+	assert(m_playerDaedHandle != -1);
 
 	//BGMの読み込み
 //	m_bgmHandle = LoadSoundMem("data/MusMus-BGM-125.mp3");
@@ -108,6 +129,7 @@ SceneMain::~SceneMain()
 	DeleteGraph(m_flagHandle);
 	DeleteGraph(m_bgHandle);
 	DeleteGraph(m_poleHandle);
+	DeleteGraph(m_playerDaedHandle);
 	//BGMを解放
 	DeleteSoundMem(m_bgmHandle);
 	// SEを解放
@@ -152,7 +174,7 @@ void SceneMain::Init()
 	m_timer = kInitialTimer;
 }
 
-SceneManager::SceneSelect SceneMain::Update()
+SceneBase* SceneMain::Update()
 {
 	//サウンドの大きさ設定
 	ChangeVolumeSoundMem(kVolumeBGM, m_bgmHandle);
@@ -168,7 +190,7 @@ SceneManager::SceneSelect SceneMain::Update()
 		if (m_fadeFrameCount < 0)
 		{
 			m_fadeFrameCount = 0;
-			return SceneManager::SceneSelect::kSceneTitle;
+			return new SceneTitle();
 		}
 	}
 	else
@@ -301,18 +323,21 @@ SceneManager::SceneSelect SceneMain::Update()
 			{
 				m_bgScrollY = 0;
 			}
+
+			// ゲームオーバー用敵の位置と回転角度を更新
+			UpdateGameOverEnemies();
 		}
 	}
 
 	// ゴールオブジェクトに当たったら
 	if (m_isGoalHit)
 	{
-		return SceneManager::SceneSelect::kSceneGameClear;
+		return new SceneGameClear(); 
 		m_isGoalHit = true;
 	}
 
 	// 何もしなければシーン遷移しない(ステージ1画面のまま)
-	return SceneManager::SceneSelect::kSceneStage1;
+	return this;
 }
 	
 
@@ -351,14 +376,18 @@ void SceneMain::Draw()
 		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
 		if (m_pPlayer->IsGameOver() || m_timer <= 0)
 		{
+			
 			// 背景をスクロールして描画
 			for (int y = m_bgScrollY - Game::kScreenHeight; y < Game::kScreenHeight; y += kChipHeight)
 			{
 				for (int x = 0; x < Game::kScreenWidth; x += kChipWidth)
 				{
-					DrawGraph(x, y, m_bgHandle, true);
+					DrawGraph(x, y,  m_bgHandle, true);
 				}
 			}
+
+			// ゲームオーバー用敵の描画
+			DrawGameOverEnemies();
 
 			if (m_blinkFrameCount < kBlinkDispFrame)
 			{
@@ -411,4 +440,16 @@ void SceneMain::CreateEnemy(float x, float y)
 void SceneMain::SetScoreAndTimerFontSize(int size)
 {
 	m_scoreAndTimerFontSize = size;
+}
+
+void SceneMain::InitGameOverEnemies()
+{
+}
+
+void SceneMain::UpdateGameOverEnemies()
+{
+}
+
+void SceneMain::DrawGameOverEnemies()
+{
 }

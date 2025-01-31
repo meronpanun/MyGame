@@ -5,10 +5,12 @@
 #include "Pad.h"
 
 SceneManager::SceneManager():
-	m_runScene(kSceneTitle),
 	m_pTitle(nullptr),
 	m_pSceneMain(nullptr),
-	m_pGameClear(nullptr)
+	m_pGameClear(nullptr),
+	m_pCurrentScene(nullptr),
+	m_pNextScene(nullptr),
+	m_isGameClear(false)
 {
 }
 
@@ -33,24 +35,10 @@ SceneManager::~SceneManager()
 
 void SceneManager::Init()
 {
-	// 実行するシーンの初期化を行う
-	switch (m_runScene)
-	{
-	case kSceneTitle:     // タイトルシーン
-		m_pTitle = new SceneTitle();
-		m_pTitle->Init();
-		break;
-	case kSceneStage1:    // ステージ1
-		m_pSceneMain = new SceneMain();
-		m_pSceneMain->Init();
-		break;
-	case kSceneGameClear: // クリアシーン
-		m_pGameClear = new SceneGameClear();
-		m_pGameClear->Init();
-		break;
-	default:
-		break;
-	}
+	// 初期シーンをタイトルシーンに設定
+	m_pTitle = new SceneTitle();
+	m_pTitle->Init();
+	m_pCurrentScene = m_pTitle;
 }
 
 
@@ -58,49 +46,31 @@ void SceneManager::Update()
 {
 	Pad::Update();
 
-	// 次のシーン遷移先
-	SceneSelect nextSelect = m_runScene; 
-
-	// 実行するシーンの更新を行う
-	switch (m_runScene)
+	// 現在のシーンを更新
+	if (m_pCurrentScene != nullptr)
 	{
-	case kSceneTitle: 	  // タイトルシーン
-		nextSelect = m_pTitle->Update();
-		break;
-	case kSceneStage1: 	  // ステージ1
-		nextSelect = m_pSceneMain->Update();
-		break;
-	case kSceneGameClear: // クリアシーン
-		nextSelect = m_pGameClear->Update();
-		break;
-	default:
-		break;
+		m_pNextScene = m_pCurrentScene->Update();
 	}
 
 	// シーンが変わった場合、初期化処理を行う
-	if (nextSelect != m_runScene)
+	if (m_pNextScene != nullptr && m_pNextScene != m_pCurrentScene)
 	{
-		m_runScene = nextSelect;
-
-		Init();
+		m_pCurrentScene = m_pNextScene;
+		m_pCurrentScene->Init();
 	}
 }
 
 void SceneManager::Draw()
 {
-	// 実行するシーンの描画を行う
-	switch (m_runScene)
+	// 現在のシーンを描画
+	if (m_pCurrentScene != nullptr)
 	{
-	case kSceneTitle:     // タイトルシーン
-		m_pTitle->Draw();
-		break;
-	case kSceneStage1:    // ステージ1
-		m_pSceneMain->Draw();
-		break;
-	case kSceneGameClear: // クリアシーン
-		m_pGameClear->Draw();
-		break;
-	default:
-		break;
+		m_pCurrentScene->Draw();
 	}
+}
+
+void SceneManager::StartGameClear()
+{
+	m_isGameClear = true;
+	m_pNextScene = new SceneGameClear();
 }

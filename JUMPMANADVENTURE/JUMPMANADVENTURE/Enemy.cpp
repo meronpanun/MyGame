@@ -37,6 +37,7 @@ namespace
 
 	// 円の当たり判定の半径
 	constexpr int kRadius = 10;
+
 }
 
 Enemy::Enemy():
@@ -145,16 +146,16 @@ void Enemy::Draw()
 
 	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x),static_cast<int>(m_pos.y - kColChipAdjustmentY),
 		animFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
-		kScale, 0.0, m_handle, true, m_isFacingRight);
+		kScale, 0.0f, m_handle, true, m_isFacingRight);
 
 
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
-	//DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
-	//	GetTop(),
-	//	GetRigth() + m_pCamera->m_drawOffset.x,
-	//	GetBottom(),
-	//	0xff0000, false);
+	DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
+		GetTop(),
+		GetRigth() + m_pCamera->m_drawOffset.x,
+		GetBottom(),
+		0xff0000, false);
 #endif // _DEBUG
 }
 

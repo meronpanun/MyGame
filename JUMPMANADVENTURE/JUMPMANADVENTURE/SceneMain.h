@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneManager.h"
+#include "SceneBase.h"
 #include "Life.h"
 #include <memory>
 #include <vector>
@@ -13,21 +13,35 @@ class Enemy;
 /// <summary>
 /// ゲーム画面クラス
 /// </summary>
-class SceneMain
+class SceneMain : public SceneBase
 {
 public:
 	SceneMain();
 	~SceneMain();
 
-	void Init();
-	SceneManager::SceneSelect Update();
-	void Draw();
+	void Init() override;
+	SceneBase* Update() override;
+	void Draw() override;
 
+private:
 	// 敵の生成
 	void CreateEnemy(float x, float y);
 
 	// スコアとタイマーのフォントサイズの設定
 	void SetScoreAndTimerFontSize(int size); 
+
+	// ゲームオーバー用敵の情報
+	struct GameOverEnemy
+	{
+		float posY;
+		float angle;
+		float fallSpeed;
+		float rotationSpeed;
+	};
+	std::vector<GameOverEnemy> m_gameOverEnemies;
+	void InitGameOverEnemies();
+	void UpdateGameOverEnemies();
+	void DrawGameOverEnemies();
 
 private:
 	std::shared_ptr<Camera> m_pCamera;
@@ -48,6 +62,7 @@ private:
 	int m_flagHandle;
 	int m_poleHandle;
 	int m_bgHandle;
+	int m_playerDaedHandle;
 	// ゲームシーン用BGMハンドル
 	int m_bgmHandle;
 	// ゲームシーン用SEハンドル
@@ -72,5 +87,9 @@ private:
 
 	// 背景のスクロール位置
 	int m_bgScrollY;
+
+	// ゲームオーバー用敵の位置と回転角度
+	float m_gameOverEnemyPosY;
+	float m_gameOverEnemyAngle;
 };
 
