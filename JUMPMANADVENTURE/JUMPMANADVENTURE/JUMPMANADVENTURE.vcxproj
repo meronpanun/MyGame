@@ -157,6 +157,7 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="SceneManeger.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>
