@@ -44,6 +44,10 @@ namespace
 	// 背景の1つのサイズ
 	constexpr int kChipWidth = 64;
 	constexpr int kChipHeight = 64;
+
+	// 音量
+	constexpr int kVolumeBGM = 128;
+	constexpr int kVolumeSE = 128;
 }
 
 SceneMain::SceneMain():
@@ -58,13 +62,25 @@ SceneMain::SceneMain():
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/heart.png");
 	assert(m_lifeHandle != -1);
-	m_goalHandle = LoadGraph("data/image/GoalFlag.png");
-	assert(m_lifeHandle != -1);
+	m_flagHandle = LoadGraph("data/image/flag.png");
+	assert(m_flagHandle != -1);
+	m_poleHandle = LoadGraph("data/image/pole.png");
+	assert(m_poleHandle != -1);
 	m_bgHandle = LoadGraph("data/image/Purple.png");
 	assert(m_bgHandle != -1);
 
+	//BGMの読み込み
+//	m_bgmHandle = LoadSoundMem("data/MusMus-BGM-125.mp3");
+//	assert(m_bgmHandle != -1);
+
+	// SEの読み込み
+//	m_seHandle = LoadSoundMem("data/決定ボタンを押す49.mp3");
+//	assert(m_seHandle != -1);
+
+
 	m_pGoal = std::make_shared<Goal>();
-	m_pGoal->SetHandle(m_goalHandle);
+	m_pGoal->SetHandle(m_flagHandle);
+	m_pGoal->SetPoleHandle(m_poleHandle);
 
 	// 敵の生成数
 	m_pEnemy.resize(20);
@@ -89,8 +105,13 @@ SceneMain::~SceneMain()
 {
 	// グラフィックの開放
 	DeleteGraph(m_lifeHandle);
-	DeleteGraph(m_goalHandle);
+	DeleteGraph(m_flagHandle);
 	DeleteGraph(m_bgHandle);
+	DeleteGraph(m_poleHandle);
+	//BGMを解放
+	DeleteSoundMem(m_bgmHandle);
+	// SEを解放
+	DeleteGraph(m_seHandle);
 }
 
 void SceneMain::Init()
@@ -123,6 +144,9 @@ void SceneMain::Init()
 		m_life[i].SetIndex(i);
 	}
 
+	// BGMの再生開始（ループ再生）
+	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
+
 	// スコアとタイマーの初期化
 	m_score = 0;
 	m_timer = kInitialTimer;
@@ -130,6 +154,10 @@ void SceneMain::Init()
 
 SceneManager::SceneSelect SceneMain::Update()
 {
+	//サウンドの大きさ設定
+	ChangeVolumeSoundMem(kVolumeBGM, m_bgmHandle);
+	ChangeVolumeSoundMem(kVolumeSE, m_seHandle);
+
 	// ゴールに当たったかどうか
 	m_isGoalHit = m_pGoal->GetHitPlayerFlag(m_pPlayer);
 
@@ -228,6 +256,8 @@ SceneManager::SceneSelect SceneMain::Update()
 						enemy->SetAlive(false);    // 敵を消す
 						m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
 						m_score += 100;            // 敵を倒すとスコアを100ポイント増加
+						// SEを再生
+					//	PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
 					}
 					else
 					{
@@ -251,6 +281,8 @@ SceneManager::SceneSelect SceneMain::Update()
 		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
 		if (m_pPlayer->IsGameOver() || m_timer <= 0)
 		{
+			// BGMを停止
+		//	StopSoundMem(m_bgmHandle);
 			m_gameoverFrameCount++;
 			if (m_gameoverFrameCount > kGameoverFadeFrame)
 			{
@@ -330,7 +362,7 @@ void SceneMain::Draw()
 
 			if (m_blinkFrameCount < kBlinkDispFrame)
 			{
-				DrawFormatStringToHandle(500, 600, 0xffffff, m_pFont->GetFont2(),"Press A Button");
+				DrawFormatStringToHandle(430, 600, 0xffffff, m_pFont->GetFont2(),"Press A Button");
 			}
 
 			// 割合を使用して変換を行う

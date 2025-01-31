@@ -107,7 +107,7 @@ void SceneGameClear::Draw()
 		"GAMECLEAR", 0xffffff, m_pFont->GetFont1());
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawFormatStringToHandle(500, 600, 0xffffff, m_pFont->GetFont2(), "Press A Button");
+		DrawFormatStringToHandle(430, 600, 0xffffff, m_pFont->GetFont2(), "Press A Button");
 	}
 
 	// ˆÈ~‚Ì•\¦‚ª‚¨‚©‚µ‚­‚È‚ç‚È‚¢‚æ‚¤‚ÉŒ³‚Ìİ’è‚É–ß‚µ‚Ä‚¨‚­

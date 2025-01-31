@@ -45,8 +45,13 @@ private:
 
 	// グラフィックハンドル
 	int m_lifeHandle;
-	int m_goalHandle;
+	int m_flagHandle;
+	int m_poleHandle;
 	int m_bgHandle;
+	// ゲームシーン用BGMハンドル
+	int m_bgmHandle;
+	// ゲームシーン用SEハンドル
+	int m_seHandle;
 
 	// ゲームオーバー演出に使用するフレーム
 	int m_gameoverFrameCount;

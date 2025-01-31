@@ -25,7 +25,7 @@ private:
 	int m_titleHandle; 
 	// タイトル用BGMハンドル
 	int m_bgmHandle;
-	// タイトルよSEハンドル
+	// タイトル用SEハンドル
 	int m_seHandle;
 
 	// 点滅させるためのフレームカウント

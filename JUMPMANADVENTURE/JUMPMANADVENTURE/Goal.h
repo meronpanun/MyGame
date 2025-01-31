@@ -17,6 +17,7 @@ public:
 
 	// メンバー変数にアクセスする
 	void SetHandle(int handle) { m_handle = handle; }
+	void SetPoleHandle(int poleHandle) { m_poleHandle = poleHandle; }
 
 	// ゴールの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
@@ -38,6 +39,8 @@ private:
 		
 	// グラフィックハンドル
 	int m_handle;
+	int m_poleHandle;
+
 	// アニメーション
 	int m_animFrame;
 

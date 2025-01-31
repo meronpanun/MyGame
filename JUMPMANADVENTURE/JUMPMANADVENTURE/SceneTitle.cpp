@@ -42,11 +42,11 @@ SceneTitle::SceneTitle() :
 	assert(m_videoHandle != -1);
 
 	//BGMの読み込み
-	m_bgmHandle = LoadSoundMem("data/MusMus-BGM-125.mp3");
+	m_bgmHandle = LoadSoundMem("data/sound/BGM/TitleBGM.mp3");
 	assert(m_bgmHandle != -1);
 
 	// SEの読み込み
-	m_seHandle = LoadSoundMem("data/決定ボタンを押す49.mp3");
+	m_seHandle = LoadSoundMem("data/sound/SE/決定ボタンを押す49.mp3");
 	assert(m_seHandle != -1);
 }
 

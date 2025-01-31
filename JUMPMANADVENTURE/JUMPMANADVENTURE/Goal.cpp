@@ -9,9 +9,12 @@ namespace
 	// 半径
 	constexpr int kRadius = 84;
 	
-	// ゴールの描画サイズ
+	// 旗の描画サイズ
 	constexpr int kGraphWidth = 64;
-	constexpr int kGraphHeight = 64;
+	constexpr int kGraphHeight = 24;
+
+	constexpr int kPoleGraphWidth = 24;
+	constexpr int kPoleGraphHeight = 103;
 
 	// ゴールのアニメーション
 	constexpr int kUseFrame[] = { 0,1,2,3,4,5,6,7,8,9 };
@@ -21,7 +24,8 @@ namespace
 	constexpr int kAnimFrameCycle = _countof(kUseFrame) * kAnimFrameNum;
 
 	// 表示座標
-	constexpr int kPosX = 10000;
+//	constexpr int kPosX = 10000;
+	constexpr int kPosX = 500;
 	constexpr int kPosY = 500;
 
 	// 拡大率
@@ -60,13 +64,15 @@ void Goal::Draw()
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animNo = m_animFrame / kAnimFrameNum;
 
-	// indexから表示位置を決定する
-//	int posX = kPosX + m_index;
-
 	DrawRectRotaGraph(kPosX + m_pCamera->m_drawOffset.x, kPosY, 
 		animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight, 
 		kScale, 0.0, 
 		m_handle, true);
+
+	DrawRectRotaGraph(kPosX + m_pCamera->m_drawOffset.x, kPosY,
+		animNo * kPoleGraphWidth, 0, kPoleGraphWidth, kPoleGraphHeight,
+		kScale, 0.0,
+		m_poleHandle, true);
 }
 
 float Goal::GetRadius() const
