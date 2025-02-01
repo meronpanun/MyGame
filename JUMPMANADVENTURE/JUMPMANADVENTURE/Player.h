@@ -64,6 +64,10 @@ public:
 	void StartRespawn();
 	void Respawn();
 
+	// プレイヤーの操作を無効化
+	void DisableControl();
+	bool IsControlDisabled() const;
+
 private:
 	// ジャンプ処理
 	void UpdateJump();
@@ -75,6 +79,9 @@ private:
 	// 死亡時の初期化処理
 	void InitDead();
 
+	// 移動処理を更新
+	void UpdateMovement(); 
+
 private:
 	Camera* m_pCamera;
 	SceneMain* m_pMain;
@@ -85,6 +92,8 @@ private:
 	Vec2 m_pos;
 	// 移動量
 	Vec2 m_move;
+	// 慣性をシミュレートするための速度
+	Vec2 m_velocity;
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;
@@ -128,5 +137,13 @@ private:
 
 	// リスポーン遅延
 	int m_respawnTimer;
+
+	// 操作無効化
+	bool m_isControlDisabled;
+
+	// 摩擦係数
+	float m_friction; 
+
+
 };
 

@@ -43,8 +43,8 @@ namespace
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-   // constexpr float kAccel = 3.0f;
-    constexpr float kAccel = 10.0f;
+    constexpr float kAccel = 3.0f;
+   // constexpr float kAccel = 10.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -106,7 +106,10 @@ Player::Player() :
     m_isAnimJump(false),
     m_isAnimTurn(false),
     m_isGameOver(false),
-    m_respawnTimer(0)
+    m_respawnTimer(0),
+    m_isControlDisabled(false),
+    m_velocity(0.0f, 0.0f), 
+    m_friction(0.95f)
 {
     // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/Run.png");
@@ -129,6 +132,33 @@ void Player::Init(Camera* pCamera)
 }
 void Player::Update()
 {
+    if (m_isControlDisabled)
+    {
+        // 操作無効時はアニメーションのみ更新
+        if (m_isWalk)
+        {
+            // アニメーションの更新
+            m_animFrame++;
+            if (m_animFrame >= kAnimFrameCycle)
+            {
+                m_animFrame = 0;
+            }
+        }
+
+        // ジャンプアニメーションの更新
+        if (m_isJump)
+        {
+            m_jumpFrame++;
+            if (m_jumpFrame >= _countof(kJumpFrame) * kJumpAnimFrame)
+            {
+                m_jumpFrame = 0;
+            }
+        }
+
+        // プレイヤーの位置を更新しないようにする
+        return;
+    }
+
     // 生きているときと死んでいるときで処理を切り分ける
     if (m_hp > 0)
     {
@@ -367,6 +397,8 @@ void Player::OnDamage()
 
 void Player::UpdateNormal()
 {
+    UpdateMovement();
+
     // プレイヤーが穴に落下した場合
     if ((m_pos.y - kGraphHeight) > kFallMaX)
     {
@@ -387,14 +419,19 @@ void Player::UpdateNormal()
     }
 
     // 移動中のみ歩行アニメーションを行う
-    if (m_isWalk)
+    if (std::abs(m_velocity.x) > 0.1f)
     {
+        m_isWalk = true;
         // アニメーションの更新
         m_animFrame++;
         if (m_animFrame >= kAnimFrameCycle)
         {
             m_animFrame = 0;
         }
+    }
+    else
+    {
+        m_isWalk = false;
     }
 
     // プレイヤーが画面端から出ていかない
@@ -417,7 +454,6 @@ void Player::UpdateNormal()
         m_isLeftMove = false;
         m_move.x = kSpeed;
         m_isAnimTurn = false;
-        m_isWalk = true;
     }
     // 左移動
     else if (pad & PAD_INPUT_LEFT)
@@ -426,15 +462,14 @@ void Player::UpdateNormal()
         m_isLeftMove = true;
         m_move.x = -kSpeed;
         m_isAnimTurn = true;
-        m_isWalk = true;
     }
     else // 左右移動をしていない場合
     {
         m_isRightMove = false;
         m_isLeftMove = false;
         m_move.x = 0;
-        m_isWalk = false;
     }
+
 
     // 地面についている場合のみ加速処理を行う
     if (m_isGround)
@@ -560,11 +595,46 @@ void Player::Respawn()
     }
 }
 
+void Player::DisableControl()
+{
+    m_isControlDisabled = true;
+}
+
+bool Player::IsControlDisabled() const
+{
+     return m_isControlDisabled;
+}
+
 void Player::InitDead()
 {
 	m_jumpSpeed = kDeadPosY;
 	m_deadFrameCount = 0;
 	m_blinkFrameCount = 0;
+}
+
+void Player::UpdateMovement()
+{
+    // 移動キーが押されている場合の処理
+    if (m_isRightMove)
+    {
+        m_velocity.x = kSpeed; // 右に移動
+    }
+    else if (m_isLeftMove)
+    {
+        m_velocity.x = -kSpeed; // 左に移動
+    }
+    else
+    {
+        // 移動キーが押されていない場合、速度を徐々に減少させる
+        m_velocity.x *= m_friction;
+        if (std::abs(m_velocity.x) < 0.1f) // 速度が小さくなりすぎたら停止
+        {
+            m_velocity.x = 0.0f;
+        }
+    }
+
+    // プレイヤーの位置を更新
+    m_pos.x += m_velocity.x;
 }
 
 

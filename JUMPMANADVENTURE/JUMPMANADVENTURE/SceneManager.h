@@ -32,5 +32,9 @@ private:
 	
 	// ゲームクリアしたかどうか
 	bool m_isGameClear;
+
+	// スコアタイマー
+	int m_score;
+	int m_timer;
 };
 

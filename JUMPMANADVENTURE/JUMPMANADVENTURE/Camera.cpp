@@ -11,7 +11,9 @@ namespace
 	constexpr float kCameraLerpRate = 0.15f;  
 }
 
-Camera::Camera()
+Camera::Camera():
+	m_shakeDuration(0), 
+	m_shakeIntensity(0.0f)
 {
 }
 
@@ -25,6 +27,7 @@ void Camera::Init()
 
 void Camera::Update(const Player* player)
 {
+
 	// プレイヤーの位置がカメラの中央から一定以上離れたら
 	// カメラの「目標」ポジションをその範囲に留める
 	Vec2 aimCameraPos = m_pos;

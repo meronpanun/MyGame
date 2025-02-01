@@ -16,7 +16,7 @@ FontManager::FontManager()
 	}
 	// フォントの読み込み
 	m_fontHandle = CreateFontToHandle("Super Mario 256", 40, -1);
-	m_fontHandle1 = CreateFontToHandle("Super Mario 256", 74, -1);
+	m_fontHandle1 = CreateFontToHandle("Super Mario 256", 84, -1);
 	m_fontHandle2 = CreateFontToHandle("Super Mario 256", 46, -1);
 
 	// フォントハンドルが有効かどうかをチェック
