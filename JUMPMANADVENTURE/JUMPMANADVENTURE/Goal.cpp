@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "BgStage1.h"
 #include "Camera.h"
+#include "SceneGameClear.h"
 
 #ifdef _DEBUG
 #define DISP_COLLISON
@@ -40,10 +41,8 @@ namespace
 	// 拡大率
 	constexpr double kScale = 4.0f; 
 
-	// 旗の落下速度
+	// 旗が落ちる速度
 	constexpr float kFlagFallSpeed = 2.0f;
-	// 旗の地面の高さ
-	constexpr float kFlagGroundHeight = 528.0f;
 }
 
 Goal::Goal():
@@ -54,7 +53,8 @@ Goal::Goal():
 	m_poleCollisionOffset(-kPoleColPosX, -kPoleColPosY),
 	m_poleCollisionSize(kPoleColSizeX, kPoleColSizeY),
 	m_flagPosY(kFlagPosY),
-	m_flagFallSpeed(kFlagFallSpeed)
+	m_isFlagFalling(false),
+	m_flagFallHeight(600)
 {
 }
 
@@ -76,14 +76,14 @@ void Goal::Update()
 		m_animFrame = 0;
 	}
 
-	// 旗の落下処理
-	if (m_isFlagFalling && !m_isFlagFallen)
+	// 旗が落ちる処理
+	if (m_isFlagFalling)
 	{
-		m_flagPosY += m_flagFallSpeed;
-		if (m_flagPosY >= kFlagGroundHeight)
+		m_flagPosY += kFlagFallSpeed;
+		if (m_flagPosY >= kFlagPosY + m_flagFallHeight)
 		{
-			m_flagPosY = kFlagGroundHeight;
-			m_isFlagFallen = true;
+			m_flagPosY = kFlagPosY + m_flagFallHeight;
+			m_isFlagFalling = false; // 旗が指定の高さまで落ちたら停止
 		}
 	}
 }
@@ -93,11 +93,14 @@ void Goal::Draw()
 	// グラフィックの切り出し位置(X座標)を計算で求める
 	int animNo = m_animFrame / kAnimFrameNum;
 
-	DrawRectRotaGraph(kFlagPosX + m_pCamera->m_drawOffset.x, kFlagPosY,
-		animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight, 
-		kScale, 0.0, 
+	// 旗の描画
+	DrawRectRotaGraph(kFlagPosX + m_pCamera->m_drawOffset.x, m_flagPosY,
+		animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
+		kScale, 0.0,
 		m_handle, true);
 
+
+	// ポールの描画
 	DrawRectRotaGraph(kPolePosX + m_pCamera->m_drawOffset.x, kPolePosY,
 		0, 0, kPoleGraphWidth, kPoleGraphHeight,
 		kScale, 0.0,
@@ -123,6 +126,7 @@ bool Goal::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 
 	if (poleRect.IsCollision(playerRect))
 	{
+		m_isFlagFalling = true; // 旗が落ちるフラグを設定
 		return true;
 	}
 
@@ -139,12 +143,7 @@ void Goal::SetPoleCollisionSize(float width, float height)
 	m_poleCollisionSize.SetPos(width, height);
 }
 
-void Goal::StartFlagFall()
+void Goal::SetFlagFallHeight(int height)
 {
-	m_isFlagFalling = true;
-}
-
-bool Goal::IsFlagFallen() const
-{
-	return m_isFlagFallen;
+	m_flagFallHeight = height;
 }

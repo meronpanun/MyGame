@@ -17,6 +17,8 @@ public:
 
 	//w’è‚µ‚½‹éŒ`‚Æ“–‚½‚Á‚Ä‚¢‚é‚©”»’è
 	bool IsCollision(Rect rect, Rect& ChipRect);
+	// ’n–Ê‚Ì‚‚³‚ğæ“¾
+	float GetGroundHeight(float x) const; 
 
 private:
 	Vec2 m_pos;

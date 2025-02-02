@@ -74,6 +74,9 @@ namespace
 	constexpr float kGameOverEnemyRotationSpeedMin = 0.02f; // 回転速度の最小値
 	constexpr float kGameOverEnemyRotationSpeedMax = 0.1f;  // 回転速度の最大値
 	constexpr int kNumGameOverEnemies = 10; // ゲームオーバー用敵の数
+
+	// ゴール後の画面遷移までの待機時間（フレーム数）
+	constexpr int kGoalTransitionWaitTime = 380;
 }
 
 SceneMain::SceneMain():
@@ -88,7 +91,8 @@ SceneMain::SceneMain():
 	m_gameOverEnemyAngle(0.0f),
 	m_gameOverFrameCount(0),
 	m_isAddingScore(false),
-	m_bonusScore(0)
+	m_bonusScore(0),
+	m_goalTransitionTimer(0)
 {
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/heart.png");
@@ -187,6 +191,9 @@ void SceneMain::Init()
 	// スコアとタイマーの初期化
 	m_score = 0;
 	m_timer = kInitialTimer;
+
+	// 旗の落ちる高さを設定
+	m_pGoal->SetFlagFallHeight(280);
 }
 
 SceneBase* SceneMain::Update()
@@ -194,18 +201,37 @@ SceneBase* SceneMain::Update()
 	ChangeVolumeSoundMem(kVolumeBGM, m_bgmHandle);
 	ChangeVolumeSoundMem(kVolumeSE, m_seHandle);
 
-
 	// ゴールに当たったかどうかをチェック
 	if (m_pGoal->GetHitPlayerFlag(m_pPlayer))
 	{
 		m_isGoalHit = true;
 		m_pPlayer->DisableControl(); // プレイヤーの操作を無効化
+
+		// プレイヤーが地面についていない場合、地面につくようにする
+		if (!m_pPlayer->IsOnGround())
+		{
+			float initialY = 625.0f; // プレイヤーの初期Y座標
+			m_pPlayer->FallToGround(initialY);
+		}	
 	}
 
-	// ゴールに当たっていない場合のみプレイヤーのUpdateを呼び出す
-	if (!m_isGoalHit)
+	// ゴールに当たっている場合、プレイヤーが地面についているか、初期Y座標についたかどうかをチェック
+	if (m_isGoalHit && (m_pPlayer->IsOnGround() || m_pPlayer->GetPos().y == 625.0f))
 	{
-		m_pPlayer->Update();
+		// プレイヤーが地面についている場合、右に移動させる
+		m_pPlayer->SetPosX(m_pPlayer->GetPos().x + 3.5f); // 移動速度を調整
+		m_pPlayer->SetIsWalking(true); // 歩くアニメーションを行う
+		m_pPlayer->UpdateAnimation();  // アニメーションのUpdate関数を呼び出す
+	}
+	else
+	{
+		// ゴールに当たっていない場合のみプレイヤーのUpdateを呼び出す
+		if (!m_isGoalHit)
+		{
+			m_pPlayer->Update();
+		}
+
+		m_pCamera->Update(m_pPlayer.get());
 	}
 
 	if (m_isGameEnd)
@@ -229,11 +255,10 @@ SceneBase* SceneMain::Update()
 	}
 
 	m_pBgStage1->Update(m_pPlayer.get());
-	m_pCamera->Update(m_pPlayer.get());
 	m_pGoal->Update();
 
 	// プレイヤーが死亡状態でない場合のみ敵の更新とタイマーの更新を行う
-	if (m_pPlayer->GetHp() > 0)
+	if (m_pPlayer->GetHp() > 0 && !m_isGoalHit) // ゴールに当たっていない場合のみタイマーを進める
 	{
 		// 敵の更新
 		Vec2 playerPos = m_pPlayer->GetPos();
@@ -363,8 +388,13 @@ SceneBase* SceneMain::Update()
 			m_isAddingScore = true;
 		}
 
-		// スコアとタイマーを渡してシーン遷移
-		return new SceneGameClear(m_score, m_timer);
+		// ゴール後の画面遷移のタイマーを進める
+		m_goalTransitionTimer++;
+		if (m_goalTransitionTimer >= kGoalTransitionWaitTime)
+		{
+			// スコアとタイマーを渡してシーン遷移
+			return new SceneGameClear(m_score, m_timer);
+		}
 	}
 
 	// 何もしなければシーン遷移しない(ステージ1画面のまま)
@@ -375,8 +405,8 @@ SceneBase* SceneMain::Update()
 void SceneMain::Draw()
 {
 	m_pBgStage1->Draw(); 
-	m_pPlayer->Draw();
 	m_pGoal->Draw();
+	m_pPlayer->Draw();
 
 	// 敵の描画
 	for (auto& enemy : m_pEnemy)

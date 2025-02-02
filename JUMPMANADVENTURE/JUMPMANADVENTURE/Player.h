@@ -68,6 +68,21 @@ public:
 	void DisableControl();
 	bool IsControlDisabled() const;
 
+	// プレイヤーの位置を設定
+	void SetPosX(float x);
+
+	// プレイヤーが地面にいるかどうか
+	bool IsOnGround() const;
+
+	// プレイヤーを地面の高さまでゆっくり落とす
+	void FallToGround(float groundHeight);
+
+	// プレイヤーの歩行状態を設定する
+	void SetIsWalking(bool isWalking);
+
+	// プレイヤーのアニメーションを更新する
+	void UpdateAnimation();
+
 private:
 	// ジャンプ処理
 	void UpdateJump();
@@ -79,9 +94,6 @@ private:
 	// 死亡時の初期化処理
 	void InitDead();
 
-	// 移動処理を更新
-	void UpdateMovement(); 
-
 private:
 	Camera* m_pCamera;
 	SceneMain* m_pMain;
@@ -92,8 +104,6 @@ private:
 	Vec2 m_pos;
 	// 移動量
 	Vec2 m_move;
-	// 慣性をシミュレートするための速度
-	Vec2 m_velocity;
 
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;
@@ -141,9 +151,7 @@ private:
 	// 操作無効化
 	bool m_isControlDisabled;
 
-	// 摩擦係数
-	float m_friction; 
-
-
+	// プレイヤーの高さ
+	float m_height;
 };
 

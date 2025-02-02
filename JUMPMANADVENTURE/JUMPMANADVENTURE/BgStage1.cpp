@@ -28,6 +28,9 @@ namespace
 	constexpr int kColChipAdjustmentY = 620; 
 	constexpr int kColChipAdjustmentLeft = 12; 
 
+	// 地面の高さを仮定するための定数
+	constexpr float kGroundHeight = 600.0f;
+
 	// 雲の描画位置とハンドル
 	constexpr struct { int x, y, handle; } kClouds[] = 
 	{
@@ -221,6 +224,12 @@ bool BgStage1::IsCollision(Rect rect, Rect& ChipRect)
 	}
 	// 全てのマップチップをチェックして1つも当たっていなければ当たっていない
 	return false;
+}
+
+float BgStage1::GetGroundHeight(float x) const
+{
+	// 地面の高さを返す処理
+	return kGroundHeight;
 }
 
 

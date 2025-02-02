@@ -25,14 +25,13 @@ public:
 	// プレイヤーとの当たり判定フラグ
 	bool GetHitPlayerFlag(std::shared_ptr<Player> pPlayer);
 
-	// ポールの当たり判定のオフセットとサイズを設定
+	// ポールの当たり判定
 	void SetPoleCollisionOffset(float offsetX, float offsetY);
+	// ポールの当たり判定サイズ
 	void SetPoleCollisionSize(float width, float height);
 
-	// 旗の落下処理を開始
-	void StartFlagFall();
-	// 旗が落ちきったかどうかを取得
-	bool IsFlagFallen() const;
+	/// 旗の落ちる高さを設定
+	void SetFlagFallHeight(int height); 
 
 private:
 	// ゴールの座標
@@ -55,10 +54,17 @@ private:
 	int m_animFrame;
 	int m_index;
 
-	// 旗の落下処理
+	// 旗が落ちるフラグ
 	bool m_isFlagFalling;
-	bool m_isFlagFallen;
-	float m_flagPosY;
-	float m_flagFallSpeed;
+	// 旗の位置
+	int m_flagPosY;
+	// 画面遷移用タイマー
+	int m_transitionTimer;
+
+	int m_score;
+	int m_timer;
+
+	// 旗の落ちる高さ
+	int m_flagFallHeight; 
 };
 

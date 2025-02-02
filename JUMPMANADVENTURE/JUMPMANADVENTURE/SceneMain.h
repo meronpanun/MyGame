@@ -102,5 +102,7 @@ private:
 
 	// ゴールに当たった時間
 	int m_goalHitTime;
+	// ゴール後の画面遷移までの待機時間（フレーム数）
+	int m_goalTransitionTimer;
 };
 
