@@ -15,6 +15,7 @@ public:
 	int GetFont2(){ return m_fontHandle2; }
 
 private:
+	// フォントハンドル
 	int m_fontHandle;
 	int m_fontHandle1;
 	int m_fontHandle2;

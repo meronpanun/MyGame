@@ -30,7 +30,7 @@ public:
 	/// </summary>
 	/// <param name="posTL">左上座標</param>
 	/// <param name="size">サイズ</param>
-	void SetTlSize(Vec2 posTL, Vec2 size);
+	void SetTopLeftSize(Vec2 posTL, Vec2 size);
 };
 
 

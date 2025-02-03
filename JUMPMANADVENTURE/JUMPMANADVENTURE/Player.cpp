@@ -38,13 +38,13 @@ namespace
     constexpr int kFallMaX = 920;
 
     // ステージの右端座標
-    constexpr int kStageRightEnd = 10200;
+    constexpr int kStageRightEnd = 10000;
 
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-   // constexpr float kAccel = 3.0f;
-    constexpr float kAccel = 20.0f;
+    constexpr float kAccel = 3.0f;
+ //   constexpr float kAccel = 20.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -94,7 +94,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(kSpeed, 0.0f),
-    m_pos(150.0f, 610.0f),
+    m_pos(150.0f, 625.0f),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -131,33 +131,6 @@ void Player::Init(Camera* pCamera)
 }
 void Player::Update()
 {
-    if (m_isControlDisabled)
-    {
-        // 操作無効時はアニメーションのみ更新
-        if (m_isWalk)
-        {
-            // アニメーションの更新
-            m_animFrame++;
-            if (m_animFrame >= kAnimFrameCycle)
-            {
-                m_animFrame = 0;
-            }
-        }
-
-        // ジャンプアニメーションの更新
-        if (m_isJump)
-        {
-            m_jumpFrame++;
-            if (m_jumpFrame >= _countof(kJumpFrame) * kJumpAnimFrame)
-            {
-                m_jumpFrame = 0;
-            }
-        }
-
-        // プレイヤーの位置を更新しないようにする
-        return;
-    }
-
     // 生きているときと死んでいるときで処理を切り分ける
     if (m_hp > 0)
     {
@@ -544,11 +517,13 @@ void Player::UpdateDead()
     }
 }
 
+// ゲームオーバーかどうかを判定する
 bool Player::IsGameOver() const
 {
     return m_isGameOver;
 }
 
+// リスポーンを開始する
 void Player::StartRespawn()
 {
     m_respawnTimer = kRespawnDelay;
@@ -623,6 +598,7 @@ void Player::UpdateAnimation()
     if (m_isWalk)
     {
         // アニメーションの更新
+		m_isAnimJump = false;
         m_animFrame++;
         if (m_animFrame >= kAnimFrameCycle)
         {

@@ -54,7 +54,9 @@ Goal::Goal():
 	m_poleCollisionSize(kPoleColSizeX, kPoleColSizeY),
 	m_flagPosY(kFlagPosY),
 	m_isFlagFalling(false),
-	m_flagFallHeight(600)
+	m_flagFallHeight(600),
+	m_collisionTimer(0),
+	m_isPlayerCollided(false)
 {
 }
 
@@ -85,6 +87,12 @@ void Goal::Update()
 			m_flagPosY = kFlagPosY + m_flagFallHeight;
 			m_isFlagFalling = false; // 旗が指定の高さまで落ちたら停止
 		}
+	}
+
+	// プレイヤーが当たった後にタイマーを進める
+	if (m_isPlayerCollided)
+	{
+		m_collisionTimer++;
 	}
 }
 
@@ -119,7 +127,7 @@ bool Goal::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 {
 	// プレイヤーとポールの当たり判定
 	Rect poleRect;
-	poleRect.SetTlSize(Vec2(kPolePosX + m_poleCollisionOffset.x, kPolePosY + m_poleCollisionOffset.y),
+	poleRect.SetTopLeftSize(Vec2(kPolePosX + m_poleCollisionOffset.x, kPolePosY + m_poleCollisionOffset.y),
 		Vec2(m_poleCollisionSize.x, m_poleCollisionSize.y));
 
 	Rect playerRect = pPlayer->GetRect();
@@ -127,23 +135,33 @@ bool Goal::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 	if (poleRect.IsCollision(playerRect))
 	{
 		m_isFlagFalling = true; // 旗が落ちるフラグを設定
+		m_isPlayerCollided = true; // プレイヤーが当たったフラグを設定
 		return true;
 	}
 
 	return false;
 }
 
+// ポールの当たり判定のオフセットを設定
 void Goal::SetPoleCollisionOffset(float offsetX, float offsetY)
 {
 	m_poleCollisionOffset.SetPos(offsetX, offsetY);
 }
 
+// ポールの当たり判定サイズを設定
 void Goal::SetPoleCollisionSize(float width, float height)
 {
 	m_poleCollisionSize.SetPos(width, height);
 }
 
+// 旗が落ちる高さを設定
 void Goal::SetFlagFallHeight(int height)
 {
 	m_flagFallHeight = height;
+}
+
+// 旗が落ちるかどうかを判定
+bool Goal::IsFlagFalling() const
+{
+	return m_isFlagFalling;
 }

@@ -46,7 +46,7 @@ namespace
 	constexpr float kWaveFrequency = 0.1f;  // ウェーブの頻度
 }
 
-SceneGameClear::SceneGameClear(int score, int goalHitTime) :
+SceneGameClear::SceneGameClear(int score, int goalHitTime, int bonusTimer) :
 	m_blinkFrameCount(0),
 	m_fadeFrameCount(0),
 	m_gameClearFrameCount(0),
@@ -55,7 +55,8 @@ SceneGameClear::SceneGameClear(int score, int goalHitTime) :
 	m_gameClearPlayerAngle(0.0f),
 	m_waveFrameCount(0),
 	m_score(score),
-	m_goalHitTime(goalHitTime)
+	m_goalHitTime(goalHitTime),
+	m_bonusTimer(bonusTimer)
 {
 	// グラフィックの読み込み
 	m_gameClearBgHandle = LoadGraph("data/image/Yellow.png");
@@ -200,27 +201,27 @@ void SceneGameClear::InitGameClearPlayers()
 {
 	for (int i = 0; i < kNumGameClearPlayrers; ++i)
 	{
-		GameClearPlayer Player;
-		Player.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // 画面内のランダムな位置
-		Player.pos.y = kGameClearPlayerStartPosY; // 画面外から出現
-		Player.fallSpeed = kGameClearPlayerFallSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameClearPlayerFallSpeedMax - kGameClearPlayerFallSpeedMin))); // 落下速度
-		Player.rotationSpeed = kGameClearPlayerRotationSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameClearPlayerRotationSpeedMax - kGameClearPlayerRotationSpeedMin))); // 回転速度
-		Player.angle = 0.0f; // 初期角度
-		m_gameClearPlayers.push_back(Player);	
+		GameClearPlayer player;
+		player.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // x座標をランダムに設定
+		player.pos.y = kGameClearPlayerStartPosY;  // y座標を初期位置に設定
+		player.fallSpeed = kGameClearPlayerFallSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameClearPlayerFallSpeedMax - kGameClearPlayerFallSpeedMin))); // 落下速度をランダムに設定
+		player.rotationSpeed = kGameClearPlayerRotationSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameClearPlayerRotationSpeedMax - kGameClearPlayerRotationSpeedMin))); // 回転速度をランダムに設定
+		player.angle = 0.0f; // 回転角度を初期化
+		m_gameClearPlayers.push_back(player);	
 	}
 }
 
 // ゲームオーバー用敵の更新
 void SceneGameClear::UpdateGameClearPlayers()
 {
-	for (auto& Player : m_gameClearPlayers)
+	for (auto& player : m_gameClearPlayers)
 	{
-		Player.pos.y += Player.fallSpeed;       // 落下
-		Player.angle += Player.rotationSpeed;   // 回転
-		if (Player.pos.y > Game::kScreenHeight) // 画面外に出たら再配置
+		player.pos.y += player.fallSpeed;       // 落下
+		player.angle += player.rotationSpeed;   // 回転
+		if (player.pos.y > Game::kScreenHeight) // 画面外に出たら再配置
 		{
-			Player.pos.y = kGameClearPlayerStartPosY; // 画面外から出現
-			Player.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // 画面内のランダムな位置
+			player.pos.y = kGameClearPlayerStartPosY; // 画面外から出現
+			player.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // 画面内のランダムな位置
 		} 
 	}
 }

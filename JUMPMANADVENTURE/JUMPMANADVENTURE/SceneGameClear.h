@@ -11,7 +11,7 @@ class FontManager;
 class SceneGameClear : public SceneBase
 {
 public:
-	SceneGameClear(int score, int goalHitTime);
+	SceneGameClear(int score, int goalHitTime, int bonusTimer);
 	~SceneGameClear();
 
 	void Init() override;
@@ -69,5 +69,6 @@ private:
 	// スコアとタイマー
 	int m_score;
 	int m_goalHitTime;
+	int m_bonusTimer;
 };
 

@@ -27,7 +27,7 @@ bool Rect::IsCollision(const Rect& rect)
     return true;
 }
 
-void Rect::SetTlSize(Vec2 posTL, Vec2 size)
+void Rect::SetTopLeftSize(Vec2 posTL, Vec2 size)
 {
     m_top = posTL.y;
     m_bottom = posTL.y + size.y;

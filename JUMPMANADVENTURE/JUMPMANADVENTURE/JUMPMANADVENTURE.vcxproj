@@ -143,10 +143,9 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyBase.cpp" />
-    <ClCompile Include="EnemyRock.cpp" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="ItemBase.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BgStage1.cpp" />
@@ -163,12 +162,11 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyBase.h" />
-    <ClInclude Include="EnemyRock.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="BgStage1.h" />
     <ClInclude Include="Goal.h" />
+    <ClInclude Include="ItemBase.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="Pad.h" />
     <ClInclude Include="Player.h" />

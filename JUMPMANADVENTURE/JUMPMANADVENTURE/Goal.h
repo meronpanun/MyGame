@@ -32,6 +32,11 @@ public:
 
 	/// Šø‚Ì—‚¿‚é‚‚³‚ğİ’è
 	void SetFlagFallHeight(int height); 
+	// Šø‚ªw’è‚Ì‚‚³‚Ü‚Å—‚¿‚½‚©‚Ç‚¤‚©‚ğ”»’è
+	bool IsFlagFalling() const;
+
+	int m_collisionTimer;
+	bool m_isPlayerCollided;
 
 private:
 	// ƒS[ƒ‹‚ÌÀ•W
@@ -66,5 +71,8 @@ private:
 
 	// Šø‚Ì—‚¿‚é‚‚³
 	int m_flagFallHeight; 
+
+
+
 };
 

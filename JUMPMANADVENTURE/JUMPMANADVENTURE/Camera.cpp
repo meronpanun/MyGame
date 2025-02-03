@@ -42,26 +42,27 @@ void Camera::Update(const Player* player)
 	// Draw‘¤‚É‘«‚µ‚Ä‚¢‚écamera.pos.x‚Í”½“]‚³‚¹‚é
 	m_drawOffset.x = m_pos.x * -1;
 
-	// ‚»‚ÌA‰æ–Ê¶‘¤‚ÉƒvƒŒƒCƒ„[‚ª—ˆ‚é‚æ‚¤‚É‚·‚é
-	// (camera.pos‰æ–Ê’†‰›‚É‚È‚é‚æ‚¤‚É‚·‚é)
+	// ‰æ–Ê¶‘¤‚ÉƒvƒŒƒCƒ„[‚ª—ˆ‚é‚æ‚¤‚É‚·‚é
 	m_drawOffset.x = m_drawOffset.x + (Game::kScreenWidth - 1155);
 
 	// ‰æ–Ê—h‚ê‚Ìˆ—
 	if (m_shakeDuration > 0) 
 	{
-		m_shakeDuration--;
-		float shakeOffsetX = (rand() % 100 - 50) / 50.0f * m_shakeIntensity;
-		float shakeOffsetY = (rand() % 100 - 50) / 50.0f * m_shakeIntensity;
-		m_drawOffset.x += shakeOffsetX;
-		m_drawOffset.y += shakeOffsetY;
+		m_shakeDuration--; // —h‚ê‚ÌŠÔ‚ğŒ¸‚ç‚·
+		float shakeOffsetX = (rand() % 100 - 50) / 50.0f * m_shakeIntensity; // X²‚Ì—h‚ê‚ğŒvZ
+		float shakeOffsetY = (rand() % 100 - 50) / 50.0f * m_shakeIntensity; // Y²‚Ì—h‚ê‚ğŒvZ
+		m_drawOffset.x += shakeOffsetX; // X²‚É—h‚ê‚ğ“K—p
+		m_drawOffset.y += shakeOffsetY; // Y²‚É—h‚ê‚ğ“K—p
 	}
 }
 
+// ƒJƒƒ‰‚Ì¶’[ˆÊ’u‚ğæ“¾
 float Camera::GetLeft() const
 {
 	return m_pos.x - 100;
 }
 
+// üŒ`•âŠÔ
 Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
 {
 	Vec2 ret;
@@ -70,10 +71,10 @@ Vec2 Camera::Lerp(Vec2 start, Vec2 end, float t)
 	return ret;
 }
 
-
+// ‰æ–Ê‚ğ—h‚ç‚·
 void Camera::Shake(float intensity, int duration)
 {
-	m_shakeIntensity = intensity;
-	m_shakeDuration = duration;
+	m_shakeIntensity = intensity; // —h‚ê‚Ì‹­“x‚ğİ’è
+	m_shakeDuration = duration;   // —h‚ê‚ÌŠÔ‚ğİ’è
 }
 

@@ -76,7 +76,7 @@ namespace
 	constexpr int kNumGameOverEnemies = 10; // ゲームオーバー用敵の数
 
 	// ゴール後の画面遷移までの待機時間（フレーム数）
-	constexpr int kGoalTransitionWaitTime = 380;
+	constexpr int kGoalTransitionWaitTime = 400;
 }
 
 SceneMain::SceneMain():
@@ -92,7 +92,8 @@ SceneMain::SceneMain():
 	m_gameOverFrameCount(0),
 	m_isAddingScore(false),
 	m_bonusScore(0),
-	m_goalTransitionTimer(0)
+	m_goalTransitionTimer(0),
+	m_goalHitTimer(0)
 {
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/heart.png");
@@ -191,6 +192,7 @@ void SceneMain::Init()
 	// スコアとタイマーの初期化
 	m_score = 0;
 	m_timer = kInitialTimer;
+	m_bonusTimer = 0; 
 
 	// 旗の落ちる高さを設定
 	m_pGoal->SetFlagFallHeight(280);
@@ -204,7 +206,7 @@ SceneBase* SceneMain::Update()
 	// ゴールに当たったかどうかをチェック
 	if (m_pGoal->GetHitPlayerFlag(m_pPlayer))
 	{
-		m_isGoalHit = true;
+		m_isGoalHit = true; 
 		m_pPlayer->DisableControl(); // プレイヤーの操作を無効化
 
 		// プレイヤーが地面についていない場合、地面につくようにする
@@ -212,25 +214,24 @@ SceneBase* SceneMain::Update()
 		{
 			float initialY = 625.0f; // プレイヤーの初期Y座標
 			m_pPlayer->FallToGround(initialY);
-		}	
+		}
 	}
 
-	// ゴールに当たっている場合、プレイヤーが地面についているか、初期Y座標についたかどうかをチェック
-	if (m_isGoalHit && (m_pPlayer->IsOnGround() || m_pPlayer->GetPos().y == 625.0f))
+    // ゴールに当たっている場合
+	if (m_isGoalHit)
 	{
-		// プレイヤーが地面についている場合、右に移動させる
-		m_pPlayer->SetPosX(m_pPlayer->GetPos().x + 3.5f); // 移動速度を調整
-		m_pPlayer->SetIsWalking(true); // 歩くアニメーションを行う
-		m_pPlayer->UpdateAnimation();  // アニメーションのUpdate関数を呼び出す
+		if (m_pGoal->m_collisionTimer >= 160)
+		{
+			// プレイヤーが地面についている場合、右に移動させる
+			m_pPlayer->SetPosX(m_pPlayer->GetPos().x + 3.5f); // 移動速度を調整
+			m_pPlayer->SetIsWalking(true); // 歩くアニメーションを行う
+			m_pPlayer->UpdateAnimation();  // アニメーションのUpdate関数を呼び出す
+		}
 	}
 	else
 	{
 		// ゴールに当たっていない場合のみプレイヤーのUpdateを呼び出す
-		if (!m_isGoalHit)
-		{
-			m_pPlayer->Update();
-		}
-
+		m_pPlayer->Update();
 		m_pCamera->Update(m_pPlayer.get());
 	}
 
@@ -287,6 +288,7 @@ SceneBase* SceneMain::Update()
 			{
 				m_timer--;
 			}
+			m_bonusTimer++; // スコアに加算する用のタイマーを増加
 		}
 
 		// 体力の更新
@@ -382,18 +384,14 @@ SceneBase* SceneMain::Update()
 	// ゴールオブジェクトに当たったら
 	if (m_isGoalHit)
 	{
-		if (!m_isAddingScore)
-		{
-			m_score += m_timer * 10; // タイマーの値をそのままスコアに加算
-			m_isAddingScore = true;
-		}
-
 		// ゴール後の画面遷移のタイマーを進める
 		m_goalTransitionTimer++;
 		if (m_goalTransitionTimer >= kGoalTransitionWaitTime)
 		{
 			// スコアとタイマーを渡してシーン遷移
-			return new SceneGameClear(m_score, m_timer);
+			m_score += m_bonusTimer * 10; // ボーナスタイマーのポイントをスコアに加算
+			m_timer -= m_bonusTimer; // タイマーからボーナスタイマー分を減算
+			return new SceneGameClear(m_score, m_timer, m_bonusTimer);
 		}
 	}
 
@@ -428,8 +426,13 @@ void SceneMain::Draw()
 	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d", m_score);
 
 	// タイマーの表示
+	int displayedTimer = m_timer; // 表示するタイマー
+	if (m_isGoalHit) 
+	{
+		displayedTimer -= m_bonusTimer; // ゴール時にボーナスタイマーを減算
+	}
 	DrawFormatStringToHandle(kTimerPosX2, kScoreAndTimerPosY2, 0xffffff, m_pFont->GetFont(), "Time");
-	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d" , m_timer);
+	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d" , displayedTimer);
 
 	// ゲームオーバーの演出の表示
 	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0) // プレイヤーのHPが0または制限時間が0になった場合
@@ -471,7 +474,8 @@ void SceneMain::Draw()
 			int gameOverY = static_cast<int>(startY + (targetY - startY) * progressRate); // 途中の位置を計算
 
 			// 文字が画面中央に来るように調整
-			if (gameOverY > targetY) {
+			if (gameOverY > targetY) 
+			{
 				gameOverY = targetY;
 			}
 
@@ -524,7 +528,7 @@ void SceneMain::InitGameOverEnemies()
 		GameOverEnemy enemy; 
 		enemy.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // x座標をランダムに設定
 		enemy.pos.y = kGameOverEnemyStartPosY; // y座標を初期位置に設定
-		enemy.fallSpeed = kGameOverEnemyFallSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameOverEnemyFallSpeedMax - kGameOverEnemyFallSpeedMin)));                 // 落下速度をランダムに設定
+		enemy.fallSpeed = kGameOverEnemyFallSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameOverEnemyFallSpeedMax - kGameOverEnemyFallSpeedMin))); // 落下速度をランダムに設定
 		enemy.rotationSpeed = kGameOverEnemyRotationSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameOverEnemyRotationSpeedMax - kGameOverEnemyRotationSpeedMin))); // 回転速度をランダムに設定
 		enemy.angle = 0.0f; // 回転角度を初期化
 		m_gameOverEnemies.push_back(enemy); 

@@ -29,7 +29,9 @@ public:
 	std::shared_ptr<Player> m_pPlayer;
 
 private:
+	// ‰æ–Ê—h‚ê‚Ì‹­“x
 	float m_shakeIntensity;
+	// ‰æ–Ê—h‚ê‚ÌŽžŠÔ
 	int m_shakeDuration;
 };
 

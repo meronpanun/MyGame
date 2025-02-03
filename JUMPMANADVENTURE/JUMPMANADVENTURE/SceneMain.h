@@ -77,9 +77,11 @@ private:
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;
 
-	// スコアとタイマーを管理するメンバ変数を追加
+	// スコアとタイマーを管理
 	int m_score;
 	int m_timer;
+	// スコアに加算する用のタイマー
+	int m_bonusTimer; 
 
 	// スコアとタイマーのフォントサイズを管理するメンバ変数
 	int m_scoreAndTimerFontSize;
@@ -87,7 +89,7 @@ private:
 	// ゲームオーバーになった後、1ボタンを押した
 	bool m_isGameEnd;
 	// ゴールに当たったかどうかフラグ
-	bool m_isGoalHit;
+	bool m_isGoalHit; 
 
 	// 背景のスクロール位置
 	int m_bgScrollY;
@@ -104,5 +106,8 @@ private:
 	int m_goalHitTime;
 	// ゴール後の画面遷移までの待機時間（フレーム数）
 	int m_goalTransitionTimer;
+
+	// ゴールに当たった後の演出用タイマー
+	int m_goalHitTimer;
 };
 

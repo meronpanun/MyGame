@@ -36,5 +36,6 @@ private:
 	// スコアタイマー
 	int m_score;
 	int m_timer;
+	int m_bonusTimer;
 };
 

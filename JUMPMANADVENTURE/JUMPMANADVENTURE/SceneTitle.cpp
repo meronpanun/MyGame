@@ -35,19 +35,19 @@ SceneTitle::SceneTitle() :
 	m_videoFadeInFrameCount(0)
 {
 	// グラフィックの読み込み
-	m_titleHandle = LoadGraph("data/image/Title.png");
+	m_titleHandle = LoadGraph("data/image/titleLogo.png");
 	assert(m_titleHandle != -1);
 
 	// 動画の読み込み
-	m_videoHandle = LoadGraph("data/TitleBackground.mp4");
+	m_videoHandle = LoadGraph("data/titleVideo.mp4");
 	assert(m_videoHandle != -1);
 
 	//BGMの読み込み
-	m_bgmHandle = LoadSoundMem("data/sound/BGM/TitleBGM.mp3");
+	m_bgmHandle = LoadSoundMem("data/sound/BGM/title.mp3");
 	assert(m_bgmHandle != -1);
 
 	// SEの読み込み
-	m_seHandle = LoadSoundMem("data/sound/SE/決定ボタンを押す49.mp3");
+	m_seHandle = LoadSoundMem("data/sound/SE/pressAButton.mp3");
 	assert(m_seHandle != -1);
 }
 
