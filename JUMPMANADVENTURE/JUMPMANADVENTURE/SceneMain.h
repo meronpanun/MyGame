@@ -67,10 +67,14 @@ private:
 	int m_poleHandle;
 	int m_bgHandle;
 	int m_enemyHandle;
-	// ゲームシーン用BGMハンドル
+	// BGM
 	int m_bgmHandle;
-	// ゲームシーン用SEハンドル
+	int m_noTimeBGMHandle;
+	// SE
 	int m_seHandle;
+	int m_enemyDeadSEHandle;
+	int m_gameOverBGMHandle;
+	int m_pressAButtonSEHandle;
 
 	// ゲームオーバー演出に使用するフレーム
 	int m_gameOverFrameCount;
@@ -109,5 +113,18 @@ private:
 
 	// ゴールに当たった後の演出用タイマー
 	int m_goalHitTimer;
+
+	// BGMの音量
+	int m_bgmVolume; 
+	// BGMがフェードアウト中かどうかを示すフラグ
+	bool m_isBgmFadingOut;
+	// BGMのフェードアウトのフレームカウント
+	int m_bgmFadeOutFrameCount; 
+	// ノータイムBGMが再生中かどうかを示すフラグ
+	bool m_isHurryUpBGMPlaying;
+	//  ノータイムBGMのフェードアウト中かどうかを示すフラグ
+	bool m_isNoTimeBgmFadingOut; 
+	// ノータイムBGMのフェードアウトのフレームカウント
+	int m_noTimeBgmFadeOutFrameCount;
 };
 

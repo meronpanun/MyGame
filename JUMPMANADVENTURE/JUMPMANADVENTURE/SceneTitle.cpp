@@ -39,7 +39,7 @@ SceneTitle::SceneTitle() :
 	assert(m_titleHandle != -1);
 
 	// “®‰æ‚Ì“Ç‚İ‚İ
-	m_videoHandle = LoadGraph("data/titleVideo.mp4");
+	m_videoHandle = LoadGraph("data/bgMove.mp4");
 	assert(m_videoHandle != -1);
 
 	//BGM‚Ì“Ç‚İ‚İ

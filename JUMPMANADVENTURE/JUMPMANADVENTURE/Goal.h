@@ -71,8 +71,5 @@ private:
 
 	// Šø‚Ì—‚¿‚é‚‚³
 	int m_flagFallHeight; 
-
-
-
 };
 

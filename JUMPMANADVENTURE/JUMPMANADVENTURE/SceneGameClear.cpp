@@ -44,6 +44,10 @@ namespace
 	// ウェーブアニメーションのパラメータ
 	constexpr float kWaveAmplitude = 20.0f; // 振幅
 	constexpr float kWaveFrequency = 0.1f;  // ウェーブの頻度
+
+	// 音量
+	constexpr int kVolumeBGM = 128;
+	constexpr int kVolumeSE = 128;
 }
 
 SceneGameClear::SceneGameClear(int score, int goalHitTime, int bonusTimer) :
@@ -64,6 +68,14 @@ SceneGameClear::SceneGameClear(int score, int goalHitTime, int bonusTimer) :
 	m_gameClearPlayerHandle = LoadGraph("data/image/Player.png");
 	assert(m_gameClearPlayerHandle != -1);
 
+	//BGMの読み込み
+	m_bgmHandle = LoadSoundMem("data/sound/BGM/clear.mp3");
+	assert(m_bgmHandle != -1);
+
+	// SEの読み込み
+	m_seHandle = LoadSoundMem("data/sound/SE/pressAButton.mp3");
+	assert(m_seHandle != -1);
+
 	// ゲームクリア用プレイヤーの初期化
 	InitGameClearPlayers();
 }
@@ -73,15 +85,25 @@ SceneGameClear::~SceneGameClear()
 	// グラフィックの開放
 	DeleteGraph(m_gameClearBgHandle);
 	DeleteGraph(m_gameClearPlayerHandle);
+	//BGMを解放
+	DeleteSoundMem(m_bgmHandle);
+	// SEを解放
+	DeleteSoundMem(m_seHandle);
 }
 
 void SceneGameClear::Init()
 {
 	m_pFont = std::make_shared<FontManager>();
+	// BGMの再生開始（ループ再生）
+	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 }
 
 SceneBase* SceneGameClear::Update()
 {
+	//サウンドの大きさ設定
+	ChangeVolumeSoundMem(kVolumeBGM, m_bgmHandle);
+	ChangeVolumeSoundMem(kVolumeSE, m_seHandle);
+
 	// フェードイン処理
 	m_fadeFrameCount++;
 	if (m_fadeFrameCount > 30)
@@ -119,6 +141,10 @@ SceneBase* SceneGameClear::Update()
 	// ZorAキーを押したらタイトル画面に移行
 	if (Pad::IsTrigger(PAD_INPUT_1))
 	{
+		// SEを再生
+		PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+		// BGMを停止
+		StopSoundMem(m_bgmHandle);
 		return new SceneTitle();
 	}
 	// 何もしなければシーン遷移しない(クリア画面のまま)

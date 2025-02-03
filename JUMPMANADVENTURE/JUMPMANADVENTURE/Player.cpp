@@ -85,6 +85,9 @@ namespace
 
     // リスポーン遅延時間（フレーム数）
     constexpr int kRespawnDelay = 120; // 2秒（60FPSの場合）
+
+    // 音量
+    constexpr int kVolumeSE = 128;
 }
 
 Player::Player() :
@@ -115,6 +118,16 @@ Player::Player() :
     assert(m_walkHandle != -1);
     m_jumpHandle = LoadGraph("data/image/Jump.png");
     assert(m_jumpHandle != -1); 
+
+    // SEの読み込み
+    m_seHandle = LoadSoundMem("data/sound/SE/dropDown.mp3");
+    assert(m_seHandle != -1);
+    m_jumpSEHandle = LoadSoundMem("data/sound/SE/jump.mp3");
+    assert(m_jumpSEHandle != -1);  
+    m_damageSEHandle = LoadSoundMem("data/sound/SE/playerDamage.wav");
+    assert(m_damageSEHandle != -1);  
+    m_playerDeadSEHandle = LoadSoundMem("data/sound/SE/playerDead.mp3");
+    assert(m_playerDeadSEHandle != -1);
 }
 
 Player::~Player()
@@ -122,6 +135,11 @@ Player::~Player()
     // グラフィックの開放
     DeleteGraph(m_walkHandle);
     DeleteGraph(m_jumpHandle);
+    // SEを解放
+    DeleteSoundMem(m_seHandle);
+    DeleteSoundMem(m_jumpSEHandle);
+    DeleteSoundMem(m_damageSEHandle);
+    DeleteSoundMem(m_playerDeadSEHandle);
 }
 
 void Player::Init(Camera* pCamera)
@@ -131,6 +149,9 @@ void Player::Init(Camera* pCamera)
 }
 void Player::Update()
 {
+    //サウンドの大きさ設定
+    ChangeVolumeSoundMem(kVolumeSE, m_seHandle);
+
     // 生きているときと死んでいるときで処理を切り分ける
     if (m_hp > 0)
     {
@@ -342,6 +363,9 @@ void Player::OnDamage()
     // ダメージを受ける
     m_hp--;
 
+    // ダメージSEの再生
+    PlaySoundMem(m_damageSEHandle, DX_PLAYTYPE_BACK);
+
     // 画面揺れ
     if (m_pCamera)
     {
@@ -361,12 +385,22 @@ void Player::UpdateNormal()
     // プレイヤーが穴に落下した場合
     if ((m_pos.y - kGraphHeight) > kFallMaX)
     {
+		PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
         // 画面揺れ
         if (m_pCamera)
         {
             // 強度10.0、30フレームの揺れ
             m_pCamera->Shake(10.0f, 30);
         }
+        
+        // 無敵時間
+        if (m_blinkFrameCount > 0)
+        {
+            return;
+        }
+        // 無敵時間(点滅する時間)を設定する
+        m_blinkFrameCount = kInvincible;
+
         StartRespawn();
     }
 
@@ -481,6 +515,8 @@ void Player::UpdateNormal()
             {
                 m_move.y = kJumpAcc;
                 m_isAnimJump = true;
+                // ジャンプSEの再生
+                PlaySoundMem(m_jumpSEHandle, DX_PLAYTYPE_BACK);
             }
             else
             {
@@ -514,6 +550,10 @@ void Player::UpdateDead()
     if (m_pos.y > Game::kScreenHeight + kGraphHeight * kScale)
     {
         m_isGameOver = true; // ゲームオーバー演出を開始するフラグを設定
+    }
+    else if (m_deadFrameCount == kDeadStopFrame) // 落ち始めたタイミングでSEを再生
+    {
+        PlaySoundMem(m_playerDeadSEHandle, DX_PLAYTYPE_BACK);
     }
 }
 

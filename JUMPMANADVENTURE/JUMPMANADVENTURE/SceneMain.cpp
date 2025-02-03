@@ -29,7 +29,6 @@ namespace
 	constexpr int kPressAButtonPosX = 430;
 	constexpr int kPressAButtonPosY = 550;
 
-
 	// 文字の点滅
 	constexpr int kBlinkCycleFrame = 60;
 	constexpr int kBlinkDispFrame = 40;
@@ -58,7 +57,7 @@ namespace
 
 	// 音量
 	constexpr int kVolumeBGM = 128;
-	constexpr int kVolumeSE = 128;
+	constexpr int kVolumeSE = 100;
 
 	// 拡大率
 	constexpr float kScale = 2.0f;
@@ -93,7 +92,13 @@ SceneMain::SceneMain():
 	m_isAddingScore(false),
 	m_bonusScore(0),
 	m_goalTransitionTimer(0),
-	m_goalHitTimer(0)
+	m_goalHitTimer(0),
+	m_bgmVolume(kVolumeBGM), 
+	m_isBgmFadingOut(false), 
+	m_bgmFadeOutFrameCount(0),
+	m_isHurryUpBGMPlaying(false),
+	m_isNoTimeBgmFadingOut(false),
+	m_noTimeBgmFadeOutFrameCount(0)
 {
 	// グラフィックの読み込み
 	m_lifeHandle = LoadGraph("data/image/heart.png");
@@ -108,12 +113,20 @@ SceneMain::SceneMain():
 	assert(m_enemyHandle != -1);
 
 	//BGMの読み込み
-//	m_bgmHandle = LoadSoundMem("data/MusMus-BGM-125.mp3");
-//	assert(m_bgmHandle != -1);
+	m_bgmHandle = LoadSoundMem("data/sound/BGM/stage.mp3");
+	assert(m_bgmHandle != -1);
+	m_gameOverBGMHandle = LoadSoundMem("data/sound/BGM/gameOver.mp3");
+	assert(m_gameOverBGMHandle != -1);
+	m_noTimeBGMHandle = LoadSoundMem("data/sound/BGM/noTime.mp3");
+	assert(m_noTimeBGMHandle != -1);
 
 	// SEの読み込み
-//	m_seHandle = LoadSoundMem("data/決定ボタンを押す49.mp3");
-//	assert(m_seHandle != -1);
+	m_seHandle = LoadSoundMem("data/sound/SE/goalHit.mp3");
+	assert(m_seHandle != -1);
+	m_enemyDeadSEHandle = LoadSoundMem("data/sound/SE/enemyDead.mp3");
+	assert(m_enemyDeadSEHandle != -1);	
+	m_pressAButtonSEHandle = LoadSoundMem("data/sound/SE/pressAButton.mp3");
+	assert(m_pressAButtonSEHandle != -1);
 
 
 	m_pGoal = std::make_shared<Goal>();
@@ -152,8 +165,12 @@ SceneMain::~SceneMain()
 	DeleteGraph(m_enemyHandle);
 	//BGMを解放
 	DeleteSoundMem(m_bgmHandle);
+	DeleteSoundMem(m_gameOverBGMHandle);
+	DeleteSoundMem(m_noTimeBGMHandle);
 	// SEを解放
 	DeleteGraph(m_seHandle);
+	DeleteGraph(m_enemyDeadSEHandle);
+	DeleteGraph(m_pressAButtonSEHandle);
 }
 
 void SceneMain::Init()
@@ -200,8 +217,11 @@ void SceneMain::Init()
 
 SceneBase* SceneMain::Update()
 {
+	// サウンドの大きさ設定
 	ChangeVolumeSoundMem(kVolumeBGM, m_bgmHandle);
+	ChangeVolumeSoundMem(kVolumeBGM, m_noTimeBGMHandle);
 	ChangeVolumeSoundMem(kVolumeSE, m_seHandle);
+	ChangeVolumeSoundMem(kVolumeSE, m_pressAButtonSEHandle);
 
 	// ゴールに当たったかどうかをチェック
 	if (m_pGoal->GetHitPlayerFlag(m_pPlayer))
@@ -209,11 +229,61 @@ SceneBase* SceneMain::Update()
 		m_isGoalHit = true; 
 		m_pPlayer->DisableControl(); // プレイヤーの操作を無効化
 
+		// ゴールに当たったらゴールSEを再生
+		PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+
+		// BGMのフェードアウトを開始
+		m_isBgmFadingOut = true;
+		m_isNoTimeBgmFadingOut = true;
+		// フェードアウトにかけるフレーム数を設定
+		m_bgmFadeOutFrameCount = 50; 
+		m_noTimeBgmFadeOutFrameCount = 50;
+
 		// プレイヤーが地面についていない場合、地面につくようにする
 		if (!m_pPlayer->IsOnGround())
 		{
 			float initialY = 625.0f; // プレイヤーの初期Y座標
 			m_pPlayer->FallToGround(initialY);
+		}
+	}
+
+	// BGMのフェードアウト処理
+	if (m_isBgmFadingOut)
+	{
+		m_bgmFadeOutFrameCount--;
+		if (m_bgmFadeOutFrameCount > 0)
+		{
+			m_bgmVolume = static_cast<int>(kVolumeBGM * (static_cast<float>(m_bgmFadeOutFrameCount) / 60.0f));
+			ChangeVolumeSoundMem(m_bgmVolume, m_bgmHandle);
+		}
+		else
+		{
+			StopSoundMem(m_bgmHandle);
+			m_isBgmFadingOut = false;
+		}
+	}
+
+	// タイマーの残り時間が120カウント以下になったらBGMを切り替える
+	if (m_timer <= 120 && !m_isHurryUpBGMPlaying)
+	{
+		StopSoundMem(m_bgmHandle);
+		PlaySoundMem(m_noTimeBGMHandle, DX_PLAYTYPE_LOOP);
+		m_isHurryUpBGMPlaying = true;
+	}
+
+	// ノータイムBGMのフェードアウト処理
+	if (m_isNoTimeBgmFadingOut)
+	{
+		m_noTimeBgmFadeOutFrameCount--;
+		if (m_noTimeBgmFadeOutFrameCount > 0)
+		{
+			m_bgmVolume = static_cast<int>(kVolumeBGM * (static_cast<float>(m_noTimeBgmFadeOutFrameCount) / 60.0f));
+			ChangeVolumeSoundMem(m_bgmVolume, m_noTimeBGMHandle);
+		}
+		else
+		{
+			StopSoundMem(m_noTimeBGMHandle);
+			m_isNoTimeBgmFadingOut = false;
 		}
 	}
 
@@ -241,6 +311,10 @@ SceneBase* SceneMain::Update()
 		m_fadeFrameCount--;
 		if (m_fadeFrameCount < 0)
 		{
+			// SEを再生
+			PlaySoundMem(m_pressAButtonSEHandle, DX_PLAYTYPE_BACK);
+			// BGMを停止
+			StopSoundMem(m_gameOverBGMHandle);
 			m_fadeFrameCount = 0;
 			return new SceneTitle();
 		}
@@ -330,7 +404,7 @@ SceneBase* SceneMain::Update()
 						m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
 						m_score += 100;            // 敵を倒すとスコアを100ポイント増加
 						// SEを再生
-					//	PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
+						PlaySoundMem(m_enemyDeadSEHandle, DX_PLAYTYPE_BACK);
 					}
 					else
 					{
@@ -356,12 +430,17 @@ SceneBase* SceneMain::Update()
 		if (m_pPlayer->IsGameOver() || m_timer <= 0)
 		{
 			// BGMを停止
-		//	StopSoundMem(m_bgmHandle);
+			StopSoundMem(m_bgmHandle);
+			StopSoundMem(m_noTimeBGMHandle);
+			// ゲームオーバーBGMを再生
+			if (!CheckSoundMem(m_gameOverBGMHandle))
+			{
+				PlaySoundMem(m_gameOverBGMHandle, DX_PLAYTYPE_LOOP);
+			}
 			m_gameOverFrameCount++;
 			if (m_gameOverFrameCount > kGameoverFadeFrame)
 			{
 				m_gameOverFrameCount = kGameoverFadeFrame;
-
 				// ゲームオーバーの文字が表示されきった後、
 				// 1ボタンを押したらタイトルに戻る
 				if (Pad::IsTrigger(PAD_INPUT_1))
@@ -370,7 +449,7 @@ SceneBase* SceneMain::Update()
 				}
 			}
 			// 背景のスクロール位置を更新
-			m_bgScrollY += 1; // スクロール速度を調整
+			m_bgScrollY -= 1; // スクロール速度を調整
 			if (m_bgScrollY > Game::kScreenHeight)
 			{
 				m_bgScrollY = 0;
@@ -384,6 +463,9 @@ SceneBase* SceneMain::Update()
 	// ゴールオブジェクトに当たったら
 	if (m_isGoalHit)
 	{
+		// タイマーのカウントダウンを停止
+		m_bonusTimer = 0;
+
 		// ゴール後の画面遷移のタイマーを進める
 		m_goalTransitionTimer++;
 		if (m_goalTransitionTimer >= kGoalTransitionWaitTime)

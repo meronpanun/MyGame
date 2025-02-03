@@ -43,6 +43,10 @@ private:
 	// クリアシーンのグラフィックハンドル
 	int m_gameClearBgHandle;
 	int m_gameClearPlayerHandle;
+	// BGM
+	int m_bgmHandle;
+	// SE
+	int m_seHandle;
 
 	// 点滅させるためのフレームカウント
 	int m_blinkFrameCount;

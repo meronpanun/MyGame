@@ -108,6 +108,11 @@ private:
 	// キャラクターのグラフィックハンドル
 	int m_walkHandle;
 	int m_jumpHandle;
+	// SE
+	int m_seHandle;
+	int m_jumpSEHandle;
+	int m_damageSEHandle;
+	int m_playerDeadSEHandle;
 
 	// アニメーションのフレーム
 	int m_animFrame;
