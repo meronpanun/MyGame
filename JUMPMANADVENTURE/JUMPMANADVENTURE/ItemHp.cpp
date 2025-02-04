@@ -68,7 +68,7 @@ void ItemHp::Draw()
 
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
-	DrawCircle(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y), kRadius, GetColor(255, 0, 0), false);
+	DrawCircle(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y), kRadius, 0xff0000, false);
 #endif // _DEBUG
 }
 

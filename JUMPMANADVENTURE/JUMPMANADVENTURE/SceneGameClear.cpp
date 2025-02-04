@@ -185,7 +185,7 @@ void SceneGameClear::Draw()
 	{
 		DrawStringToHandle(120, 300, "A", 0x808080, m_pFont->GetFont1());
 	}
-	else if (m_score >= 4500)
+	else if (m_score >= 5000)
 	{
 		DrawStringToHandle(120, 300, "B", 0xB87333, m_pFont->GetFont1());
 	}

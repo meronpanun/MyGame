@@ -126,7 +126,7 @@ SceneMain::SceneMain():
 	assert(m_noTimeBGMHandle != -1);
 
 	// SEの読み込み
-	m_seHandle = LoadSoundMem("data/sound/SE/goalHit.mp3");
+	m_seHandle = LoadSoundMem("data/sound/SE/score.mp3");
 	assert(m_seHandle != -1);
 	m_enemyDeadSEHandle = LoadSoundMem("data/sound/SE/enemyDead.mp3");
 	assert(m_enemyDeadSEHandle != -1);	
@@ -254,9 +254,6 @@ SceneBase* SceneMain::Update()
 		m_isGoalTimerDecrementing = true; // ゴール時のタイマー減算中フラグを設定
 		m_pPlayer->DisableControl(); // プレイヤーの操作を無効化
 
-		// ゴールに当たったらゴールSEを再生
-		PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
-
 		// BGMのフェードアウトを開始
 		m_isBgmFadingOut = true;
 		m_isNoTimeBgmFadingOut = true;
@@ -294,7 +291,7 @@ SceneBase* SceneMain::Update()
 	}
 
 	// タイマーの残り時間が120カウント以下になったらBGMを切り替える
-	if (m_timer <= 120 && !m_isHurryUpBGMPlaying)
+	if (m_timer <= 120 && !m_isHurryUpBGMPlaying && !m_isGoalHit)
 	{
 		StopSoundMem(m_bgmHandle);
 		PlaySoundMem(m_noTimeBGMHandle, DX_PLAYTYPE_LOOP);
@@ -342,6 +339,7 @@ SceneBase* SceneMain::Update()
 			{
 				m_timer -= m_timerDecrementSpeed;
 				m_score += static_cast<int>(10 * m_timerDecrementSpeed); // タイマー1カウントごとにスコアを10ポイント加算
+				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
 				if (m_timer < 0)
 				{
 					m_timer = 0;

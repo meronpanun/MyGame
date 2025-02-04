@@ -119,6 +119,7 @@ private:
 	int m_jumpSEHandle;
 	int m_damageSEHandle;
 	int m_playerDeadSEHandle;
+	int m_itemHpSEHandle;
 
 	// アニメーションのフレーム
 	int m_animFrame;

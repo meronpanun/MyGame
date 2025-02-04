@@ -129,6 +129,8 @@ Player::Player() :
     assert(m_damageSEHandle != -1);  
     m_playerDeadSEHandle = LoadSoundMem("data/sound/SE/playerDead.mp3");
     assert(m_playerDeadSEHandle != -1);
+    m_itemHpSEHandle = LoadSoundMem("data/sound/SE/ItemHp.mp3");
+    assert(m_itemHpSEHandle != -1);
 }
 
 Player::~Player()
@@ -141,6 +143,7 @@ Player::~Player()
     DeleteSoundMem(m_jumpSEHandle);
     DeleteSoundMem(m_damageSEHandle);
     DeleteSoundMem(m_playerDeadSEHandle);
+    DeleteSoundMem(m_itemHpSEHandle);
 }
 
 void Player::Init(Camera* pCamera)
@@ -151,7 +154,7 @@ void Player::Init(Camera* pCamera)
 void Player::Update()
 {
     //サウンドの大きさ設定
-    ChangeVolumeSoundMem(kVolumeSE, m_seHandle);
+    ChangeVolumeSoundMem(kVolumeSE, m_itemHpSEHandle);
 
     // 生きているときと死んでいるときで処理を切り分ける
     if (m_hp > 0)
@@ -340,7 +343,6 @@ void Player::Draw()
 
     }
  
-
 #ifdef DISP_COLLISON
     // 当たり判定のデバッグ表示
     DrawBox(GetLeft() + m_pCamera->m_drawOffset.x, 
@@ -661,6 +663,9 @@ void Player::RecoverHp()
     {
         m_hp += 1;
     }
+
+    // アイテム取得SEの再生
+    PlaySoundMem(m_itemHpSEHandle, DX_PLAYTYPE_BACK);
 }
 
 //  プレイヤーが死亡状態になったときの初期化

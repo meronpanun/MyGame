@@ -140,7 +140,6 @@ void Enemy::Draw()
 		animFrame * kGraphWidth, 0, kGraphWidth, kGraphHeight,
 		kScale, 0.0f, m_handle, true, m_isFacingRight);
 
-
 #ifdef _DEBUG
 	// 当たり判定のデバッグ表示
 	DrawBox(GetLeft() + m_pCamera->m_drawOffset.x,
