@@ -11,13 +11,14 @@ class FontManager;
 class SceneGameClear : public SceneBase
 {
 public:
-	SceneGameClear(int score, int goalHitTime, int bonusTimer);
+	SceneGameClear(int score, int goalHitTime, bool isNoDamage);
 	~SceneGameClear();
 
 	void Init() override;
 	SceneBase* Update() override;
 	void Draw() override;
 
+	// シーン選択フラグの取得
 	bool IsSceneTitle() const { return m_isSceneTitle; }
 
 private:
@@ -74,5 +75,8 @@ private:
 	int m_score;
 	int m_goalHitTime;
 	int m_bonusTimer;
+
+	// プレイヤーがダメージを一回も食らわなかったかどうかのフラグ
+	bool m_isNoDamage;
 };
 

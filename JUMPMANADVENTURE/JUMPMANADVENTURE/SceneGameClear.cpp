@@ -48,9 +48,19 @@ namespace
 	// 音量
 	constexpr int kVolumeBGM = 128;
 	constexpr int kVolumeSE = 128;
+
+	// スコアの表示位置
+	constexpr int kScoreTextPosX = 480;
+	constexpr int kScoreNumberPosX = 710;
+	constexpr int kScorePosY = 300;
+
+	// タイムの表示位置
+	constexpr int kTimeTextPosX = 470;
+	constexpr int kTimeNumberPosX = 750;
+	constexpr int kTimePosY = 400;
 }
 
-SceneGameClear::SceneGameClear(int score, int goalHitTime, int bonusTimer) :
+SceneGameClear::SceneGameClear(int score, int goalHitTime, bool isNoDamage) :
 	m_blinkFrameCount(0),
 	m_fadeFrameCount(0),
 	m_gameClearFrameCount(0),
@@ -60,7 +70,7 @@ SceneGameClear::SceneGameClear(int score, int goalHitTime, int bonusTimer) :
 	m_waveFrameCount(0),
 	m_score(score),
 	m_goalHitTime(goalHitTime),
-	m_bonusTimer(bonusTimer)
+	m_isNoDamage(isNoDamage)
 {
 	// グラフィックの読み込み
 	m_gameClearBgHandle = LoadGraph("data/image/Yellow.png");
@@ -165,6 +175,26 @@ void SceneGameClear::Draw()
 	// ゲームクリア用プレイヤーの描画
 	DrawGameClearPlayers();
 
+	// スコアランクの表示
+	DrawStringToHandle(50, 200, "RANK", 0xffffff, m_pFont->GetFont1());
+	if (m_isNoDamage && m_score >= 6000)
+	{
+		DrawStringToHandle(120, 300, "S", 0xFFD700, m_pFont->GetFont1());
+	}
+	else if (m_score >= 6000)
+	{
+		DrawStringToHandle(120, 300, "A", 0x808080, m_pFont->GetFont1());
+	}
+	else if (m_score >= 4500)
+	{
+		DrawStringToHandle(120, 300, "B", 0xB87333, m_pFont->GetFont1());
+	}
+	else
+	{
+		DrawStringToHandle(120, 300, "C", 0x008b8b, m_pFont->GetFont1());
+	}
+
+
 	// 割合を使用して変換を行う
    	float progressRate = static_cast<float>(m_gameClearFrameCount) / kGameClearFadeFrame;
 
@@ -183,7 +213,7 @@ void SceneGameClear::Draw()
 	{
 		float waveOffset = kWaveAmplitude * std::sin((m_waveFrameCount + i * 10) * kWaveFrequency); // ウェーブアニメーションのオフセット
 		DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5 + xOffset, 100 + waveOffset,
-			std::string(1, "GAMECLEAR"[i]).c_str(), 0xffffff, m_pFont->GetFont1());
+			std::string(1, "GAMECLEAR"[i]).c_str(), 0xffd700, m_pFont->GetFont1());
 
 		// 次の文字の位置を計算
 		if (i == 2) // Mの後
@@ -196,15 +226,25 @@ void SceneGameClear::Draw()
 		}
 	}
 
+	/*スコアとタイマーの文字の1文字目を合わせ、数字は1の位を合わせる*/
 	// スコアの表示
-	DrawFormatStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, 300, 0xffffff, m_pFont->GetFont1(), "Score: %d", m_score);
+	std::string scoreText = "Score: " + std::to_string(m_score); // スコアの文字列
+	int scoreTextWidth = GetDrawStringWidthToHandle("Score: ", strlen("Score: "), m_pFont->GetFont1()); // スコアの文字の幅
+	int scoreNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_score).c_str(), std::to_string(m_score).length(), m_pFont->GetFont1()); // スコアの数字の幅
+	DrawStringToHandle(kScoreTextPosX - scoreTextWidth * 0.5, kScorePosY, "Score: ", 0xffffff, m_pFont->GetFont1()); // スコアの文字を描画
+	DrawStringToHandle(kScoreNumberPosX + scoreTextWidth * 0.5 - scoreNumberWidth, kScorePosY, std::to_string(m_score).c_str(), 0xffffff, m_pFont->GetFont1()); // スコアの数字を描画
 
 	// タイマーの表示
-	DrawFormatStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, 400, 0xffffff, m_pFont->GetFont1(), "Time: %d", m_goalHitTime);
+	std::string timeText = "Time: " + std::to_string(m_goalHitTime); // タイマーの文字列
+	int timeTextWidth = GetDrawStringWidthToHandle("Time: ", strlen("Time: "), m_pFont->GetFont1()); // タイマーの文字の幅
+	int timeNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_goalHitTime).c_str(), std::to_string(m_goalHitTime).length(), m_pFont->GetFont1()); // タイマーの数字の幅
+	DrawStringToHandle(kTimeTextPosX - timeTextWidth * 0.5, kTimePosY, "Time: ", 0xffffff, m_pFont->GetFont1()); // タイマーの文字を描画
+	DrawStringToHandle(kTimeNumberPosX + timeTextWidth * 0.5 - timeNumberWidth, kTimePosY, std::to_string(m_goalHitTime).c_str(), 0xffffff, m_pFont->GetFont1()); // タイマーの数字を描画
 
+	// Press A Buttonの点滅表示
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawFormatStringToHandle(400, 600, 0xffffff, m_pFont->GetFont2(), "Press A Button");
+		DrawFormatStringToHandle(380, 600, 0xffffff, m_pFont->GetFont2(), "Press A Button");
 	}
 
 	// 以降の表示がおかしくならないように元の設定に戻しておく
@@ -222,7 +262,7 @@ void SceneGameClear::Draw()
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
 }
 
-// ゲームオーバー用敵の初期化
+// ゲームオーバー用プレイヤーの初期化
 void SceneGameClear::InitGameClearPlayers()
 {
 	for (int i = 0; i < kNumGameClearPlayrers; ++i)
@@ -237,7 +277,7 @@ void SceneGameClear::InitGameClearPlayers()
 	}
 }
 
-// ゲームオーバー用敵の更新
+// ゲームオーバー用プレイヤーの更新
 void SceneGameClear::UpdateGameClearPlayers()
 {
 	for (auto& player : m_gameClearPlayers)
@@ -252,11 +292,11 @@ void SceneGameClear::UpdateGameClearPlayers()
 	}
 }
 
-// ゲームオーバー用敵の描画
+// ゲームオーバー用プレイヤーの描画
 void SceneGameClear::DrawGameClearPlayers()
 {
-	for (const auto& enemy : m_gameClearPlayers)
+	for (const auto& player : m_gameClearPlayers)
 	{
-		DrawRotaGraph(enemy.pos.x, enemy.pos.y, kScale, enemy.angle, m_gameClearPlayerHandle, true);
+		DrawRotaGraph(player.pos.x, player.pos.y, kScale, player.angle, m_gameClearPlayerHandle, true);
 	}
 }

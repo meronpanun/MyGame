@@ -103,6 +103,10 @@ BgStage1::BgStage1()
 	assert(m_handle007 != -1);	
 	m_handle008 = LoadGraph("data/image/Bush.png");
 	assert(m_handle008 != -1);
+
+	// ブロックの初期化
+	m_brickBlocks.push_back(Rect(Vec2(120, 370), Vec2(20, 20)));
+    m_brickBlocks.push_back(Rect(Vec2(600, 400), Vec2(150, 250)));
 }
 
 BgStage1::~BgStage1()
@@ -125,6 +129,7 @@ void BgStage1::Init(Camera* camera)
 
 void BgStage1::Update(Player* player)
 {
+	CheckAndRemoveBlocks(player);
 }
 
 void BgStage1::Draw()
@@ -184,6 +189,43 @@ void BgStage1::Draw()
 			}
 		}
 	}
+
+	// ブロックの描画処理を追加
+	for (const auto& block : m_brickBlocks)
+	{
+		// レンガブロックの描画
+		int posX = static_cast<int>(block.m_left * kScale + m_pCamera->m_drawOffset.x);
+		int posY = static_cast<int>(block.m_top * kScale - kAllChipHeight);
+		DrawRotaGraph(posX, posY, kScale, 0, m_handle004, false);
+
+		// レンガブロックの当たり判定の描画
+		DrawBox(
+			static_cast<int>(block.m_left * kScale + m_pCamera->m_drawOffset.x),
+			static_cast<int>(block.m_top * kScale - kAllChipHeight),
+			static_cast<int>(block.m_right * kScale + m_pCamera->m_drawOffset.x),
+			static_cast<int>(block.m_bottom * kScale - kAllChipHeight),
+			GetColor(255, 0, 0), // 赤色
+			false // 枠線のみ描画
+		);
+	}
+
+	for (const auto& block : m_questionBlocks)
+	{
+		// ?ブロックの描画
+		int posX = static_cast<int>(block.m_left * kScale + m_pCamera->m_drawOffset.x);
+		int posY = static_cast<int>(block.m_top * kScale - kAllChipHeight);
+		DrawRotaGraph(posX, posY, kScale, 0, m_handle002, false);
+
+		// ?ブロックの当たり判定の描画
+		DrawBox(
+			static_cast<int>(block.m_left * kScale + m_pCamera->m_drawOffset.x),
+			static_cast<int>(block.m_top * kScale - kAllChipHeight),
+			static_cast<int>(block.m_right * kScale + m_pCamera->m_drawOffset.x),
+			static_cast<int>(block.m_bottom * kScale - kAllChipHeight),
+			GetColor(0, 255, 0), // 緑色
+			false // 枠線のみ描画
+		);
+	}
 }
 
 /// <summary>
@@ -230,6 +272,38 @@ float BgStage1::GetGroundHeight(float x) const
 {
 	// 地面の高さを返す処理
 	return kGroundHeight;
+}
+
+void BgStage1::CheckAndRemoveBlocks(Player* player)
+{
+
+	Rect playerRect = player->GetRect();
+
+	// レンガブロックとの衝突判定
+	for (auto it = m_brickBlocks.begin(); it != m_brickBlocks.end();)
+	{
+		if (playerRect.IsCollision(*it))
+		{
+			it = m_brickBlocks.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+
+	// ?ブロックとの衝突判定
+	for (auto it = m_questionBlocks.begin(); it != m_questionBlocks.end();)
+	{
+		if (playerRect.IsCollision(*it))
+		{
+			it = m_questionBlocks.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 

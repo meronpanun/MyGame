@@ -8,6 +8,11 @@ Rect::Rect() :
 {
 }
 
+Rect::Rect(Vec2 posTL, Vec2 size)
+{
+    SetTopLeftSize(posTL, size);
+}
+
 Rect::~Rect()
 {
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Rect.h"
 #include "Vec2.h"
-
+#include <vector>
 
 class Camera;
 class Player;
@@ -20,10 +20,17 @@ public:
 	// 地面の高さを取得
 	float GetGroundHeight(float x) const; 
 
+	// プレイヤーとブロックの衝突をチェックしてブロックを消す
+	void CheckAndRemoveBlocks(Player* player);
+
 private:
 	Vec2 m_pos;
 
 	Camera* m_pCamera;
+
+	// ブロックの状態を管理するメンバ変数
+	std::vector<Rect> m_brickBlocks;
+	std::vector<Rect> m_questionBlocks;
 
 	// マップのグラフィックハンドル
     int m_handle001;

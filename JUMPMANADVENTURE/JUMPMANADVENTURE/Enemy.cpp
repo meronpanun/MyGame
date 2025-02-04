@@ -8,10 +8,6 @@
 
 namespace
 {
-	// 敵のサイズ	
-	constexpr int kWidth = 30;
-	constexpr int kHeight = 30;
-
 	// 敵の描画サイズ
 	constexpr int kGraphWidth = 32;
 	constexpr int kGraphHeight = 28;
@@ -34,10 +30,6 @@ namespace
 
 	// マップチップとの当たり判定の調整
 	constexpr int kColChipAdjustmentY = 28;
-
-	// 円の当たり判定の半径
-	constexpr int kRadius = 10;
-
 }
 
 Enemy::Enemy():

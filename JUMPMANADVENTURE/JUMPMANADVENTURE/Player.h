@@ -83,6 +83,12 @@ public:
 	// プレイヤーのアニメーションを更新する
 	void UpdateAnimation();
 
+	// ダメージを受けたかどうかを示すフラグ
+	bool HasTakenDamage() const; 
+
+	// HPを回復する
+	void RecoverHp(); 
+
 private:
 	// ジャンプ処理
 	void UpdateJump();
@@ -120,11 +126,11 @@ private:
 	int m_animCount;
 
 	// ジャンプ処理
-	int m_jumpCount; 
+	int m_jumpCount;   // ジャンプのカウント
 	int m_jumpFrame;   // ジャンプ中のフレーム数
 	bool m_isJump;     // ジャンプしているかどうかフラグ
 	bool m_isAnimJump; // プレイヤーがジャンプ描画しているかどうかのフラグ
-	float m_jumpSpeed;
+	float m_jumpSpeed; // ジャンプ速度
 
 	// 右に移動しているかどうかのフラグ
 	bool m_isRightMove; 
@@ -158,5 +164,8 @@ private:
 
 	// プレイヤーの高さ
 	float m_height;
+
+	// ダメージを受けたかどうかを示すフラグ
+	bool m_hasTakenDamage; 
 };
 

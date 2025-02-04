@@ -8,6 +8,7 @@ class Rect
 {
 public:
 	Rect();
+	Rect(Vec2 posTL, Vec2 size);
 	virtual ~Rect();
 
 public:

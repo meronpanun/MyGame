@@ -34,8 +34,11 @@ public:
 	void SetFlagFallHeight(int height); 
 	// 旗が指定の高さまで落ちたかどうかを判定
 	bool IsFlagFalling() const;
-
+	
+public:
+	// 当たり判定の時間を設定
 	int m_collisionTimer;
+	// プレイヤーが当たったかどうか
 	bool m_isPlayerCollided;
 
 private:
@@ -71,5 +74,7 @@ private:
 
 	// 旗の落ちる高さ
 	int m_flagFallHeight; 
+
+
 };
 

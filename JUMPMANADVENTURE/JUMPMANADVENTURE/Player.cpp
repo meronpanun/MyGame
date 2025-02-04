@@ -111,7 +111,8 @@ Player::Player() :
     m_isGameOver(false),
     m_respawnTimer(0),
     m_isControlDisabled(false),
-    m_height(0.0f)
+    m_height(0.0f),
+    m_hasTakenDamage(false)
 {
     // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/Run.png");
@@ -362,6 +363,7 @@ void Player::OnDamage()
     m_blinkFrameCount = kInvincible;
     // ダメージを受ける
     m_hp--;
+    m_hasTakenDamage = true; // ダメージを受けたフラグを設定
 
     // ダメージSEの再生
     PlaySoundMem(m_damageSEHandle, DX_PLAYTYPE_BACK);
@@ -644,6 +646,20 @@ void Player::UpdateAnimation()
         {
             m_animFrame = 0;
         }
+    }
+}
+
+bool Player::HasTakenDamage() const
+{
+    return m_hasTakenDamage;
+}
+
+void Player::RecoverHp()
+{
+    // HPが最大値未満の場合のみ回復
+    if (m_hp < kMaxHp)
+    {
+        m_hp += 1;
     }
 }
 

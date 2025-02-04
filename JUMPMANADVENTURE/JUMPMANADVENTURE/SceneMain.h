@@ -5,12 +5,14 @@
 #include <vector>
 #include "Vec2.h"
 
+class ItemHp;
 class FontManager;
 class Player;
 class BgStage1;
 class Camera;
 class Goal;
 class Enemy;
+
 /// <summary>
 /// ゲーム画面クラス
 /// </summary>
@@ -27,6 +29,9 @@ public:
 private:
 	// 敵の生成
 	void CreateEnemy(float x, float y);
+
+	// アイテムの生成
+	void CreateItemHp(float x, float y);
 
 	// スコアとタイマーのフォントサイズの設定
 	void SetScoreAndTimerFontSize(int size); 
@@ -55,6 +60,7 @@ private:
 	std::shared_ptr<Goal> m_pGoal;
 	std::vector<std::shared_ptr<Enemy>> m_pEnemy;
 	std::vector<Life> m_life;
+	std::vector<std::shared_ptr<ItemHp>> m_pItemHp;
 	// フォント管理
 	std::shared_ptr<FontManager> m_pFont;
 
@@ -102,7 +108,7 @@ private:
 	float m_gameOverEnemyPosY;
 	float m_gameOverEnemyAngle;
 
-	// タイマーをスコアに加算するためのメンバー変数
+	// タイマーをスコアに加算
 	bool m_isAddingScore;
 	int m_bonusScore;
 
@@ -126,5 +132,17 @@ private:
 	bool m_isNoTimeBgmFadingOut; 
 	// ノータイムBGMのフェードアウトのフレームカウント
 	int m_noTimeBgmFadeOutFrameCount;
+
+	// タイマーの減算速度
+	float m_timerDecrementSpeed;
+	// ゴール時のタイマーの値
+	int m_goalTimer; 
+	// タイマー減算開始を制御
+	int m_timerDecrementStartCount; 
+	// ゴール時のタイマー減算中フラグ
+	bool m_isGoalTimerDecrementing; 
+
+	// プレイヤーがダメージを一回も食らわなかったかどうかのフラグ
+	bool m_isNoDamage;
 };
 

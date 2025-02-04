@@ -37,5 +37,8 @@ private:
 	int m_score;
 	int m_timer;
 	int m_bonusTimer;
+
+	// プレイヤーがダメージを一回も食らわなかったかどうかのフラグ
+	bool m_isNoDamage;
 };
 

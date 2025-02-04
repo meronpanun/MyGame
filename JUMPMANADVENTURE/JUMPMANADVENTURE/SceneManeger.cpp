@@ -72,5 +72,5 @@ void SceneManager::Draw()
 void SceneManager::StartGameClear()
 {
 	m_isGameClear = true;
-	m_pNextScene = new SceneGameClear(m_score, m_timer, m_bonusTimer);
+	m_pNextScene = new SceneGameClear(m_score, m_timer, m_isNoDamage);
 }
