@@ -47,6 +47,7 @@ namespace
 	{
 		1200, 1250, 1650, 2650, 3500, 3550, 3600, 4050, 5000, 5050, 5800, 5850, 5900, 6400, 7280, 8700 
 	};
+	constexpr int kBushPosY = 610;
 
 	constexpr int kChipSetData[kChipNumY][kChipNumX] =
 	{
@@ -84,7 +85,8 @@ namespace
 	};
 }
 
-BgStage::BgStage()
+BgStage::BgStage() :
+	m_pCamera(nullptr)
 {
 	// グラフィックの読み込み
 	m_handle001 = LoadGraph("data/image/groundBlock.png");
@@ -140,7 +142,7 @@ void BgStage::Draw()
 	// 草の描画
 	for (const auto& bushX : kBushes) 
 	{
-		DrawRotaGraph(bushX + m_pCamera->m_drawOffset.x, 610, 0.3f, 0, m_handle008, true);
+		DrawRotaGraph(bushX + m_pCamera->m_drawOffset.x, kBushPosY, 0.3f, 0, m_handle008, true);
 	}
 
 	// マップチップの描画
@@ -157,30 +159,21 @@ void BgStage::Draw()
 			if (posY < 0 - kChipWidth) continue;
 			if (posY > Game::kScreenHeight) continue;
 
-			// 地面ブロック
-			if (kChipSetData[y][x] == 1)
+			// 描画するハンドルを選択
+			int handle = -1;
+			switch (kChipSetData[y][x])
 			{
-				DrawRotaGraph(posX , posY, kScale, 0, m_handle001, false);
+			case 1: handle = m_handle001; break; // 地面ブロック
+			case 2: handle = m_handle002; break; // ？ブロック
+			case 3: handle = m_handle003; break; // 土管ブロック
+			case 4: handle = m_handle004; break; // レンガブロック
+			case 5: handle = m_handle005; break; // 階段ブロック
 			}
-			// ？ブロック
-			if (kChipSetData[y][x] == 2)
+
+			// ハンドルが有効なら描画
+			if (handle != -1)
 			{
-				DrawRotaGraph(posX, posY, kScale, 0, m_handle002, false);
-			}
-			// 土管ブロック
-			if (kChipSetData[y][x] == 3)
-			{
-				DrawRotaGraph(posX, posY, kScale, 0, m_handle003, false);
-			}
-			// レンガブロック
-			if (kChipSetData[y][x] == 4)
-			{
-				DrawRotaGraph(posX, posY, kScale, 0, m_handle004, false);
-			}
-			// 階段ブロック
-			if (kChipSetData[y][x] == 5)
-			{
-				DrawRotaGraph(posX, posY, kScale, 0, m_handle005, false);
+				DrawRotaGraph(posX, posY, kScale, 0, handle, false);
 			}
 		}
 	}
@@ -201,6 +194,7 @@ bool BgStage::IsCollision(Rect rect, Rect& ChipRect)
 			// 壁以外とは当たらない
 			if (kChipSetData[y][x] == 0) continue;
 
+			// マップチップの矩形を設定
 			int chipLeft = static_cast<int>(x * kChipWidth * kScale - kColChipAdjustmentLeft);
 			int chipRight = static_cast<int>(chipLeft + kChipWidth + kColChipAdjustmentX);
 			int chipTop = static_cast<int>(y * kChipHeight * kScale - kColChipAdjustmentY);

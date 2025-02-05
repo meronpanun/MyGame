@@ -10,7 +10,11 @@ SceneManager::SceneManager():
 	m_pGameClear(nullptr),
 	m_pCurrentScene(nullptr),
 	m_pNextScene(nullptr),
-	m_isGameClear(false)
+	m_isGameClear(false),
+	m_bonusTimer(0),
+	m_isNoDamage(false),
+	m_score(0),
+	m_timer(0)
 {
 }
 

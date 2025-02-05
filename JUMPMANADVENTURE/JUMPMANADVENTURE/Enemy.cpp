@@ -33,15 +33,21 @@ namespace
 }
 
 Enemy::Enemy():
+	m_pCamera(nullptr), 
 	m_pos(0.0f,0.0f),
 	m_move(-kSpeed, 0.0f),
 	m_animFrame(0),
 	m_animCount(0),
+	m_videoFadeFrameCount(0), 
+	m_videoFadeInFrameCount(0), 
+	m_videoHandle(-1),
 	m_isAnimLeft(true),
 	m_isAnimRight(false),
 	m_isAlive(true),
 	m_isFacingRight(false),
-	m_isActive(false)
+	m_isActive(false),
+	m_isTurnFlag(false),
+	m_isVideoPlaying(false)
 {
 	// グラフィックの読み込み
 	m_handle = LoadGraph("data/image/RockRun.png");
@@ -69,6 +75,7 @@ void Enemy::Update()
 	// 毎フレーム下方向に加速する
 	m_move.y += kGravaity;
 
+	// 敵の移動処理
 	if (m_move.x < 0.0f)
 	{
 		m_isAnimLeft = true;
@@ -182,17 +189,20 @@ Rect Enemy::GetRect()
 	return rect;
 }
 
+// 敵の生存フラグを設定
 void Enemy::SetAlive(bool isAlive)
 {
 	m_isAlive = isAlive;
 }
 
+// 敵の位置を設定
 void Enemy::SetPos(float x, float y)
 {
 	m_pos.x = x;
 	m_pos.y = y;
 }
 
+// 敵の移動方向を反転
 void Enemy::ReverseDirection()
 {
 	// 移動方向を反転
@@ -201,22 +211,26 @@ void Enemy::ReverseDirection()
 	m_isFacingRight = !m_isFacingRight;
 }
 
+// 敵が生存しているかどうか
 bool Enemy::IsAlive() const
 {
 	return m_isAlive;
 }
 
+// プレイヤーが敵の攻撃範囲内にいるかどうか
 bool Enemy::IsPlayerInRange(const Vec2& playerPos, float range)
 {
 	Vec2 enemyPos = m_pos;
 	return (playerPos - enemyPos).Length() <= range;
 }
 
+// プレイヤーが敵の攻撃範囲に入ったら敵をアクティブにする
 void Enemy::Activate()
 {
 	m_isActive = true;
 }
 
+// 敵がアクティブかどうか
 bool Enemy::IsActive() const
 {
 	return m_isActive;

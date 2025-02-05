@@ -46,6 +46,7 @@ namespace
 }
 
 Goal::Goal():
+	m_pCamera(nullptr),
 	m_pos(10000.0f, 528.0f),
 	m_animFrame(0),
 	m_handle(0),
@@ -56,7 +57,11 @@ Goal::Goal():
 	m_isFlagFalling(false),
 	m_flagFallHeight(600),
 	m_collisionTimer(0),
-	m_isPlayerCollided(false)
+	m_isPlayerCollided(false),
+	m_poleHandle(0),
+	m_score(0), 
+	m_timer(0), 
+	m_transitionTimer(0) 
 {
 }
 
@@ -81,7 +86,7 @@ void Goal::Update()
 	// ä¯Ç™óéÇøÇÈèàóù
 	if (m_isFlagFalling)
 	{
-		m_flagPosY += kFlagFallSpeed;
+		m_flagPosY += static_cast<int>(kFlagFallSpeed);
 		if (m_flagPosY >= kFlagPosY + m_flagFallHeight)
 		{
 			m_flagPosY = kFlagPosY + m_flagFallHeight;
@@ -102,14 +107,14 @@ void Goal::Draw()
 	int animNo = m_animFrame / kAnimFrameNum;
 
 	// ä¯ÇÃï`âÊ
-	DrawRectRotaGraph(kFlagPosX + m_pCamera->m_drawOffset.x, m_flagPosY,
+	DrawRectRotaGraph(static_cast<int>(kFlagPosX + m_pCamera->m_drawOffset.x), static_cast<int>(m_flagPosY),
 		animNo * kGraphWidth, 0, kGraphWidth, kGraphHeight,
 		kScale, 0.0,
 		m_handle, true);
 
 
 	// É|Å[ÉãÇÃï`âÊ
-	DrawRectRotaGraph(kPolePosX + m_pCamera->m_drawOffset.x, kPolePosY,
+	DrawRectRotaGraph(static_cast<int>(kPolePosX + m_pCamera->m_drawOffset.x), static_cast<int>(kPolePosY),
 		0, 0, kPoleGraphWidth, kPoleGraphHeight,
 		kScale, 0.0,
 		m_poleHandle, true);

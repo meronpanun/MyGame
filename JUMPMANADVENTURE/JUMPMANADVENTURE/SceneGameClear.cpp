@@ -58,6 +58,18 @@ namespace
 	constexpr int kTimeTextPosX = 470;
 	constexpr int kTimeNumberPosX = 750;
 	constexpr int kTimePosY = 400;
+
+	// スコアランクの表示位置
+	constexpr int kRankTextPosX = 120;
+	constexpr int kRankTextPosY = 300;
+
+	// RANKの表示位置
+	constexpr int kRankPosX = 50;
+	constexpr int kRankPosY = 200;
+
+	// Press A Buttonの表示位置
+	constexpr int kPressAButtonPosX = 380;
+	constexpr int kPressAButtonPosY = 600;
 }
 
 SceneGameClear::SceneGameClear(int score, int goalHitTime, bool isNoDamage) :
@@ -176,22 +188,22 @@ void SceneGameClear::Draw()
 	DrawGameClearPlayers();
 
 	// スコアランクの表示
-	DrawStringToHandle(50, 200, "RANK", 0xffffff, m_pFont->GetFont1());
+	DrawStringToHandle(kRankPosX, kRankPosY, "RANK", 0xffffff, m_pFont->GetFont1());
 	if (m_isNoDamage && m_score >= 6000)
 	{
-		DrawStringToHandle(120, 300, "S", 0xFFD700, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "S", 0xFFD700, m_pFont->GetFont1());
 	}
 	else if (m_score >= 6000)
 	{
-		DrawStringToHandle(120, 300, "A", 0x808080, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "A", 0x808080, m_pFont->GetFont1());
 	}
 	else if (m_score >= 5000)
 	{
-		DrawStringToHandle(120, 300, "B", 0xB87333, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "B", 0xB87333, m_pFont->GetFont1());
 	}
 	else
 	{
-		DrawStringToHandle(120, 300, "C", 0x008b8b, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "C", 0x008b8b, m_pFont->GetFont1());
 	}
 
 
@@ -244,7 +256,7 @@ void SceneGameClear::Draw()
 	// Press A Buttonの点滅表示
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawFormatStringToHandle(380, 600, 0xffffff, m_pFont->GetFont2(), "Press A Button");
+		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont2(), "Press A Button");
 	}
 
 	// 以降の表示がおかしくならないように元の設定に戻しておく

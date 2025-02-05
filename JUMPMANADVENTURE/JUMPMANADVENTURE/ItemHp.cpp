@@ -26,6 +26,7 @@ namespace
 }
 
 ItemHp::ItemHp():
+	m_pCamera(nullptr),
 	m_pos(0.0f, 0.0f),
 	m_handle(-1),
 	m_animFrameCount(0),

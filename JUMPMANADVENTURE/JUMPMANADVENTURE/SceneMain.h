@@ -1,9 +1,9 @@
 #pragma once
 #include "SceneBase.h"
 #include "Life.h"
-#include <memory>
-#include <vector>
 #include "Vec2.h"
+#include <vector>
+#include <memory>
 
 class ItemHp;
 class FontManager;
@@ -56,7 +56,6 @@ private:
 	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage> m_pBgStage;
 	std::shared_ptr<Player> m_pPlayer;
-	std::shared_ptr<SceneMain> m_pSceneMain;
 	std::shared_ptr<Goal> m_pGoal;
 	std::vector<std::shared_ptr<Enemy>> m_pEnemy;
 	std::vector<Life> m_life;

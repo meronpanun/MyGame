@@ -44,7 +44,6 @@ namespace
     constexpr float kSpeed = 3.0f;
     // 加速
     constexpr float kAccel = 3.0f;
- //   constexpr float kAccel = 20.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -91,6 +90,8 @@ namespace
 }
 
 Player::Player() :
+    m_pCamera(nullptr),
+    m_pMain(nullptr),
     m_isJump(false),
     m_isRightMove(false),
     m_isLeftMove(false),
@@ -112,7 +113,8 @@ Player::Player() :
     m_respawnTimer(0),
     m_isControlDisabled(false),
     m_height(0.0f),
-    m_hasTakenDamage(false)
+    m_hasTakenDamage(false),
+    m_life()
 {
     // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/Run.png");
@@ -179,6 +181,7 @@ void Player::Update()
     }
 }
 
+// プレイヤーが敵を倒した後の処理
 void Player::JumpOnEnemy()
 {
     m_move.y = kJumpAcc * 0.5f; // 少しY軸方向にジャンプ
@@ -533,10 +536,7 @@ void Player::UpdateNormal()
     }
 }
 
-
-/// <summary>
-/// プレイヤーのHPが0以下になった場合
-/// </summary>
+// プレイヤーのHPが0以下になった場合
 void Player::UpdateDead()
 {
     // 死亡後一瞬止まる
@@ -651,6 +651,7 @@ void Player::UpdateAnimation()
     }
 }
 
+// プレイヤーがダメージを受けたかどうかを判定する
 bool Player::HasTakenDamage() const
 {
     return m_hasTakenDamage;

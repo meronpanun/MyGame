@@ -133,7 +133,6 @@ SceneMain::SceneMain():
 	m_pressAButtonSEHandle = LoadSoundMem("data/sound/SE/pressAButton.mp3");
 	assert(m_pressAButtonSEHandle != -1);
 
-
 	m_pGoal = std::make_shared<Goal>();
 	m_pGoal->SetHandle(m_flagHandle);
 	m_pGoal->SetPoleHandle(m_poleHandle);
