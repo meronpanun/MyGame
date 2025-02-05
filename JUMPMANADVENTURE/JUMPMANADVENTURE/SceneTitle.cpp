@@ -24,6 +24,10 @@ namespace
 	// âπó 
 	constexpr int kVolumeBGM = 128;
 	constexpr int kVolumeSE = 128;
+
+	// Press A ButtonÇÃï\é¶àœt
+	constexpr int kPressAButtonPosX = 430;
+	constexpr int kPressAButtonPosY = 550;
 }
 
 SceneTitle::SceneTitle() :
@@ -170,7 +174,7 @@ void SceneTitle::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawFormatStringToHandle(410, 550, 0xffffff, m_pFont->GetFont2(),"Press A Button");
+		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(40),"Press A Button");
 	}
 	// à»ç~ÇÃï\é¶Ç™Ç®Ç©ÇµÇ≠Ç»ÇÁÇ»Ç¢ÇÊÇ§Ç…å≥ÇÃê›íËÇ…ñﬂÇµÇƒÇ®Ç≠
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

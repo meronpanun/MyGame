@@ -309,11 +309,6 @@ void Player::UpdateJump()
 
 void Player::Draw()
 {
-    // 半透明な板の描画
-    SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128); // 半透明の設定
-    DrawBox(0, 0, 1280, 100, 0x000000, TRUE);  // 半透明な黒い板を描画
-    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
-
 	// プレイヤーが無敵時間中は点滅させる
 	if ((m_blinkFrameCount / 2) % 2)
 	{

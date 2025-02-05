@@ -1,72 +1,61 @@
 #include "FontManager.h"
-#include "DxLib.h"
 #include <windows.h>
-
 
 bool FontManager::fontResourceAdded = false;
 
-FontManager::FontManager() : 
-	m_fontHandle(-1),
-	m_fontHandle1(-1), 
-	m_fontHandle2(-1)
+FontManager::FontManager()
 {
-	// ファイルのロード
-	LPCSTR font_path = "data/SuperMario256.ttf";
+    // フォントファイルのパス
+    LPCSTR font_path = "data/SuperMario256.ttf";
 
-	if (!fontResourceAdded)
-	{
-		int addFontResult = AddFontResourceEx(font_path, FR_PRIVATE, NULL);
-		if (addFontResult > 0)
-		{
-			fontResourceAdded = true;
-		}
-		else
-		{
-			// フォントの読み込みエラー処理
-			MessageBox(NULL, "フォント読み込み失敗: フォントファイルが見つかりません", "", MB_OK);
-			return;
-		}
-	}
-
-	// フォントの読み込み
-	m_fontHandle = CreateFontToHandle("Super Mario 256", 40, -1, 3);
-	m_fontHandle1 = CreateFontToHandle("Super Mario 256", 84, -1, 3);
-	m_fontHandle2 = CreateFontToHandle("Super Mario 256", 46, -1, 3);
-
-	// フォントハンドルが有効かどうかをチェック
-	if (m_fontHandle == -1 || m_fontHandle1 == -1 || m_fontHandle2 == -1)
-	{
-		MessageBox(NULL, "フォントハンドルの作成に失敗しました", "", MB_OK);
-	}
+    // フォントリソースを追加
+    if (!fontResourceAdded)
+    {
+        int addFontResult = AddFontResourceEx(font_path, FR_PRIVATE, NULL);
+        if (addFontResult > 0)
+        {
+            fontResourceAdded = true;
+        }
+        else
+        {
+            // フォントの読み込みエラー処理
+            MessageBox(NULL, "フォント読み込み失敗: フォントファイルが見つかりません", "", MB_OK);
+            return;
+        }
+    }
 }
 
 FontManager::~FontManager()
 {
-	// フォントの解放
-	DeleteFontToHandle(m_fontHandle);
-	DeleteFontToHandle(m_fontHandle1);
-	DeleteFontToHandle(m_fontHandle2);
+    ReleaseAllFonts();
 
-	// フォントリソースの削除
-	if (fontResourceAdded)
-	{
-		LPCSTR font_path = "data/SuperMario256.ttf";
-		RemoveFontResourceEx(font_path, FR_PRIVATE, NULL);
-		fontResourceAdded = false;
-	}
+    // フォントリソースの削除
+    if (fontResourceAdded)
+    {
+        LPCSTR font_path = "data/SuperMario256.ttf";
+        RemoveFontResourceEx(font_path, FR_PRIVATE, NULL);
+        fontResourceAdded = false;
+    }
 }
 
-int FontManager::GetFont()
+int FontManager::GetFont(int size)
 {
-	return m_fontHandle;
+	// フォントが存在しない場合は作成
+    if (m_fonts.find(size) == m_fonts.end())
+    {
+        int fontHandle = CreateFontToHandle("Super Mario 256", size, -1, DX_FONTTYPE_ANTIALIASING | DX_FONTTYPE_EDGE);
+        m_fonts[size] = fontHandle;
+    }
+    return m_fonts[size];
 }
 
-int FontManager::GetFont1()
+void FontManager::ReleaseAllFonts()
 {
-	return m_fontHandle1;
+	// 作成したフォントを全て削除
+    for (auto& font : m_fonts)
+    {
+        DeleteFontToHandle(font.second);
+    }
+    m_fonts.clear();
 }
 
-int FontManager::GetFont2()
-{
-	return m_fontHandle2;
-}

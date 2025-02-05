@@ -190,6 +190,52 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	//m_pPlayer = std::make_shared<Player>();
+	//m_pBgStage = std::make_shared<BgStage>();
+	//m_pCamera = std::make_shared<Camera>();
+	//m_pFont = std::make_shared<FontManager>();
+
+	//m_pPlayer->Init(m_pCamera.get());
+	//m_pBgStage->Init(m_pCamera.get());
+	//m_pCamera->Init();
+	//m_pGoal->Init(m_pCamera.get());
+
+	//// 敵の初期化
+	//for (auto& enemy : m_pEnemy)
+	//{
+	//	if (enemy)
+	//	{
+	//		enemy->Init(m_pCamera.get());
+	//	}
+	//}
+
+	//// アイテムの初期化
+	//for (auto& itemHp : m_pItemHp)
+	//{
+	//	if (itemHp)
+	//	{
+	//		itemHp->Init(m_pCamera.get());
+	//	}
+	//}
+
+	//// 体力の初期化
+	//m_life.resize(kMaxHp);
+	//for (int i = 0; i < m_life.size(); i++)
+	//{
+	//	m_life[i].Init();
+	//	m_life[i].SetHandle(m_lifeHandle);
+	//	m_life[i].SetIndex(i);
+	//}
+
+	//// BGMの再生開始（ループ再生）
+	//PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
+
+	//// スコアとタイマーの初期化
+	//m_score = 0;
+	//m_timer = kInitialTimer;
+
+	//// 旗の落ちる高さを設定
+	//m_pGoal->SetFlagFallHeight(280);
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage = std::make_shared<BgStage>();
 	m_pCamera = std::make_shared<Camera>();
@@ -551,7 +597,7 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	m_pBgStage->Draw(); 
+	m_pBgStage->Draw();
 	m_pGoal->Draw();
 	m_pPlayer->Draw();
 
@@ -572,7 +618,7 @@ void SceneMain::Draw()
 			itemHp->Draw();
 		}
 	}
-	 
+
 	// 体力の描画
 	for (int i = 0; i < m_pPlayer->GetHp(); i++)
 	{
@@ -580,13 +626,14 @@ void SceneMain::Draw()
 	}
 
 	// スコアの表示
-	DrawFormatStringToHandle(kScoreTextPosX, kScoreAndTimerTextPosY, 0xffffff, m_pFont->GetFont(), "Score");
-	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d", m_score);
+	int fontHandle = m_pFont->GetFont(40);
+	DrawFormatStringToHandle(kScoreTextPosX, kScoreAndTimerTextPosY, 0xffffff, fontHandle, "Score");
+	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, fontHandle, "%d", m_score);
 
 	// タイマーの表示
 	int displayedTimer = static_cast<int>(m_timer); // 表示するタイマー
-	DrawFormatStringToHandle(kTimerTextPosX, kScoreAndTimerTextPosY, 0xffffff, m_pFont->GetFont(), "Time");
-	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d" , displayedTimer);
+	DrawFormatStringToHandle(kTimerTextPosX, kScoreAndTimerTextPosY, 0xffffff, fontHandle, "Time");
+	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, fontHandle, "%d", displayedTimer);
 
 	// ゲームオーバーの演出の表示
 	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0 && !m_isGoalTimerDecrementing) // プレイヤーのHPが0または制限時間が0になった場合
@@ -594,13 +641,12 @@ void SceneMain::Draw()
 		// プレイヤーのゲームオーバーフラグを確認しタイマーが0になった場合
 		if (m_pPlayer->IsGameOver() || m_timer <= 0 && !m_isGoalTimerDecrementing)
 		{
-			
 			// 背景をスクロールして描画
 			for (int y = m_bgScrollY - Game::kScreenHeight; y < Game::kScreenHeight; y += kChipHeight)
 			{
 				for (int x = 0; x < Game::kScreenWidth; x += kChipWidth)
 				{
-					DrawGraph(x, y,  m_bgHandle, true);
+					DrawGraph(x, y, m_bgHandle, true);
 				}
 			}
 
@@ -609,7 +655,7 @@ void SceneMain::Draw()
 
 			if (m_blinkFrameCount < kBlinkDispFrame)
 			{
-				DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont2(),"Press A Button");
+				DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(40), "Press A Button");
 			}
 
 			// 割合を使用して変換を行う
@@ -622,20 +668,20 @@ void SceneMain::Draw()
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 
 			// ゲームオーバーの文字の位置を計算
-			int width = GetDrawStringWidthToHandle("GAMEOVER", static_cast<int>(strlen("GAMEOVER")), m_pFont->GetFont1());
+			int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_pFont->GetFont(84));
 			int targetY = kGameoverPosY; // ゲームオーバーの文字の位置
 			int startY = -4; // 画面外から出現
 			int gameOverY = static_cast<int>(startY + (targetY - startY) * progressRate); // 途中の位置を計算
 
 			// 文字が画面中央に来るように調整
-			if (gameOverY > targetY) 
+			if (gameOverY > targetY)
 			{
 				gameOverY = targetY;
 			}
 
 			// ゲームオーバーの文字を描画
-			DrawStringToHandle(static_cast<int>(Game::kScreenWidth * 0.5 - width * 0.5), gameOverY,
-				"GAMEOVER", 0xdc143c, m_pFont->GetFont1());
+			DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, gameOverY,
+				"GAMEOVER", 0xdc143c, m_pFont->GetFont(84));
 
 			// 以降の表示がおかしくならないように元の設定に戻しておく
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -647,7 +693,7 @@ void SceneMain::Draw()
 
 	float fadeRate = static_cast<float>(m_fadeFrameCount) / 30;
 	fadeRate = 1.0f - fadeRate;
-	fadeAlpha = static_cast<int>(255 * fadeRate);
+	fadeAlpha = 255 * fadeRate;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);

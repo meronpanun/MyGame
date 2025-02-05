@@ -1,5 +1,6 @@
 #pragma once
 #include "SceneBase.h"
+#include "FontManager.h"
 #include "Life.h"
 #include "Vec2.h"
 #include <vector>

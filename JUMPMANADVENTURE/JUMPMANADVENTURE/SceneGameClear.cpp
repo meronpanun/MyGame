@@ -56,16 +56,16 @@ namespace
 
 	// タイムの表示位置
 	constexpr int kTimeTextPosX = 470;
-	constexpr int kTimeNumberPosX = 750;
+	constexpr int kTimeNumberPosX = 730;
 	constexpr int kTimePosY = 400;
 
 	// スコアランクの表示位置
 	constexpr int kRankTextPosX = 120;
-	constexpr int kRankTextPosY = 300;
+	constexpr int kRankTextPosY = 400;
 
 	// RANKの表示位置
 	constexpr int kRankPosX = 50;
-	constexpr int kRankPosY = 200;
+	constexpr int kRankPosY = 300;
 
 	// Press A Buttonの表示位置
 	constexpr int kPressAButtonPosX = 380;
@@ -188,22 +188,22 @@ void SceneGameClear::Draw()
 	DrawGameClearPlayers();
 
 	// スコアランクの表示
-	DrawStringToHandle(kRankPosX, kRankPosY, "RANK", 0xffffff, m_pFont->GetFont1());
+	DrawStringToHandle(kRankPosX, kRankPosY, "RANK", 0xffffff, m_pFont->GetFont(64));
 	if (m_isNoDamage && m_score >= 6000)
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "S", 0xFFD700, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "S", 0xFFD700, m_pFont->GetFont(64));
 	}
 	else if (m_score >= 6000)
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "A", 0xcccccc, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "A", 0xcccccc, m_pFont->GetFont(64));
 	}
 	else if (m_score >= 5000)
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "B", 0xB87333, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "B", 0xB87333, m_pFont->GetFont(64));
 	}
 	else
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "C", 0x008b8b, m_pFont->GetFont1());
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "C", 0x008b8b, m_pFont->GetFont(64));
 	}
 
 	// 割合を使用して変換を行う
@@ -213,7 +213,7 @@ void SceneGameClear::Draw()
 	int alpha = static_cast<int>(255 * progressRate);
 	// ここ以降呼ばれるDraw関数の描画方法を変更する
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-	int width = GetDrawStringWidthToHandle("GAMECLEAR", static_cast<int>(strlen("GAMECLEAR")), m_pFont->GetFont1());
+	int width = GetDrawStringWidthToHandle("GAMECLEAR", static_cast<int>(strlen("GAMECLEAR")), m_pFont->GetFont(84));
 
 	// ウェーブアニメーションを適用して文字を描画
 	const int charSpacing = 60;     // 文字間隔を広げるためのスペース
@@ -224,7 +224,7 @@ void SceneGameClear::Draw()
 	{
 		float waveOffset = kWaveAmplitude * std::sin((m_waveFrameCount + i * 10) * kWaveFrequency); // ウェーブアニメーションのオフセット
 		DrawStringToHandle(static_cast<int>(Game::kScreenWidth * 0.5 - width * 0.5 + xOffset), static_cast<int>(100 + waveOffset),
-			std::string(1, "GAMECLEAR"[i]).c_str(), 0xffd700, m_pFont->GetFont1());
+			std::string(1, "GAMECLEAR"[i]).c_str(), 0xffd700, m_pFont->GetFont(84));
 
 		// 次の文字の位置を計算
 		if (i == 2) // Mの後
@@ -240,22 +240,22 @@ void SceneGameClear::Draw()
 	/*スコアとタイマーの文字の1文字目を合わせ、数字は1の位を合わせる*/
 	// スコアの表示
 	std::string scoreText = "Score: " + std::to_string(m_score); // スコアの文字列
-	int scoreTextWidth = GetDrawStringWidthToHandle("Score: ", static_cast<int>(strlen("Score: ")), m_pFont->GetFont1()); // スコアの文字の幅
-	int scoreNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_score).c_str(), static_cast<int>(std::to_string(m_score).length()), m_pFont->GetFont1()); // スコアの数字の幅
-	DrawStringToHandle(static_cast<int>(kScoreTextPosX - scoreTextWidth * 0.5), kScorePosY, "Score: ", 0xffffff, m_pFont->GetFont1()); // スコアの文字を描画
-	DrawStringToHandle(static_cast<int>(kScoreNumberPosX + scoreTextWidth * 0.5 - scoreNumberWidth), kScorePosY, std::to_string(m_score).c_str(), 0xffffff, m_pFont->GetFont1()); // スコアの数字を描画
+	int scoreTextWidth = GetDrawStringWidthToHandle("Score: ", static_cast<int>(strlen("Score: ")), m_pFont->GetFont(64)); // スコアの文字の幅
+	int scoreNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_score).c_str(), static_cast<int>(std::to_string(m_score).length()), m_pFont->GetFont(64)); // スコアの数字の幅
+	DrawStringToHandle(static_cast<int>(kScoreTextPosX - scoreTextWidth * 0.5), kScorePosY, "Score: ", 0xffffff, m_pFont->GetFont(64)); // スコアの文字を描画
+	DrawStringToHandle(static_cast<int>(kScoreNumberPosX + scoreTextWidth * 0.5 - scoreNumberWidth), kScorePosY, std::to_string(m_score).c_str(), 0xffffff, m_pFont->GetFont(64)); // スコアの数字を描画
 
 	// タイマーの表示
 	std::string timeText = "Time: " + std::to_string(m_goalHitTime); // タイマーの文字列
-	int timeTextWidth = GetDrawStringWidthToHandle("Time: ", static_cast<int>(strlen("Time: ")), m_pFont->GetFont1()); // タイマーの文字の幅
-	int timeNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_goalHitTime).c_str(), static_cast<int>(std::to_string(m_goalHitTime).length()), m_pFont->GetFont1()); // タイマーの数字の幅
-	DrawStringToHandle(static_cast<int>(kTimeTextPosX - timeTextWidth * 0.5), kTimePosY, "Time: ", 0xffffff, m_pFont->GetFont1()); // タイマーの文字を描画
-	DrawStringToHandle(static_cast<int>(kTimeNumberPosX + timeTextWidth * 0.5 - timeNumberWidth), kTimePosY, std::to_string(m_goalHitTime).c_str(), 0xffffff, m_pFont->GetFont1()); // タイマーの数字を描画
+	int timeTextWidth = GetDrawStringWidthToHandle("Time: ", static_cast<int>(strlen("Time: ")), m_pFont->GetFont(64)); // タイマーの文字の幅
+	int timeNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_goalHitTime).c_str(), static_cast<int>(std::to_string(m_goalHitTime).length()), m_pFont->GetFont(64)); // タイマーの数字の幅
+	DrawStringToHandle(static_cast<int>(kTimeTextPosX - timeTextWidth * 0.5), kTimePosY, "Time: ", 0xffffff, m_pFont->GetFont(64)); // タイマーの文字を描画
+	DrawStringToHandle(static_cast<int>(kTimeNumberPosX + timeTextWidth * 0.5 - timeNumberWidth), kTimePosY, std::to_string(m_goalHitTime).c_str(), 0xffffff, m_pFont->GetFont(64)); // タイマーの数字を描画
 
 	// Press A Buttonの点滅表示
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont2(), "Press A Button");
+		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(40), "Press A Button");
 	}
 
 	// 以降の表示がおかしくならないように元の設定に戻しておく

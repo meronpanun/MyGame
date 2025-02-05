@@ -73,8 +73,9 @@ void SceneManager::Draw()
 	}
 }
 
+// ゲームクリア演出を開始
 void SceneManager::StartGameClear()
 {
-	m_isGameClear = true;
+	m_isGameClear = true; 
 	m_pNextScene = new SceneGameClear(m_score, m_timer, m_isNoDamage);
 }

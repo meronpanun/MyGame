@@ -1,26 +1,23 @@
 #pragma once
+#include "DxLib.h"
+#include <unordered_map>
+#include <string>
 
-/// <summary>
-/// フォント管理クラス
-/// </summary>
 class FontManager
 {
 public:
-	FontManager();
-	~FontManager();
+    FontManager();
+    ~FontManager();
 
 	// フォントを取得
-	int GetFont();
-	int GetFont1();
-	int GetFont2();
+    int GetFont(int size);
+
+	// フォントを全て解放
+    void ReleaseAllFonts();
 
 private:
-	// フォントハンドル
-	int m_fontHandle;
-	int m_fontHandle1;
-	int m_fontHandle2;
-
-	static bool fontResourceAdded;
-
+    std::unordered_map<int, int> m_fonts;
+	// フォントリソースの追加フラグ
+    static bool fontResourceAdded;
 };
 
