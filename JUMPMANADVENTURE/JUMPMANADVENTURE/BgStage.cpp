@@ -137,12 +137,12 @@ void BgStage::Draw()
 	// 雲の描画
 	for (const auto& cloud : kClouds) 
 	{
-		DrawRotaGraph(cloud.x + m_pCamera->m_drawOffset.x, cloud.y, 0.7f, 0, (cloud.handle == 6 ? m_handle006 : m_handle007), true);
+		DrawRotaGraph(static_cast<int>(cloud.x + m_pCamera->m_drawOffset.x), static_cast<int>(cloud.y), 0.7f, 0, (cloud.handle == 6 ? m_handle006 : m_handle007), true);
 	}
 	// 草の描画
 	for (const auto& bushX : kBushes) 
 	{
-		DrawRotaGraph(bushX + m_pCamera->m_drawOffset.x, kBushPosY, 0.3f, 0, m_handle008, true);
+		DrawRotaGraph(static_cast<int>(bushX + m_pCamera->m_drawOffset.x), kBushPosY, 0.3f, 0, m_handle008, true);
 	}
 
 	// マップチップの描画
@@ -150,8 +150,8 @@ void BgStage::Draw()
 	{
 		for (int x = 0; x < kChipNumX; x++)
 		{			
-			int posX = kChipWidth * x * kScale + m_pCamera->m_drawOffset.x;
-			int posY = kChipHeight * y * kScale - kAllChipHeight;
+			int posX = static_cast<int>(kChipWidth * x * kScale + m_pCamera->m_drawOffset.x);
+			int posY = static_cast<int>(kChipHeight * y * kScale - kAllChipHeight);
 
 			// 画面外は描画しない
 			if (posX < 0 - kChipWidth) continue;
@@ -207,10 +207,10 @@ bool BgStage::IsCollision(Rect rect, Rect& ChipRect)
 			if (chipBottom < rect.m_top) continue;
 
 			// ぶつかったマップチップの矩形を設定する
-			ChipRect.m_left = static_cast<int>(chipLeft);
-			ChipRect.m_right = static_cast<int>(chipRight);
-			ChipRect.m_top = static_cast<int>(chipTop);
-			ChipRect.m_bottom = static_cast<int>(chipBottom);
+			ChipRect.m_left = static_cast<float>(chipLeft);
+			ChipRect.m_right = static_cast<float>(chipRight);
+			ChipRect.m_top = static_cast<float>(chipTop);
+			ChipRect.m_bottom = static_cast<float>(chipBottom);
 
 			// いずれかのマップチップと当たっていいたら終了
 			return true;

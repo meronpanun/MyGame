@@ -40,9 +40,9 @@ private:
 	struct GameOverEnemy
 	{
 		Vec2 pos;
-		float fallSpeed;     // 落下速度
-		float rotationSpeed; // 回転速度
-		float angle;		 // 回転角度
+		float fallSpeed = 0;     // 落下速度
+		float rotationSpeed = 0; // 回転速度
+		float angle = 0;		 // 回転角度
 	};
 	std::vector<GameOverEnemy> m_gameOverEnemies;
 	// ゲームオーバー用敵の初期化
