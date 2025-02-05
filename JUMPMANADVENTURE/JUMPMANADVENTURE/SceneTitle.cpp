@@ -156,7 +156,7 @@ void SceneTitle::Draw()
 	}
 
 	// É^ÉCÉgÉãÉçÉSÇÃï`âÊ
-	DrawRotaGraph(Game::kScreenWidth * 0.5, 200,
+	DrawRotaGraph(static_cast<int>(Game::kScreenWidth * 0.5), 200,
 		1.0f, 0.0f,
 		m_titleHandle, true);
 
@@ -180,7 +180,7 @@ void SceneTitle::Draw()
 
 	float fadeRate = static_cast<float>(m_fadeFrameCount) / 30;
 	fadeRate = 1.0f - fadeRate;
-	fadeAlpha = 255 * fadeRate;
+	fadeAlpha = static_cast<int>(255 * fadeRate);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);

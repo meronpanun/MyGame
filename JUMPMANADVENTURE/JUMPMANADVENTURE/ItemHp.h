@@ -24,7 +24,7 @@ public:
 	// プレイヤーのポインタを取得
 	void SetPlayer(std::shared_ptr<Player> pPlayer) { m_pPlayer = pPlayer; }
 
-	void SetPos(int x, int y);
+	void SetPos(float x, float y);
 
 	// アイテムが消える処理
 	void ItemLost();

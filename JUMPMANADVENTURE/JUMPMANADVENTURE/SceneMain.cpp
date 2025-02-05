@@ -40,11 +40,11 @@ namespace
 	constexpr int kTimerCountdownInterval = 24; // 60FPSの場合、0.4秒は24フレーム
 	// タイマーとスコアの表示位置
 	constexpr int kTimerPosX = 760;
-	constexpr int kScorePosX = 480;
+	constexpr int kScorePosX = 460;
 	constexpr int kScoreAndTimerPosY = 55;
-	constexpr int kTimerPosX2 = 720;
-	constexpr int kScorePosX2 = 420;
-	constexpr int kScoreAndTimerPosY2 = 20;
+	constexpr int kTimerTextPosX = 720;
+	constexpr int kScoreTextPosX = 420;
+	constexpr int kScoreAndTimerTextPosY = 20;
 
 	// 1000ピクセルの範囲
 	constexpr float kEnemyActivationRange = 1000.0f; 
@@ -336,7 +336,7 @@ SceneBase* SceneMain::Update()
 			// タイマーを徐々に減算
 			if (m_timer > 0)
 			{
-				m_timer -= m_timerDecrementSpeed;
+				m_timer -= static_cast<int>(m_timerDecrementSpeed);
 				m_score += static_cast<int>(10 * m_timerDecrementSpeed); // タイマー1カウントごとにスコアを10ポイント加算
 				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
 				if (m_timer < 0)
@@ -580,12 +580,12 @@ void SceneMain::Draw()
 	}
 
 	// スコアの表示
-	DrawFormatStringToHandle(kScorePosX2, kScoreAndTimerPosY2, 0xffffff, m_pFont->GetFont(), "Score");
+	DrawFormatStringToHandle(kScoreTextPosX, kScoreAndTimerTextPosY, 0xffffff, m_pFont->GetFont(), "Score");
 	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d", m_score);
 
 	// タイマーの表示
 	int displayedTimer = static_cast<int>(m_timer); // 表示するタイマー
-	DrawFormatStringToHandle(kTimerPosX2, kScoreAndTimerPosY2, 0xffffff, m_pFont->GetFont(), "Time");
+	DrawFormatStringToHandle(kTimerTextPosX, kScoreAndTimerTextPosY, 0xffffff, m_pFont->GetFont(), "Time");
 	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, m_pFont->GetFont(), "%d" , displayedTimer);
 
 	// ゲームオーバーの演出の表示
@@ -622,7 +622,7 @@ void SceneMain::Draw()
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 
 			// ゲームオーバーの文字の位置を計算
-			int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_pFont->GetFont1());
+			int width = GetDrawStringWidthToHandle("GAMEOVER", static_cast<int>(strlen("GAMEOVER")), m_pFont->GetFont1());
 			int targetY = kGameoverPosY; // ゲームオーバーの文字の位置
 			int startY = -4; // 画面外から出現
 			int gameOverY = static_cast<int>(startY + (targetY - startY) * progressRate); // 途中の位置を計算
@@ -634,7 +634,7 @@ void SceneMain::Draw()
 			}
 
 			// ゲームオーバーの文字を描画
-			DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, gameOverY,
+			DrawStringToHandle(static_cast<int>(Game::kScreenWidth * 0.5 - width * 0.5), gameOverY,
 				"GAMEOVER", 0xdc143c, m_pFont->GetFont1());
 
 			// 以降の表示がおかしくならないように元の設定に戻しておく
@@ -647,7 +647,7 @@ void SceneMain::Draw()
 
 	float fadeRate = static_cast<float>(m_fadeFrameCount) / 30;
 	fadeRate = 1.0f - fadeRate;
-	fadeAlpha = 255 * fadeRate;
+	fadeAlpha = static_cast<int>(255 * fadeRate);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
@@ -723,6 +723,6 @@ void SceneMain::DrawGameOverEnemies()
 {
 	for (const auto& enemy : m_gameOverEnemies)
 	{
-		DrawRotaGraph(enemy.pos.x, enemy.pos.y, kScale, enemy.angle, m_enemyHandle, true);
+		DrawRotaGraphF(enemy.pos.x, enemy.pos.y, kScale, enemy.angle, m_enemyHandle, true);
 	}
 }

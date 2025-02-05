@@ -10,15 +10,17 @@ public:
 	~FontManager();
 
 	// フォントを取得
-	int GetFont(){ return m_fontHandle; }
-	int GetFont1(){ return m_fontHandle1; }
-	int GetFont2(){ return m_fontHandle2; }
+	int GetFont();
+	int GetFont1();
+	int GetFont2();
 
 private:
 	// フォントハンドル
 	int m_fontHandle;
 	int m_fontHandle1;
 	int m_fontHandle2;
+
+	static bool fontResourceAdded;
 
 };
 

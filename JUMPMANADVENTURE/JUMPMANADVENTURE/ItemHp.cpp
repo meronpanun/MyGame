@@ -73,7 +73,7 @@ void ItemHp::Draw()
 #endif // _DEBUG
 }
 
-void ItemHp::SetPos(int x, int y)
+void ItemHp::SetPos(float x, float y)
 {
 	m_pos.x = x;
 	m_pos.y = y;
