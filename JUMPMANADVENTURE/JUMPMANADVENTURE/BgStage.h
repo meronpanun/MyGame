@@ -5,11 +5,11 @@
 
 class Camera;
 class Player;
-class BgStage1
+class BgStage
 {
 public:
-	BgStage1();
-	virtual ~BgStage1();
+	BgStage();
+	virtual ~BgStage();
 
 	void Init(Camera* camera);
 	void Update(Player* player);

@@ -148,7 +148,7 @@
     <ClCompile Include="ItemHp.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="BgStage1.cpp" />
+    <ClCompile Include="BgStage.cpp" />
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
@@ -164,7 +164,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="BgStage1.h" />
+    <ClInclude Include="BgStage.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="ItemHp.h" />
     <ClInclude Include="Life.h" />

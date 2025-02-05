@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "DxLib.h"
-#include "BgStage1.h"
+#include "BgStage.h"
 #include "Pad.h"
 #include "Game.h"
 #include "Camera.h"
@@ -211,11 +211,11 @@ float Player::GetBottom() const
     return m_pos.y;
 }
 
-void Player::CheckHitBgStage1(Rect chipRect)
+void Player::CheckHitBgStage(Rect chipRect)
 {
     // 横の当たり判定
     m_pos.x += m_move.x;
-    if (m_pBgStage1->IsCollision(GetRect(), chipRect))
+    if (m_pBgStage->IsCollision(GetRect(), chipRect))
     {
         if (m_move.x > 0.0f) // プレイヤーが右方向に移動している
         {
@@ -229,7 +229,7 @@ void Player::CheckHitBgStage1(Rect chipRect)
 
     // 縦の当たり判定
     m_pos.y += m_move.y;
-    if (m_pBgStage1->IsCollision(GetRect(), chipRect))
+    if (m_pBgStage->IsCollision(GetRect(), chipRect))
     {
         if (m_move.y > 0.0f) // プレイヤーが下方向に移動している
         {
@@ -489,7 +489,7 @@ void Player::UpdateNormal()
 
         // マップチップとの当たり判定
         Rect chipRect;
-        CheckHitBgStage1(chipRect);
+        CheckHitBgStage(chipRect);
 
         // ジャンプアニメーションの更新
         m_jumpFrame++;
@@ -529,7 +529,7 @@ void Player::UpdateNormal()
         }
         // マップチップとの当たり判定
         Rect chipRect;
-        CheckHitBgStage1(chipRect);
+        CheckHitBgStage(chipRect);
     }
 }
 

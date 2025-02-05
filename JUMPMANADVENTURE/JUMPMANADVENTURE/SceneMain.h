@@ -8,7 +8,7 @@
 class ItemHp;
 class FontManager;
 class Player;
-class BgStage1;
+class BgStage;
 class Camera;
 class Goal;
 class Enemy;
@@ -54,7 +54,7 @@ private:
 
 private:
 	std::shared_ptr<Camera> m_pCamera;
-	std::shared_ptr<BgStage1> m_pBgStage1;
+	std::shared_ptr<BgStage> m_pBgStage;
 	std::shared_ptr<Player> m_pPlayer;
 	std::shared_ptr<SceneMain> m_pSceneMain;
 	std::shared_ptr<Goal> m_pGoal;

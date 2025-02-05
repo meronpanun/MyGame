@@ -5,6 +5,7 @@
 #include <vector>
 
 class FontManager;
+
 /// <summary>
 ///　ゲームクリアシーンクラス
 /// </summary>
@@ -41,6 +42,7 @@ private:
 private:
 	// フォント管理
 	std::shared_ptr<FontManager> m_pFont;
+
 	// クリアシーンのグラフィックハンドル
 	int m_gameClearBgHandle;
 	int m_gameClearPlayerHandle;

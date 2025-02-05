@@ -8,7 +8,7 @@
 class FontManager;
 class Camera;
 class Player;
-class BgStage1;
+class BgStage;
 class Enemy
 {
 public:
@@ -54,7 +54,7 @@ public:
 private:
   	Camera* m_pCamera;
 
-	std::shared_ptr<BgStage1> m_pBgStage1;
+	std::shared_ptr<BgStage> m_pBgStage;
 	std::shared_ptr<Player> m_pPlayer;
 
 	// “G‚ÌˆÊ’u

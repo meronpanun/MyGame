@@ -4,7 +4,7 @@
 
 class Camera;
 class Player;
-class BgStage1;
+class BgStage;
 class Goal
 {
 public:
@@ -51,7 +51,7 @@ private:
 
 	Camera* m_pCamera;
 
-	std::shared_ptr<BgStage1> m_pStage1;
+	std::shared_ptr<BgStage> m_pStage1;
 	std::shared_ptr<Player> m_pPlayer;
 		
 	// グラフィックハンドル

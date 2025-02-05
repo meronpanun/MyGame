@@ -1,4 +1,4 @@
-#include "BgStage1.h"
+#include "BgStage.h"
 #include "Game.h"
 #include "Player.h"
 #include "DxLib.h"
@@ -14,8 +14,8 @@ namespace
 	constexpr int kChipHeight = 16;
 
 	// マップに敷き詰めるチップ数
-	constexpr int kChipNumX = Stage1::kBgStage1Width / kChipWidth;
-	constexpr int kChipNumY = Stage1::kBgStage1Height / kChipHeight;
+	constexpr int kChipNumX = Stage1::kBgStageWidth / kChipWidth;
+	constexpr int kChipNumY = Stage1::kBgStageHeight / kChipHeight;
 
 	// マップチップ拡大率
 	constexpr float kScale = 3.0f; 
@@ -84,10 +84,10 @@ namespace
 	};
 }
 
-BgStage1::BgStage1()
+BgStage::BgStage()
 {
 	// グラフィックの読み込み
-	m_handle001 = LoadGraph("data/image/GroundBlock.png");
+	m_handle001 = LoadGraph("data/image/groundBlock.png");
 	assert(m_handle001 != -1);
 	m_handle002 = LoadGraph("data/image/hatena.png");
 	assert(m_handle002 != -1);
@@ -97,15 +97,15 @@ BgStage1::BgStage1()
 	assert(m_handle004 != -1);
 	m_handle005 = LoadGraph("data/image/katai.png");
 	assert(m_handle005 != -1);	
-	m_handle006 = LoadGraph("data/image/Cloud_1.png");
+	m_handle006 = LoadGraph("data/image/cloud_1.png");
 	assert(m_handle006 != -1);	
-	m_handle007 = LoadGraph("data/image/Cloud_2.png");
+	m_handle007 = LoadGraph("data/image/cloud_2.png");
 	assert(m_handle007 != -1);	
-	m_handle008 = LoadGraph("data/image/Bush.png");
+	m_handle008 = LoadGraph("data/image/bush.png");
 	assert(m_handle008 != -1);
 }
 
-BgStage1::~BgStage1()
+BgStage::~BgStage()
 {
 	// グラフィックの開放
 	DeleteGraph(m_handle001);
@@ -118,16 +118,16 @@ BgStage1::~BgStage1()
 	DeleteGraph(m_handle008);
 }
 
-void BgStage1::Init(Camera* camera)
+void BgStage::Init(Camera* camera)
 {
 	m_pCamera = camera;
 }
 
-void BgStage1::Update(Player* player)
+void BgStage::Update(Player* player)
 {
 }
 
-void BgStage1::Draw()
+void BgStage::Draw()
 {
 	// 画面全体を空色で塗り潰す
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0xa0d8ef, true);
@@ -153,7 +153,7 @@ void BgStage1::Draw()
 
 			// 画面外は描画しない
 			if (posX < 0 - kChipWidth) continue;
-			if (posX > Stage1::kBgStage1Width) continue;
+			if (posX > Stage1::kBgStageWidth) continue;
 			if (posY < 0 - kChipWidth) continue;
 			if (posY > Game::kScreenHeight) continue;
 
@@ -192,7 +192,7 @@ void BgStage1::Draw()
 /// <param name="rect">プレイヤーの当たり判定</param>
 /// <param name="ChipRect">チップの当たり判定</param>
 /// <returns></returns>
-bool BgStage1::IsCollision(Rect rect, Rect& ChipRect)
+bool BgStage::IsCollision(Rect rect, Rect& ChipRect)
 {
 	for (int y = 0; y < kChipNumY; y++)
 	{
@@ -226,7 +226,7 @@ bool BgStage1::IsCollision(Rect rect, Rect& ChipRect)
 	return false;
 }
 
-float BgStage1::GetGroundHeight(float x) const
+float BgStage::GetGroundHeight(float x) const
 {
 	// 地面の高さを返す処理
 	return kGroundHeight;

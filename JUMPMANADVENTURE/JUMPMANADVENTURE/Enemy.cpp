@@ -1,7 +1,7 @@
 #include "Enemy.h"
 #include "DxLib.h"
 #include "Game.h"
-#include "BgStage1.h"
+#include "BgStage.h"
 #include "Player.h"
 #include "Camera.h"
 #include <assert.h>
@@ -97,7 +97,7 @@ void Enemy::Update()
 	// 横の当たり判定
 	m_pos.x += m_move.x;
 	Rect chipRect;
-	if (m_pBgStage1->IsCollision(GetRect(), chipRect))
+	if (m_pBgStage->IsCollision(GetRect(), chipRect))
 	{
 		if (m_move.x > 0.0f)
 		{
@@ -113,7 +113,7 @@ void Enemy::Update()
 
 	// 縦の当たり判定
 	m_pos.y += m_move.y;
-	if (m_pBgStage1->IsCollision(GetRect(), chipRect))
+	if (m_pBgStage->IsCollision(GetRect(), chipRect))
 	{
 		if (m_move.y > 0.0f) // エネミーが下方向に移動している
 		{

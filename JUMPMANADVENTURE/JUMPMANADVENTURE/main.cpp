@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "SceneManager.h"
 #include "Player.h"
-#include "BgStage1.h"
+#include "BgStage.h"
 
 // ƒvƒƒOƒ‰ƒ€‚Í WinMain ‚©‚çn‚Ü‚è‚Ü‚·
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)

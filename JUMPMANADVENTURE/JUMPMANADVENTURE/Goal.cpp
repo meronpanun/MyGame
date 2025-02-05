@@ -1,7 +1,7 @@
 #include "Goal.h"
 #include "DxLib.h"
 #include "Player.h"
-#include "BgStage1.h"
+#include "BgStage.h"
 #include "Camera.h"
 #include "SceneGameClear.h"
 

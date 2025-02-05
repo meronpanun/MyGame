@@ -1,6 +1,6 @@
 #include "ItemHp.h"
 #include "Player.h"
-#include "BgStage1.h"
+#include "BgStage.h"
 #include "DxLib.h"
 #include "Camera.h"
 #include <cmath>

@@ -6,7 +6,7 @@
 
 class Life;
 class Camera;
-class BgStage1;
+class BgStage;
 class SceneMain;
 /// <summary>
 /// プレイヤークラス
@@ -46,7 +46,7 @@ public:
 	float GetBottom() const;
 
 	// マップチップとの当たり判定
-	void CheckHitBgStage1(Rect chipRect);
+	void CheckHitBgStage(Rect chipRect);
 
 	// Y軸方向の移動量を追加
 	void AddMoveY(float DisY);
@@ -103,7 +103,7 @@ private:
 private:
 	Camera* m_pCamera;
 	SceneMain* m_pMain;
-	std::shared_ptr<BgStage1> m_pBgStage1;
+	std::shared_ptr<BgStage> m_pBgStage;
 	std::vector<Life> m_Life;
 
 	// プレイヤーの位置

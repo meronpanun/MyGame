@@ -6,7 +6,7 @@
 #include "Pad.h"
 #include "Rect.h"
 #include "Game.h"
-#include "BgStage1.h"
+#include "BgStage.h"
 #include "Player.h"
 #include "Camera.h"
 #include "Enemy.h"
@@ -192,12 +192,12 @@ SceneMain::~SceneMain()
 void SceneMain::Init()
 {
 	m_pPlayer = std::make_shared<Player>();
-	m_pBgStage1 = std::make_shared<BgStage1>();
+	m_pBgStage = std::make_shared<BgStage>();
 	m_pCamera = std::make_shared<Camera>();
 	m_pFont = std::make_shared<FontManager>();
 
 	m_pPlayer->Init(m_pCamera.get());
-	m_pBgStage1->Init(m_pCamera.get());
+	m_pBgStage->Init(m_pCamera.get());
 	m_pCamera->Init();
 	m_pGoal->Init(m_pCamera.get());
 
@@ -378,7 +378,7 @@ SceneBase* SceneMain::Update()
 		}
 	}
 
-	m_pBgStage1->Update(m_pPlayer.get());
+	m_pBgStage->Update(m_pPlayer.get());
 	m_pGoal->Update();
 
 	// プレイヤーが死亡状態でない場合のみ敵の更新とタイマーの更新を行う
@@ -552,7 +552,7 @@ SceneBase* SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	m_pBgStage1->Draw(); 
+	m_pBgStage->Draw(); 
 	m_pGoal->Draw();
 	m_pPlayer->Draw();
 

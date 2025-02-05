@@ -1,10 +1,10 @@
 #pragma once
 #include "SceneBase.h"
 
-class SceneStage1;
 class SceneTitle;
 class SceneMain;
 class SceneGameClear;
+
 /// <summary>
 /// シーン管理クラス
 /// </summary>
