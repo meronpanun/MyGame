@@ -190,52 +190,6 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
-	//m_pPlayer = std::make_shared<Player>();
-	//m_pBgStage = std::make_shared<BgStage>();
-	//m_pCamera = std::make_shared<Camera>();
-	//m_pFont = std::make_shared<FontManager>();
-
-	//m_pPlayer->Init(m_pCamera.get());
-	//m_pBgStage->Init(m_pCamera.get());
-	//m_pCamera->Init();
-	//m_pGoal->Init(m_pCamera.get());
-
-	//// 敵の初期化
-	//for (auto& enemy : m_pEnemy)
-	//{
-	//	if (enemy)
-	//	{
-	//		enemy->Init(m_pCamera.get());
-	//	}
-	//}
-
-	//// アイテムの初期化
-	//for (auto& itemHp : m_pItemHp)
-	//{
-	//	if (itemHp)
-	//	{
-	//		itemHp->Init(m_pCamera.get());
-	//	}
-	//}
-
-	//// 体力の初期化
-	//m_life.resize(kMaxHp);
-	//for (int i = 0; i < m_life.size(); i++)
-	//{
-	//	m_life[i].Init();
-	//	m_life[i].SetHandle(m_lifeHandle);
-	//	m_life[i].SetIndex(i);
-	//}
-
-	//// BGMの再生開始（ループ再生）
-	//PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
-
-	//// スコアとタイマーの初期化
-	//m_score = 0;
-	//m_timer = kInitialTimer;
-
-	//// 旗の落ちる高さを設定
-	//m_pGoal->SetFlagFallHeight(280);
 	m_pPlayer = std::make_shared<Player>();
 	m_pBgStage = std::make_shared<BgStage>();
 	m_pCamera = std::make_shared<Camera>();

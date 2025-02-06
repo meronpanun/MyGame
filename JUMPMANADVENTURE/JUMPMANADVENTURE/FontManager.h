@@ -14,10 +14,16 @@ public:
 
 	// フォントを全て解放
     void ReleaseAllFonts();
-
-private:
     std::unordered_map<int, int> m_fonts;
+
 	// フォントリソースの追加フラグ
     static bool fontResourceAdded;
+
+private:
+
+    // フォントの上限
+    static constexpr int kMaxFonts = 10;
+    // 古いフォントを解放
+    void ReleaseOldestFont();
 };
 

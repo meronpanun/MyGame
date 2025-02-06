@@ -40,13 +40,22 @@ FontManager::~FontManager()
 
 int FontManager::GetFont(int size)
 {
-	// フォントが存在しない場合は作成
-    if (m_fonts.find(size) == m_fonts.end())
+    auto it = m_fonts.find(size);
+    if (it != m_fonts.end())
     {
-        int fontHandle = CreateFontToHandle("Super Mario 256", size, -1, DX_FONTTYPE_ANTIALIASING | DX_FONTTYPE_EDGE);
-        m_fonts[size] = fontHandle;
+        return it->second;
     }
-    return m_fonts[size];
+
+    // フォントの上限に達している場合、古いフォントを解放
+    if (m_fonts.size() >= kMaxFonts)
+    {
+        ReleaseOldestFont();
+    }
+
+    // "Super Mario 256" フォントを使用してフォントを作成
+    int fontHandle = CreateFontToHandle("Super Mario 256", size, -1, DX_FONTTYPE_ANTIALIASING | DX_FONTTYPE_EDGE);
+    m_fonts[size] = fontHandle;
+    return fontHandle;
 }
 
 void FontManager::ReleaseAllFonts()
@@ -57,5 +66,15 @@ void FontManager::ReleaseAllFonts()
         DeleteFontToHandle(font.second);
     }
     m_fonts.clear();
+}
+
+void FontManager::ReleaseOldestFont()
+{
+    if (!m_fonts.empty()) 
+    {
+        auto it = m_fonts.begin();
+        DeleteFontToHandle(it->second);
+        m_fonts.erase(it);
+    }
 }
 
