@@ -1,4 +1,4 @@
-#include "SceneMain.h"
+ï»¿#include "SceneMain.h"
 #include "SceneManager.h"
 #include "SceneTitle.h"
 #include "SceneGameClear.h"
@@ -20,25 +20,25 @@
 
 namespace
 {
-	// ƒQ[ƒ€ƒI[ƒo[‚Ì•¶š‚ª•\¦‚³‚ê‚é‚Ü‚Å‚ÌƒtƒŒ[ƒ€”
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®æ–‡å­—ãŒè¡¨ç¤ºã•ã‚Œã‚‹ã¾ã§ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
 	constexpr int kGameoverFadeFrame = 60;
 
-	// ƒQ[ƒ€ƒI[ƒo[‚Ì•¶š•\¦ˆÊ’u
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®æ–‡å­—è¡¨ç¤ºä½ç½®
 	constexpr int kGameoverPosY = 900;
 
-	// Press A Button‚Ì•\¦ˆÊ’u
+	// Press A Buttonã®è¡¨ç¤ºä½ç½®
 	constexpr int kPressAButtonPosX = 430;
 	constexpr int kPressAButtonPosY = 550;
 
-	// •¶š‚Ì“_–Å
+	// æ–‡å­—ã®ç‚¹æ»…
 	constexpr int kBlinkCycleFrame = 60;
 	constexpr int kBlinkDispFrame = 40;
 
-	// ƒ^ƒCƒ}[‚Ì‰Šú’l
+	// ã‚¿ã‚¤ãƒãƒ¼ã®åˆæœŸå€¤
 	constexpr int kInitialTimer = 400;
-	// ƒ^ƒCƒ}[‚ÌƒJƒEƒ“ƒgƒ_ƒEƒ“ŠÔŠui0.4•bj
-	constexpr int kTimerCountdownInterval = 24; // 60FPS‚Ìê‡A0.4•b‚Í24ƒtƒŒ[ƒ€
-	// ƒ^ƒCƒ}[‚ÆƒXƒRƒA‚Ì•\¦ˆÊ’u
+	// ã‚¿ã‚¤ãƒãƒ¼ã®ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³é–“éš”ï¼ˆ0.4ç§’ï¼‰
+	constexpr int kTimerCountdownInterval = 24; // 60FPSã®å ´åˆã€0.4ç§’ã¯24ãƒ•ãƒ¬ãƒ¼ãƒ 
+	// ã‚¿ã‚¤ãƒãƒ¼ã¨ã‚¹ã‚³ã‚¢ã®è¡¨ç¤ºä½ç½®
 	constexpr int kTimerPosX = 760;
 	constexpr int kScorePosX = 460;
 	constexpr int kScoreAndTimerPosY = 55;
@@ -46,36 +46,36 @@ namespace
 	constexpr int kScoreTextPosX = 420;
 	constexpr int kScoreAndTimerTextPosY = 20;
 
-	// 1000ƒsƒNƒZƒ‹‚Ì”ÍˆÍ
+	// 1000ãƒ”ã‚¯ã‚»ãƒ«ã®ç¯„å›²
 	constexpr float kEnemyActivationRange = 1000.0f; 
 
-	// ‘Ì—Í‚ÌÅ‘å’l
+	// ä½“åŠ›ã®æœ€å¤§å€¤
 	constexpr int kMaxHp = 3;
 
-	// ”wŒi‚Ì1‚Â‚ÌƒTƒCƒY
+	// èƒŒæ™¯ã®1ã¤ã®ã‚µã‚¤ã‚º
 	constexpr int kChipWidth = 64;
 	constexpr int kChipHeight = 64;
 
-	// ‰¹—Ê
+	// éŸ³é‡
 	constexpr int kVolumeBGM = 128;
 	constexpr int kVolumeSE = 100;
 
-	// Šg‘å—¦
+	// æ‹¡å¤§ç‡
 	constexpr float kScale = 2.0f;
 
-	// ƒQ[ƒ€ƒI[ƒo[—p“G‚Ì•`‰æƒTƒCƒY
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®æç”»ã‚µã‚¤ã‚º
 	constexpr int kGraphWidth = 30;
 	constexpr int kGraphHeight = 28;
 
-	// ƒQ[ƒ€ƒI[ƒo[—p“G‚Ì‰ŠúˆÊ’u‚Æ—‰º‘¬“x
-	constexpr float kGameOverEnemyStartPosY = -kGraphHeight * kScale; // ‰æ–ÊŠO‚©‚çoŒ»
-	constexpr float kGameOverEnemyFallSpeedMin = 1.0f; // —‰º‘¬“x‚ÌÅ¬’l
-	constexpr float kGameOverEnemyFallSpeedMax = 3.0f; // —‰º‘¬“x‚ÌÅ‘å’l
-	constexpr float kGameOverEnemyRotationSpeedMin = 0.02f; // ‰ñ“]‘¬“x‚ÌÅ¬’l
-	constexpr float kGameOverEnemyRotationSpeedMax = 0.1f;  // ‰ñ“]‘¬“x‚ÌÅ‘å’l
-	constexpr int kNumGameOverEnemies = 10; // ƒQ[ƒ€ƒI[ƒo[—p“G‚Ì”
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®åˆæœŸä½ç½®ã¨è½ä¸‹é€Ÿåº¦
+	constexpr float kGameOverEnemyStartPosY = -kGraphHeight * kScale; // ç”»é¢å¤–ã‹ã‚‰å‡ºç¾
+	constexpr float kGameOverEnemyFallSpeedMin = 1.0f; // è½ä¸‹é€Ÿåº¦ã®æœ€å°å€¤
+	constexpr float kGameOverEnemyFallSpeedMax = 3.0f; // è½ä¸‹é€Ÿåº¦ã®æœ€å¤§å€¤
+	constexpr float kGameOverEnemyRotationSpeedMin = 0.02f; // å›è»¢é€Ÿåº¦ã®æœ€å°å€¤
+	constexpr float kGameOverEnemyRotationSpeedMax = 0.1f;  // å›è»¢é€Ÿåº¦ã®æœ€å¤§å€¤
+	constexpr int kNumGameOverEnemies = 10; // ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®æ•°
 
-	// ƒS[ƒ‹Œã‚Ì‰æ–Ê‘JˆÚ‚Ü‚Å‚Ì‘Ò‹@ŠÔiƒtƒŒ[ƒ€”j
+	// ã‚´ãƒ¼ãƒ«å¾Œã®ç”»é¢é·ç§»ã¾ã§ã®å¾…æ©Ÿæ™‚é–“ï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ æ•°ï¼‰
 	constexpr int kGoalTransitionWaitTime = 480;
 }
 
@@ -93,7 +93,6 @@ SceneMain::SceneMain():
 	m_isAddingScore(false),
 	m_bonusScore(0),
 	m_goalTransitionTimer(0),
-	m_goalHitTimer(0),
 	m_bgmVolume(kVolumeBGM), 
 	m_isBgmFadingOut(false), 
 	m_bgmFadeOutFrameCount(0),
@@ -105,7 +104,7 @@ SceneMain::SceneMain():
 	m_timerDecrementStartCount(190),
 	m_isGoalTimerDecrementing(false)
 {
-	// ƒOƒ‰ƒtƒBƒbƒN‚Ì“Ç‚İ‚İ
+	// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã®èª­ã¿è¾¼ã¿
 	m_lifeHandle = LoadGraph("data/image/heart.png");
 	assert(m_lifeHandle != -1);
 	m_flagHandle = LoadGraph("data/image/flag.png");
@@ -117,7 +116,7 @@ SceneMain::SceneMain():
 	m_enemyHandle = LoadGraph("data/image/Enemy.png");
 	assert(m_enemyHandle != -1);
 
-	//BGM‚Ì“Ç‚İ‚İ
+	//BGMã®èª­ã¿è¾¼ã¿
 	m_bgmHandle = LoadSoundMem("data/sound/BGM/stage.mp3");
 	assert(m_bgmHandle != -1);
 	m_gameOverBGMHandle = LoadSoundMem("data/sound/BGM/gameOver.mp3");
@@ -125,7 +124,7 @@ SceneMain::SceneMain():
 	m_noTimeBGMHandle = LoadSoundMem("data/sound/BGM/noTime.mp3");
 	assert(m_noTimeBGMHandle != -1);
 
-	// SE‚Ì“Ç‚İ‚İ
+	// SEã®èª­ã¿è¾¼ã¿
 	m_seHandle = LoadSoundMem("data/sound/SE/score.mp3");
 	assert(m_seHandle != -1);
 	m_enemyDeadSEHandle = LoadSoundMem("data/sound/SE/enemyDead.mp3");
@@ -137,10 +136,10 @@ SceneMain::SceneMain():
 	m_pGoal->SetHandle(m_flagHandle);
 	m_pGoal->SetPoleHandle(m_poleHandle);
 
-	// “G‚Ì¶¬”
+	// æ•µã®ç”Ÿæˆæ•°
 	m_pEnemy.resize(17);
 
-	// Še“G‚Ì‰ŠúˆÊ’u
+	// å„æ•µã®åˆæœŸä½ç½®
 	CreateEnemy(1600, 625);
 	CreateEnemy(2650, 625);
 	CreateEnemy(3100, 625);
@@ -159,30 +158,30 @@ SceneMain::SceneMain():
 	CreateEnemy(9000, 625);
 	CreateEnemy(9150, 625);
 
-	// Hp‚Ì¶¬”
+	// Hpã®ç”Ÿæˆæ•°
 	m_pItemHp.resize(2);
 
-	// ŠeHp‚Ì‰ŠúˆÊ’u
+	// å„Hpã®åˆæœŸä½ç½®
 	CreateItemHp(1600, 420);
 	CreateItemHp(5850, 220);
 
-	// ƒQ[ƒ€ƒI[ƒo[—p“G‚Ì‰Šú‰»
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®åˆæœŸåŒ–
 	InitGameOverEnemies();
 }
 
 SceneMain::~SceneMain()
 {
-	// ƒOƒ‰ƒtƒBƒbƒN‚ÌŠJ•ú
+	// ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ã®é–‹æ”¾
 	DeleteGraph(m_lifeHandle);
 	DeleteGraph(m_flagHandle);
 	DeleteGraph(m_bgHandle);
 	DeleteGraph(m_poleHandle);
 	DeleteGraph(m_enemyHandle);
-	//BGM‚ğ‰ğ•ú
+	//BGMã‚’è§£æ”¾
 	DeleteSoundMem(m_bgmHandle);
 	DeleteSoundMem(m_gameOverBGMHandle);
 	DeleteSoundMem(m_noTimeBGMHandle);
-	// SE‚ğ‰ğ•ú
+	// SEã‚’è§£æ”¾
 	DeleteGraph(m_seHandle);
 	DeleteGraph(m_enemyDeadSEHandle);
 	DeleteGraph(m_pressAButtonSEHandle);
@@ -200,7 +199,7 @@ void SceneMain::Init()
 	m_pCamera->Init();
 	m_pGoal->Init(m_pCamera.get());
 
-	// “G‚Ì‰Šú‰»
+	// æ•µã®åˆæœŸåŒ–
 	for (auto& enemy : m_pEnemy)
 	{
 		if (enemy)
@@ -209,7 +208,7 @@ void SceneMain::Init()
 		}
 	}
 
-	// ƒAƒCƒeƒ€‚Ì‰Šú‰»
+	// ã‚¢ã‚¤ãƒ†ãƒ ã®åˆæœŸåŒ–
 	for (auto& itemHp : m_pItemHp)
 	{
 		if (itemHp)
@@ -218,7 +217,7 @@ void SceneMain::Init()
 		}
 	}
 
-	// ‘Ì—Í‚Ì‰Šú‰»
+	// ä½“åŠ›ã®åˆæœŸåŒ–
 	m_life.resize(kMaxHp);
 	for (int i = 0; i < m_life.size(); i++)
 	{
@@ -227,58 +226,58 @@ void SceneMain::Init()
 		m_life[i].SetIndex(i);
 	}
 
-	// BGM‚ÌÄ¶ŠJniƒ‹[ƒvÄ¶j
+	// BGMã®å†ç”Ÿé–‹å§‹ï¼ˆãƒ«ãƒ¼ãƒ—å†ç”Ÿï¼‰
 	PlaySoundMem(m_bgmHandle, DX_PLAYTYPE_LOOP);
 
-	// ƒXƒRƒA‚Æƒ^ƒCƒ}[‚Ì‰Šú‰»
+	// ã‚¹ã‚³ã‚¢ã¨ã‚¿ã‚¤ãƒãƒ¼ã®åˆæœŸåŒ–
 	m_score = 0;
 	m_timer = kInitialTimer;
 
-	// Šø‚Ì—‚¿‚é‚‚³‚ğİ’è
+	// æ——ã®è½ã¡ã‚‹é«˜ã•ã‚’è¨­å®š
 	m_pGoal->SetFlagFallHeight(280);
 }
 
 SceneBase* SceneMain::Update()
 {
-	// ƒTƒEƒ“ƒh‚Ì‘å‚«‚³İ’è
+	// ã‚µã‚¦ãƒ³ãƒ‰ã®å¤§ãã•è¨­å®š
 	ChangeVolumeSoundMem(kVolumeBGM, m_bgmHandle);
 	ChangeVolumeSoundMem(kVolumeBGM, m_noTimeBGMHandle);
 	ChangeVolumeSoundMem(kVolumeSE, m_seHandle);
 	ChangeVolumeSoundMem(kVolumeSE, m_pressAButtonSEHandle);
 
-	// ƒS[ƒ‹‚É“–‚½‚Á‚½‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN
+	// ã‚´ãƒ¼ãƒ«ã«å½“ãŸã£ãŸã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯
 	if (m_pGoal->GetHitPlayerFlag(m_pPlayer))
 	{
 		m_isGoalHit = true; 
-		m_isGoalTimerDecrementing = true; // ƒS[ƒ‹‚Ìƒ^ƒCƒ}[Œ¸Z’†ƒtƒ‰ƒO‚ğİ’è
-		m_pPlayer->DisableControl(); // ƒvƒŒƒCƒ„[‚Ì‘€ì‚ğ–³Œø‰»
+		m_isGoalTimerDecrementing = true; // ã‚´ãƒ¼ãƒ«æ™‚ã®ã‚¿ã‚¤ãƒãƒ¼æ¸›ç®—ä¸­ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
+		m_pPlayer->DisableControl(); // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ“ä½œã‚’ç„¡åŠ¹åŒ–
 
-		// BGM‚ÌƒtƒF[ƒhƒAƒEƒg‚ğŠJn
+		// BGMã®ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã‚’é–‹å§‹
 		m_isBgmFadingOut = true;
 		m_isNoTimeBgmFadingOut = true;
-		// ƒtƒF[ƒhƒAƒEƒg‚É‚©‚¯‚éƒtƒŒ[ƒ€”‚ğİ’è
+		// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã«ã‹ã‘ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’è¨­å®š
 		m_bgmFadeOutFrameCount = 50; 
 		m_noTimeBgmFadeOutFrameCount = 50;
 
-		// ƒvƒŒƒCƒ„[‚ª’n–Ê‚É‚Â‚¢‚Ä‚¢‚È‚¢ê‡A’n–Ê‚É‚Â‚­‚æ‚¤‚É‚·‚é
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒåœ°é¢ã«ã¤ã„ã¦ã„ãªã„å ´åˆã€åœ°é¢ã«ã¤ãã‚ˆã†ã«ã™ã‚‹
 		if (!m_pPlayer->IsOnGround())
 		{
-			float initialY = 625.0f; // ƒvƒŒƒCƒ„[‚Ì‰ŠúYÀ•W
+			float initialY = 625.0f; // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸYåº§æ¨™
 			m_pPlayer->FallToGround(initialY);
 		}
 
-		// ƒS[ƒ‹‚Ìƒ^ƒCƒ}[‚Ì’l‚ğ•Û‘¶
+		// ã‚´ãƒ¼ãƒ«æ™‚ã®ã‚¿ã‚¤ãƒãƒ¼ã®å€¤ã‚’ä¿å­˜
 		m_goalTimer = m_timer;
 	}
 
-	// BGM‚ÌƒtƒF[ƒhƒAƒEƒgˆ—
+	// BGMã®ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆå‡¦ç†
 	if (m_isBgmFadingOut)
 	{
-		// ƒtƒF[ƒhƒAƒEƒg‚ÌƒtƒŒ[ƒ€ƒJƒEƒ“ƒg‚ğŒ¸Z
+		// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆã‚’æ¸›ç®—
 		m_bgmFadeOutFrameCount--; 
-		if (m_bgmFadeOutFrameCount > 0) // ƒtƒF[ƒhƒAƒEƒg‚ªŠ®—¹‚·‚é‚Ü‚Å‰¹—Ê‚ğ‰º‚°‚é
+		if (m_bgmFadeOutFrameCount > 0) // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆãŒå®Œäº†ã™ã‚‹ã¾ã§éŸ³é‡ã‚’ä¸‹ã’ã‚‹
 		{
-			// ƒtƒF[ƒhƒAƒEƒg‚Ìi’»‚É‰‚¶‚Ä‰¹—Ê‚ğ‰º‚°‚é
+			// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã®é€²æ—ã«å¿œã˜ã¦éŸ³é‡ã‚’ä¸‹ã’ã‚‹
 			m_bgmVolume = static_cast<int>(kVolumeBGM * (static_cast<float>(m_bgmFadeOutFrameCount) / 60.0f));
 			ChangeVolumeSoundMem(m_bgmVolume, m_bgmHandle);
 		}
@@ -289,7 +288,7 @@ SceneBase* SceneMain::Update()
 		}
 	}
 
-	// ƒ^ƒCƒ}[‚Ìc‚èŠÔ‚ª120ƒJƒEƒ“ƒgˆÈ‰º‚É‚È‚Á‚½‚çBGM‚ğØ‚è‘Ö‚¦‚é
+	// ã‚¿ã‚¤ãƒãƒ¼ã®æ®‹ã‚Šæ™‚é–“ãŒ120ã‚«ã‚¦ãƒ³ãƒˆä»¥ä¸‹ã«ãªã£ãŸã‚‰BGMã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹
 	if (m_timer <= 120 && !m_isHurryUpBGMPlaying && !m_isGoalHit)
 	{
 		StopSoundMem(m_bgmHandle);
@@ -297,14 +296,14 @@ SceneBase* SceneMain::Update()
 		m_isHurryUpBGMPlaying = true;
 	}
 
-	// ƒm[ƒ^ƒCƒ€BGM‚ÌƒtƒF[ƒhƒAƒEƒgˆ—
+	// ãƒãƒ¼ã‚¿ã‚¤ãƒ BGMã®ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆå‡¦ç†
 	if (m_isNoTimeBgmFadingOut)
 	{
-		// ƒtƒF[ƒhƒAƒEƒg‚ÌƒtƒŒ[ƒ€ƒJƒEƒ“ƒg‚ğŒ¸Z
+		// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆã‚’æ¸›ç®—
 		m_noTimeBgmFadeOutFrameCount--;
-		if (m_noTimeBgmFadeOutFrameCount > 0) // ƒtƒF[ƒhƒAƒEƒg‚ªŠ®—¹‚·‚é‚Ü‚Å‰¹—Ê‚ğ‰º‚°‚é
+		if (m_noTimeBgmFadeOutFrameCount > 0) // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆãŒå®Œäº†ã™ã‚‹ã¾ã§éŸ³é‡ã‚’ä¸‹ã’ã‚‹
 		{
-			// ƒtƒF[ƒhƒAƒEƒg‚Ìi’»‚É‰‚¶‚Ä‰¹—Ê‚ğ‰º‚°‚é
+			// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã®é€²æ—ã«å¿œã˜ã¦éŸ³é‡ã‚’ä¸‹ã’ã‚‹
 			m_bgmVolume = static_cast<int>(kVolumeBGM * (static_cast<float>(m_noTimeBgmFadeOutFrameCount) / 60.0f));
 			ChangeVolumeSoundMem(m_bgmVolume, m_noTimeBGMHandle);
 		}
@@ -315,29 +314,29 @@ SceneBase* SceneMain::Update()
 		}
 	}
 
-    // ƒS[ƒ‹‚É“–‚½‚Á‚Ä‚¢‚éê‡
+    // ã‚´ãƒ¼ãƒ«ã«å½“ãŸã£ã¦ã„ã‚‹å ´åˆ
 	if (m_isGoalHit)
 	{
 		if (m_pGoal->m_collisionTimer >= 160)
 		{
-			// ƒvƒŒƒCƒ„[‚ª’n–Ê‚É‚Â‚¢‚Ä‚¢‚éê‡A‰E‚ÉˆÚ“®‚³‚¹‚é
-			m_pPlayer->SetPosX(m_pPlayer->GetPos().x + 3.5f); // ˆÚ“®‘¬“x‚ğ’²®
-			m_pPlayer->SetIsWalking(true); // •à‚­ƒAƒjƒ[ƒVƒ‡ƒ“‚ğs‚¤
-			m_pPlayer->UpdateAnimation();  // ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌUpdateŠÖ”‚ğŒÄ‚Ño‚·
+			// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒåœ°é¢ã«ã¤ã„ã¦ã„ã‚‹å ´åˆã€å³ã«ç§»å‹•ã•ã›ã‚‹
+			m_pPlayer->SetPosX(m_pPlayer->GetPos().x + 3.5f); // ç§»å‹•é€Ÿåº¦ã‚’èª¿æ•´
+			m_pPlayer->SetIsWalking(true); // æ­©ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’è¡Œã†
+			m_pPlayer->UpdateAnimation();  // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®Updateé–¢æ•°ã‚’å‘¼ã³å‡ºã™
 		}
 
-		// ƒ^ƒCƒ}[Œ¸ZŠJn‚ğ§Œä
+		// ã‚¿ã‚¤ãƒãƒ¼æ¸›ç®—é–‹å§‹ã‚’åˆ¶å¾¡
 		if (m_timerDecrementStartCount > 0)
 		{
 			m_timerDecrementStartCount--;
 		}
 		else
 		{
-			// ƒ^ƒCƒ}[‚ğ™X‚ÉŒ¸Z
+			// ã‚¿ã‚¤ãƒãƒ¼ã‚’å¾ã€…ã«æ¸›ç®—
 			if (m_timer > 0)
 			{
 				m_timer -= static_cast<int>(m_timerDecrementSpeed);
-				m_score += static_cast<int>(10 * m_timerDecrementSpeed); // ƒ^ƒCƒ}[1ƒJƒEƒ“ƒg‚²‚Æ‚ÉƒXƒRƒA‚ğ10ƒ|ƒCƒ“ƒg‰ÁZ
+				m_score += static_cast<int>(10 * m_timerDecrementSpeed); // ã‚¿ã‚¤ãƒãƒ¼1ã‚«ã‚¦ãƒ³ãƒˆã”ã¨ã«ã‚¹ã‚³ã‚¢ã‚’10ãƒã‚¤ãƒ³ãƒˆåŠ ç®—
 				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
 				if (m_timer < 0)
 				{
@@ -348,20 +347,20 @@ SceneBase* SceneMain::Update()
 	}
 	else
 	{
-		// ƒS[ƒ‹‚É“–‚½‚Á‚Ä‚¢‚È‚¢ê‡‚Ì‚İƒvƒŒƒCƒ„[‚ÌUpdate‚ğŒÄ‚Ño‚·
+		// ã‚´ãƒ¼ãƒ«ã«å½“ãŸã£ã¦ã„ãªã„å ´åˆã®ã¿ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®Updateã‚’å‘¼ã³å‡ºã™
 		m_pPlayer->Update();
 		m_pCamera->Update(m_pPlayer.get());
 	}
 
 	if (m_isGameEnd)
 	{
-		// ƒQ[ƒ€ƒI[ƒo[‚É‚È‚Á‚½Œã1ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒtƒF[ƒhƒAƒEƒg
+		// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã«ãªã£ãŸå¾Œ1ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
 		m_fadeFrameCount--;
 		if (m_fadeFrameCount < 0)
 		{
-			// SE‚ğÄ¶
+			// SEã‚’å†ç”Ÿ
 			PlaySoundMem(m_pressAButtonSEHandle, DX_PLAYTYPE_BACK);
-			// BGM‚ğ’â~
+			// BGMã‚’åœæ­¢
 			StopSoundMem(m_gameOverBGMHandle);
 			m_fadeFrameCount = 0;
 			return new SceneTitle();
@@ -369,7 +368,7 @@ SceneBase* SceneMain::Update()
 	}
 	else
 	{
-		// ƒtƒF[ƒhƒCƒ“ˆ—
+		// ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³å‡¦ç†
 		m_fadeFrameCount++;
 		if (m_fadeFrameCount > 30)
 		{
@@ -380,10 +379,10 @@ SceneBase* SceneMain::Update()
 	m_pBgStage->Update(m_pPlayer.get());
 	m_pGoal->Update();
 
-	// ƒvƒŒƒCƒ„[‚ª€–Só‘Ô‚Å‚È‚¢ê‡‚Ì‚İ“G‚ÌXV‚Æƒ^ƒCƒ}[‚ÌXV‚ğs‚¤
-	if (m_pPlayer->GetHp() > 0 && !m_isGoalHit) // ƒS[ƒ‹‚É“–‚½‚Á‚Ä‚¢‚È‚¢ê‡‚Ì‚İƒ^ƒCƒ}[‚ği‚ß‚é
+	// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ­»äº¡çŠ¶æ…‹ã§ãªã„å ´åˆã®ã¿æ•µã®æ›´æ–°ã¨ã‚¿ã‚¤ãƒãƒ¼ã®æ›´æ–°ã‚’è¡Œã†
+	if (m_pPlayer->GetHp() > 0 && !m_isGoalHit) // ã‚´ãƒ¼ãƒ«ã«å½“ãŸã£ã¦ã„ãªã„å ´åˆã®ã¿ã‚¿ã‚¤ãƒãƒ¼ã‚’é€²ã‚ã‚‹
 	{
-		// “G‚ÌXV
+		// æ•µã®æ›´æ–°
 		Vec2 playerPos = m_pPlayer->GetPos();
 		for (auto& enemy : m_pEnemy)
 		{
@@ -391,16 +390,16 @@ SceneBase* SceneMain::Update()
 			{
 				if (enemy->IsPlayerInRange(playerPos, kEnemyActivationRange))
 				{
-					enemy->Activate(); // “G‚ğƒAƒNƒeƒBƒu‚É‚·‚é
+					enemy->Activate(); // æ•µã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
 				}
 				if (enemy->IsActive())
 				{
-					enemy->Update();   // ƒAƒNƒeƒBƒu‚È“G‚ğXV
+					enemy->Update();   // ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªæ•µã‚’æ›´æ–°
 				}
 			}
 		}
 
-		// ƒAƒCƒeƒ€‚ÌXV
+		// ã‚¢ã‚¤ãƒ†ãƒ ã®æ›´æ–°
 		for (auto& itemHp : m_pItemHp)
 		{
 			if (itemHp)
@@ -409,7 +408,7 @@ SceneBase* SceneMain::Update()
 			}
 		}
 
-		// ƒ^ƒCƒ}[‚ÌƒJƒEƒ“ƒgƒ_ƒEƒ“
+		// ã‚¿ã‚¤ãƒãƒ¼ã®ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
 		static int timerFrameCount = 0;
 		timerFrameCount++;
 		if (timerFrameCount >= kTimerCountdownInterval)
@@ -421,19 +420,19 @@ SceneBase* SceneMain::Update()
 			}
 		}
 
-		// ‘Ì—Í‚ÌXV
+		// ä½“åŠ›ã®æ›´æ–°
 		for (int i = 0; i < m_life.size(); i++)
 		{
 			m_life[i].Update();
 		}
 
-		// ƒvƒŒƒCƒ„[‚Æ“G‚Ì“–‚½‚è”»’è
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨æ•µã®å½“ãŸã‚Šåˆ¤å®š
 		for (auto& enemy : m_pEnemy)
 		{
 			if (enemy && enemy->IsAlive())
 			{
 				bool isPlayerHit = true;
-				// â‘Î‚É“–‚½‚ç‚È‚¢ƒpƒ^[ƒ“
+				// çµ¶å¯¾ã«å½“ãŸã‚‰ãªã„ãƒ‘ã‚¿ãƒ¼ãƒ³
 				if (m_pPlayer->GetLeft() > enemy->GetRigth())
 				{
 					isPlayerHit = false;
@@ -451,57 +450,57 @@ SceneBase* SceneMain::Update()
 					isPlayerHit = false;
 				}
 
-				// isPlayerHit = true‚È‚ç“–‚½‚Á‚Ä‚¢‚éAfalse‚È‚ç“–‚½‚Á‚Ä‚¢‚È‚¢
+				// isPlayerHit = trueãªã‚‰å½“ãŸã£ã¦ã„ã‚‹ã€falseãªã‚‰å½“ãŸã£ã¦ã„ãªã„
 				if (isPlayerHit)
 				{
-					if (m_pPlayer->GetBottom() < enemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // ƒvƒŒƒCƒ„[‚ª“G‚Ìã‚É“–‚½‚Á‚½ê‡
+					if (m_pPlayer->GetBottom() < enemy->GetTop() + 50 && m_pPlayer->GetMoveY() > 0) // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ•µã®ä¸Šã«å½“ãŸã£ãŸå ´åˆ
 					{
-						enemy->SetAlive(false);    // “G‚ğÁ‚·
-						m_pPlayer->JumpOnEnemy();  // ƒvƒŒƒCƒ„[‚ª­‚µƒWƒƒƒ“ƒv
-						m_score += 100;            // “G‚ğ“|‚·‚ÆƒXƒRƒA‚ğ100ƒ|ƒCƒ“ƒg‘‰Á
-						// SE‚ğÄ¶
+						enemy->SetAlive(false);    // æ•µã‚’æ¶ˆã™
+						m_pPlayer->JumpOnEnemy();  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå°‘ã—ã‚¸ãƒ£ãƒ³ãƒ—
+						m_score += 100;            // æ•µã‚’å€’ã™ã¨ã‚¹ã‚³ã‚¢ã‚’100ãƒã‚¤ãƒ³ãƒˆå¢—åŠ 
+						// SEã‚’å†ç”Ÿ
 						PlaySoundMem(m_enemyDeadSEHandle, DX_PLAYTYPE_BACK);
 					}
 					else
 					{
-						m_pPlayer->OnDamage();	   // ƒvƒŒƒCƒ„[‚ªƒ_ƒ[ƒW‚ğó‚¯‚é
+						m_pPlayer->OnDamage();	   // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹
 					}
 				}
 			}
 		}
-		// ƒvƒŒƒCƒ„[‚ÆƒAƒCƒeƒ€‚Ì“–‚½‚è”»’è
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚¢ã‚¤ãƒ†ãƒ ã®å½“ãŸã‚Šåˆ¤å®š
 		for (auto& itemHp : m_pItemHp)
 		{
 			if (itemHp && itemHp->IsExist() && itemHp->GetHitPlayerFlag(m_pPlayer))
 			{
-				// ƒAƒCƒeƒ€‚ğæ“¾‚µ‚½ê‡‚Ìˆ—
+				// ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–å¾—ã—ãŸå ´åˆã®å‡¦ç†
 				itemHp->ItemLost();
-				// ƒvƒŒƒCƒ„[‚ÌHP‚ğ‰ñ•œ
+				// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPã‚’å›å¾©
 				m_pPlayer->RecoverHp();
-				// ƒXƒRƒA‚ğ1000ƒ|ƒCƒ“ƒg‰ÁZ
+				// ã‚¹ã‚³ã‚¢ã‚’1000ãƒã‚¤ãƒ³ãƒˆåŠ ç®—
 				m_score += 1000;
 			}
 		}
 		
 	}
 
-	// 1•bƒTƒCƒNƒ‹‚Å•\¦A”ñ•\¦Ø‚è‘Ö‚¦‚·
+	// 1ç§’ã‚µã‚¤ã‚¯ãƒ«ã§è¡¨ç¤ºã€éè¡¨ç¤ºåˆ‡ã‚Šæ›¿ãˆã™
 	m_blinkFrameCount++;
 	if (m_blinkFrameCount >= kBlinkCycleFrame)
 	{
 		m_blinkFrameCount = 0;
 	}
 
-	// ƒQ[ƒ€ƒI[ƒo[‰‰o
-	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0 && !m_isGoalTimerDecrementing)  // ƒvƒŒƒCƒ„[‚ÌHP‚ª0‚Ü‚½‚Í§ŒÀŠÔ‚ª0‚É‚È‚Á‚½ê‡
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¼”å‡º
+	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0 && !m_isGoalTimerDecrementing)  // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPãŒ0ã¾ãŸã¯åˆ¶é™æ™‚é–“ãŒ0ã«ãªã£ãŸå ´åˆ
 	{
-		// ƒvƒŒƒCƒ„[‚ÌƒQ[ƒ€ƒI[ƒo[ƒtƒ‰ƒO‚ğŠm”F‚µƒ^ƒCƒ}[‚ª0‚É‚È‚Á‚½ê‡
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ©ã‚°ã‚’ç¢ºèªã—ã‚¿ã‚¤ãƒãƒ¼ãŒ0ã«ãªã£ãŸå ´åˆ
 		if (m_pPlayer->IsGameOver() || m_timer <= 0 && !m_isGoalTimerDecrementing)
 		{
-			// BGM‚ğ’â~
+			// BGMã‚’åœæ­¢
 			StopSoundMem(m_bgmHandle);
 			StopSoundMem(m_noTimeBGMHandle);
-			// ƒQ[ƒ€ƒI[ƒo[BGM‚ğÄ¶
+			// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼BGMã‚’å†ç”Ÿ
 			if (!CheckSoundMem(m_gameOverBGMHandle))
 			{
 				PlaySoundMem(m_gameOverBGMHandle, DX_PLAYTYPE_LOOP);
@@ -510,41 +509,41 @@ SceneBase* SceneMain::Update()
 			if (m_gameOverFrameCount > kGameoverFadeFrame)
 			{
 				m_gameOverFrameCount = kGameoverFadeFrame;
-				// ƒQ[ƒ€ƒI[ƒo[‚Ì•¶š‚ª•\¦‚³‚ê‚«‚Á‚½ŒãA
-				// 1ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚çƒ^ƒCƒgƒ‹‚É–ß‚é
+				// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®æ–‡å­—ãŒè¡¨ç¤ºã•ã‚Œãã£ãŸå¾Œã€
+				// 1ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã‚‰ã‚¿ã‚¤ãƒˆãƒ«ã«æˆ»ã‚‹
 				if (Pad::IsTrigger(PAD_INPUT_1))
 				{
 					m_isGameEnd = true;
 				}
 			}
-			// ”wŒi‚ÌƒXƒNƒ[ƒ‹ˆÊ’u‚ğXV
-			m_bgScrollY -= 1; // ƒXƒNƒ[ƒ‹‘¬“x‚ğ’²®
+			// èƒŒæ™¯ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä½ç½®ã‚’æ›´æ–°
+			m_bgScrollY -= 1; // ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é€Ÿåº¦ã‚’èª¿æ•´
 			if (m_bgScrollY > Game::kScreenHeight)
 			{
 				m_bgScrollY = 0;
 			}
 
-			// ƒQ[ƒ€ƒI[ƒo[—p“G‚ÌˆÊ’u‚Æ‰ñ“]Šp“x‚ğXV
+			// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®ä½ç½®ã¨å›è»¢è§’åº¦ã‚’æ›´æ–°
 			UpdateGameOverEnemies();
 		}
 	}
 
-	// ƒS[ƒ‹ƒIƒuƒWƒFƒNƒg‚É“–‚½‚Á‚½‚ç
+	// ã‚´ãƒ¼ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å½“ãŸã£ãŸã‚‰
 	if (m_isGoalHit)
 	{
-		// ƒ^ƒCƒ}[‚ÌƒJƒEƒ“ƒgƒ_ƒEƒ“‚ğ’â~
+		// ã‚¿ã‚¤ãƒãƒ¼ã®ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³ã‚’åœæ­¢
 		m_bonusTimer = 0;
 
-		// ƒS[ƒ‹Œã‚Ì‰æ–Ê‘JˆÚ‚Ìƒ^ƒCƒ}[‚ği‚ß‚é
+		// ã‚´ãƒ¼ãƒ«å¾Œã®ç”»é¢é·ç§»ã®ã‚¿ã‚¤ãƒãƒ¼ã‚’é€²ã‚ã‚‹
 		m_goalTransitionTimer++;
 		if (m_goalTransitionTimer >= kGoalTransitionWaitTime)
 		{
-			// ƒS[ƒ‹Œã‚Ì‰æ–Ê‘JˆÚ‚Ìƒ^ƒCƒ}[‚ªI—¹‚µ‚½‚çƒQ[ƒ€ƒNƒŠƒA‰æ–Ê‚É‘JˆÚ
+			// ã‚´ãƒ¼ãƒ«å¾Œã®ç”»é¢é·ç§»ã®ã‚¿ã‚¤ãƒãƒ¼ãŒçµ‚äº†ã—ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ç”»é¢ã«é·ç§»
 			return new SceneGameClear(m_score, m_goalTimer, !m_pPlayer->HasTakenDamage());
 		}
 	}
 
-	// ‰½‚à‚µ‚È‚¯‚ê‚ÎƒV[ƒ“‘JˆÚ‚µ‚È‚¢(ƒXƒe[ƒW1‰æ–Ê‚Ì‚Ü‚Ü)
+	// ä½•ã‚‚ã—ãªã‘ã‚Œã°ã‚·ãƒ¼ãƒ³é·ç§»ã—ãªã„(ã‚¹ãƒ†ãƒ¼ã‚¸1ç”»é¢ã®ã¾ã¾)
 	return this;
 }
 	
@@ -555,7 +554,7 @@ void SceneMain::Draw()
 	m_pGoal->Draw();
 	m_pPlayer->Draw();
 
-	// “G‚Ì•`‰æ
+	// æ•µã®æç”»
 	for (auto& enemy : m_pEnemy)
 	{
 		if (enemy)
@@ -564,7 +563,7 @@ void SceneMain::Draw()
 		}
 	}
 
-	// ƒAƒCƒeƒ€‚Ì•`‰æ
+	// ã‚¢ã‚¤ãƒ†ãƒ ã®æç”»
 	for (auto& itemHp : m_pItemHp)
 	{
 		if (itemHp)
@@ -573,29 +572,29 @@ void SceneMain::Draw()
 		}
 	}
 
-	// ‘Ì—Í‚Ì•`‰æ
+	// ä½“åŠ›ã®æç”»
 	for (int i = 0; i < m_pPlayer->GetHp(); i++)
 	{
 		m_life[i].Draw();
 	}
 
-	// ƒXƒRƒA‚Ì•\¦
+	// ã‚¹ã‚³ã‚¢ã®è¡¨ç¤º
 	int fontHandle = m_pFont->GetFont(40);
 	DrawFormatStringToHandle(kScoreTextPosX, kScoreAndTimerTextPosY, 0xffffff, fontHandle, "Score");
 	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, fontHandle, "%d", m_score);
 
-	// ƒ^ƒCƒ}[‚Ì•\¦
-	int displayedTimer = static_cast<int>(m_timer); // •\¦‚·‚éƒ^ƒCƒ}[
+	// ã‚¿ã‚¤ãƒãƒ¼ã®è¡¨ç¤º
+	int displayedTimer = static_cast<int>(m_timer); // è¡¨ç¤ºã™ã‚‹ã‚¿ã‚¤ãƒãƒ¼
 	DrawFormatStringToHandle(kTimerTextPosX, kScoreAndTimerTextPosY, 0xffffff, fontHandle, "Time");
 	DrawFormatStringToHandle(kTimerPosX, kScoreAndTimerPosY, 0xffffff, fontHandle, "%d", displayedTimer);
 
-	// ƒQ[ƒ€ƒI[ƒo[‚Ì‰‰o‚Ì•\¦
-	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0 && !m_isGoalTimerDecrementing) // ƒvƒŒƒCƒ„[‚ÌHP‚ª0‚Ü‚½‚Í§ŒÀŠÔ‚ª0‚É‚È‚Á‚½ê‡
+	// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®æ¼”å‡ºã®è¡¨ç¤º
+	if (m_pPlayer->GetHp() <= 0 || m_timer <= 0 && !m_isGoalTimerDecrementing) // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPãŒ0ã¾ãŸã¯åˆ¶é™æ™‚é–“ãŒ0ã«ãªã£ãŸå ´åˆ
 	{
-		// ƒvƒŒƒCƒ„[‚ÌƒQ[ƒ€ƒI[ƒo[ƒtƒ‰ƒO‚ğŠm”F‚µƒ^ƒCƒ}[‚ª0‚É‚È‚Á‚½ê‡
+		// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ©ã‚°ã‚’ç¢ºèªã—ã‚¿ã‚¤ãƒãƒ¼ãŒ0ã«ãªã£ãŸå ´åˆ
 		if (m_pPlayer->IsGameOver() || m_timer <= 0 && !m_isGoalTimerDecrementing)
 		{
-			// ”wŒi‚ğƒXƒNƒ[ƒ‹‚µ‚Ä•`‰æ
+			// èƒŒæ™¯ã‚’ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ã¦æç”»
 			for (int y = m_bgScrollY - Game::kScreenHeight; y < Game::kScreenHeight; y += kChipHeight)
 			{
 				for (int x = 0; x < Game::kScreenWidth; x += kChipWidth)
@@ -604,7 +603,7 @@ void SceneMain::Draw()
 				}
 			}
 
-			// ƒQ[ƒ€ƒI[ƒo[—p“G‚Ì•`‰æ
+			// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®æç”»
 			DrawGameOverEnemies();
 
 			if (m_blinkFrameCount < kBlinkDispFrame)
@@ -612,49 +611,49 @@ void SceneMain::Draw()
 				DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(40), "Press A Button");
 			}
 
-			// Š„‡‚ğg—p‚µ‚Ä•ÏŠ·‚ğs‚¤
+			// å‰²åˆã‚’ä½¿ç”¨ã—ã¦å¤‰æ›ã‚’è¡Œã†
 			float progressRate = static_cast<float>(m_gameOverFrameCount) / (kGameoverFadeFrame * 4);
 
-			// Š„‡‚ğÀÛ‚Ì“§–¾“x‚É•ÏŠ·‚·‚é
+			// å‰²åˆã‚’å®Ÿéš›ã®é€æ˜åº¦ã«å¤‰æ›ã™ã‚‹
 			int alpha = static_cast<int>(255 * (static_cast<float>(m_gameOverFrameCount) / kGameoverFadeFrame));
 
-			// ‚±‚±ˆÈ~ŒÄ‚Î‚ê‚éDrawŠÖ”‚Ì•`‰æ•û–@‚ğ•ÏX‚·‚é
+			// ã“ã“ä»¥é™å‘¼ã°ã‚Œã‚‹Drawé–¢æ•°ã®æç”»æ–¹æ³•ã‚’å¤‰æ›´ã™ã‚‹
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 
-			// ƒQ[ƒ€ƒI[ƒo[‚Ì•¶š‚ÌˆÊ’u‚ğŒvZ
-			int width = GetDrawStringWidthToHandle("GAMEOVER", strlen("GAMEOVER"), m_pFont->GetFont(84));
-			int targetY = kGameoverPosY; // ƒQ[ƒ€ƒI[ƒo[‚Ì•¶š‚ÌˆÊ’u
-			int startY = -4; // ‰æ–ÊŠO‚©‚çoŒ»
-			int gameOverY = static_cast<int>(startY + (targetY - startY) * progressRate); // “r’†‚ÌˆÊ’u‚ğŒvZ
+			// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®æ–‡å­—ã®ä½ç½®ã‚’è¨ˆç®—
+			int width = GetDrawStringWidthToHandle("GAMEOVER", static_cast<int>(strlen("GAMEOVER")), m_pFont->GetFont(84));
+			int targetY = kGameoverPosY; // ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®æ–‡å­—ã®ä½ç½®
+			int startY = -4; // ç”»é¢å¤–ã‹ã‚‰å‡ºç¾
+			int gameOverY = static_cast<int>(startY + (targetY - startY) * progressRate); // é€”ä¸­ã®ä½ç½®ã‚’è¨ˆç®—
 
-			// •¶š‚ª‰æ–Ê’†‰›‚É—ˆ‚é‚æ‚¤‚É’²®
+			// æ–‡å­—ãŒç”»é¢ä¸­å¤®ã«æ¥ã‚‹ã‚ˆã†ã«èª¿æ•´
 			if (gameOverY > targetY)
 			{
 				gameOverY = targetY;
 			}
 
-			// ƒQ[ƒ€ƒI[ƒo[‚Ì•¶š‚ğ•`‰æ
-			DrawStringToHandle(Game::kScreenWidth * 0.5 - width * 0.5, gameOverY,
+			// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®æ–‡å­—ã‚’æç”»
+			DrawStringToHandle(static_cast<int>(Game::kScreenWidth * 0.5 - width * 0.5), gameOverY,
 				"GAMEOVER", 0xdc143c, m_pFont->GetFont(84));
 
-			// ˆÈ~‚Ì•\¦‚ª‚¨‚©‚µ‚­‚È‚ç‚È‚¢‚æ‚¤‚ÉŒ³‚Ìİ’è‚É–ß‚µ‚Ä‚¨‚­
+			// ä»¥é™ã®è¡¨ç¤ºãŒãŠã‹ã—ããªã‚‰ãªã„ã‚ˆã†ã«å…ƒã®è¨­å®šã«æˆ»ã—ã¦ãŠã
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
 	}
 
-	// ƒtƒF[ƒhˆ—
+	// ãƒ•ã‚§ãƒ¼ãƒ‰å‡¦ç†
 	int fadeAlpha = 0;
 
 	float fadeRate = static_cast<float>(m_fadeFrameCount) / 30;
 	fadeRate = 1.0f - fadeRate;
-	fadeAlpha = 255 * fadeRate;
+	fadeAlpha = static_cast<int>(255 * fadeRate);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, 0x000000, true);
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
 }
 
-// “G‚Ì¶¬
+// æ•µã®ç”Ÿæˆ
 void SceneMain::CreateEnemy(float x, float y)
 {
 	for (int i = 0; i < m_pEnemy.size(); i++)
@@ -668,7 +667,7 @@ void SceneMain::CreateEnemy(float x, float y)
 	}
 }
 
-// ƒAƒCƒeƒ€‚Ì¶¬
+// ã‚¢ã‚¤ãƒ†ãƒ ã®ç”Ÿæˆ
 void SceneMain::CreateItemHp(float x, float y)
 {
 	for (int i = 0; i < m_pItemHp.size(); i++)
@@ -682,43 +681,43 @@ void SceneMain::CreateItemHp(float x, float y)
 	}
 }
 
-// ƒXƒRƒA‚Æƒ^ƒCƒ}[‚ÌƒtƒHƒ“ƒgƒTƒCƒY‚Ìİ’è
+// ã‚¹ã‚³ã‚¢ã¨ã‚¿ã‚¤ãƒãƒ¼ã®ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚ºã®è¨­å®š
 void SceneMain::SetScoreAndTimerFontSize(int size)
 {
 	m_scoreAndTimerFontSize = size;
 }
 
-// ƒQ[ƒ€ƒI[ƒo[—p“G‚Ì‰Šú‰»
+// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®åˆæœŸåŒ–
 void SceneMain::InitGameOverEnemies()
 {
 	for (int i = 0; i < kNumGameOverEnemies; ++i) 
 	{
 		GameOverEnemy enemy; 
-		enemy.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // xÀ•W‚ğƒ‰ƒ“ƒ_ƒ€‚Éİ’è
-		enemy.pos.y = kGameOverEnemyStartPosY; // yÀ•W‚ğ‰ŠúˆÊ’u‚Éİ’è
-		enemy.fallSpeed = kGameOverEnemyFallSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameOverEnemyFallSpeedMax - kGameOverEnemyFallSpeedMin))); // —‰º‘¬“x‚ğƒ‰ƒ“ƒ_ƒ€‚Éİ’è
-		enemy.rotationSpeed = kGameOverEnemyRotationSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameOverEnemyRotationSpeedMax - kGameOverEnemyRotationSpeedMin))); // ‰ñ“]‘¬“x‚ğƒ‰ƒ“ƒ_ƒ€‚Éİ’è
-		enemy.angle = 0.0f; // ‰ñ“]Šp“x‚ğ‰Šú‰»
+		enemy.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // xåº§æ¨™ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«è¨­å®š
+		enemy.pos.y = kGameOverEnemyStartPosY; // yåº§æ¨™ã‚’åˆæœŸä½ç½®ã«è¨­å®š
+		enemy.fallSpeed = kGameOverEnemyFallSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameOverEnemyFallSpeedMax - kGameOverEnemyFallSpeedMin))); // è½ä¸‹é€Ÿåº¦ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«è¨­å®š
+		enemy.rotationSpeed = kGameOverEnemyRotationSpeedMin + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (kGameOverEnemyRotationSpeedMax - kGameOverEnemyRotationSpeedMin))); // å›è»¢é€Ÿåº¦ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«è¨­å®š
+		enemy.angle = 0.0f; // å›è»¢è§’åº¦ã‚’åˆæœŸåŒ–
 		m_gameOverEnemies.push_back(enemy); 
 	}
 }
 
-// ƒQ[ƒ€ƒI[ƒo[—p“G‚ÌXV
+// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®æ›´æ–°
 void SceneMain::UpdateGameOverEnemies()
 {
 	for (auto& enemy : m_gameOverEnemies)
 	{
-		enemy.pos.y += enemy.fallSpeed;        // —‰º‘¬“x•ª‰º‚ÉˆÚ“®
-		enemy.angle += enemy.rotationSpeed;    // ‰ñ“]Šp“x‚ğXV
-		if (enemy.pos.y > Game::kScreenHeight) // ‰æ–ÊŠO‚Éo‚½‚ç
+		enemy.pos.y += enemy.fallSpeed;        // è½ä¸‹é€Ÿåº¦åˆ†ä¸‹ã«ç§»å‹•
+		enemy.angle += enemy.rotationSpeed;    // å›è»¢è§’åº¦ã‚’æ›´æ–°
+		if (enemy.pos.y > Game::kScreenHeight) // ç”»é¢å¤–ã«å‡ºãŸã‚‰
 		{
-			enemy.pos.y = kGameOverEnemyStartPosY; // ‰ŠúˆÊ’u‚É–ß‚·
-			enemy.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // xÀ•W‚ğƒ‰ƒ“ƒ_ƒ€‚Éİ’è
+			enemy.pos.y = kGameOverEnemyStartPosY; // åˆæœŸä½ç½®ã«æˆ»ã™
+			enemy.pos.x = static_cast<float>(rand() % Game::kScreenWidth); // xåº§æ¨™ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«è¨­å®š
 		}
 	}
 }
 
-// ƒQ[ƒ€ƒI[ƒo[—p“G‚Ì•`‰æ
+// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨æ•µã®æç”»
 void SceneMain::DrawGameOverEnemies()
 {
 	for (const auto& enemy : m_gameOverEnemies)

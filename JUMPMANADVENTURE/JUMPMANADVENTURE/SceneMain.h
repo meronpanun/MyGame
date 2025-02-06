@@ -73,6 +73,8 @@ private:
 	int m_poleHandle;
 	int m_bgHandle;
 	int m_enemyHandle;
+	// エフェクトのグラフィックハンドル
+	int m_effectHandle;
 	// BGM
 	int m_bgmHandle;
 	int m_noTimeBGMHandle;
@@ -117,9 +119,6 @@ private:
 	// ゴール後の画面遷移までの待機時間（フレーム数）
 	int m_goalTransitionTimer;
 
-	// ゴールに当たった後の演出用タイマー
-	int m_goalHitTimer;
-
 	// BGMの音量
 	int m_bgmVolume; 
 	// BGMがフェードアウト中かどうかを示すフラグ
@@ -144,5 +143,8 @@ private:
 
 	// プレイヤーがダメージを一回も食らわなかったかどうかのフラグ
 	bool m_isNoDamage;
+
+	// アニメーションの進行
+	int m_animFrame;
 };
 

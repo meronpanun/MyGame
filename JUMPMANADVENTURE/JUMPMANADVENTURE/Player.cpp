@@ -43,7 +43,8 @@ namespace
     // 速度
     constexpr float kSpeed = 3.0f;
     // 加速
-    constexpr float kAccel = 3.0f;
+  //  constexpr float kAccel = 3.0f;
+    constexpr float kAccel = 20.0f;
 
     // 重力
     constexpr float kGravity = 0.5f;
@@ -117,9 +118,9 @@ Player::Player() :
     m_life()
 {
     // グラフィックの読み込み
-    m_walkHandle = LoadGraph("data/image/Run.png");
+    m_walkHandle = LoadGraph("data/image/run.png");
     assert(m_walkHandle != -1);
-    m_jumpHandle = LoadGraph("data/image/Jump.png");
+    m_jumpHandle = LoadGraph("data/image/jump.png");
     assert(m_jumpHandle != -1); 
 
     // SEの読み込み
@@ -131,7 +132,7 @@ Player::Player() :
     assert(m_damageSEHandle != -1);  
     m_playerDeadSEHandle = LoadSoundMem("data/sound/SE/playerDead.mp3");
     assert(m_playerDeadSEHandle != -1);
-    m_itemHpSEHandle = LoadSoundMem("data/sound/SE/ItemHp.mp3");
+    m_itemHpSEHandle = LoadSoundMem("data/sound/SE/itemHp.mp3");
     assert(m_itemHpSEHandle != -1);
 }
 
@@ -140,6 +141,7 @@ Player::~Player()
     // グラフィックの開放
     DeleteGraph(m_walkHandle);
     DeleteGraph(m_jumpHandle);
+
     // SEを解放
     DeleteSoundMem(m_seHandle);
     DeleteSoundMem(m_jumpSEHandle);

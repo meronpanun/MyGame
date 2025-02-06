@@ -50,7 +50,7 @@ Enemy::Enemy():
 	m_isVideoPlaying(false)
 {
 	// グラフィックの読み込み
-	m_handle = LoadGraph("data/image/RockRun.png");
+	m_handle = LoadGraph("data/image/rockRun.png");
 	assert(m_handle != -1);
 }
 

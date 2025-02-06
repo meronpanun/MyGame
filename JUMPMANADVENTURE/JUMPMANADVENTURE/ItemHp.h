@@ -48,13 +48,20 @@ private:
 	Camera* m_pCamera;
 	std::shared_ptr<Player> m_pPlayer;
 
-	// アニメーションのフレーム
-	int m_animFrameCount;
-	
 	// グラフィックハンドル
 	int m_handle;
+	// エフェクトのグラフィックハンドル
+	int m_effectHandle;
+
+	// アニメーションのフレーム
+	int m_animFrameCount;
 
 	// アイテムの存在フラグを追加
 	bool m_isExist;
+
+	// エフェクトのアニメーションフレームカウント
+	int m_effectAnimFrameCount;
+	// エフェクトが再生中かどうかのフラグ
+	bool m_isEffectPlaying;
 };
 

@@ -59,10 +59,13 @@ SceneTitle::~SceneTitle()
 {
 	// グラフィックの開放
 	DeleteGraph(m_titleHandle);
+
 	// 動画の開放
 	DeleteGraph(m_videoHandle);
+
 	//BGMを解放
 	DeleteSoundMem(m_bgmHandle);
+
 	// SEを解放
 	DeleteSoundMem(m_seHandle);
 }

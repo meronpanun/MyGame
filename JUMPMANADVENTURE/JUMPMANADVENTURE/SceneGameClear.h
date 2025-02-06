@@ -46,6 +46,8 @@ private:
 	// クリアシーンのグラフィックハンドル
 	int m_gameClearBgHandle;
 	int m_gameClearPlayerHandle;
+	// エフェクトのグラフィックハンドル
+	int m_effectHandle;
 	// BGM
 	int m_bgmHandle;
 	// SE

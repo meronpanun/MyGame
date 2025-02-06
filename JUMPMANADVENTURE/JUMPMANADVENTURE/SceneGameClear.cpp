@@ -85,9 +85,9 @@ SceneGameClear::SceneGameClear(int score, int goalHitTime, bool isNoDamage) :
 	m_isNoDamage(isNoDamage)
 {
 	// グラフィックの読み込み
-	m_gameClearBgHandle = LoadGraph("data/image/Yellow.png");
+	m_gameClearBgHandle = LoadGraph("data/image/yellow.png");
 	assert(m_gameClearBgHandle != -1);
-	m_gameClearPlayerHandle = LoadGraph("data/image/Player.png");
+	m_gameClearPlayerHandle = LoadGraph("data/image/player.png");
 	assert(m_gameClearPlayerHandle != -1);
 
 	//BGMの読み込み
@@ -107,8 +107,10 @@ SceneGameClear::~SceneGameClear()
 	// グラフィックの開放
 	DeleteGraph(m_gameClearBgHandle);
 	DeleteGraph(m_gameClearPlayerHandle);
+
 	//BGMを解放
 	DeleteSoundMem(m_bgmHandle);
+
 	// SEを解放
 	DeleteSoundMem(m_seHandle);
 }
