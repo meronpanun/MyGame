@@ -50,25 +50,25 @@ namespace
 	constexpr int kVolumeSE = 128;
 
 	// スコアの表示位置
-	constexpr int kScoreTextPosX = 480;
-	constexpr int kScoreNumberPosX = 710;
+	constexpr int kScoreTextPosX = 490;
+	constexpr int kScoreNumberPosX = 720;
 	constexpr int kScorePosY = 300;
 
 	// タイムの表示位置
-	constexpr int kTimeTextPosX = 470;
-	constexpr int kTimeNumberPosX = 730;
+	constexpr int kTimeTextPosX = 480;
+	constexpr int kTimeNumberPosX = 740;
 	constexpr int kTimePosY = 400;
 
 	// スコアランクの表示位置
-	constexpr int kRankTextPosX = 120;
+	constexpr int kRankTextPosX = 130;
 	constexpr int kRankTextPosY = 400;
 
 	// RANKの表示位置
-	constexpr int kRankPosX = 50;
+	constexpr int kRankPosX = 60;
 	constexpr int kRankPosY = 300;
 
 	// Press A Buttonの表示位置
-	constexpr int kPressAButtonPosX = 380;
+	constexpr int kPressAButtonPosX = 390;
 	constexpr int kPressAButtonPosY = 600;
 }
 

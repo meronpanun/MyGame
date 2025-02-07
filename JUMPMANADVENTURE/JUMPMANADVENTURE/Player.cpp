@@ -43,8 +43,7 @@ namespace
     // ë¨ìx
     constexpr float kSpeed = 3.0f;
     // â¡ë¨
-  //  constexpr float kAccel = 3.0f;
-    constexpr float kAccel = 20.0f;
+    constexpr float kAccel = 3.0f;
 
     // èdóÕ
     constexpr float kGravity = 0.5f;

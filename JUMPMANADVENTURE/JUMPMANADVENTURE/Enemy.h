@@ -90,5 +90,4 @@ private:
 	int m_videoFadeFrameCount;
 	// フェードインフレームカウント
 	int m_videoFadeInFrameCount;
-
 };

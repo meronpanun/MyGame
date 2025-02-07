@@ -111,9 +111,9 @@ SceneMain::SceneMain():
 	assert(m_flagHandle != -1);
 	m_poleHandle = LoadGraph("data/image/pole.png");
 	assert(m_poleHandle != -1);
-	m_bgHandle = LoadGraph("data/image/Purple.png");
+	m_bgHandle = LoadGraph("data/image/purple.png");
 	assert(m_bgHandle != -1);
-	m_enemyHandle = LoadGraph("data/image/Enemy.png");
+	m_enemyHandle = LoadGraph("data/image/enemy.png");
 	assert(m_enemyHandle != -1);
 
 	//BGMの読み込み
