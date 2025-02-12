@@ -7,7 +7,7 @@ namespace Game
 	constexpr int kScreenHeight = 720;
 	constexpr int kColorBitNum = 32;
 
-	constexpr bool kDefaultWindowMode = true;
+	constexpr bool kDefaultWindowMode = false;
 }
 
 /*ステージ1のマップの広さ*/

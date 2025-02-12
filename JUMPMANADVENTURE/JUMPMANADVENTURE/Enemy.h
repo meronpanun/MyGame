@@ -81,6 +81,7 @@ private:
 	int m_animCount;
 	// 敵のグラフィックハンドル
 	int m_handle;
+	int m_hitHandle;
 
 	// 動画ハンドル
 	int m_videoHandle;
@@ -90,4 +91,6 @@ private:
 	int m_videoFadeFrameCount;
 	// フェードインフレームカウント
 	int m_videoFadeInFrameCount;
+
+	int m_hitFrame;
 };

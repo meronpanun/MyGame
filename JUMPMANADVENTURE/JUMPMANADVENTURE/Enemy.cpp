@@ -30,6 +30,13 @@ namespace
 
 	// マップチップとの当たり判定の調整
 	constexpr int kColChipAdjustmentY = 28;
+
+	// ヒットアニメーション
+	constexpr int kHitFrame[] = { 0 };
+	constexpr int kHitAnimFrame = 12;
+
+	// 死亡アニメーションのフレーム数
+	constexpr int kDeathAnimDuration = 30;
 }
 
 Enemy::Enemy():
@@ -52,12 +59,15 @@ Enemy::Enemy():
 	// グラフィックの読み込み
 	m_handle = LoadGraph("data/image/rockRun.png");
 	assert(m_handle != -1);
+	m_hitHandle = LoadGraph("data/image/rockHit.png");
+	assert(m_hitHandle != -1);
 }
 
 Enemy::~Enemy()
 {
 	// グラフィックの開放
 	DeleteGraph(m_handle);
+	DeleteGraph(m_hitHandle);
 }
 
 void Enemy::Init(Camera* camera)
@@ -67,6 +77,16 @@ void Enemy::Init(Camera* camera)
 
 void Enemy::Update()
 {
+	//if (m_isAlive)
+	//{
+	//	// ヒットアニメーションの更新
+	//	m_hitFrame++;
+	//	if (m_hitFrame >= _countof(kHitFrame) * kHitAnimFrame)
+	//	{
+	//		m_hitFrame = 0;
+	//	}
+	//}
+
 	// 敵が消えている場合は処理を行わない
 	if (!m_isAlive) return;
 
@@ -137,6 +157,18 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
+	//if (m_isAlive)
+	//{
+	//	//ジャンプするときのアニメーションフレーム
+	//	int jumpAnimFrame = m_hitFrame / kHitAnimFrame;
+	//	//プレイヤージャンプの切り取り座標
+	//	int hitSrcX = kHitFrame[jumpAnimFrame] * kGraphHeight;
+
+	//	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y),
+	//		hitSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
+	//		m_hitHandle, true);
+	//}
+
 	// 敵が消えている場合は処理を行わない
 	if (!m_isAlive) return;
 
