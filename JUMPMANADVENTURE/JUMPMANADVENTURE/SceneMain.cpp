@@ -376,7 +376,7 @@ SceneBase* SceneMain::Update()
 		}
 	}
 
-	m_pBgStage->Update(m_pPlayer.get());
+	m_pBgStage->Update();
 	m_pGoal->Update();
 
 	// プレイヤーが死亡状態でない場合のみ敵の更新とタイマーの更新を行う

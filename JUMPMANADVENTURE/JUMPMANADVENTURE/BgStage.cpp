@@ -125,7 +125,7 @@ void BgStage::Init(Camera* camera)
 	m_pCamera = camera;
 }
 
-void BgStage::Update(Player* player)
+void BgStage::Update()
 {
 }
 

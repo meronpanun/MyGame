@@ -12,7 +12,7 @@ public:
 	virtual ~BgStage();
 
 	void Init(Camera* camera);
-	void Update(Player* player);
+	void Update();
 	void Draw();
 
 	//Žw’è‚µ‚½‹éŒ`‚Æ“–‚½‚Á‚Ä‚¢‚é‚©”»’è
