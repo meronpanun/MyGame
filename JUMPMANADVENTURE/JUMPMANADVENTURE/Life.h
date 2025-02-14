@@ -6,7 +6,6 @@ public:
 	~Life();
 
 	void Init();
-	void End();
 	void Update();
 	void Draw();
 

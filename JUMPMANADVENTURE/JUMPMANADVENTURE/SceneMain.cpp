@@ -177,10 +177,12 @@ SceneMain::~SceneMain()
 	DeleteGraph(m_bgHandle);
 	DeleteGraph(m_poleHandle);
 	DeleteGraph(m_enemyHandle);
+
 	//BGMを解放
 	DeleteSoundMem(m_bgmHandle);
 	DeleteSoundMem(m_gameOverBGMHandle);
 	DeleteSoundMem(m_noTimeBGMHandle);
+
 	// SEを解放
 	DeleteGraph(m_seHandle);
 	DeleteGraph(m_enemyDeadSEHandle);

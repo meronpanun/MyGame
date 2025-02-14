@@ -23,7 +23,7 @@ public:
 	bool IsSceneTitle() const { return m_isSceneTitle; }
 
 private:
-	// ゲームオーバー用敵の情報
+	// ゲームクリア用敵の情報
 	struct GameClearPlayer
 	{
 		Vec2 pos;
@@ -32,11 +32,18 @@ private:
 		float angle = 0.0f;         // 回転角度
 	};
 	std::vector<GameClearPlayer> m_gameClearPlayers;
-	// ゲームオーバー用敵の初期化
+
+	/// <summary>
+	///  ゲームクリア用敵の初期化
+	/// </summary>
 	void InitGameClearPlayers();
-	// ゲームオーバー用敵の更新
+	/// <summary>
+	/// ゲームクリア用敵の更新
+	/// </summary>
 	void UpdateGameClearPlayers();
-	// ゲームオーバー用敵の描画
+	/// <summary>
+	/// ゲームオクリア用敵の描画
+	/// </summary>
 	void DrawGameClearPlayers();
 
 private:

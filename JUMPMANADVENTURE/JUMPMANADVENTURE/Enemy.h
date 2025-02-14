@@ -19,7 +19,7 @@ public:
 	void Update();
 	void Draw();
 
-	// 敵の上下左右情報取得
+	/*敵の上下左右情報取得*/
 	float GetLeft();
 	float GetTop();
 	float GetRigth();
@@ -62,8 +62,6 @@ private:
 	// 敵の加速度
 	Vec2 m_move; 
 
-	bool m_isTurnFlag;
-
 	// エネミーが生きているかどうかのフラグ
 	bool m_isAlive;
 
@@ -91,6 +89,4 @@ private:
 	int m_videoFadeFrameCount;
 	// フェードインフレームカウント
 	int m_videoFadeInFrameCount;
-
-	int m_hitFrame;
 };

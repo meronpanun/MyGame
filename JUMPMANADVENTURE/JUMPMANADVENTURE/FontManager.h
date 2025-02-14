@@ -20,7 +20,6 @@ public:
     static bool fontResourceAdded;
 
 private:
-
     // フォントの上限
     static constexpr int kMaxFonts = 10;
     // 古いフォントを解放

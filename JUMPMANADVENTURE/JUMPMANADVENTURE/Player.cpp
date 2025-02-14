@@ -23,6 +23,10 @@ namespace
     constexpr float kRestartPosX = 150.0f;
     constexpr float kRestartPosY = 610.0f;
 
+    // プレイヤーの初期位置
+	constexpr float kStartPosX = 150.0f;
+	constexpr float kStartPosY = 625.0f;
+
     // 拡大率
     constexpr float kScale = 2.0f;
 
@@ -98,7 +102,7 @@ Player::Player() :
     m_isWalk(false),
     m_isGround(false),
     m_move(kSpeed, 0.0f),
-    m_pos(150.0f, 625.0f),
+    m_pos(kStartPosX, kStartPosY),
     m_animFrame(0),
     m_jumpFrame(0),
     m_jumpCount(0),
@@ -114,7 +118,7 @@ Player::Player() :
     m_isControlDisabled(false),
     m_height(0.0f),
     m_hasTakenDamage(false),
-    m_life()
+    m_life(0)
 {
     // グラフィックの読み込み
     m_walkHandle = LoadGraph("data/image/run.png");

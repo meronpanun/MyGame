@@ -53,7 +53,6 @@ Enemy::Enemy():
 	m_isAlive(true),
 	m_isFacingRight(false),
 	m_isActive(false),
-	m_isTurnFlag(false),
 	m_isVideoPlaying(false)
 {
 	// グラフィックの読み込み
@@ -77,16 +76,6 @@ void Enemy::Init(Camera* camera)
 
 void Enemy::Update()
 {
-	//if (m_isAlive)
-	//{
-	//	// ヒットアニメーションの更新
-	//	m_hitFrame++;
-	//	if (m_hitFrame >= _countof(kHitFrame) * kHitAnimFrame)
-	//	{
-	//		m_hitFrame = 0;
-	//	}
-	//}
-
 	// 敵が消えている場合は処理を行わない
 	if (!m_isAlive) return;
 
@@ -157,18 +146,6 @@ void Enemy::Update()
 
 void Enemy::Draw()
 {
-	//if (m_isAlive)
-	//{
-	//	//ジャンプするときのアニメーションフレーム
-	//	int jumpAnimFrame = m_hitFrame / kHitAnimFrame;
-	//	//プレイヤージャンプの切り取り座標
-	//	int hitSrcX = kHitFrame[jumpAnimFrame] * kGraphHeight;
-
-	//	DrawRectRotaGraph(static_cast<int>(m_pos.x + m_pCamera->m_drawOffset.x), static_cast<int>(m_pos.y),
-	//		hitSrcX, 0, kGraphWidth, kGraphHeight, kScale, 0,
-	//		m_hitHandle, true);
-	//}
-
 	// 敵が消えている場合は処理を行わない
 	if (!m_isAlive) return;
 

@@ -28,13 +28,24 @@ public:
 	void Draw() override;
 
 private:
-	// 敵の生成
+	/// <summary>
+	///  敵の生成
+	/// </summary>
+	/// <param name="x">X座標</param>
+	/// <param name="y">Y座標</param>
 	void CreateEnemy(float x, float y);
 
-	// アイテムの生成
+	/// <summary>
+	/// アイテムの生成
+	/// </summary>
+	/// <param name="x">X座標</param>
+	/// <param name="y">Y座標</param>
 	void CreateItemHp(float x, float y);
 
-	// スコアとタイマーのフォントサイズの設定
+	/// <summary>
+	/// スコアとタイマーのフォントサイズの設定
+	/// </summary>
+	/// <param name="size">サイズ</param>
 	void SetScoreAndTimerFontSize(int size); 
 
 	// ゲームオーバー用敵の情報
@@ -45,12 +56,20 @@ private:
 		float rotationSpeed = 0; // 回転速度
 		float angle = 0;		 // 回転角度
 	};
+
 	std::vector<GameOverEnemy> m_gameOverEnemies;
-	// ゲームオーバー用敵の初期化
+	
+	/// <summary>
+	///  ゲームオーバー用敵の初期化
+	/// </summary>
 	void InitGameOverEnemies();
-	// ゲームオーバー用敵の更新
+	/// <summary>
+	/// ゲームオーバー用敵の更新
+	/// </summary>
 	void UpdateGameOverEnemies();
-	// ゲームオーバー用敵の描画
+	/// <summary>
+	/// ゲームオーバー用敵の描画
+	/// </summary>
 	void DrawGameOverEnemies();
 
 private:

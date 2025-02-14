@@ -21,84 +21,155 @@ public:
 	void Update();
 	void Draw();
 
-	// 現在のHPを取得
+	/// <summary>
+	/// 現在のHPを取得
+	/// </summary>
+	/// <returns>HP</returns>
 	int GetHp() const { return m_hp; }
 
-	// プレイヤーがダメージを受けた時の処理
+	/// <summary>
+	/// プレイヤーがダメージを受けた時の処理
+	/// </summary>
 	void OnDamage();
  
-	// プレイヤーが敵を倒した後少しジャンプ
+	/// <summary>
+	/// プレイヤーが敵を倒した後少しジャンプ
+	/// </summary>
 	void JumpOnEnemy();
 
-	// プレイヤーの位置情報を取得
+	/// <summary>
+	/// プレイヤーの位置情報を取得
+	/// </summary>
+	/// <returns></returns>
 	Vec2 GetPos() const { return m_pos; }
 	
-    // 円の当たり判定
+	/// <summary>
+	///  円の当たり判定
+	/// </summary>
+	/// <returns>半径</returns>
 	float GetRadius() const;
 
-	// プレイヤーの移動量を取得
-	float GetMoveY() const;
-
-	// プレイヤーの上下左右情報取得
+	/*プレイヤーの上下左右情報取得*/
 	float GetLeft() const;
 	float GetTop() const;
 	float GetRigth() const;
 	float GetBottom() const;
 
-	// マップチップとの当たり判定
+	/// <summary>
+	/// マップチップとの当たり判定
+	/// </summary>
+	/// <param name="chipRect"></param>
 	void CheckHitBgStage(Rect chipRect);
+	
+	/// <summary>
+	/// プレイヤーの移動量を取得
+	/// </summary>
+	/// <returns>Y軸方向の移動量を取得</returns>
+	float GetMoveY() const;
 
-	// Y軸方向の移動量を追加
+	/// <summary>
+	/// Y軸方向の移動量を追加 
+	/// </summary>
+	/// <param name="DisY">Y軸方向の移動量</param>
 	void AddMoveY(float DisY);
 
-	// Y軸方向の移動量をリセット
+	/// <summary>
+	/// Y軸方向の移動量をリセット
+	/// </summary>
 	void OnCollideY();
-
-	// 現在のプレイヤーの矩形情報を取得
+	
+	/// <summary>
+	/// 現在のプレイヤーの矩形情報を取得
+	/// </summary>
+	/// <returns>プレイヤーの矩形情報</returns>
 	Rect GetRect() const;
 
-	// ゲームオーバー演出を開始するフラグ
+	/// <summary>
+	/// ゲームオーバー演出を開始するフラグ
+	/// </summary>
+	/// <returns>true:ゲームオーバー false:ゲームオーバーでない</returns>
 	bool IsGameOver() const;
 
-	// 初期リスポーン
-	void StartRespawn();
-	void Respawn();
-
-	// プレイヤーの操作を無効化
+	/// <summary>
+	///  プレイヤーの操作を無効化S
+	/// </summary>
 	void DisableControl();
+	
+	/// <summary>
+	/// プレイヤーの操作が無効かどうか 
+	/// </summary>
+	/// <returns>true:無効 false:有効</returns>
 	bool IsControlDisabled() const;
 
-	// プレイヤーの位置を設定
+	/// <summary>
+	/// プレイヤーの位置を設定
+	/// </summary>
+	/// <param name="x">X座標</param>
 	void SetPosX(float x);
 
-	// プレイヤーが地面にいるかどうか
+	/// <summary>
+	/// プレイヤーが地面にいるかどうか 
+	/// </summary>
+	/// <returns>true:地面にいる false:地面にいない</returns>
 	bool IsOnGround() const;
 
-	// プレイヤーを地面の高さまでゆっくり落とす
+	/// <summary>
+	/// プレイヤーを地面の高さまでゆっくり落とす
+	/// </summary>
+	/// <param name="groundHeight"></param>
 	void FallToGround(float groundHeight);
-
-	// プレイヤーの歩行状態を設定する
+	
+	/// <summary>
+	/// プレイヤーの歩行状態を設定する
+	/// </summary>
+	/// <param name="isWalking"></param>
 	void SetIsWalking(bool isWalking);
 
-	// プレイヤーのアニメーションを更新する
+	/// <summary>
+	/// プレイヤーのアニメーションを更新する
+	/// </summary>
 	void UpdateAnimation();
-
-	// ダメージを受けたかどうかを示すフラグ
+	
+	/// <summary>
+	///  ダメージを受けたかどうかを示すフラグ
+	/// </summary>
+	/// <returns>true:ダメージを受けた false:ダメージを受けていない</returns>
 	bool HasTakenDamage() const; 
 
-	// HPを回復する
+	/// <summary>
+	/// HPを回復する
+	/// </summary>
 	void RecoverHp(); 
 
 private:
-	// ジャンプ処理
+	/// <summary>
+	///  ジャンプ処理
+	/// </summary>
 	void UpdateJump();
 
-	// 各状態毎のUpdate処理
-	void UpdateNormal();  // ゲーム中のUpdate
-	void UpdateDead();    // 死亡後のUpdate
+	/*各状態毎のUpdate処理*/
+	/// <summary>
+	/// ゲーム中のUpdate
+	/// </summary>
+	void UpdateNormal(); 
+	/// <summary>
+	/// 死亡後のUpdate
+	/// </summary>
+	void UpdateDead();   
 
-	// 死亡時の初期化処理
+	/// <summary>
+	///  死亡時の初期化処理
+	/// </summary>
 	void InitDead();
+
+	/// <summary>
+	///  初期リスポーン
+	/// </summary>
+	void StartRespawn();
+	/// <summary>
+	/// リスポーン
+	/// </summary>
+	void Respawn();
 
 private:
 	Camera* m_pCamera;
@@ -168,6 +239,6 @@ private:
 	float m_height;
 
 	// ダメージを受けたかどうかを示すフラグ
-	bool m_hasTakenDamage; 
+	bool m_hasTakenDamage;
 };
 

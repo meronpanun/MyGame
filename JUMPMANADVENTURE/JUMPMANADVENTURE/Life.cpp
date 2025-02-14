@@ -38,10 +38,6 @@ void Life::Init()
 {
 }
 
-void Life::End()
-{
-}
-
 void Life::Update()
 {
 	// アニメーションフレームカウントを更新
