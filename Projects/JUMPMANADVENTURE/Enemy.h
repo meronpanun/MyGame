@@ -9,6 +9,10 @@ class FontManager;
 class Camera;
 class Player;
 class BgStage;
+
+/// <summary>
+/// “GƒNƒ‰ƒX
+/// </summary>
 class Enemy
 {
 public:

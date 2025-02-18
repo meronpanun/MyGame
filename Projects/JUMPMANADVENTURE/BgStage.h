@@ -5,6 +5,10 @@
 
 class Camera;
 class Player;
+
+/// <summary>
+/// ステージクラス
+/// </summary>
 class BgStage
 {
 public:

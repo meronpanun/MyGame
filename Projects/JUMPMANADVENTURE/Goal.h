@@ -5,6 +5,10 @@
 class Camera;
 class Player;
 class BgStage;
+
+/// <summary>
+/// ゴールクラス
+/// </summary>
 class Goal
 {
 public:
@@ -19,20 +23,43 @@ public:
 	void SetHandle(int handle) { m_handle = handle; }
 	void SetPoleHandle(int poleHandle) { m_poleHandle = poleHandle; }
 
-	// ゴールの位置情報を取得
+	/// <summary>
+	/// ゴールの位置情報を取得 
+	/// </summary>
+	/// <returns>ゴールの位置情報</returns>
 	Vec2 GetPos() const { return m_pos; }
 
-	// プレイヤーとの当たり判定フラグ
+	/// <summary>
+	/// プレイヤーとの当たり判定フラグを取得
+	/// </summary>
+	/// <param name="pPlayer">プレイヤーのポインタ</param>
+	/// <returns>プレイヤーとの当たり判定フラグ</returns>
 	bool GetHitPlayerFlag(std::shared_ptr<Player> pPlayer);
 
-	// ポールの当たり判定
+	/// <summary>
+	/// ポールの当たり判定のオフセットを設定
+	/// </summary>
+	/// <param name="offsetX">X座標</param>
+	/// <param name="offsetY">Y座標</param>
 	void SetPoleCollisionOffset(float offsetX, float offsetY);
-	// ポールの当たり判定サイズ
+
+	/// <summary>
+	/// ポールの当たり判定サイズ
+	/// </summary>
+	/// <param name="width">幅</param>
+	/// <param name="height">高さ</param>
 	void SetPoleCollisionSize(float width, float height);
 
+	/// <summary>
 	/// 旗の落ちる高さを設定
+	/// </summary>
+	/// <param name="height">高さ</param>
 	void SetFlagFallHeight(int height); 
-	// 旗が指定の高さまで落ちたかどうかを判定
+
+	/// <summary>
+	/// 旗が指定の高さまで落ちたかどうかを判定
+	/// </summary>
+	/// <returns>旗が指定の高さまで落ちたかどうか</returns>
 	bool IsFlagFalling() const;
 	
 public:

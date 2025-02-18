@@ -8,6 +8,7 @@ class Life;
 class Camera;
 class BgStage;
 class SceneMain;
+
 /// <summary>
 /// プレイヤークラス
 /// </summary>

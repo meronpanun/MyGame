@@ -3,6 +3,7 @@
 #include <memory>
 
 class FontManager;
+
 /// <summary>
 /// タイルシーンクラス
 /// </summary>

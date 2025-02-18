@@ -3,6 +3,9 @@
 #include <unordered_map>
 #include <string>
 
+/// <summary>
+/// フォント管理クラス
+/// </summary>
 class FontManager
 {
 public:

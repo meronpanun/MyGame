@@ -52,9 +52,9 @@ private:
 	struct GameOverEnemy
 	{
 		Vec2 pos;
-		float fallSpeed = 0;     // —Ž‰º‘¬“x
-		float rotationSpeed = 0; // ‰ñ“]‘¬“x
-		float angle = 0;		 // ‰ñ“]Šp“x
+		float fallSpeed = 0.0f;     // —Ž‰º‘¬“x
+		float rotationSpeed = 0.0f; // ‰ñ“]‘¬“x
+		float angle = 0.0f;			// ‰ñ“]Šp“x
 	};
 
 	std::vector<GameOverEnemy> m_gameOverEnemies;

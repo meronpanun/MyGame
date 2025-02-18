@@ -3,6 +3,10 @@
 #include <memory>
 
 class Player;
+
+/// <summary>
+/// ƒJƒƒ‰ƒNƒ‰ƒX
+/// <summary>
 class Camera
 {
 public:

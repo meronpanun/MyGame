@@ -23,7 +23,7 @@ public:
 	bool IsSceneTitle() const { return m_isSceneTitle; }
 
 private:
-	// ゲームクリア用敵の情報
+	// ゲームクリア用プレイヤーの情報
 	struct GameClearPlayer
 	{
 		Vec2 pos;
