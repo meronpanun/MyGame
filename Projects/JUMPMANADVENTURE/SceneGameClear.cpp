@@ -275,7 +275,7 @@ void SceneGameClear::Draw()
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
 }
 
-// ゲームオーバー用プレイヤーの初期化
+// ゲームクリア用プレイヤーの初期化
 void SceneGameClear::InitGameClearPlayers()
 {
 	for (int i = 0; i < kNumGameClearPlayrers; ++i)
@@ -290,7 +290,7 @@ void SceneGameClear::InitGameClearPlayers()
 	}
 }
 
-// ゲームオーバー用プレイヤーの更新
+// ゲームクリア用プレイヤーの更新
 void SceneGameClear::UpdateGameClearPlayers()
 {
 	for (auto& player : m_gameClearPlayers)
@@ -305,7 +305,7 @@ void SceneGameClear::UpdateGameClearPlayers()
 	}
 }
 
-// ゲームオーバー用プレイヤーの描画
+// ゲームクリア用プレイヤーの描画
 void SceneGameClear::DrawGameClearPlayers()
 {
 	for (const auto& player : m_gameClearPlayers)
