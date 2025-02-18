@@ -6,7 +6,7 @@ bool FontManager::fontResourceAdded = false;
 FontManager::FontManager()
 {
     // フォントファイルのパス
-    LPCSTR font_path = "data/SuperMario256.ttf";
+    LPCSTR font_path = "data/superMario256.ttf";
 
     // フォントリソースを追加
     if (!fontResourceAdded)
@@ -32,7 +32,7 @@ FontManager::~FontManager()
     // フォントリソースの削除
     if (fontResourceAdded)
     {
-        LPCSTR font_path = "data/SuperMario256.ttf";
+        LPCSTR font_path = "data/superMario256.ttf";
         RemoveFontResourceEx(font_path, FR_PRIVATE, NULL);
         fontResourceAdded = false;
     }
@@ -53,7 +53,7 @@ int FontManager::GetFont(int size)
     }
 
     // "Super Mario 256" フォントを使用してフォントを作成
-    int fontHandle = CreateFontToHandle("Super Mario 256", size, -1, DX_FONTTYPE_ANTIALIASING | DX_FONTTYPE_EDGE);
+    int fontHandle = CreateFontToHandle("super Mario 256", size, -1, DX_FONTTYPE_ANTIALIASING | DX_FONTTYPE_EDGE);
     m_fonts[size] = fontHandle;
     return fontHandle;
 }
