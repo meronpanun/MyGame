@@ -77,6 +77,9 @@ namespace
 
 	// ゴール後の画面遷移までの待機時間（フレーム数）
 	constexpr int kGoalTransitionWaitTime = 480;
+
+	// 旗の落ちる高さを設定
+	constexpr int kFlagFallHeight = 280;
 }
 
 SceneMain::SceneMain():
@@ -236,7 +239,7 @@ void SceneMain::Init()
 	m_timer = kInitialTimer;
 
 	// 旗の落ちる高さを設定
-	m_pGoal->SetFlagFallHeight(280);
+	m_pGoal->SetFlagFallHeight(kFlagFallHeight);
 }
 
 SceneBase* SceneMain::Update()
