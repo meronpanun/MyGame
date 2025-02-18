@@ -35,11 +35,11 @@ namespace
 
 	// ゲームクリア用敵の初期位置と落下速度
 	constexpr float kGameClearPlayerStartPosY = -kGraphHeight * kScale; // 画面外から落下してくる
-	constexpr float kGameClearPlayerFallSpeedMin = 1.0f; // 落下速度の最小値
-	constexpr float kGameClearPlayerFallSpeedMax = 3.0f; // 落下速度の最大値
-	constexpr float kGameClearPlayerRotationSpeedMin = 0.02f; // 回転速度の最小値
-	constexpr float kGameClearPlayerRotationSpeedMax = 0.1f;  // 回転速度の最大値
-	constexpr int kNumGameClearPlayrers = 10; // ゲームクリア用敵の数
+	constexpr float kGameClearPlayerFallSpeedMin = 1.0f;				// 落下速度の最小値
+	constexpr float kGameClearPlayerFallSpeedMax = 3.0f;			    // 落下速度の最大値
+	constexpr float kGameClearPlayerRotationSpeedMin = 0.02f;			// 回転速度の最小値
+	constexpr float kGameClearPlayerRotationSpeedMax = 0.1f;			// 回転速度の最大値
+	constexpr int kNumGameClearPlayrers = 10;							// ゲームクリア用敵の数
 
 	// ウェーブアニメーションのパラメータ
 	constexpr float kWaveAmplitude = 20.0f; // 振幅

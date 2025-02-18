@@ -7,7 +7,6 @@
 #include "SceneMain.h"
 #include "Enemy.h"
 #include <cassert>
-#include <stdexcept>
 
 #ifdef _DEBUG
 #define DISP_COLLISON
