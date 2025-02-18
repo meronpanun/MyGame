@@ -18,7 +18,7 @@ namespace
 	constexpr int kChipNumY = Stage1::kBgStageHeight / kChipHeight;
 
 	// マップチップ拡大率
-	constexpr float kScale = 3.0f; 
+	constexpr float kScale = 3.0f;
 
 	// マップ全体の左下をウィンドウの左下に合わせるための高さ調整用変数
 	constexpr int kAllChipHeight = 600; 
@@ -41,6 +41,8 @@ namespace
 		{7050, 150, 6}, {8000, 200, 6}, {8500, 150, 6}, {8900, 200, 7}, {8950, 200, 7},
 		{9000, 200, 7}, {9300, 150, 6}, {9350, 150, 6}, {10100, 200, 6} 
 	};
+	// 雲の大きさ
+	constexpr float kCloudScale = 0.7f;
 	
 	// 草の描画位置
 	constexpr int kBushes[] = 
@@ -48,6 +50,8 @@ namespace
 		1200, 1250, 1650, 2650, 3500, 3550, 3600, 4050, 5000, 5050, 5800, 5850, 5900, 6400, 7280, 8700 
 	};
 	constexpr int kBushPosY = 610;
+	// 草の大きさ
+	constexpr float kBushScale = 0.3f;
 
 	constexpr int kChipSetData[kChipNumY][kChipNumX] =
 	{
@@ -137,12 +141,12 @@ void BgStage::Draw()
 	// 雲の描画
 	for (const auto& cloud : kClouds) 
 	{
-		DrawRotaGraph(static_cast<int>(cloud.x + m_pCamera->m_drawOffset.x), static_cast<int>(cloud.y), 0.7f, 0, (cloud.handle == 6 ? m_handle006 : m_handle007), true);
+		DrawRotaGraph(static_cast<int>(cloud.x + m_pCamera->m_drawOffset.x), static_cast<int>(cloud.y), kCloudScale, 0, (cloud.handle == 6 ? m_handle006 : m_handle007), true);
 	}
 	// 草の描画
 	for (const auto& bushX : kBushes) 
 	{
-		DrawRotaGraph(static_cast<int>(bushX + m_pCamera->m_drawOffset.x), kBushPosY, 0.3f, 0, m_handle008, true);
+		DrawRotaGraph(static_cast<int>(bushX + m_pCamera->m_drawOffset.x), kBushPosY, kBushScale, 0, m_handle008, true);
 	}
 
 	// マップチップの描画
