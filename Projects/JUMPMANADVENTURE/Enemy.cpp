@@ -198,20 +198,29 @@ Rect Enemy::GetRect()
 	return rect;
 }
 
-// 敵の生存フラグを設定
+/// <summary>
+///  敵の生死フラグ 
+/// </summary>
+/// <param name="isAlive">true:生きている false:死んでいる</param>
 void Enemy::SetAlive(bool isAlive)
 {
 	m_isAlive = isAlive;
 }
 
-// 敵の位置を設定
+/// <summary>
+///  敵の位置を設定
+/// </summary>
+/// <param name="x">X座標</param>
+/// <param name="y">Y座標</param>
 void Enemy::SetPos(float x, float y)
 {
 	m_pos.x = x;
 	m_pos.y = y;
 }
 
-// 敵の移動方向を反転
+/// <summary>
+///  敵の移動方向を反転
+/// </summary>
 void Enemy::ReverseDirection()
 {
 	// 移動方向を反転
@@ -220,26 +229,39 @@ void Enemy::ReverseDirection()
 	m_isFacingRight = !m_isFacingRight;
 }
 
-// 敵が生存しているかどうか
+/// <summary>
+/// 敵が生きているかどうかのフラグ
+/// </summary>
+/// <returns> true:生きている false:死んでいる</returns>
 bool Enemy::IsAlive() const
 {
 	return m_isAlive;
 }
 
-// プレイヤーが敵の攻撃範囲内にいるかどうか
+/// <summary>
+///	プレイヤーが範囲内にいるかチェックする 
+/// </summary>
+/// <param name="playerPos">プレイヤーの位置</param>
+/// <param name="range">範囲</param>
+/// <returns>範囲内にいるかどうか</returns>
 bool Enemy::IsPlayerInRange(const Vec2& playerPos, float range)
 {
 	Vec2 enemyPos = m_pos;
 	return (playerPos - enemyPos).Length() <= range;
 }
 
-// プレイヤーが敵の攻撃範囲に入ったら敵をアクティブにする
+/// <summary>
+///  敵をアクティブにする
+/// </summary>
 void Enemy::Activate()
 {
 	m_isActive = true;
 }
 
-// 敵がアクティブかどうか
+/// <summary>
+/// 敵がアクティブかどうかをチェックする
+/// </summary>
+/// <returns>true:アクティブ false:非アクティブ</returns>
 bool Enemy::IsActive() const
 {
 	return m_isActive;

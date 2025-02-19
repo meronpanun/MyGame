@@ -35,47 +35,25 @@ public:
 	// 敵の位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
 
-	/// <summary>
-	///  敵の移動方向を反転
-	/// </summary>
+	// 敵の移動方向を反転
 	void ReverseDirection();
 
-	/// <summary>
-	///  敵の生死フラグ 
-	/// </summary>
-	/// <param name="isAlive">true:生きている false:死んでいる</param>
+	// 敵の生存フラグを設定
 	void SetAlive(bool isAlive);
 
-	/// <summary>
-	///  敵の位置を設定
-	/// </summary>
-	/// <param name="x">X座標</param>
-	/// <param name="y">Y座標</param>
+    // 敵の位置を設定
 	void SetPos(float x, float y);
 
-	/// <summary>
-	/// 敵が生きているかどうかのフラグ
-	/// </summary>
-	/// <returns> true:生きている false:死んでいる</returns>
+	// 敵が生存しているかどうか
 	bool IsAlive() const;
 
-	/// <summary>
-	///	プレイヤーが範囲内にいるかチェックする 
-	/// </summary>
-	/// <param name="playerPos">プレイヤーの位置</param>
-	/// <param name="range">範囲</param>
-	/// <returns>範囲内にいるかどうか</returns>
+	// プレイヤーが敵の攻撃範囲内にいるかどうか
 	bool IsPlayerInRange(const Vec2& playerPos, float range); 
 
-	/// <summary>
-	///  敵をアクティブにする
-	/// </summary>
+	// プレイヤーが敵の攻撃範囲に入ったら敵をアクティブにする
 	void Activate(); 
 	
-	/// <summary>
-	/// 敵がアクティブかどうかをチェックする
-	/// </summary>
-	/// <returns>true:アクティブ false:非アクティブ</returns>
+	// 敵がアクティブかどうか
 	bool IsActive() const;
 
 private:
