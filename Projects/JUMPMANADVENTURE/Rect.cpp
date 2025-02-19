@@ -17,11 +17,20 @@ Rect::~Rect()
 {
 }
 
+/// <summary>
+/// 中心座標取得
+/// </summary>
+/// <returns>中心座標</returns>
 Vec2 Rect::GetCenter()
 {
     return Vec2((m_left + m_right) / 2, (m_top + m_bottom) / 2);
 }
 
+/// <summary>
+/// 当たり(重なり)判定
+/// </summary>
+/// <param name="rect">判定する矩形</param>
+/// <returns>重なっているかどうか</returns>
 bool Rect::IsCollision(const Rect& rect)
 {
     if (m_top > rect.m_bottom) return false;
@@ -32,6 +41,11 @@ bool Rect::IsCollision(const Rect& rect)
     return true;
 }
 
+/// <summary>
+/// 左上座標とサイズからRestデータを設定
+/// </summary>
+/// <param name="posTL">左上座標</param>
+/// <param name="size">サイズ</param>
 void Rect::SetTopLeftSize(Vec2 posTL, Vec2 size)
 {
     m_top = posTL.y;

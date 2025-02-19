@@ -90,6 +90,9 @@ namespace
 
     // 音量
     constexpr int kVolumeSE = 128;
+
+    // ゴール時のプレイヤーの落下速度を調整
+	constexpr float kGoalPlayerSpeed = 3.0f;
 }
 
 Player::Player() :
@@ -185,7 +188,9 @@ void Player::Update()
     }
 }
 
-// プレイヤーが敵を倒した後の処理
+/// <summary>
+/// プレイヤーが敵を倒した後少しジャンプ
+/// </summary>
 void Player::JumpOnEnemy()
 {
     m_move.y = kJumpAcc * 0.5f; // 少しY軸方向にジャンプ
@@ -218,6 +223,10 @@ float Player::GetBottom() const
     return m_pos.y;
 }
 
+/// <summary>
+/// マップチップとの当たり判定
+/// </summary>
+/// <param name="chipRect"></param>
 void Player::CheckHitBgStage(Rect chipRect)
 {
     // 横の当たり判定
@@ -260,16 +269,27 @@ void Player::CheckHitBgStage(Rect chipRect)
     }
 }
 
+/// <summary>
+/// Y軸方向の移動量を追加 
+/// </summary>
+/// <param name="DisY">Y軸方向の移動量</param>
 void Player::AddMoveY(float DisY)
 {
     m_pos.y += DisY;
 }
 
+/// <summary>
+/// Y軸方向の移動量をリセット
+/// </summary>
 void Player::OnCollideY()
 {
     m_move.y = 0;
 }
 
+/// <summary>
+/// 現在のプレイヤーの矩形情報を取得
+/// </summary>
+/// <returns>プレイヤーの矩形情報</returns>
 Rect Player::GetRect() const
 {
     // プレイヤーの矩形当たり判定情報
@@ -281,11 +301,18 @@ Rect Player::GetRect() const
     return rect;
 }
 
+/// <summary>
+/// プレイヤーの移動量を取得
+/// </summary>
+/// <returns>Y軸方向の移動量を取得</returns>
 float Player::GetMoveY() const
 {
     return m_move.y;
 }
 
+/// <summary>
+///  ジャンプ処理
+/// </summary>
 void Player::UpdateJump()
 {
     m_jumpFrame++;
@@ -355,6 +382,9 @@ void Player::Draw()
 #endif // DISP_COLLISION
 }
 
+/// <summary>
+/// プレイヤーがダメージを受けた時の処理
+/// </summary>
 void Player::OnDamage()
 {
     // 既にダメージを受けている(無敵時間)間は
@@ -386,6 +416,9 @@ void Player::OnDamage()
 	}
 }
 
+/// <summary>
+/// ゲーム中のUpdate
+/// </summary>
 void Player::UpdateNormal()
 {
     // プレイヤーが穴に落下した場合
@@ -535,7 +568,9 @@ void Player::UpdateNormal()
     }
 }
 
-// プレイヤーのHPが0以下になった場合
+/// <summary>
+/// 死亡後のUpdate
+/// </summary>
 void Player::UpdateDead()
 {
     // 死亡後一瞬止まる
@@ -560,18 +595,27 @@ void Player::UpdateDead()
     }
 }
 
-// ゲームオーバーかどうかを判定する
+
+/// <summary>
+/// ゲームオーバー演出を開始するフラグ
+/// </summary>
+/// <returns>true:ゲームオーバー false:ゲームオーバーでない</returns>
 bool Player::IsGameOver() const
 {
     return m_isGameOver;
 }
 
-// リスポーンを開始する
+/// <summary>
+///  初期リスポーン
+/// </summary>
 void Player::StartRespawn()
 {
     m_respawnTimer = kRespawnDelay;
 }
 
+/// <summary>
+/// リスポーン
+/// </summary>
 void Player::Respawn()
 {
     // プレイヤーの位置をリセット
@@ -592,36 +636,50 @@ void Player::Respawn()
     }
 }
 
-// プレイヤーの操作を無効化する
+/// <summary>
+/// プレイヤーの操作を無効化
+/// </summary>
 void Player::DisableControl()
 {
     m_isControlDisabled = true;
 }
 
-// プレイヤーの操作が無効かどうかを判定する
+/// <summary>
+/// プレイヤーの操作が無効かどうか 
+/// </summary>
+/// <returns>true:無効 false:有効</returns>
 bool Player::IsControlDisabled() const
 {
      return m_isControlDisabled;
 }
 
-// プレイヤーのX座標を設定する
+/// <summary>
+/// プレイヤーの位置を設定
+/// </summary>
+/// <param name="x">X座標</param>
 void Player::SetPosX(float x)
 {
     m_pos.x = x;
 }
 
-// プレイヤーが地面にいるかどうかを判定する
+/// <summary>
+/// プレイヤーが地面にいるかどうか
+/// </summary>
+/// <returns>true:地面にいる false:地面にいない</returns>
 bool Player::IsOnGround() const
 {
     return m_isGround;
 }
 
-// プレイヤーを地面の高さまでゆっくり落とす
+/// <summary>
+/// プレイヤーを地面の高さまでゆっくり落とす
+/// </summary>
+/// <param name="groundHeight">地面の高さ</param>
 void Player::FallToGround(float groundHeight)
 {
     if (m_pos.y < groundHeight - m_height) 
     {
-        m_pos.y += 3.0f; // 落下速度を調整
+        m_pos.y += kGoalPlayerSpeed; // 落下速度を調整
         if (m_pos.y > groundHeight - m_height) 
         {
             m_pos.y = groundHeight - m_height;
@@ -629,12 +687,18 @@ void Player::FallToGround(float groundHeight)
     }
 }
 
-// プレイヤーが歩いているかどうかを設定する
+/// <summary>
+/// プレイヤーの歩行状態を設定する
+/// </summary>
+/// <param name="isWalking">true:歩いている false:待機</param>
 void Player::SetIsWalking(bool isWalking)
 {
     m_isWalk = isWalking;
 }
 
+/// <summary>
+/// プレイヤーのアニメーションを更新する
+/// </summary>
 void Player::UpdateAnimation()
 {
     // 移動中のみ歩行アニメーションを行う
@@ -650,12 +714,18 @@ void Player::UpdateAnimation()
     }
 }
 
-// プレイヤーがダメージを受けたかどうかを判定する
+/// <summary>
+/// ダメージを受けたかどうかを示すフラグ
+/// </summary>
+/// <returns>true:ダメージを受けた false:ダメージを受けていない</returns>
 bool Player::HasTakenDamage() const
 {
     return m_hasTakenDamage;
 }
 
+/// <summary>
+/// HPを回復する
+/// </summary>
 void Player::RecoverHp()
 {
     // HPが最大値未満の場合のみ回復
@@ -668,7 +738,9 @@ void Player::RecoverHp()
     PlaySoundMem(m_itemHpSEHandle, DX_PLAYTYPE_BACK);
 }
 
-//  プレイヤーが死亡状態になったときの初期化
+/// <summary>
+/// 死亡時の初期化処理
+/// </summary>
 void Player::InitDead()
 {
 	m_jumpSpeed = kDeadPosY;

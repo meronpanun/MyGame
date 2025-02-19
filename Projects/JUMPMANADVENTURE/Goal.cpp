@@ -43,11 +43,15 @@ namespace
 
 	// 旗が落ちる速度
 	constexpr float kFlagFallSpeed = 2.0f;
+
+	// ゴール座標
+	constexpr float kGoalPosX = 10000.0f;
+	constexpr float kGoalPosY = 528.0f;
 }
 
 Goal::Goal():
 	m_pCamera(nullptr),
-	m_pos(10000.0f, 528.0f),
+	m_pos(kGoalPosX, kGoalPosY),
 	m_animFrame(0),
 	m_handle(0),
 	m_index(0),
@@ -128,6 +132,11 @@ void Goal::Draw()
 #endif // DISP_COLLISION
 }
 
+/// <summary>
+/// プレイヤーとの当たり判定フラグを取得
+/// </summary>
+/// <param name="pPlayer">プレイヤーのポインタ</param>
+/// <returns>プレイヤーとの当たり判定フラグ</returns>
 bool Goal::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 {
 	// プレイヤーとポールの当たり判定
@@ -139,7 +148,7 @@ bool Goal::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 
 	if (poleRect.IsCollision(playerRect))
 	{
-		m_isFlagFalling = true; // 旗が落ちるフラグを設定
+		m_isFlagFalling = true;	   // 旗が落ちるフラグを設定
 		m_isPlayerCollided = true; // プレイヤーが当たったフラグを設定
 		return true;
 	}
@@ -147,25 +156,39 @@ bool Goal::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 	return false;
 }
 
-// ポールの当たり判定のオフセットを設定
+/// <summary>
+/// ポールの当たり判定のオフセットを設定
+/// </summary>
+/// <param name="offsetX">X座標</param>
+/// <param name="offsetY">Y座標</param>
 void Goal::SetPoleCollisionOffset(float offsetX, float offsetY)
 {
 	m_poleCollisionOffset.SetPos(offsetX, offsetY);
 }
 
-// ポールの当たり判定サイズを設定
+/// <summary>
+/// ポールの当たり判定サイズ
+/// </summary>
+/// <param name="width">幅</param>
+/// <param name="height">高さ</param>
 void Goal::SetPoleCollisionSize(float width, float height)
 {
 	m_poleCollisionSize.SetPos(width, height);
 }
 
-// 旗が落ちる高さを設定
+/// <summary>
+/// 旗の落ちる高さを設定
+/// </summary>
+/// <param name="height">高さ</param>
 void Goal::SetFlagFallHeight(int height)
 {
 	m_flagFallHeight = height;
 }
 
-// 旗が落ちるかどうかを判定
+/// <summary>
+/// 旗が指定の高さまで落ちたかどうかを判定
+/// </summary>
+/// <returns>旗が指定の高さまで落ちたかどうか</returns>
 bool Goal::IsFlagFalling() const
 {
 	return m_isFlagFalling;

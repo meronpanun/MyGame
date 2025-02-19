@@ -23,43 +23,22 @@ public:
 	void SetHandle(int handle) { m_handle = handle; }
 	void SetPoleHandle(int poleHandle) { m_poleHandle = poleHandle; }
 
-	/// <summary>
-	/// ゴールの位置情報を取得 
-	/// </summary>
-	/// <returns>ゴールの位置情報</returns>
+	// ゴールの位置情報を取得 
 	Vec2 GetPos() const { return m_pos; }
 
-	/// <summary>
-	/// プレイヤーとの当たり判定フラグを取得
-	/// </summary>
-	/// <param name="pPlayer">プレイヤーのポインタ</param>
-	/// <returns>プレイヤーとの当たり判定フラグ</returns>
+	// プレイヤーとの当たり判定フラグを取得
 	bool GetHitPlayerFlag(std::shared_ptr<Player> pPlayer);
 
-	/// <summary>
-	/// ポールの当たり判定のオフセットを設定
-	/// </summary>
-	/// <param name="offsetX">X座標</param>
-	/// <param name="offsetY">Y座標</param>
+	// ポールの当たり判定のオフセットを設定
 	void SetPoleCollisionOffset(float offsetX, float offsetY);
 
-	/// <summary>
-	/// ポールの当たり判定サイズ
-	/// </summary>
-	/// <param name="width">幅</param>
-	/// <param name="height">高さ</param>
+	// ポールの当たり判定サイズ
 	void SetPoleCollisionSize(float width, float height);
 
-	/// <summary>
 	/// 旗の落ちる高さを設定
-	/// </summary>
-	/// <param name="height">高さ</param>
 	void SetFlagFallHeight(int height); 
 
-	/// <summary>
-	/// 旗が指定の高さまで落ちたかどうかを判定
-	/// </summary>
-	/// <returns>旗が指定の高さまで落ちたかどうか</returns>
+	// 旗が指定の高さまで落ちたかどうかを判定
 	bool IsFlagFalling() const;
 	
 public:

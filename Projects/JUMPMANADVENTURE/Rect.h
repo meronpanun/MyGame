@@ -26,11 +26,7 @@ public:
 	// 当たり(重なり)判定
 	bool IsCollision(const Rect& rect);
 
-	/// <summary>
-	/// 左上座標とサイズからRestデータを設定
-	/// </summary>
-	/// <param name="posTL">左上座標</param>
-	/// <param name="size">サイズ</param>
+	// 左上座標とサイズからRestデータを設定
 	void SetTopLeftSize(Vec2 posTL, Vec2 size);
 };
 

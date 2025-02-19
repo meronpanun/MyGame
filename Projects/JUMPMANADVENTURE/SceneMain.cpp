@@ -52,7 +52,7 @@ namespace
 	// 体力の最大値
 	constexpr int kMaxHp = 3;
 
-	// 背景の1つのサイズ
+	// 背景のサイズ
 	constexpr int kChipWidth = 64;
 	constexpr int kChipHeight = 64;
 
@@ -69,17 +69,47 @@ namespace
 
 	// ゲームオーバー用敵の初期位置と落下速度
 	constexpr float kGameOverEnemyStartPosY = -kGraphHeight * kScale; // 画面外から出現
-	constexpr float kGameOverEnemyFallSpeedMin = 1.0f; // 落下速度の最小値
-	constexpr float kGameOverEnemyFallSpeedMax = 3.0f; // 落下速度の最大値
-	constexpr float kGameOverEnemyRotationSpeedMin = 0.02f; // 回転速度の最小値
-	constexpr float kGameOverEnemyRotationSpeedMax = 0.1f;  // 回転速度の最大値
-	constexpr int kNumGameOverEnemies = 10; // ゲームオーバー用敵の数
+	constexpr float kGameOverEnemyFallSpeedMin = 1.0f;				  // 落下速度の最小値
+	constexpr float kGameOverEnemyFallSpeedMax = 3.0f;				  // 落下速度の最大値
+	constexpr float kGameOverEnemyRotationSpeedMin = 0.02f;			  // 回転速度の最小値
+	constexpr float kGameOverEnemyRotationSpeedMax = 0.1f;			  // 回転速度の最大値
+	constexpr int	kNumGameOverEnemies = 10;						  // ゲームオーバー用敵の数
 
 	// ゴール後の画面遷移までの待機時間（フレーム数）
 	constexpr int kGoalTransitionWaitTime = 480;
 
 	// 旗の落ちる高さを設定
 	constexpr int kFlagFallHeight = 280;
+
+	// フォントサイズ
+	constexpr int kSmallFontSize = 40;
+	constexpr int kLargeFontSize = 84;
+
+	// アイテムスコア
+	constexpr int kItemScore = 1000;
+	// 敵を倒した際のスコア
+	constexpr int kEnemyScore = 100;
+
+	// ゴール後のプレイヤーの移動速度
+	constexpr float kGoalPlayerSpeed = 3.5f;
+
+	// プレイヤーの初期Y座標
+	constexpr float kPlayerStartPosY = 625.0f;
+
+	// タイマー減算開始時間
+	constexpr int kTimerDecrementStartTime = 190;
+	// タイマーの減算速度
+	constexpr float kTimerDecrementSpeed = 2.0f;
+
+	// 音のフェードアウトにかけるフレーム数
+	constexpr int kBgmFadeOutFrame = 50;
+	constexpr int kNoTimeBgmFadeOutFrame = 50;
+
+	// ノータイムBGMの再生時間
+	constexpr int kNoTimeBgmPlayTime = 120;
+
+	// ゴールの当たり判定時間
+	constexpr int kGoalHitTime = 160;
 }
 
 SceneMain::SceneMain():
@@ -102,9 +132,9 @@ SceneMain::SceneMain():
 	m_isHurryUpBGMPlaying(false),
 	m_isNoTimeBgmFadingOut(false),
 	m_noTimeBgmFadeOutFrameCount(0),
-	m_timerDecrementSpeed(2.0f),
+	m_timerDecrementSpeed(kTimerDecrementSpeed),
 	m_goalTimer(0),
-	m_timerDecrementStartCount(190),
+	m_timerDecrementStartCount(kTimerDecrementStartTime),
 	m_isGoalTimerDecrementing(false)
 {
 	// グラフィックの読み込み
@@ -161,7 +191,7 @@ SceneMain::SceneMain():
 	CreateEnemy(9000, 625);
 	CreateEnemy(9150, 625);
 
-	// Hpの生成数
+	// 回復アイテムの生成数
 	m_pItemHp.resize(2);
 
 	// 各Hpの初期位置
@@ -261,13 +291,13 @@ SceneBase* SceneMain::Update()
 		m_isBgmFadingOut = true;
 		m_isNoTimeBgmFadingOut = true;
 		// フェードアウトにかけるフレーム数を設定
-		m_bgmFadeOutFrameCount = 50; 
-		m_noTimeBgmFadeOutFrameCount = 50;
+		m_bgmFadeOutFrameCount = kBgmFadeOutFrame;
+		m_noTimeBgmFadeOutFrameCount = kNoTimeBgmFadeOutFrame;
 
 		// プレイヤーが地面についていない場合、地面につくようにする
 		if (!m_pPlayer->IsOnGround())
 		{
-			float initialY = 625.0f; // プレイヤーの初期Y座標
+			float initialY = kPlayerStartPosY; // プレイヤーの初期Y座標
 			m_pPlayer->FallToGround(initialY);
 		}
 
@@ -294,7 +324,7 @@ SceneBase* SceneMain::Update()
 	}
 
 	// タイマーの残り時間が120カウント以下になったらBGMを切り替える
-	if (m_timer <= 120 && !m_isHurryUpBGMPlaying && !m_isGoalHit)
+	if (m_timer <= kNoTimeBgmPlayTime && !m_isHurryUpBGMPlaying && !m_isGoalHit)
 	{
 		StopSoundMem(m_bgmHandle);
 		PlaySoundMem(m_noTimeBGMHandle, DX_PLAYTYPE_LOOP);
@@ -314,6 +344,7 @@ SceneBase* SceneMain::Update()
 		}
 		else
 		{
+			// BGMを停止
 			StopSoundMem(m_noTimeBGMHandle);
 			m_isNoTimeBgmFadingOut = false;
 		}
@@ -322,10 +353,10 @@ SceneBase* SceneMain::Update()
     // ゴールに当たっている場合
 	if (m_isGoalHit)
 	{
-		if (m_pGoal->m_collisionTimer >= 160)
+		if (m_pGoal->m_collisionTimer >= kGoalHitTime)
 		{
 			// プレイヤーが地面についている場合、右に移動させる
-			m_pPlayer->SetPosX(m_pPlayer->GetPos().x + 3.5f); // 移動速度を調整
+			m_pPlayer->SetPosX(m_pPlayer->GetPos().x + kGoalPlayerSpeed); // 移動速度を調整
 			m_pPlayer->SetIsWalking(true); // 歩くアニメーションを行う
 			m_pPlayer->UpdateAnimation();  // アニメーションのUpdate関数を呼び出す
 		}
@@ -342,6 +373,7 @@ SceneBase* SceneMain::Update()
 			{
 				m_timer -= static_cast<int>(m_timerDecrementSpeed);
 				m_score += static_cast<int>(10 * m_timerDecrementSpeed); // タイマー1カウントごとにスコアを10ポイント加算
+				// SEを再生
 				PlaySoundMem(m_seHandle, DX_PLAYTYPE_BACK);
 				if (m_timer < 0)
 				{
@@ -462,7 +494,7 @@ SceneBase* SceneMain::Update()
 					{
 						enemy->SetAlive(false);    // 敵を消す
 						m_pPlayer->JumpOnEnemy();  // プレイヤーが少しジャンプ
-						m_score += 100;            // 敵を倒すとスコアを100ポイント増加
+						m_score += kEnemyScore;    // 敵を倒すとスコアを100ポイント増加
 						// SEを再生
 						PlaySoundMem(m_enemyDeadSEHandle, DX_PLAYTYPE_BACK);
 					}
@@ -483,7 +515,7 @@ SceneBase* SceneMain::Update()
 				// プレイヤーのHPを回復
 				m_pPlayer->RecoverHp();
 				// スコアを1000ポイント加算
-				m_score += 1000;
+				m_score += kItemScore;
 			}
 		}
 		
@@ -584,7 +616,7 @@ void SceneMain::Draw()
 	}
 
 	// スコアの表示
-	int fontHandle = m_pFont->GetFont(40);
+	int fontHandle = m_pFont->GetFont(kSmallFontSize);
 	DrawFormatStringToHandle(kScoreTextPosX, kScoreAndTimerTextPosY, 0xffffff, fontHandle, "Score");
 	DrawFormatStringToHandle(kScorePosX, kScoreAndTimerPosY, 0xffffff, fontHandle, "%d", m_score);
 
@@ -613,7 +645,7 @@ void SceneMain::Draw()
 
 			if (m_blinkFrameCount < kBlinkDispFrame)
 			{
-				DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(40), "Press A Button");
+				DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(kSmallFontSize), "Press A Button");
 			}
 
 			// 割合を使用して変換を行う
@@ -626,7 +658,7 @@ void SceneMain::Draw()
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 
 			// ゲームオーバーの文字の位置を計算
-			int width = GetDrawStringWidthToHandle("GAMEOVER", static_cast<int>(strlen("GAMEOVER")), m_pFont->GetFont(84));
+			int width = GetDrawStringWidthToHandle("GAMEOVER", static_cast<int>(strlen("GAMEOVER")), m_pFont->GetFont(kLargeFontSize));
 			int targetY = kGameoverPosY; // ゲームオーバーの文字の位置
 			int startY = -4; // 画面外から出現
 			int gameOverY = static_cast<int>(startY + (targetY - startY) * progressRate); // 途中の位置を計算
@@ -639,7 +671,7 @@ void SceneMain::Draw()
 
 			// ゲームオーバーの文字を描画
 			DrawStringToHandle(static_cast<int>(Game::kScreenWidth * 0.5 - width * 0.5), gameOverY,
-				"GAMEOVER", 0xdc143c, m_pFont->GetFont(84));
+				"GAMEOVER", 0xdc143c, m_pFont->GetFont(kLargeFontSize));
 
 			// 以降の表示がおかしくならないように元の設定に戻しておく
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -658,7 +690,11 @@ void SceneMain::Draw()
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
 }
 
-// 敵の生成
+/// <summary>
+/// 敵の生成
+/// </summary>
+/// <param name="x">X座標</param>
+/// <param name="y">Y座標</param>
 void SceneMain::CreateEnemy(float x, float y)
 {
 	for (int i = 0; i < m_pEnemy.size(); i++)
@@ -672,7 +708,11 @@ void SceneMain::CreateEnemy(float x, float y)
 	}
 }
 
-// アイテムの生成
+/// <summary>
+/// 回復アイテムの生成
+/// </summary>
+/// <param name="x">X座標</param>
+/// <param name="y">Y座標</param>
 void SceneMain::CreateItemHp(float x, float y)
 {
 	for (int i = 0; i < m_pItemHp.size(); i++)
@@ -686,13 +726,18 @@ void SceneMain::CreateItemHp(float x, float y)
 	}
 }
 
-// スコアとタイマーのフォントサイズの設定
+/// <summary>
+/// スコアとタイマーのフォントサイズを設定
+/// </summary>
+/// <param name="size">フォントサイズ</param>
 void SceneMain::SetScoreAndTimerFontSize(int size)
 {
 	m_scoreAndTimerFontSize = size;
 }
 
-// ゲームオーバー用敵の初期化
+/// <summary>
+/// ゲームオーバー用敵の初期化
+/// </summary>
 void SceneMain::InitGameOverEnemies()
 {
 	for (int i = 0; i < kNumGameOverEnemies; ++i) 
@@ -707,7 +752,9 @@ void SceneMain::InitGameOverEnemies()
 	}
 }
 
-// ゲームオーバー用敵の更新
+/// <summary>
+/// ゲームオーバー用敵の更新
+/// </summary>
 void SceneMain::UpdateGameOverEnemies()
 {
 	for (auto& enemy : m_gameOverEnemies)
@@ -722,7 +769,9 @@ void SceneMain::UpdateGameOverEnemies()
 	}
 }
 
-// ゲームオーバー用敵の描画
+/// <summary>
+/// ゲームオーバー用敵の描画
+/// </summary>
 void SceneMain::DrawGameOverEnemies()
 {
 	for (const auto& enemy : m_gameOverEnemies)

@@ -26,20 +26,20 @@ namespace
 	constexpr int kChipWidth = 64;
 	constexpr int kChipHeight = 64;
 
-	// ゲームクリア用敵の描画サイズ
+	// ゲームクリア用プレイヤーの描画サイズ
 	constexpr int kGraphWidth = 32;
 	constexpr int kGraphHeight = 32;
 
 	// 拡大率
     constexpr float kScale = 2.0f; 
 
-	// ゲームクリア用敵の初期位置と落下速度
+	// ゲームクリア用プレイヤーの初期位置と落下速度
 	constexpr float kGameClearPlayerStartPosY = -kGraphHeight * kScale; // 画面外から落下してくる
 	constexpr float kGameClearPlayerFallSpeedMin = 1.0f;				// 落下速度の最小値
 	constexpr float kGameClearPlayerFallSpeedMax = 3.0f;			    // 落下速度の最大値
 	constexpr float kGameClearPlayerRotationSpeedMin = 0.02f;			// 回転速度の最小値
 	constexpr float kGameClearPlayerRotationSpeedMax = 0.1f;			// 回転速度の最大値
-	constexpr int kNumGameClearPlayrers = 10;							// ゲームクリア用敵の数
+	constexpr int	kNumGameClearPlayrers = 10;							// ゲームクリア用プレイヤーの数
 
 	// ウェーブアニメーションのパラメータ
 	constexpr float kWaveAmplitude = 20.0f; // 振幅
@@ -70,6 +70,23 @@ namespace
 	// Press A Buttonの表示位置
 	constexpr int kPressAButtonPosX = 390;
 	constexpr int kPressAButtonPosY = 600;
+
+	// フォントサイズ
+	constexpr int kSmallFontSize = 40;
+	constexpr int kMediumFontSize = 64;
+	constexpr int kLargeFontSize = 84;
+
+	// スコア数
+	constexpr int kBRankScore = 5000;
+	constexpr int kARankScore = 6000;
+
+	// 文字間隔を広げるためのスペース数
+	constexpr int kSpaceNum = 60;
+	// MとEの間隔を広げるためのスペース数
+	constexpr int kSpaceNumForME = 100;
+	// 文字のX座標
+	constexpr int kPosX = -50;
+	
 }
 
 SceneGameClear::SceneGameClear(int score, int goalHitTime, bool isNoDamage) :
@@ -190,22 +207,22 @@ void SceneGameClear::Draw()
 	DrawGameClearPlayers();
 
 	// スコアランクの表示
-	DrawStringToHandle(kRankPosX, kRankPosY, "RANK", 0xffffff, m_pFont->GetFont(64));
-	if (m_isNoDamage && m_score >= 6000)
+	DrawStringToHandle(kRankPosX, kRankPosY, "RANK", 0xffffff, m_pFont->GetFont(kMediumFontSize));
+	if (m_isNoDamage && m_score >= kARankScore)
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "S", 0xFFD700, m_pFont->GetFont(64));
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "S", 0xFFD700, m_pFont->GetFont(kMediumFontSize));
 	}
-	else if (m_score >= 6000)
+	else if (m_score >= kARankScore)
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "A", 0xcccccc, m_pFont->GetFont(64));
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "A", 0xcccccc, m_pFont->GetFont(kMediumFontSize));
 	}
-	else if (m_score >= 5000)
+	else if (m_score >= kBRankScore)
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "B", 0xB87333, m_pFont->GetFont(64));
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "B", 0xB87333, m_pFont->GetFont(kMediumFontSize));
 	}
 	else
 	{
-		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "C", 0x008b8b, m_pFont->GetFont(64));
+		DrawStringToHandle(kRankTextPosX, kRankTextPosY, "C", 0x008b8b, m_pFont->GetFont(kMediumFontSize));
 	}
 
 	// 割合を使用して変換を行う
@@ -215,18 +232,18 @@ void SceneGameClear::Draw()
 	int alpha = static_cast<int>(255 * progressRate);
 	// ここ以降呼ばれるDraw関数の描画方法を変更する
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
-	int width = GetDrawStringWidthToHandle("GAMECLEAR", static_cast<int>(strlen("GAMECLEAR")), m_pFont->GetFont(84));
+	int width = GetDrawStringWidthToHandle("GAMECLEAR", static_cast<int>(strlen("GAMECLEAR")), m_pFont->GetFont(kLargeFontSize));
 
 	// ウェーブアニメーションを適用して文字を描画
-	const int charSpacing = 60;     // 文字間隔を広げるためのスペース
-	const int specialSpacing = 100; // MとEの間隔を広げるためのスペース
-	int xOffset = -50;              // 文字のX座標のオフセット
+	const int charSpacing = kSpaceNum;     // 文字間隔を広げるためのスペース
+	const int specialSpacing = kSpaceNumForME; // MとEの間隔を広げるためのスペース
+	int xOffset = kPosX;              // 文字のX座標のオフセット
 
 	for (int i = 0; i < strlen("GAMECLEAR"); ++i)
 	{
 		float waveOffset = kWaveAmplitude * std::sin((m_waveFrameCount + i * 10) * kWaveFrequency); // ウェーブアニメーションのオフセット
 		DrawStringToHandle(static_cast<int>(Game::kScreenWidth * 0.5 - width * 0.5 + xOffset), static_cast<int>(100 + waveOffset),
-			std::string(1, "GAMECLEAR"[i]).c_str(), 0xffd700, m_pFont->GetFont(84));
+			std::string(1, "GAMECLEAR"[i]).c_str(), 0xffd700, m_pFont->GetFont(kLargeFontSize));
 
 		// 次の文字の位置を計算
 		if (i == 2) // Mの後
@@ -242,22 +259,22 @@ void SceneGameClear::Draw()
 	/*スコアとタイマーの文字の1文字目を合わせ、数字は1の位を合わせる*/
 	// スコアの表示
 	std::string scoreText = "Score: " + std::to_string(m_score); // スコアの文字列
-	int scoreTextWidth = GetDrawStringWidthToHandle("Score: ", static_cast<int>(strlen("Score: ")), m_pFont->GetFont(64)); // スコアの文字の幅
-	int scoreNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_score).c_str(), static_cast<int>(std::to_string(m_score).length()), m_pFont->GetFont(64)); // スコアの数字の幅
-	DrawStringToHandle(static_cast<int>(kScoreTextPosX - scoreTextWidth * 0.5), kScorePosY, "Score: ", 0xffffff, m_pFont->GetFont(64)); // スコアの文字を描画
-	DrawStringToHandle(static_cast<int>(kScoreNumberPosX + scoreTextWidth * 0.5 - scoreNumberWidth), kScorePosY, std::to_string(m_score).c_str(), 0xffffff, m_pFont->GetFont(64)); // スコアの数字を描画
+	int scoreTextWidth = GetDrawStringWidthToHandle("Score: ", static_cast<int>(strlen("Score: ")), m_pFont->GetFont(kMediumFontSize)); // スコアの文字の幅
+	int scoreNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_score).c_str(), static_cast<int>(std::to_string(m_score).length()), m_pFont->GetFont(kMediumFontSize)); // スコアの数字の幅
+	DrawStringToHandle(static_cast<int>(kScoreTextPosX - scoreTextWidth * 0.5), kScorePosY, "Score: ", 0xffffff, m_pFont->GetFont(kMediumFontSize)); // スコアの文字を描画
+	DrawStringToHandle(static_cast<int>(kScoreNumberPosX + scoreTextWidth * 0.5 - scoreNumberWidth), kScorePosY, std::to_string(m_score).c_str(), 0xffffff, m_pFont->GetFont(kMediumFontSize)); // スコアの数字を描画
 
 	// タイマーの表示
 	std::string timeText = "Time: " + std::to_string(m_goalHitTime); // タイマーの文字列
-	int timeTextWidth = GetDrawStringWidthToHandle("Time: ", static_cast<int>(strlen("Time: ")), m_pFont->GetFont(64)); // タイマーの文字の幅
-	int timeNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_goalHitTime).c_str(), static_cast<int>(std::to_string(m_goalHitTime).length()), m_pFont->GetFont(64)); // タイマーの数字の幅
-	DrawStringToHandle(static_cast<int>(kTimeTextPosX - timeTextWidth * 0.5), kTimePosY, "Time: ", 0xffffff, m_pFont->GetFont(64)); // タイマーの文字を描画
-	DrawStringToHandle(static_cast<int>(kTimeNumberPosX + timeTextWidth * 0.5 - timeNumberWidth), kTimePosY, std::to_string(m_goalHitTime).c_str(), 0xffffff, m_pFont->GetFont(64)); // タイマーの数字を描画
+	int timeTextWidth = GetDrawStringWidthToHandle("Time: ", static_cast<int>(strlen("Time: ")), m_pFont->GetFont(kMediumFontSize)); // タイマーの文字の幅
+	int timeNumberWidth = GetDrawStringWidthToHandle(std::to_string(m_goalHitTime).c_str(), static_cast<int>(std::to_string(m_goalHitTime).length()), m_pFont->GetFont(kMediumFontSize)); // タイマーの数字の幅
+	DrawStringToHandle(static_cast<int>(kTimeTextPosX - timeTextWidth * 0.5), kTimePosY, "Time: ", 0xffffff, m_pFont->GetFont(kMediumFontSize)); // タイマーの文字を描画
+	DrawStringToHandle(static_cast<int>(kTimeNumberPosX + timeTextWidth * 0.5 - timeNumberWidth), kTimePosY, std::to_string(m_goalHitTime).c_str(), 0xffffff, m_pFont->GetFont(kMediumFontSize)); // タイマーの数字を描画
 
 	// Press A Buttonの点滅表示
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(40), "Press A Button");
+		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(kSmallFontSize), "Press A Button");
 	}
 
 	// 以降の表示がおかしくならないように元の設定に戻しておく
@@ -275,7 +292,9 @@ void SceneGameClear::Draw()
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
 }
 
-// ゲームクリア用プレイヤーの初期化
+/// <summary>
+/// ゲームクリア用プレイヤーの初期化
+/// </summary>
 void SceneGameClear::InitGameClearPlayers()
 {
 	for (int i = 0; i < kNumGameClearPlayrers; ++i)
@@ -290,7 +309,9 @@ void SceneGameClear::InitGameClearPlayers()
 	}
 }
 
-// ゲームクリア用プレイヤーの更新
+/// <summary>
+/// ゲームクリア用プレイヤーの更新
+/// </summary>
 void SceneGameClear::UpdateGameClearPlayers()
 {
 	for (auto& player : m_gameClearPlayers)
@@ -305,7 +326,9 @@ void SceneGameClear::UpdateGameClearPlayers()
 	}
 }
 
-// ゲームクリア用プレイヤーの描画
+/// <summary>
+/// ゲームクリア用プレイヤーの描画
+/// </summary>
 void SceneGameClear::DrawGameClearPlayers()
 {
 	for (const auto& player : m_gameClearPlayers)

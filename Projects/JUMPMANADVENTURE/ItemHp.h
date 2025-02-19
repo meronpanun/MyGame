@@ -18,55 +18,28 @@ public:
 	void Update();
 	void Draw() ;
 
-	/// <summary>
-	/// メンバー変数にアクセスするための関数 
-	/// </summary>
-	/// <param name="handle">グラフィックハンドル</param>
+	// メンバー変数にアクセスするための関数 
 	void SetHandle(int handle) { m_handle = handle; }
 
-	/// <summary>
-	/// プレイヤーのポインタを取得
-	/// </summary>
-	/// <returns>プレイヤーのポインタ</returns>
+	// プレイヤーのポインタを取得
 	void SetPlayer(std::shared_ptr<Player> pPlayer) { m_pPlayer = pPlayer; }
 
-	/// <summary>
-	/// アイテムの位置を設定
-	/// </summary>
-	/// <param name="x">X座標</param>
-	/// <param name="y">Y座標</param>
+	// アイテムの位置を設定
 	void SetPos(float x, float y);
 
-	/// <summary>
-	/// アイテムが消える処理
-	/// </summary>
+	// アイテムが消える処理
 	void ItemLost();
 
-	/// <summary>
-	/// アイテムの位置を取得
-	/// </summary>
-	//// <returns>アイテムの位置</returns>
+	// アイテムの位置を取得
 	Vec2 GetPos() const { return m_pos; }
 
-	//アイテムの半径を取得
-
-	/// <summary>
-	/// アイテムの半径を取得
-	/// </summary>
-	/// <returns>半径</returns>
+	// アイテムの半径を取得
 	float GetRadius();
 
-	/// <summary>
-	/// アイテムとプレイヤーが当たったかどうか
-	/// </summary>
-	/// <param name="pPlayer">プレイヤーのポインタ</param>
-	/// <returns>当たったかどうか</returns>
+	// アイテムとプレイヤーが当たったかどうか
 	bool GetHitPlayerFlag(std::shared_ptr<Player> pPlayer);
 
-	/// <summary>
-	///  アイテムが存在するかどうかを判定
-	/// </summary>
-	/// <returns></returns>
+	//  アイテムが存在するかどうかを判定
 	bool IsExist() const; 
 
 private:

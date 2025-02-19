@@ -28,6 +28,12 @@ namespace
 	// Press A Buttonの表示委t
 	constexpr int kPressAButtonPosX = 430;
 	constexpr int kPressAButtonPosY = 550;
+
+	// フォントサイズ
+	constexpr int kSmallFontSize = 40;
+
+	// タイトルロゴのY座標
+	constexpr int kTitleLogoPosY = 200;
 }
 
 SceneTitle::SceneTitle() :
@@ -163,7 +169,7 @@ void SceneTitle::Draw()
 	}
 
 	// タイトルロゴの描画
-	DrawRotaGraph(static_cast<int>(Game::kScreenWidth * 0.5), 200,
+	DrawRotaGraph(static_cast<int>(Game::kScreenWidth * 0.5), kTitleLogoPosY,
 		1.0f, 0.0f,
 		m_titleHandle, true);
 
@@ -177,7 +183,7 @@ void SceneTitle::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha);
 	if (m_blinkFrameCount < kBlinkDispFrame)
 	{
-		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(40),"Press A Button");
+		DrawFormatStringToHandle(kPressAButtonPosX, kPressAButtonPosY, 0xffffff, m_pFont->GetFont(kSmallFontSize),"Press A Button");
 	}
 	// 以降の表示がおかしくならないように元の設定に戻しておく
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

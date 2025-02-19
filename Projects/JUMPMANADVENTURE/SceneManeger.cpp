@@ -73,7 +73,9 @@ void SceneManager::Draw()
 	}
 }
 
-// ゲームクリア演出を開始
+/// <summary>
+/// ゲームクリア画面への遷移を開始
+/// </summary>
 void SceneManager::StartGameClear()
 {
 	m_isGameClear = true; 

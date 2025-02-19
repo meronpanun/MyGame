@@ -33,17 +33,11 @@ private:
 	};
 	std::vector<GameClearPlayer> m_gameClearPlayers;
 
-	/// <summary>
-	///  ゲームクリア用敵の初期化
-	/// </summary>
+	//  ゲームクリア用プレイヤーの初期化
 	void InitGameClearPlayers();
-	/// <summary>
-	/// ゲームクリア用敵の更新
-	/// </summary>
+	// ゲームクリア用プレイヤーの更新
 	void UpdateGameClearPlayers();
-	/// <summary>
-	/// ゲームオクリア用敵の描画
-	/// </summary>
+	// ゲームオクリア用プレイヤーの描画
 	void DrawGameClearPlayers();
 
 private:

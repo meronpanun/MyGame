@@ -119,12 +119,20 @@ void ItemHp::Draw()
 #endif // _DEBUG
 }
 
+/// <summary>
+/// アイテムの位置を設定
+/// </summary>
+/// <param name="x">X座標</param>
+/// <param name="y">Y座標</param>
 void ItemHp::SetPos(float x, float y)
 {
 	m_pos.x = x;
 	m_pos.y = y;
 }
 
+/// <summary>
+/// アイテムが消える処理
+/// </summary>
 void ItemHp::ItemLost()
 {
 	// アイテムが取得された場合は存在フラグをfalseにする
@@ -135,11 +143,20 @@ void ItemHp::ItemLost()
 	m_effectAnimFrameCount = 0;
 }
 
+/// <summary>
+/// アイテムの半径を取得
+/// </summary>
+/// <returns>半径</returns>
 float ItemHp::GetRadius()
 {
 	return kRadius;
 }
 
+/// <summary>
+/// アイテムとプレイヤーが当たったかどうか
+/// </summary>
+/// <param name="pPlayer">プレイヤーのポインタ</param>
+/// <returns>当たったかどうか</returns>
 bool ItemHp::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 {
 	float Rlength = kRadius + pPlayer->GetRadius();
@@ -155,6 +172,10 @@ bool ItemHp::GetHitPlayerFlag(std::shared_ptr<Player> pPlayer)
 	return false;
 }
 
+/// <summary>
+///  アイテムが存在するかどうかを判定
+/// </summary>
+/// <returns>存在フラグ</returns>
 bool ItemHp::IsExist() const
 {
 	return m_isExist;

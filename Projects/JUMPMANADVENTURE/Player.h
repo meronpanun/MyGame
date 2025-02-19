@@ -22,32 +22,19 @@ public:
 	void Update();
 	void Draw();
 
-	/// <summary>
-	/// 現在のHPを取得
-	/// </summary>
-	/// <returns>HP</returns>
+	// 現在のHPを取得
 	int GetHp() const { return m_hp; }
 
-	/// <summary>
-	/// プレイヤーがダメージを受けた時の処理
-	/// </summary>
+	// プレイヤーがダメージを受けた時の処理
 	void OnDamage();
  
-	/// <summary>
-	/// プレイヤーが敵を倒した後少しジャンプ
-	/// </summary>
+	// プレイヤーが敵を倒した後少しジャンプ
 	void JumpOnEnemy();
 
-	/// <summary>
-	/// プレイヤーの位置情報を取得
-	/// </summary>
-	/// <returns></returns>
+	// プレイヤーの位置情報を取得
 	Vec2 GetPos() const { return m_pos; }
 	
-	/// <summary>
-	///  円の当たり判定
-	/// </summary>
-	/// <returns>半径</returns>
+	//  円の当たり判定
 	float GetRadius() const;
 
 	/*プレイヤーの上下左右情報取得*/
@@ -56,120 +43,67 @@ public:
 	float GetRigth() const;
 	float GetBottom() const;
 
-	/// <summary>
-	/// マップチップとの当たり判定
-	/// </summary>
-	/// <param name="chipRect"></param>
+	// マップチップとの当たり判定
 	void CheckHitBgStage(Rect chipRect);
 	
-	/// <summary>
-	/// プレイヤーの移動量を取得
-	/// </summary>
-	/// <returns>Y軸方向の移動量を取得</returns>
+	// プレイヤーの移動量を取得
 	float GetMoveY() const;
 
-	/// <summary>
-	/// Y軸方向の移動量を追加 
-	/// </summary>
-	/// <param name="DisY">Y軸方向の移動量</param>
+	// Y軸方向の移動量を追加 
 	void AddMoveY(float DisY);
 
-	/// <summary>
-	/// Y軸方向の移動量をリセット
-	/// </summary>
+	// Y軸方向の移動量をリセット
 	void OnCollideY();
 	
-	/// <summary>
-	/// 現在のプレイヤーの矩形情報を取得
-	/// </summary>
-	/// <returns>プレイヤーの矩形情報</returns>
+	// 現在のプレイヤーの矩形情報を取得
 	Rect GetRect() const;
 
-	/// <summary>
-	/// ゲームオーバー演出を開始するフラグ
-	/// </summary>
-	/// <returns>true:ゲームオーバー false:ゲームオーバーでない</returns>
+	// ゲームオーバー演出を開始するフラグ
 	bool IsGameOver() const;
 
-	/// <summary>
-	///  プレイヤーの操作を無効化S
-	/// </summary>
+	//  プレイヤーの操作を無効化
 	void DisableControl();
 	
-	/// <summary>
-	/// プレイヤーの操作が無効かどうか 
-	/// </summary>
-	/// <returns>true:無効 false:有効</returns>
+	// プレイヤーの操作が無効かどうか 
 	bool IsControlDisabled() const;
 
-	/// <summary>
-	/// プレイヤーの位置を設定
-	/// </summary>
-	/// <param name="x">X座標</param>
+	// プレイヤーの位置を設定
 	void SetPosX(float x);
 
-	/// <summary>
-	/// プレイヤーが地面にいるかどうか 
-	/// </summary>
-	/// <returns>true:地面にいる false:地面にいない</returns>
+	// プレイヤーが地面にいるかどうか 
 	bool IsOnGround() const;
 
-	/// <summary>
-	/// プレイヤーを地面の高さまでゆっくり落とす
-	/// </summary>
-	/// <param name="groundHeight"></param>
+	// プレイヤーを地面の高さまでゆっくり落とす
 	void FallToGround(float groundHeight);
 	
-	/// <summary>
-	/// プレイヤーの歩行状態を設定する
-	/// </summary>
-	/// <param name="isWalking"></param>
+	// プレイヤーの歩行状態を設定する
 	void SetIsWalking(bool isWalking);
 
-	/// <summary>
-	/// プレイヤーのアニメーションを更新する
-	/// </summary>
+	// プレイヤーのアニメーションを更新する
 	void UpdateAnimation();
 	
-	/// <summary>
-	///  ダメージを受けたかどうかを示すフラグ
-	/// </summary>
-	/// <returns>true:ダメージを受けた false:ダメージを受けていない</returns>
+	//  ダメージを受けたかどうかを示すフラグ
 	bool HasTakenDamage() const; 
 
-	/// <summary>
-	/// HPを回復する
-	/// </summary>
+	// HPを回復する
 	void RecoverHp(); 
 
 private:
-	/// <summary>
-	///  ジャンプ処理
-	/// </summary>
+	//  ジャンプ処理
 	void UpdateJump();
 
 	/*各状態毎のUpdate処理*/
-	/// <summary>
-	/// ゲーム中のUpdate
-	/// </summary>
+	// ゲーム中のUpdate
 	void UpdateNormal(); 
-	/// <summary>
-	/// 死亡後のUpdate
-	/// </summary>
+	// 死亡後のUpdate
 	void UpdateDead();   
 
-	/// <summary>
-	///  死亡時の初期化処理
-	/// </summary>
+	//  死亡時の初期化処理
 	void InitDead();
 
-	/// <summary>
-	///  初期リスポーン
-	/// </summary>
+	//  初期リスポーン
 	void StartRespawn();
-	/// <summary>
-	/// リスポーン
-	/// </summary>
+	// リスポーン
 	void Respawn();
 
 private:
