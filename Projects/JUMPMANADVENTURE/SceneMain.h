@@ -35,7 +35,15 @@ private:
 
 	// スコアとタイマーのフォントサイズの設定
 	void SetScoreAndTimerFontSize(int size); 
+	
+	//  ゲームオーバー用敵の初期化
+	void InitGameOverEnemies();
+	// ゲームオーバー用敵の更新
+	void UpdateGameOverEnemies();
+	// ゲームオーバー用敵の描画
+	void DrawGameOverEnemies();
 
+private:
 	// ゲームオーバー用敵の情報
 	struct GameOverEnemy
 	{
@@ -46,15 +54,6 @@ private:
 	};
 
 	std::vector<GameOverEnemy> m_gameOverEnemies;
-	
-	//  ゲームオーバー用敵の初期化
-	void InitGameOverEnemies();
-	// ゲームオーバー用敵の更新
-	void UpdateGameOverEnemies();
-	// ゲームオーバー用敵の描画
-	void DrawGameOverEnemies();
-
-private:
 	std::shared_ptr<Camera> m_pCamera;
 	std::shared_ptr<BgStage> m_pBgStage;
 	std::shared_ptr<Player> m_pPlayer;

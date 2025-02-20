@@ -23,16 +23,6 @@ public:
 	bool IsSceneTitle() const { return m_isSceneTitle; }
 
 private:
-	// ゲームクリア用プレイヤーの情報
-	struct GameClearPlayer
-	{
-		Vec2 pos;
-		float fallSpeed = 0.0f;     // 落下速度
-		float rotationSpeed = 0.0f; // 回転速度
-		float angle = 0.0f;         // 回転角度
-	};
-	std::vector<GameClearPlayer> m_gameClearPlayers;
-
 	//  ゲームクリア用プレイヤーの初期化
 	void InitGameClearPlayers();
 	// ゲームクリア用プレイヤーの更新
@@ -41,6 +31,16 @@ private:
 	void DrawGameClearPlayers();
 
 private:
+	// ゲームクリア用プレイヤーの情報
+	struct GameClearPlayer
+	{
+		Vec2 pos;
+		float fallSpeed = 0.0f;     // 落下速度
+		float rotationSpeed = 0.0f; // 回転速度
+		float angle = 0.0f;         // 回転角度
+	};
+
+	std::vector<GameClearPlayer> m_gameClearPlayers;
 	// フォント管理
 	std::shared_ptr<FontManager> m_pFont;
 
