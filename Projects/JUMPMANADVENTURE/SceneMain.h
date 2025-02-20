@@ -36,7 +36,7 @@ private:
 	// スコアとタイマーのフォントサイズの設定
 	void SetScoreAndTimerFontSize(int size); 
 	
-	//  ゲームオーバー用敵の初期化
+	// ゲームオーバー用敵の初期化
 	void InitGameOverEnemies();
 	// ゲームオーバー用敵の更新
 	void UpdateGameOverEnemies();

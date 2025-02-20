@@ -23,7 +23,7 @@ public:
 	bool IsSceneTitle() const { return m_isSceneTitle; }
 
 private:
-	//  ゲームクリア用プレイヤーの初期化
+	// ゲームクリア用プレイヤーの初期化
 	void InitGameClearPlayers();
 	// ゲームクリア用プレイヤーの更新
 	void UpdateGameClearPlayers();
