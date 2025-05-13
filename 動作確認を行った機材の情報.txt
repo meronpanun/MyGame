@@ -1,0 +1,4 @@
+動作確認を行った機材の情報
+
+OS　Windows 11 Pro
+グラフィックハードウェア　NVIDIA GeForce RTX 4060 Ti
